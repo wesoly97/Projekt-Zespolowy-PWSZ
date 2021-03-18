@@ -1,0 +1,8 @@
+{% extends 'forum/base.html' %} {% block content %} {% for user in users %}
+<h1>Math page</h1>
+<br />
+<a href="{% url 'usersHOME' user.id %}"
+  ><button><i class="fas fa-home fa-3x"></i></button></a
+><br /><br />
+<p>Zestaw testowy zadań:</p>
+{% endfor %} {% endblock content %}
