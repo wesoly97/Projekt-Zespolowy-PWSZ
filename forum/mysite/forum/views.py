@@ -5,7 +5,9 @@ from django.urls import reverse
 from .models import User
 from .models import Post
 from .models import Answer
-
+from .models import Zadanie_zamkniete
+from .models import Zadanie_otwarte
+import random
 
 
 def index(request):
@@ -48,6 +50,17 @@ def math_page(request, user_id):
     users = User.objects.filter(id=user_id)
     context = {'users': users}
     return render(request, 'forum/MATH_PAGE.html', context)
+
+def math_page2(request, user_id):
+    users = User.objects.filter(id=user_id)
+    r=(random.randint(1,4))
+    r2=(random.randint(1,4))
+    zos=Zadanie_otwarte.objects.filter(nr_wersji=r)
+    zzs=Zadanie_zamkniete.objects.filter(nr_wersji=r2)
+
+    context = {'users': users,'zos': zos,'zzs': zzs}
+    return render(request, 'forum/MATH_PAGE2.html', context)
+
 
 def post(request, user_id,post_id):
     users = User.objects.filter(id=user_id)
