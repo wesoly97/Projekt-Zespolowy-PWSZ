@@ -1,0 +1,47 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  margin-top: 2.5%;
+  background-color: #0e1017;
+  color: white;
+  font-size: 30px;
+}
+h1 {
+  color: brown;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.b {
+  text-align: center;
+  min-height: 40vh;
+}
+hr {
+  margin-top: 30;
+  margin-bottom: 30px;
+}
+a {
+  font-size: 60px;
+  padding: 20px;
+  color: white;
+}
+form {
+  font-size: 45px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.form {
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+#tresc,
+#temat,
+#comment {
+  height: 40px;
+  width: 600px;
+}
+input {
+  font-size: 30px;
+}

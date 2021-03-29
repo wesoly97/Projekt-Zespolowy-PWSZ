@@ -1,0 +1,14 @@
+{% extends 'forum/base.html' %} {% block content %}
+<div class="home">
+  <h1>Home page for user</h1>
+  <br /><br />
+  <a href="{% url 'index' %}"
+    ><button><i class="fas fa-home fa-3x"></i></button
+  ></a>
+</div>
+{% for user in users %}
+<p><b>Hello {{user.name}}</b></p>
+<br /><br />
+<a href="{% url 'math_page' user.id %}">ZESTAW TESTOWY</a><br /><br />
+<a href="{% url 'user_at_forum' user.id %}">FORUM</a>
+{% endfor %} {% endblock content %}
