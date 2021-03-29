@@ -151,10 +151,11 @@ def add_many():
         {'_id': 1, 'title': "todo title six", 'body': "todo body six"},
         ])
     return jsonify(message="success")
-@app.route("/index")
+@app.route("/")
 def index():
     set = db.todos23.find({"_id":1})
     return render_template('index.html',sets=set)
+
 @app.route("/index2")
 def index2():
     set = db.todos23.find({"_id":1})
@@ -164,9 +165,6 @@ def index2():
       'zestaw':(doc['zestaw'])
       })
     return jsonify(sets)
-@app.route("/")
-def home2():
-    set = db.todosTest.find()
-    
+  
 if __name__ == "__main__":
     app.run(debug=True)    
