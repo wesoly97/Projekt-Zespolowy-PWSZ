@@ -70,8 +70,8 @@ def math_page2(request, user_id):
     request.session['r3'] = r3
     request.session['r4'] = r4
    
-    zos=Zadanie_otwarte.objects.filter(nr_wersji=r).filter(nr_zadania=r3)
-    zzs=Zadanie_zamkniete.objects.filter(nr_wersji=r2).filter(nr_zadania=r4)
+    zos=Zadanie_otwarte.objects.filter(nr_wersji=r)
+    zzs=Zadanie_zamkniete.objects.filter(nr_wersji=r2)
 
     context = {'users': users,'zos': zos,'zzs': zzs}
     return render(request, 'forum/MATH_PAGE2.html', context)
@@ -84,22 +84,25 @@ def math_page3(request, user_id):
     r3=request.session.get('r3')
     r4=request.session.get('r4')
 
-    zos=Zadanie_otwarte.objects.filter(nr_wersji=r).filter(nr_zadania=r3)
-    zzs=Zadanie_zamkniete.objects.filter(nr_wersji=r2).filter(nr_zadania=r4)
+    zos=Zadanie_otwarte.objects.filter(nr_wersji=r)
+    zzs=Zadanie_zamkniete.objects.filter(nr_wersji=r2)
 
-    odpZ = request.POST['odpZ']
-    odpO = request.POST['odpO']
-
+    odpZ = request.POST.getlist('odpZ')
+    odpO = request.POST.getlist('odpO')
+    
     punktyZ=0
     punktyO=0
     punktyMAX=0
+    x=0
     for zz in zzs:
       punktyMAX=punktyMAX+1
-      if zz.odpowiedz == odpZ:
+      if zz.odpowiedz == odpZ[x]:
         punktyZ=punktyZ+1
+      x=x+1
 
     for zo in zos:
       punktyMAX=punktyMAX+2
+      x=int(punktyO)/2
       if zo.odpowiedz == odpO:
         punktyO=punktyO+2
     
