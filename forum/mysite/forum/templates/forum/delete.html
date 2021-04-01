@@ -1,0 +1,6 @@
+{% extends 'forum/base.html' %} {% block content %} {% for user in users %}
+<p>post deleted</p>
+<a href="{% url 'user_at_forum' user.id %}"
+  ><button><i class="fas fa-home fa-3x"></i></button
+></a>
+{% endfor %} {% endblock content %}
