@@ -20,7 +20,10 @@ def register1(request):
     users = User.objects.all()
     context = {'users': users}
     return render(request, 'forum/register1.html', context)
-
+def addQuestionView(request):
+    users = User.objects.all()
+    context = {'users': users}
+    return render(request, 'forum/addQuestion.html', context)
 def register2(request):
     Name = request.POST['Name']
     Password = request.POST['Password']

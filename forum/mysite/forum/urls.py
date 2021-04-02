@@ -20,4 +20,6 @@ urlpatterns = [
 
     path('register2', views.register2, name='register2'),
     path('register1', views.register1, name='register1'),
+
+    path('addQuestion', views.addQuestionView, name='addQuestion'),
 ]
