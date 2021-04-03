@@ -21,5 +21,8 @@ urlpatterns = [
     path('register2', views.register2, name='register2'),
     path('register1', views.register1, name='register1'),
 
-    path('addQuestion', views.addQuestionView, name='addQuestion'),
+    path('addQuestionOpen_user_<int:user_id>/', views.addQuestionView, name='addQuestionOpen'),
+    path('addQuestionClose_user_<int:user_id>/', views.addQuestionViewClosedQuestion, name='addQuestionClose'),
+    path('addQuestionOpenToDatabase/', views.addQuestionOpenToDatabase, name='addQuestionOpenToDatabase'),
+    path('addQuestionCloseToDatabase/', views.addQuestionCloseToDatabase, name='addQuestionCloseToDatabase'),
 ]

@@ -8,8 +8,8 @@ from .models import Answer
 from .models import Zadanie_zamkniete
 from .models import Zadanie_otwarte
 import random
-
-
+from django.core.files.storage import FileSystemStorage
+from django.db.models import Max
 
 def index(request):
     users = User.objects.all()
@@ -20,10 +20,61 @@ def register1(request):
     users = User.objects.all()
     context = {'users': users}
     return render(request, 'forum/register1.html', context)
-def addQuestionView(request):
-    users = User.objects.all()
+
+def addQuestionView(request,user_id):
+    users = User.objects.filter(id=user_id)
+
     context = {'users': users}
-    return render(request, 'forum/addQuestion.html', context)
+    
+    return render(request, 'forum/addQuestionOpen.html', context)
+def addQuestionViewClosedQuestion(request,user_id):
+    users = User.objects.filter(id=user_id)
+    context = {'users': users}
+    return render(request, 'forum/addQuestionClose.html', context)
+def addQuestionOpenToDatabase(request):
+    NumberTask = request.POST['numberTask']
+    section = request.POST['section']
+    NumberPoints = request.POST['NumberPoints']
+    inputQuestion = request.POST['inputQuestion']
+    inputAnswer = request.POST['inputAnswer']
+    myfile = request.FILES['image']
+    fs = FileSystemStorage()
+    filename = fs.save(myfile.name, myfile)
+    uploaded_file_url = fs.url(filename)
+    version = Zadanie_otwarte.objects.filter(nr_zadania=NumberTask)
+    ver=version.aggregate(Max('nr_wersji'))
+    newVersion=ver['nr_wersji__max']+1
+
+    newQuestion=Zadanie_otwarte(nr_zadania=NumberTask,nr_wersji=newVersion,tresc=inputQuestion,odpowiedz=inputAnswer,dzial=section,punkty=NumberPoints,url=uploaded_file_url)
+    newQuestion.save()
+    users = User.objects.filter(id=request.POST["user_id"])
+    nameNew='{% url "addQuestionOpenToDatabase" %}'
+    context = {'users': users}
+    return render(request, 'forum/addQuestionOpen.html', context)
+def addQuestionCloseToDatabase(request):
+    NumberTask = request.POST['numberTask']
+    section = request.POST['section']
+    NumberPoints = request.POST['NumberPoints']
+    inputQuestion = request.POST['inputQuestion']
+    inputAnswer = request.POST['inputAnswer']
+    inputAnswerA = request.POST['inputAnswerA']
+    inputAnswerB = request.POST['inputAnswerB']
+    inputAnswerC = request.POST['inputAnswerC']
+    inputAnswerD = request.POST['inputAnswerD']
+    myfile = request.FILES['image']
+    fs = FileSystemStorage()
+    filename = fs.save(myfile.name, myfile)
+    uploaded_file_url = fs.url(filename)
+    version = Zadanie_zamkniete.objects.filter(nr_zadania=NumberTask)
+    ver=version.aggregate(Max('nr_wersji'))
+    newVersion=ver['nr_wersji__max']+20
+
+    newQuestion=Zadanie_zamkniete(nr_zadania=NumberTask,nr_wersji=newVersion,tresc=inputQuestion,odpowiedz=inputAnswer,dzial=section,punkty=NumberPoints,url=uploaded_file_url,odp_a=inputAnswerA,odp_b=inputAnswerB,odp_c=inputAnswerC,odp_d=inputAnswerD)
+    newQuestion.save()
+    users = User.objects.filter(id=request.POST["user_id"])
+    nameNew='{% url "addQuestionOpenToDatabase" %}'
+    context = {'users': users}
+    return render(request, 'forum/addQuestionOpen.html', context)
 def register2(request):
     Name = request.POST['Name']
     Password = request.POST['Password']
