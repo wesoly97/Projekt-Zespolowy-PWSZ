@@ -17,6 +17,12 @@
     <input type="submit" value="Add post" />
   </form>
 </div>
+<h1>Posty użytkowników</h1>
 {% for post in posts %}
 <a href="{% url 'post' user.id post.id %}">{{ post.subject }}</a><br /><br />
+{% endfor %}
+<h1>Posty do zadań</h1>
+{% for post in postsM %}
+<a href="{% url 'postM' user.id post.id %}">{{ post.tresc }}</a><br /><br />
+<br />
 {% endfor %} {% endfor %} {% endblock content %}

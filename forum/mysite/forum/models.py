@@ -49,5 +49,35 @@ class Zadanie_zamkniete(models.Model):
     def __str__(self):
         return self.tresc
 
+class zadanie_matematyczne(models.Model):
+    nr_zadania=models.IntegerField()
+    nr_wersji=models.IntegerField()
+    rodzaj=models.CharField(max_length=30)
+    zestaw= models.CharField(max_length=40,blank=True)
+    tresc = models.CharField(max_length=200)
+    odp_a= models.CharField(max_length=40,blank=True)
+    odp_b= models.CharField(max_length=40,blank=True)
+    odp_c= models.CharField(max_length=40,blank=True)
+    odp_d= models.CharField(max_length=40,blank=True)
+    rozwiazanie= models.CharField(max_length=200,blank=True)
+    odpowiedz = models.CharField(max_length=40)
+    dzial=models.CharField(max_length=30,blank=True)
+    punkty=models.IntegerField()
+    url = models.CharField(max_length=200,blank=True)
+    def __str__(self):
+        return self.tresc
+
+class PostM(models.Model):
+    zadanie = models.ForeignKey(zadanie_matematyczne, on_delete=models.CASCADE)
+    tresc =  models.CharField(max_length=200)
+    def __str__(self):
+        return self.zadanie
+
+class AnswerM(models.Model):
+    zadanie = models.ForeignKey(PostM, on_delete=models.CASCADE)
+    userA = models.ForeignKey(User, on_delete=models.CASCADE)
+    answer =  models.CharField(max_length=200)
+    def __str__(self):
+        return self.answer
 
    

@@ -5,8 +5,11 @@ from django.urls import reverse
 from .models import User
 from .models import Post
 from .models import Answer
+from .models import PostM
+from .models import AnswerM
 from .models import Zadanie_zamkniete
 from .models import Zadanie_otwarte
+from .models import zadanie_matematyczne
 import random
 
 
@@ -44,7 +47,8 @@ def usersHOME(request, user_id):
 def user_at_forum(request, user_id):
     users = User.objects.filter(id=user_id)
     posts = Post.objects.all()
-    context = {'posts': posts,'users': users}
+    postsM= PostM.objects.all()
+    context = {'posts': posts,'users': users,'postsM': postsM}
     return render(request, 'forum/userFORUM.html', context)
 
 def math_page(request, user_id):
@@ -70,8 +74,8 @@ def math_page2(request, user_id):
     request.session['r3'] = r3
     request.session['r4'] = r4
    
-    zos=Zadanie_otwarte.objects.filter(nr_wersji=r)
-    zzs=Zadanie_zamkniete.objects.filter(nr_wersji=r2)
+    zos=zadanie_matematyczne.objects.filter(nr_wersji=r).filter(rodzaj="otwarte")
+    zzs=zadanie_matematyczne.objects.filter(nr_wersji=r2).filter(rodzaj="zamkniete")
 
     context = {'users': users,'zos': zos,'zzs': zzs}
     return render(request, 'forum/MATH_PAGE2.html', context)
@@ -84,23 +88,31 @@ def math_page3(request, user_id):
     r3=request.session.get('r3')
     r4=request.session.get('r4')
 
-    zos=Zadanie_otwarte.objects.filter(nr_wersji=r)
-    zzs=Zadanie_zamkniete.objects.filter(nr_wersji=r2)
+    zos=zadanie_matematyczne.objects.filter(nr_wersji=r).filter(rodzaj="otwarte")
+    zzs=zadanie_matematyczne.objects.filter(nr_wersji=r2).filter(rodzaj="zamkniete")
 
     odpZ = request.POST.getlist('odpZ')
     odpO = request.POST.getlist('odpO')
-    
+
+    linki = []
+
     punktyZ=0
     punktyO=0
     punktyMAX=0
     x=0
     for zz in zzs:
+      posts= PostM.objects.filter(zadanie=zz.id)
+      for post in posts:
+        linki.append(post)
       punktyMAX=punktyMAX+1
       if zz.odpowiedz == odpZ[x]:
         punktyZ=punktyZ+1
       x=x+1
 
     for zo in zos:
+      posts= PostM.objects.filter(zadanie=zo.id)
+      for post in posts:
+        linki.append(post)
       punktyMAX=punktyMAX+2
       x=int(punktyO)/2
       if zo.odpowiedz == odpO:
@@ -108,9 +120,8 @@ def math_page3(request, user_id):
     
     punkty=punktyZ+punktyO
       
-    
 
-    context = {'users': users,'zos': zos,'zzs': zzs,'odpO': odpO,'odpZ': odpZ,'punktyMAX': punktyMAX,'punkty': punkty}
+    context = {'users': users,'zos': zos,'zzs': zzs,'odpO': odpO,'odpZ': odpZ,'punktyMAX': punktyMAX,'punkty': punkty,'linki': linki}
     return render(request, 'forum/MATH_PAGE3.html', context)
 
 def post(request, user_id,post_id):
@@ -119,6 +130,13 @@ def post(request, user_id,post_id):
     answers = Answer.objects.filter(post=post_id)
     context = {'posts': posts,'answers': answers,'users': users}
     return render(request, 'forum/posts.html', context)
+
+def postM(request, user_id,post_id):
+    users = User.objects.filter(id=user_id)
+    postsM = PostM.objects.filter(id=post_id)
+    answersM = AnswerM.objects.filter(zadanie=post_id)
+    context = {'postsM': postsM,'answersM': answersM,'users': users}
+    return render(request, 'forum/postsM.html', context)
 
 def add(request, user_id):
     users = User.objects.filter(id=user_id)
@@ -170,3 +188,30 @@ def delete_odp(request, user_id,post_id,answer_id):
     answers = Answer.objects.filter(post=post_id)
     context = {'posts': posts,'answers': answers,'users': users}
     return render(request, 'forum/posts.html', context)
+
+def odpM(request, user_id,post_id):
+    users = User.objects.filter(id=user_id)
+    postsM = PostM.objects.filter(id=post_id)
+    answersM = AnswerM.objects.filter(zadanie=post_id)
+    error=""
+    for user in users:
+        x=user
+    for post in postsM:
+        y=post
+    new_answer = request.POST['comment']
+    if (new_answer==""):
+        error="Empty,try again"
+    else:
+        a = AnswerM(zadanie=y,userA=x,answer=new_answer)
+        a.save()
+    context = {'postsM': postsM,'answersM': answersM,'users': users,'new_answer': new_answer,'error': error}
+    return render(request, 'forum/postsM.html', context)
+
+def delete_odpM(request, user_id,post_id,answer_id):
+    users = User.objects.filter(id=user_id)
+    postsM = PostM.objects.filter(id=post_id)
+    answersM = AnswerM.objects.filter(id=answer_id)
+    answersM.delete()
+    answersM = AnswerM.objects.filter(zadanie=post_id)
+    context = {'postsM': postsM,'answersM': answersM,'users': users}
+    return render(request, 'forum/postsM.html', context)
