@@ -11,4 +11,7 @@
 <br /><br />
 <a href="{% url 'math_page' user.id %}">ZESTAW TESTOWY</a><br /><br />
 <a href="{% url 'user_at_forum' user.id %}">FORUM</a>
+<br><br>
+<a href="{% url 'addQuestionOpen' user.id %}">DODAJ ZADANIE OTWARTE</a>
+<a href="{% url 'addQuestionClose' user.id %}">DODAJ ZADANIE ZAMKNIETE</a>
 {% endfor %} {% endblock content %}
