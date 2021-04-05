@@ -1,0 +1,17 @@
+{% extends 'forum/base.html' %}
+{% block content %}
+
+<h1>Zaloguj się</h1>
+
+<form method="post" action="{% url 'log_in' %}">
+    {% csrf_token %}
+    <input type="text" name="login" placeholder="Login" />
+    <br><br>
+    <input type="password" name="password" placeholder="Hasło" />
+    <br><br>
+    <input type="submit" value="Zaloguj">
+</form>
+
+<h2>{{ error }}</h2>
+
+{% endblock content %}

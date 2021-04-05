@@ -1,5 +1,5 @@
 from django.http import HttpResponse,HttpResponseRedirect
-from django.shortcuts import render,get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 
 from .models import User
@@ -14,10 +14,66 @@ import random
 from django.core.files.storage import FileSystemStorage
 from django.db.models import Max
 
+
+#####################################################
+#                                                   #
+#   Funkcja sprawdzająca czy user jest zalogowany   #
+#                                                   #
+#####################################################
+def is_user_authenticated(request):
+    try:
+        if request.session['logged_user'] == 0 or request.session['logged_user'] == "0":
+            return False
+        else:
+            return True
+    except KeyError:
+        return False
+
+
+#####################################################
+#                                                   #
+#      Funkcja zwracająca id zalogowanego usera     #
+#                                                   #
+#####################################################
+def auth_user_id(request):
+    if is_user_authenticated(request):
+        return request.session['logged_user']
+    else:
+        return "User not authenticated"
+
+
 def index(request):
     users = User.objects.all()
     context = {'users': users}
     return render(request, 'forum/index.html', context)
+
+
+def login(request):
+    if is_user_authenticated(request):
+        return redirect('usersHOME', user_id=auth_user_id(request))
+    else:
+        context = {'error': ''}
+
+    return render(request, 'forum/login.html', context)
+
+
+def login_user(request):
+    if request.POST:
+        try:
+            user = User.objects.filter(name=request.POST['login'], password=request.POST['password'])[0]
+        except IndexError:
+            context = {'cont': "Hfdhshfd", 'error': "Błędne dane logowania"}
+            return render(request, 'forum/login.html', context)
+        request.session['logged_user'] = user.id
+        return redirect('usersHOME', user_id=auth_user_id(request))
+    else:
+        return redirect('login')
+
+
+def logout(request):
+    request.session['logged_user'] = "0"
+    return redirect('login')
+
 
 def register1(request):
     users = User.objects.all()
@@ -94,9 +150,12 @@ def register2(request):
     return render(request, 'forum/register2.html', context)
 
 def usersHOME(request, user_id):
-    users = User.objects.filter(id=user_id)
-    context = {'users': users}
-    return render(request, 'forum/usersHome.html', context)
+    if is_user_authenticated(request):
+        users = User.objects.filter(id=auth_user_id(request))
+        context = {'users': users}
+        return render(request, 'forum/usersHome.html', context)
+    else:
+        return render(request, 'forum/error.html', {'error': auth_user_id(request)})
 
 def user_at_forum(request, user_id):
     users = User.objects.filter(id=user_id)
