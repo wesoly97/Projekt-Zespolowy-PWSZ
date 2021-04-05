@@ -93,18 +93,23 @@ def addQuestionViewClosedQuestion(request,user_id):
 def addQuestionOpenToDatabase(request):
     NumberTask = request.POST['numberTask']
     section = request.POST['section']
+    set = request.POST['set']
     NumberPoints = request.POST['NumberPoints']
     inputQuestion = request.POST['inputQuestion']
     inputAnswer = request.POST['inputAnswer']
-    myfile = request.FILES['image']
-    fs = FileSystemStorage()
-    filename = fs.save(myfile.name, myfile)
-    uploaded_file_url = fs.url(filename)
-    version = Zadanie_otwarte.objects.filter(nr_zadania=NumberTask)
+    solution = request.POST['solution']
+    if request.GET.get('image'):
+        myfile = request.FILES['image']
+        fs = FileSystemStorage()
+        filename = fs.save(myfile.name, myfile)
+        uploaded_file_url = fs.url(filename)
+    else:
+        uploaded_file_url = ""
+    version = zadanie_matematyczne.objects.filter(nr_zadania=NumberTask)
     ver=version.aggregate(Max('nr_wersji'))
     newVersion=ver['nr_wersji__max']+1
 
-    newQuestion=Zadanie_otwarte(nr_zadania=NumberTask,nr_wersji=newVersion,tresc=inputQuestion,odpowiedz=inputAnswer,dzial=section,punkty=NumberPoints,url=uploaded_file_url)
+    newQuestion=zadanie_matematyczne(nr_zadania=NumberTask,nr_wersji=newVersion,rodzaj="otwarte",zestaw=set,tresc=inputQuestion,odp_a="",odp_b="",odp_c="",odp_d="",rozwiazanie=solution,odpowiedz=inputAnswer,dzial=section,punkty=NumberPoints,url=uploaded_file_url)
     newQuestion.save()
     users = User.objects.filter(id=request.POST["user_id"])
     nameNew='{% url "addQuestionOpenToDatabase" %}'
@@ -113,6 +118,7 @@ def addQuestionOpenToDatabase(request):
 def addQuestionCloseToDatabase(request):
     NumberTask = request.POST['numberTask']
     section = request.POST['section']
+    set = request.POST['set']
     NumberPoints = request.POST['NumberPoints']
     inputQuestion = request.POST['inputQuestion']
     inputAnswer = request.POST['inputAnswer']
@@ -120,15 +126,18 @@ def addQuestionCloseToDatabase(request):
     inputAnswerB = request.POST['inputAnswerB']
     inputAnswerC = request.POST['inputAnswerC']
     inputAnswerD = request.POST['inputAnswerD']
-    myfile = request.FILES['image']
-    fs = FileSystemStorage()
-    filename = fs.save(myfile.name, myfile)
-    uploaded_file_url = fs.url(filename)
+    if request.GET.get('image'):
+        myfile = request.FILES['image']
+        fs = FileSystemStorage()
+        filename = fs.save(myfile.name, myfile)
+        uploaded_file_url = fs.url(filename)
+    else:
+        uploaded_file_url = ""
     version = Zadanie_zamkniete.objects.filter(nr_zadania=NumberTask)
     ver=version.aggregate(Max('nr_wersji'))
-    newVersion=ver['nr_wersji__max']+20
+    newVersion=ver['nr_wersji__max']+1
 
-    newQuestion=Zadanie_zamkniete(nr_zadania=NumberTask,nr_wersji=newVersion,tresc=inputQuestion,odpowiedz=inputAnswer,dzial=section,punkty=NumberPoints,url=uploaded_file_url,odp_a=inputAnswerA,odp_b=inputAnswerB,odp_c=inputAnswerC,odp_d=inputAnswerD)
+    newQuestion=zadanie_matematyczne(nr_zadania=NumberTask,nr_wersji=newVersion,rodzaj="zamkniete",zestaw=set,tresc=inputQuestion,odp_a=inputAnswerA,odp_b=inputAnswerB,odp_c=inputAnswerC,odp_d=inputAnswerD,rozwiazanie="",odpowiedz=inputAnswer,dzial=section,punkty=NumberPoints,url=uploaded_file_url)
     newQuestion.save()
     users = User.objects.filter(id=request.POST["user_id"])
     nameNew='{% url "addQuestionOpenToDatabase" %}'
