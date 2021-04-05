@@ -1,0 +1,75 @@
+{% extends 'forum/addQuestionOpen.html' %} 
+{% load static %}
+{% block typeQuestion %} <h2>Dodaj Pytanie Zamknięte!</h2>{% endblock typeQuestion %}
+{% block urlName %} {% url 'addQuestionCloseToDatabase' %}{% endblock urlName %}
+{% block solution %} {% endblock solution %}
+{% block closedQuestionOption %}
+   <p>Wprowadz Odpowiedz A): <br><br>
+    <span id="answerA"></span></p>
+    <br>
+    <div style="width:305;border-style: solid; display:inline-block;">
+        <div id="sqrtA" style=" float:left; padding:20px;">√</div>
+        <div id="mldA" style=" float:left;padding:20px;">*</div>
+        <div id="plusA" style=" float:left;padding:20px;">+</div>
+        <div id="minusA" style=" float:left;padding:20px;">-</div>
+        <div id="przecinekA" style=" float:left;padding:20px;">,</div>
+        <div id="piA" style=" float:left;padding:20px;">π</div>
+        <div id="dzielenieA" style=" float:left;padding:20px;">¼</div>
+        <div id="potegaA" style=" float:left;padding:20px;">^</div>
+        <div id="cbrtA" style=" float:left;padding:20px;">∛</div>
+    </div><br><br>
+<p>Wprowadz Odpowiedz B): <br><br>
+    <span id="answerB"></span></p>
+    <br>
+    <div style="width:305;border-style: solid; display:inline-block;">
+        <div id="sqrtB" style=" float:left; padding:20px;">√</div>
+        <div id="mldB" style=" float:left;padding:20px;">*</div>
+        <div id="plusB" style=" float:left;padding:20px;">+</div>
+        <div id="minusB" style=" float:left;padding:20px;">-</div>
+        <div id="przecinekB" style=" float:left;padding:20px;">,</div>
+        <div id="piB" style=" float:left;padding:20px;">π</div>
+        <div id="dzielenieB" style=" float:left;padding:20px;">¼</div>
+        <div id="potegaB" style=" float:left;padding:20px;">^</div>
+        <div id="cbrtB" style=" float:left;padding:20px;">∛</div>
+    </div><br><br>
+<p>Wprowadz Odpowiedz C): <br><br>
+    <span id="answerC"></span></p>
+    <br>
+    <div style="width:305;border-style: solid; display:inline-block;">
+        <div id="sqrtC" style=" float:left; padding:20px;">√</div>
+        <div id="mldC" style=" float:left;padding:20px;">*</div>
+        <div id="plusC" style=" float:left;padding:20px;">+</div>
+        <div id="minusC" style=" float:left;padding:20px;">-</div>
+        <div id="przecinekC" style=" float:left;padding:20px;">,</div>
+        <div id="piC" style=" float:left;padding:20px;">π</div>
+        <div id="dzielenieC" style=" float:left;padding:20px;">¼</div>
+        <div id="potegaC" style=" float:left;padding:20px;">^</div>
+        <div id="cbrtC" style=" float:left;padding:20px;">∛</div>
+    </div><br><br>
+<p>Wprowadz Odpowiedz D): <br><br>
+    <span id="answerD"></span></p>
+    <br>
+    <div style="width:305;border-style: solid; display:inline-block;">
+        <div id="sqrtD" style=" float:left; padding:20px;">√</div>
+        <div id="mldD" style=" float:left;padding:20px;">*</div>
+        <div id="plusD" style=" float:left;padding:20px;">+</div>
+        <div id="minusD" style=" float:left;padding:20px;">-</div>
+        <div id="przecinekD" style=" float:left;padding:20px;">,</div>
+        <div id="piD" style=" float:left;padding:20px;">π</div>
+        <div id="dzielenieD" style=" float:left;padding:20px;">¼</div>
+        <div id="potegaD" style=" float:left;padding:20px;">^</div>
+        <div id="cbrtD" style=" float:left;padding:20px;">∛</div>
+    </div><br><br>
+{% endblock closedQuestionOption %}
+{% block hidenArea %}
+<textarea name="inputAnswerA" id="latexA" style="visibility: hidden;" required></textarea><br>
+<textarea name="inputAnswerB" id="latexB" style="visibility: hidden;" required></textarea><br>
+<textarea name="inputAnswerC" id="latexC" style="visibility: hidden;" required></textarea><br>
+<textarea name="inputAnswerD" id="latexD" style="visibility: hidden;" required></textarea><br>
+ {% endblock hidenArea %}
+{% block importsJavascript %} 
+<script src="{% static "forum/js/answerA.js" %}"></script>
+<script src="{% static "forum/js/answerB.js" %}"></script>
+<script src="{% static "forum/js/answerC.js" %}"></script>
+<script src="{% static "forum/js/answerD.js" %}"></script>
+{% endblock importsJavascript %}

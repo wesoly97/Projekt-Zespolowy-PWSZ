@@ -12,15 +12,17 @@
     <form method="post" enctype="multipart/form-data" action="{% block urlName %} {% url 'addQuestionOpenToDatabase' %}{% endblock urlName %}">
       {% csrf_token %}
     <label for="numberTask">Podaj numer zadania na arkuszu: </label>
-    <input type="number" name="numberTask">
+    <input type="number" name="numberTask" required>
     <br><br>
     <label for="section">Podaj dział matematyki: </label>
-    <input type="text" name="section"><br><br>
-        <label for="NumberPoints">Podaj ilość punktów za to zadanie: </label>
-    <input type="number" name="NumberPoints" value="2">
+    <input type="text" name="section" required><br><br>
+    <label for="set">Podaj nazwę zestawu: </label>
+    <input type="text" name="set" required><br><br>
+    <label for="NumberPoints">Podaj ilość punktów za to zadanie: </label>
+    <input type="number" name="NumberPoints" value="2" required>
     <br><br>
     <p>Wprowadz treść pytania: <br><br>
-    <span id="question"></span></p>
+    <input id="question"></input></p>
     <br>
     <div style="width:305;border-style: solid; display:inline-block;">
         <div id="sqrt" style=" float:left; padding:20px;">√</div>
@@ -33,6 +35,20 @@
         <div id="potega" style=" float:left;padding:20px;">^</div>
         <div id="cbrt" style=" float:left;padding:20px;">∛</div>
     </div><br><br>
+    {% block solution %}<p>Wprowadz rozwiazanie: <br><br>
+    <span id="answerA"></span></p>
+    <br>
+    <div style="width:305;border-style: solid; display:inline-block;">
+        <div id="sqrtA" style=" float:left; padding:20px;">√</div>
+        <div id="mldA" style=" float:left;padding:20px;">*</div>
+        <div id="plusA" style=" float:left;padding:20px;">+</div>
+        <div id="minusA" style=" float:left;padding:20px;">-</div>
+        <div id="przecinekA" style=" float:left;padding:20px;">,</div>
+        <div id="piA" style=" float:left;padding:20px;">π</div>
+        <div id="dzielenieA" style=" float:left;padding:20px;">¼</div>
+        <div id="potegaA" style=" float:left;padding:20px;">^</div>
+        <div id="cbrtA" style=" float:left;padding:20px;">∛</div>
+    </div><br><br> {% endblock solution %}
 {% block closedQuestionOption %} {% endblock closedQuestionOption %}
    <p>Wprowadz Poprawną Odpowiedz: <br><br>
     <span id="answer"></span></p>
@@ -56,15 +72,16 @@
     <br><br>
       
   <input type="submit" value="Dodaj zadanie" /> <br>
-   <textarea name="inputQuestion" id="latex" style="visibility: hidden;"></textarea><br><br>
-   <textarea name="inputAnswer" id="latex2" style="visibility: hidden;"></textarea><br>
-   {% block hidenArea %} {% endblock hidenArea %}
+   <textarea name="inputQuestion" id="latex" style="visibility: hidden;" required></textarea><br><br>
+   <textarea name="inputAnswer" id="latex2" style="visibility: hidden;" required></textarea><br>
+   {% block hidenArea %}<textarea name="solution" id="latexA" style="visibility: hidden;" required></textarea><br> {% endblock hidenArea %}
    <input type="hidden" name="user_id" value="{{ user.id }}">
  
   </form>
 
 <script src="{% static "forum/js/content.js" %}"></script>
 <script src="{% static "forum/js/answer.js" %}"></script>
+<script src="{% static "forum/js/answerA.js" %}"></script>
 {% block importsJavascript %} {% endblock importsJavascript %}
 {% endfor %} {% endblock content %}
 
