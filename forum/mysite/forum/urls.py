@@ -28,4 +28,8 @@ urlpatterns = [
     path('addQuestionClose_user_<int:user_id>/', views.addQuestionViewClosedQuestion, name='addQuestionClose'),
     path('addQuestionOpenToDatabase/', views.addQuestionOpenToDatabase, name='addQuestionOpenToDatabase'),
     path('addQuestionCloseToDatabase/', views.addQuestionCloseToDatabase, name='addQuestionCloseToDatabase'),
+
+    path('login', views.login, name='login'),
+    path('log_in', views.login_user, name='log_in'),
+    path('logout', views.logout, name='log_out')
 ]
