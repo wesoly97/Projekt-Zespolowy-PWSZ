@@ -10,6 +10,7 @@ from .models import AnswerM
 from .models import Zadanie_zamkniete
 from .models import Zadanie_otwarte
 from .models import zadanie_matematyczne
+from .models import Podejscie
 import random
 from django.core.files.storage import FileSystemStorage
 from django.db.models import Max
@@ -217,12 +218,15 @@ def math_page3(request, user_id):
     odpO = request.POST.getlist('odpO')
 
     linki = []
+    pytZ=""
+    pytO=""
 
     punktyZ=0
     punktyO=0
     punktyMAX=0
     x=0
     for zz in zzs:
+      pytZ=pytZ+str(zz.id)+" "
       posts= PostM.objects.filter(zadanie=zz.id)
       for post in posts:
         linki.append(post)
@@ -232,6 +236,7 @@ def math_page3(request, user_id):
       x=x+1
 
     for zo in zos:
+      pytO=pytO+str(zo.id)+" "
       posts= PostM.objects.filter(zadanie=zo.id)
       for post in posts:
         linki.append(post)
@@ -241,7 +246,14 @@ def math_page3(request, user_id):
         punktyO=punktyO+2
     
     punkty=punktyZ+punktyO
-      
+
+    odpowiedzi=""
+    for o in odpZ:
+        odpowiedzi=odpowiedzi+str(o)+" "
+    for o in odpO:
+        odpowiedzi=odpowiedzi+str(o)+" "
+    podejscie=Podejscie(user=user_id,numeryZadanZamknietych=pytZ,numeryZadanOtwartych=pytO,odpowiedzi=odpowiedzi,punkty=punkty)
+    podejscie.save()
 
     context = {'users': users,'zos': zos,'zzs': zzs,'odpO': odpO,'odpZ': odpZ,'punktyMAX': punktyMAX,'punkty': punkty,'linki': linki}
     return render(request, 'forum/MATH_PAGE3.html', context)
@@ -337,3 +349,34 @@ def delete_odpM(request, user_id,post_id,answer_id):
     answersM = AnswerM.objects.filter(zadanie=post_id)
     context = {'postsM': postsM,'answersM': answersM,'users': users}
     return render(request, 'forum/postsM.html', context)
+
+def user_info(request, user_id):
+    user = User.objects.filter(id=user_id)
+    podejscie = Podejscie.objects.filter(user=user_id)
+
+    nrzO=[]
+    nrzZ=[]
+    odps=[]
+    punkty=[]
+    for p in podejscie:
+        nzO = list(p.numeryZadanOtwartych.split(" "))
+        nzZ = list(p.numeryZadanZamknietych.split(" "))
+        odpowiedzi = list(p.odpowiedzi.split(" "))
+        punkty.append(p.punkty)
+
+        for nr in nzO[:-1]:
+            nrzO.append(nr)
+        for nr in nzZ[:-1]:
+            nrzZ.append(nr)
+        for odp in odpowiedzi[:-1]:
+            odps.append(odp)
+    pytania=[]
+    for nr in nrzZ:
+        x=str(Zadanie_zamkniete.objects.filter(id=nr).values('tresc'))[20:-3]
+        pytania.append(x)
+    for nr in nrzO:
+        x=str(zadanie_matematyczne.objects.filter(id=nr).values('tresc'))[20:-3]
+        pytania.append(x)
+    
+    context = {'user': user,'pytania':pytania,'punkty':punkty,'odpowiedzi':odpowiedzi}
+    return render(request, 'forum/user_info.html', context)

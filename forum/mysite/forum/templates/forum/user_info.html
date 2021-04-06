@@ -1,0 +1,25 @@
+{% extends 'forum/base.html' %} 
+
+{% block content %} 
+
+<div class="home">
+  {% for a in user %}
+    <h1>
+    nazwa : {{a.name}}<br>
+    haslo : {{a.password}}<br>
+    numer : {{a.numer_kontaktowy}}<br>
+    szkola : {{a.szkola}}<br>
+    ranga : {{a.ranga}}<br>
+    </h1>
+
+  {% comment %} <a href="{% url 'usersHOME' a.id %}"
+    ><button><i class="fas fa-home fa-3x"></i></button
+  ></a> {% endcomment %}
+  {% endfor %} 
+
+  {% for p in pytania %}
+  {{p}}<br>
+  {% endfor %} 
+
+  </div>
+{% endblock content %}

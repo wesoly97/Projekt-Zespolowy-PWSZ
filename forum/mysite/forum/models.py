@@ -80,4 +80,12 @@ class AnswerM(models.Model):
     def __str__(self):
         return self.answer
 
+class Podejscie(models.Model):
+    user = models.IntegerField(blank=True)
+    numeryZadanZamknietych = models.CharField(max_length=70)
+    numeryZadanOtwartych = models.CharField(max_length=70)
+    odpowiedzi = models.CharField(max_length=200)
+    punkty=models.IntegerField();
+    def __str__(self):
+        return self.punkty
    
