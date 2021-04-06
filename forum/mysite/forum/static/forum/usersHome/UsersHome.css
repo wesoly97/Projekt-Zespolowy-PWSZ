@@ -7,13 +7,20 @@ body{
     padding: 10px;
     margin-top: 2%;
 }
+#centerCard{
+    margin: 0 auto;
+    
+}
 .bottom{
-    padding-top: 2%;
+    margin-top: 2%;
+}
+.card{
+    margin-top: 10px;
 }
 #upperCard{
     
-    float: right;
-    margin-right: 3%;
+    float:right;
+    
 }
 .btn{
     background-color: #FFE06B;
@@ -22,32 +29,49 @@ body{
     color:black;
 }
 
-@media only screen and (max-width: 1374px) {
+@media only screen and (max-width: 1820px) {
   
     #upperCard{
         
-        float: right;
+        float: left;
         margin-right: 0%;
     }
+    #centerCard{
+        margin: none;
+        float:left;
+        
+    }
     .cardleft{
-        float: right;
+        float: left;
     }
 }
-@media only screen and (max-width: 919px) {
+@media only screen and (max-width: 1365px) {
     #upperCard{
         
-        float: right;
-        margin-right: 0%;
+        float: left;
+       
     }
     .cardleft{
-        float: right;
+        float: left;
     }
+    #content{
+        width: 80%;
+    }
+    
+   
+}
+
+@media only screen and (max-width: 1196px) {
     #content{
         width: 90%;
-    }
-   
+    } 
 }
-@media only screen and (max-width: 767px) {
+@media only screen and (max-width: 1066px) {
+    #content{
+        width: 98%;
+    } 
+}
+@media only screen and (max-width: 1010px) {
     #upperCard{
         
         float: none;
@@ -57,7 +81,33 @@ body{
         float: none;
     }
     #content{
-        width: 95%;
+        width: 100%;
+    }
+    .bottom{
+        margin-top: 2%;
+        float:right;
     }
    
+}
+@media only screen and (max-width: 643px) {
+.card{
+    margin: 0 auto;
+    float:none;
+    margin-top: 2%;
+}
+#upperCard{
+margin: 0 auto;
+}
+#centerCard{
+    margin: 0 auto;
+    float: none;
+}
+
+.bottom{
+    
+    margin: 0 auto;
+}
+.cardleft{
+    margin: 0 auto;
+}
 }
