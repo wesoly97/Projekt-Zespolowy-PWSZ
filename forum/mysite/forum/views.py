@@ -358,6 +358,7 @@ def user_info(request, user_id):
     nrzZ=[]
     odps=[]
     punkty=[]
+    odpZ=[]
     for p in podejscie:
         nzO = list(p.numeryZadanOtwartych.split(" "))
         nzZ = list(p.numeryZadanZamknietych.split(" "))
@@ -370,13 +371,24 @@ def user_info(request, user_id):
             nrzZ.append(nr)
         for odp in odpowiedzi[:-1]:
             odps.append(odp)
+
     pytania=[]
     for nr in nrzZ:
         x=str(Zadanie_zamkniete.objects.filter(id=nr).values('tresc'))[20:-3]
         pytania.append(x)
+        y=str(Zadanie_zamkniete.objects.filter(id=nr).values('odp_a'))[20:-3]
+        odpZ.append(y)
+        y=str(Zadanie_zamkniete.objects.filter(id=nr).values('odp_b'))[20:-3]
+        odpZ.append(y)
+        y=str(Zadanie_zamkniete.objects.filter(id=nr).values('odp_c'))[20:-3]
+        odpZ.append(y)
+        y=str(Zadanie_zamkniete.objects.filter(id=nr).values('odp_d'))[20:-3]
+        odpZ.append(y)
     for nr in nrzO:
         x=str(zadanie_matematyczne.objects.filter(id=nr).values('tresc'))[20:-3]
         pytania.append(x)
-    
-    context = {'user': user,'pytania':pytania,'punkty':punkty,'odpowiedzi':odpowiedzi}
+        
+    zipList=zip(pytania,odps)
+    # context = {'user': user,'pytania':pytania,'punkty':punkty,'odpowiedzi':odpowiedzi}
+    context = {'user': user,'zipList':zipList,'punkty':punkty,'odpZ':odpZ}
     return render(request, 'forum/user_info.html', context)

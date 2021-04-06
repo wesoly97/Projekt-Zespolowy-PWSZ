@@ -12,14 +12,18 @@
     ranga : {{a.ranga}}<br>
     </h1>
 
-  {% comment %} <a href="{% url 'usersHOME' a.id %}"
-    ><button><i class="fas fa-home fa-3x"></i></button
-  ></a> {% endcomment %}
-  {% endfor %} 
+<a href="{% url 'usersHOME' a.id %}"><button><i class="fas fa-home fa-3x"></i></button></a> 
+  {% endfor %}
+  </div> 
 
-  {% for p in pytania %}
-  {{p}}<br>
-  {% endfor %} 
+{% for pytania, odpowiedzi in zipList %}
+    PYTANIE : {{ pytania }} <br>
+    ODPOWIEDZ : {{ odpowiedzi }}<br>
+{% endfor %}
 
-  </div>
+{% for o in odpZ %}
+{{o}}<br>
+{% endfor %}
+
+  
 {% endblock content %}
