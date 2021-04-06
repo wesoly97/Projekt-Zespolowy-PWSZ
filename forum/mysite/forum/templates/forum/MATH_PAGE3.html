@@ -1,0 +1,57 @@
+{% extends 'forum/base.html' %} {% block content %} {% for user in users %}
+<h1>Math page</h1>
+<br /><hr>
+ {% for zz in zzs %}
+  <h1>Zadanie zamkniete nr{{forloop.counter0}}</h1>
+  <p><b>Tresc:</b>{{zz.tresc}}</p>
+  <br />
+  <p><b>odpA:</b>{{zz.odp_a}}</p>
+  <br />
+  <p><b>odpB:</b>{{zz.odp_b}}</p>
+  <br />
+  <p><b>odpC:</b>{{zz.odp_c}}</p>
+  <br />
+  <p><b>odpD:</b>{{zz.odp_d}}</p>
+  <br />
+  {% if  forloop.counter0 == 0 %}
+  <a href="{% url 'postM' user.id linki.0.id %}">Link do forum</a><br /><br />
+  <p><b>Twoja odpowiedz: </b>{{odpZ.0}}</p><br>
+  {% endif %}
+  {% if  forloop.counter0 == 1 %}
+  <a href="{% url 'postM' user.id linki.1.id %}">Link do forum</a><br /><br />
+  <p><b>Twoja odpowiedz: </b>{{odpZ.1}}</p><br>
+  {% endif %}
+  {% if  forloop.counter0 == 2 %}
+  <a href="{% url 'postM' user.id linki.2.id %}">Link do forum</a><br /><br />
+  <p><b>Twoja odpowiedz: </b>{{odpZ.2}}</p><br>
+  {% endif %}
+  <p><b>Poprawna odpowiedz: </b>{{zz.odpowiedz}}</p><br>
+  <br />
+  
+  <hr />
+  {% endfor %} {% for zo in zos %}
+  <h1>Zadanie otwarte nr{{forloop.counter0}}</h1>
+  <p><b>Tresc:</b>{{zo.tresc}}</p><br>
+  {% if  forloop.counter0 == 0 %}
+  <a href="{% url 'postM' user.id linki.3.id %}">Link do forum</a><br /><br />
+  <p><b>Twoja odpowiedz: </b>{{odpO.0}}</p><br>
+  {% endif %}
+  {% if  forloop.counter0 == 1 %}
+  <a href="{% url 'postM' user.id linki.4.id %}">Link do forum</a><br /><br />
+  <p><b>Twoja odpowiedz: </b>{{odpO.1}}</p><br>
+  {% endif %}
+  {% if  forloop.counter0 == 2 %}
+  <a href="{% url 'postM' user.id linki.5.id %}">Link do forum</a><br /><br />
+  <p><b>Twoja odpowiedz: </b>{{odpO.2}}</p><br>
+  {% endif %}
+  <p><b>Poprawna odpowiedź:</b>{{zo.odpowiedz}}</p>
+  <br />
+  <hr />
+  {% endfor %}
+  <h1>Wynik</h1>
+  <p><b>Zdobyłeś {{punkty}} punktów na {{punktyMAX}} możliwych do zdobycia</p></b><br>
+  <hr>
+  <a href="{% url 'math_page' user.id %}">Wróć</a><br /><br />
+  {% endfor %}
+</form>
+{% endblock content %}

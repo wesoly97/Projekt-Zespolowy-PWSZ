@@ -1,0 +1,13 @@
+{% extends 'forum/base.html' %} {% block content %}
+<a href="{% url 'index' %}"
+  ><button><i class="fas fa-home fa-3x"></i></button></a
+><br /><br />
+<form method="post" action="{% url 'register2' %}">
+  {% csrf_token %}
+  <label for="Name">Name:</label><br /><br />
+  <input type="Name" name="Name" id="Name" /><br /><br />
+  <label for="Password">Password:</label><br /><br />
+  <input type="Password" name="Password" id="Password" /><br /><br />
+  <input type="submit" value="add user" />
+</form>
+{% endblock content %}

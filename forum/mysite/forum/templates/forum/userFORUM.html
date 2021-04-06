@@ -1,0 +1,28 @@
+{% extends 'forum/base.html' %} {% block content %} {% for user in users %}
+<div class="home">
+  <h1>Forum page</h1>
+  <br /><br />
+  <a href="{% url 'usersHOME' user.id %}"
+    ><button><i class="fas fa-home fa-3x"></i></button
+  ></a>
+</div>
+
+<div class="form">
+  <form method="post" action="{% url 'add' user.id %}">
+    {% csrf_token %}
+    <label for="temat">Subject:</label>
+    <input type="temat" name="temat" id="temat" /><br /><br />
+    <label for="tresc">Content</label>
+    <input type="tresc" name="tresc" id="tresc" /><br /><br />
+    <input type="submit" value="Add post" />
+  </form>
+</div>
+<h1>Posty użytkowników</h1>
+{% for post in posts %}
+<a href="{% url 'post' user.id post.id %}">{{ post.subject }}</a><br /><br />
+{% endfor %}
+<h1>Posty do zadań</h1>
+{% for post in postsM %}
+<a href="{% url 'postM' user.id post.id %}">{{ post.tresc }}</a><br /><br />
+<br />
+{% endfor %} {% endfor %} {% endblock content %}

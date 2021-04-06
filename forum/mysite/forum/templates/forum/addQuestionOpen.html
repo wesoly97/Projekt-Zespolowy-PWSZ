@@ -1,0 +1,70 @@
+{% extends 'forum/base.html' %} 
+{% load static %}
+{% block content %}{% for user in users %}
+<a href="{% url 'usersHOME' user.id %}"
+  ><button><i class="fas fa-home fa-3x"></i></button></a
+><br /><br />
+  <script>
+        let MQ = MathQuill.getInterface(2); 
+    </script>
+    {% block typeQuestion %} <h2>Dodaj Pytanie Otwarte!</h2>{% endblock typeQuestion %}
+     <br>
+    <form method="post" enctype="multipart/form-data" action="{% block urlName %} {% url 'addQuestionOpenToDatabase' %}{% endblock urlName %}">
+      {% csrf_token %}
+    <label for="numberTask">Podaj numer zadania na arkuszu: </label>
+    <input type="number" name="numberTask">
+    <br><br>
+    <label for="section">Podaj dział matematyki: </label>
+    <input type="text" name="section"><br><br>
+        <label for="NumberPoints">Podaj ilość punktów za to zadanie: </label>
+    <input type="number" name="NumberPoints" value="2">
+    <br><br>
+    <p>Wprowadz treść pytania: <br><br>
+    <span id="question"></span></p>
+    <br>
+    <div style="width:305;border-style: solid; display:inline-block;">
+        <div id="sqrt" style=" float:left; padding:20px;">√</div>
+        <div id="mld" style=" float:left;padding:20px;">*</div>
+        <div id="plus" style=" float:left;padding:20px;">+</div>
+        <div id="minus" style=" float:left;padding:20px;">-</div>
+        <div id="przecinek" style=" float:left;padding:20px;">,</div>
+        <div id="pi" style=" float:left;padding:20px;">π</div>
+        <div id="dzielenie" style=" float:left;padding:20px;">¼</div>
+        <div id="potega" style=" float:left;padding:20px;">^</div>
+        <div id="cbrt" style=" float:left;padding:20px;">∛</div>
+    </div><br><br>
+{% block closedQuestionOption %} {% endblock closedQuestionOption %}
+   <p>Wprowadz Poprawną Odpowiedz: <br><br>
+    <span id="answer"></span></p>
+    <br>
+    <div style="width:305;border-style: solid; display:inline-block;">
+        <div id="sqrt2" style=" float:left; padding:20px;">√</div>
+        <div id="mld2" style=" float:left;padding:20px;">*</div>
+        <div id="plus2" style=" float:left;padding:20px;">+</div>
+        <div id="minus2" style=" float:left;padding:20px;">-</div>
+        <div id="przecinek2" style=" float:left;padding:20px;">,</div>
+        <div id="pi2" style=" float:left;padding:20px;">π</div>
+        <div id="dzielenie2" style=" float:left;padding:20px;">¼</div>
+        <div id="potega2" style=" float:left;padding:20px;">^</div>
+        <div id="cbrt2" style=" float:left;padding:20px;">∛</div>
+    </div><br><br>
+      
+    <br>
+    
+    <label for="image">Dodaj zdjecie, jeśli wystepuje:</label> <br> <br>
+<input type="file" name="image" accept="image/png, image/jpeg, image/svg">
+    <br><br>
+      
+  <input type="submit" value="Dodaj zadanie" /> <br>
+   <textarea name="inputQuestion" id="latex" style="visibility: hidden;"></textarea><br><br>
+   <textarea name="inputAnswer" id="latex2" style="visibility: hidden;"></textarea><br>
+   {% block hidenArea %} {% endblock hidenArea %}
+   <input type="hidden" name="user_id" value="{{ user.id }}">
+ 
+  </form>
+
+<script src="{% static "forum/js/content.js" %}"></script>
+<script src="{% static "forum/js/answer.js" %}"></script>
+{% block importsJavascript %} {% endblock importsJavascript %}
+{% endfor %} {% endblock content %}
+
