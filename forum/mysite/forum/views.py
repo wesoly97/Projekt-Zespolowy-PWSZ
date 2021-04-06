@@ -40,7 +40,15 @@ def auth_user_id(request):
         return request.session['logged_user']
     else:
         return "User not authenticated"
-
+#####################################################
+#                                                   #
+#      Funkcja dodająca nowy post do zadania        #
+#                                                   #
+#####################################################
+def addNewPost(NumberTask,nrWersji):
+    taskAdded = zadanie_matematyczne.objects.get(nr_zadania=NumberTask,nr_wersji=nrWersji)
+    newPost=PostM(zadanie=taskAdded,tresc=taskAdded.tresc)
+    newPost.save()
 
 def index(request):
     users = User.objects.all()
@@ -90,6 +98,7 @@ def addQuestionViewClosedQuestion(request,user_id):
     users = User.objects.filter(id=user_id)
     context = {'users': users}
     return render(request, 'forum/addQuestionClose.html', context)
+
 def addQuestionOpenToDatabase(request):
     NumberTask = request.POST['numberTask']
     section = request.POST['section']
@@ -111,10 +120,14 @@ def addQuestionOpenToDatabase(request):
 
     newQuestion=zadanie_matematyczne(nr_zadania=NumberTask,nr_wersji=newVersion,rodzaj="otwarte",zestaw=set,tresc=inputQuestion,odp_a="",odp_b="",odp_c="",odp_d="",rozwiazanie=solution,odpowiedz=inputAnswer,dzial=section,punkty=NumberPoints,url=uploaded_file_url)
     newQuestion.save()
+
+    addNewPost(NumberTask,newVersion)
+
     users = User.objects.filter(id=request.POST["user_id"])
     nameNew='{% url "addQuestionOpenToDatabase" %}'
     context = {'users': users}
     return render(request, 'forum/addQuestionOpen.html', context)
+
 def addQuestionCloseToDatabase(request):
     NumberTask = request.POST['numberTask']
     section = request.POST['section']
@@ -133,16 +146,20 @@ def addQuestionCloseToDatabase(request):
         uploaded_file_url = fs.url(filename)
     else:
         uploaded_file_url = ""
-    version = Zadanie_zamkniete.objects.filter(nr_zadania=NumberTask)
+    version = zadanie_matematyczne.objects.filter(nr_zadania=NumberTask)
     ver=version.aggregate(Max('nr_wersji'))
     newVersion=ver['nr_wersji__max']+1
 
     newQuestion=zadanie_matematyczne(nr_zadania=NumberTask,nr_wersji=newVersion,rodzaj="zamkniete",zestaw=set,tresc=inputQuestion,odp_a=inputAnswerA,odp_b=inputAnswerB,odp_c=inputAnswerC,odp_d=inputAnswerD,rozwiazanie="",odpowiedz=inputAnswer,dzial=section,punkty=NumberPoints,url=uploaded_file_url)
     newQuestion.save()
+
+    addNewPost(NumberTask,newVersion)
+
     users = User.objects.filter(id=request.POST["user_id"])
     nameNew='{% url "addQuestionOpenToDatabase" %}'
     context = {'users': users}
     return render(request, 'forum/addQuestionOpen.html', context)
+
 def register2(request):
     Name = request.POST['Name']
     Password = request.POST['Password']
