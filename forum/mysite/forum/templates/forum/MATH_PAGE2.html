@@ -2,7 +2,7 @@
 <h1>Math page</h1>
 <br />
 <hr />
-<form method="post" action="{% url 'math_page3' user.id %}">
+<form method="post" action="{% url 'math_page3' user.id %} ">
   {% csrf_token %} {% for zz in zzs %}
   <h1>Zadanie zamkniete nr{{forloop.counter0}}</h1>
   <p><b>Tresc:</b>{{zz.tresc}}</p>

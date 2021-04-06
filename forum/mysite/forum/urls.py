@@ -21,6 +21,9 @@ urlpatterns = [
     path('forum_user_<int:user_id>/p<int:post_id>/odpM/', views.odpM, name='odpM'),
     path('forum_user_<int:user_id>/add/', views.add, name='add'),
 
+    path('userScore_<int:user_id>', views.score, name='userScore'),
+
+
     path('register2', views.register2, name='register2'),
     path('register1', views.register1, name='register1'),
 
