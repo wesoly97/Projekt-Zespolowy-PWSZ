@@ -337,3 +337,8 @@ def delete_odpM(request, user_id,post_id,answer_id):
     answersM = AnswerM.objects.filter(zadanie=post_id)
     context = {'postsM': postsM,'answersM': answersM,'users': users}
     return render(request, 'forum/postsM.html', context)
+
+def userPanel(request, user_id):
+    users = User.objects.filter(id=user_id)
+    context = {'users': users}
+    return render(request, 'forum/userPanel.html', context) 
