@@ -170,7 +170,9 @@ def user_at_forum(request, user_id):
     users = User.objects.filter(id=user_id)
     posts = Post.objects.all()
     postsM= PostM.objects.all()
-    context = {'posts': posts,'users': users,'postsM': postsM}
+    postsToChcekM=PostM.objects.filter(stan="check")
+    postsCheched=PostM.objects.filter(stan="")
+    context = {'posts': posts,'users': users,'postsM': postsM,'postsToChcekM': postsToChcekM,'postsCheched': postsCheched}
     return render(request, 'forum/userFORUM.html', context)
 
 def math_page(request, user_id):
@@ -196,8 +198,8 @@ def math_page2(request, user_id):
     request.session['r3'] = r3
     request.session['r4'] = r4
    
-    zos=zadanie_matematyczne.objects.filter(nr_wersji=r).filter(rodzaj="otwarte")
-    zzs=zadanie_matematyczne.objects.filter(nr_wersji=r2).filter(rodzaj="zamkniete")
+    zos=zadanie_matematyczne.objects.filter(nr_wersji=r).filter(rodzaj="otwarte",zestaw="zestaw1")
+    zzs=zadanie_matematyczne.objects.filter(nr_wersji=r2).filter(rodzaj="zamkniete",zestaw="zestaw1")
 
     context = {'users': users,'zos': zos,'zzs': zzs}
     return render(request, 'forum/MATH_PAGE2.html', context)
@@ -210,8 +212,8 @@ def math_page3(request, user_id):
     r3=request.session.get('r3')
     r4=request.session.get('r4')
 
-    zos=zadanie_matematyczne.objects.filter(nr_wersji=r).filter(rodzaj="otwarte")
-    zzs=zadanie_matematyczne.objects.filter(nr_wersji=r2).filter(rodzaj="zamkniete")
+    zos=zadanie_matematyczne.objects.filter(nr_wersji=r).filter(rodzaj="otwarte",zestaw="zestaw1")
+    zzs=zadanie_matematyczne.objects.filter(nr_wersji=r2).filter(rodzaj="zamkniete",zestaw="zestaw1")
 
     odpZ = request.POST.getlist('odpZ')
     odpO = request.POST.getlist('odpO')
@@ -320,6 +322,8 @@ def odpM(request, user_id,post_id):
         x=user
     for post in postsM:
         y=post
+        y.stan="check"
+        y.save()
     new_answer = request.POST['comment']
     if (new_answer==""):
         error="Empty,try again"
@@ -335,5 +339,16 @@ def delete_odpM(request, user_id,post_id,answer_id):
     answersM = AnswerM.objects.filter(id=answer_id)
     answersM.delete()
     answersM = AnswerM.objects.filter(zadanie=post_id)
+    context = {'postsM': postsM,'answersM': answersM,'users': users}
+    return render(request, 'forum/postsM.html', context)
+
+def check(request, user_id,post_id):
+    users = User.objects.filter(id=user_id)
+    postsM = PostM.objects.filter(id=post_id)
+    answersM = AnswerM.objects.filter(zadanie=post_id)
+    for post in postsM:
+        y=post
+        y.stan=""
+        y.save()
     context = {'postsM': postsM,'answersM': answersM,'users': users}
     return render(request, 'forum/postsM.html', context)
