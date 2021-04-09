@@ -13,6 +13,7 @@ from .models import zadanie_matematyczne
 import random
 from django.core.files.storage import FileSystemStorage
 from django.db.models import Max
+import re
 
 
 #####################################################
@@ -49,6 +50,29 @@ def addNewPost(NumberTask,nrWersji):
     taskAdded = zadanie_matematyczne.objects.get(nr_zadania=NumberTask,nr_wersji=nrWersji)
     newPost=PostM(zadanie=taskAdded,tresc=taskAdded.tresc)
     newPost.save()
+#####################################################
+#                                                   #
+#      Funkcja zamieniajaca format dla mathjax      #
+#                                                   #
+#####################################################
+def replace(text):
+    newtext=text.replace('\ ',' ')
+    newtext=newtext+" "
+    newtext=newtext.replace(' \\',' $\\')
+    newtext=newtext.replace('} ','}$ ')
+    list=re.findall(r'\s[1-z]+[-^]', newtext)
+    for i in list:
+       newtext = newtext.replace(i,' $'+i[1:len(i)])
+    count=newtext.count('$')
+    if(count==1):
+        newtext=newtext+"$"
+    list2=re.findall(r'.*?\$(.*)$.*', newtext)
+    print(list2)
+    for j in list2:
+       tmp=j
+       newSubString=tmp.replace(' ','\ ')
+       newtext = newtext.replace(j,newSubString)
+    return newtext
 
 def index(request):
     users = User.objects.all()
@@ -107,6 +131,7 @@ def addQuestionOpenToDatabase(request):
     inputQuestion = request.POST['inputQuestion']
     inputAnswer = request.POST['inputAnswer']
     solution = request.POST['solution']
+    inputQuestion=replace(inputQuestion)
     if request.GET.get('image'):
         myfile = request.FILES['image']
         fs = FileSystemStorage()
@@ -139,6 +164,7 @@ def addQuestionCloseToDatabase(request):
     inputAnswerB = request.POST['inputAnswerB']
     inputAnswerC = request.POST['inputAnswerC']
     inputAnswerD = request.POST['inputAnswerD']
+    inputQuestion=replace(inputQuestion)
     if request.GET.get('image'):
         myfile = request.FILES['image']
         fs = FileSystemStorage()
@@ -216,8 +242,8 @@ def math_page2(request, user_id):
     request.session['r4'] = r4
    
     zos=zadanie_matematyczne.objects.filter(nr_wersji=r).filter(rodzaj="otwarte",zestaw="zestaw1")
-    zzs=zadanie_matematyczne.objects.filter(nr_wersji=r2).filter(rodzaj="zamkniete",zestaw="zestaw1")
-
+    zzs=zadanie_matematyczne.objects.filter(id=201)|zadanie_matematyczne.objects.filter(id=181)|zadanie_matematyczne.objects.filter(id=180)
+    
     context = {'users': users,'zos': zos,'zzs': zzs}
     return render(request, 'forum/MATH_PAGE2.html', context)
 
