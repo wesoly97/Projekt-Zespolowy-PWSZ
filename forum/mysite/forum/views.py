@@ -1,4 +1,6 @@
+from django.db.models import Max
 from django.http import HttpResponse,HttpResponseRedirect
+
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 
@@ -11,8 +13,8 @@ from .models import Zadanie_zamkniete
 from .models import Zadanie_otwarte
 from .models import zadanie_matematyczne
 import random
+
 from django.core.files.storage import FileSystemStorage
-from django.db.models import Max
 import re
 
 
@@ -67,7 +69,6 @@ def replace(text):
     if(count==1):
         newtext=newtext+"$"
     list2=re.findall(r'.*?\$(.*)$.*', newtext)
-    print(list2)
     for j in list2:
        tmp=j
        newSubString=tmp.replace(' ','\ ')
@@ -132,17 +133,20 @@ def addQuestionOpenToDatabase(request):
     inputAnswer = request.POST['inputAnswer']
     solution = request.POST['solution']
     inputQuestion=replace(inputQuestion)
-    if request.GET.get('image'):
+    if 'image' in request.FILES:
         myfile = request.FILES['image']
         fs = FileSystemStorage()
         filename = fs.save(myfile.name, myfile)
-        uploaded_file_url = fs.url(filename)
+        uploaded_file_url = 'images/'+fs.url(filename)
     else:
         uploaded_file_url = ""
     version = zadanie_matematyczne.objects.filter(nr_zadania=NumberTask)
     ver=version.aggregate(Max('nr_wersji'))
-    newVersion=ver['nr_wersji__max']+1
-
+    if version.exists():
+        newVersion=ver['nr_wersji__max']+1
+    else:
+        newVersion=1
+    
     newQuestion=zadanie_matematyczne(nr_zadania=NumberTask,nr_wersji=newVersion,rodzaj="otwarte",zestaw=set,tresc=inputQuestion,odp_a="",odp_b="",odp_c="",odp_d="",rozwiazanie=solution,odpowiedz=inputAnswer,dzial=section,punkty=NumberPoints,url=uploaded_file_url)
     newQuestion.save()
 
@@ -165,16 +169,21 @@ def addQuestionCloseToDatabase(request):
     inputAnswerC = request.POST['inputAnswerC']
     inputAnswerD = request.POST['inputAnswerD']
     inputQuestion=replace(inputQuestion)
-    if request.GET.get('image'):
+    if 'image' in request.FILES:
         myfile = request.FILES['image']
         fs = FileSystemStorage()
         filename = fs.save(myfile.name, myfile)
-        uploaded_file_url = fs.url(filename)
+        print(fs.url(filename))
+        uploaded_file_url = 'images/'+fs.url(filename)
     else:
         uploaded_file_url = ""
     version = zadanie_matematyczne.objects.filter(nr_zadania=NumberTask)
     ver=version.aggregate(Max('nr_wersji'))
-    newVersion=ver['nr_wersji__max']+1
+    if version.exists():
+        newVersion=ver['nr_wersji__max']+1
+    else:
+        newVersion=1
+    
 
     newQuestion=zadanie_matematyczne(nr_zadania=NumberTask,nr_wersji=newVersion,rodzaj="zamkniete",zestaw=set,tresc=inputQuestion,odp_a=inputAnswerA,odp_b=inputAnswerB,odp_c=inputAnswerC,odp_d=inputAnswerD,rozwiazanie="",odpowiedz=inputAnswer,dzial=section,punkty=NumberPoints,url=uploaded_file_url)
     newQuestion.save()
@@ -184,7 +193,7 @@ def addQuestionCloseToDatabase(request):
     users = User.objects.filter(id=request.POST["user_id"])
     nameNew='{% url "addQuestionOpenToDatabase" %}'
     context = {'users': users}
-    return render(request, 'forum/addQuestionOpen.html', context)
+    return render(request, 'forum/addQuestionClose.html', context)
 
 def register2(request):
     Name = request.POST['Name']
@@ -241,7 +250,8 @@ def math_page2(request, user_id):
     request.session['r3'] = r3
     request.session['r4'] = r4
    
-    zos=zadanie_matematyczne.objects.filter(nr_wersji=r).filter(rodzaj="otwarte",zestaw="zestaw1")
+    zos=zadanie_matematyczne.objects.filter(id=225)|zadanie_matematyczne.objects.filter(id=230)
+
     zzs=zadanie_matematyczne.objects.filter(id=201)|zadanie_matematyczne.objects.filter(id=181)|zadanie_matematyczne.objects.filter(id=180)
     
     context = {'users': users,'zos': zos,'zzs': zzs}

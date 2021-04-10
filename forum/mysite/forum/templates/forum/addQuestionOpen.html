@@ -4,12 +4,16 @@
 <a href="{% url 'usersHOME' user.id %}"
   ><button><i class="fas fa-home fa-3x"></i></button></a
 ><br /><br />
+{% block imports %}
+ <link rel="stylesheet" href="{% static 'forum/MathQuil/mathquill.css' %}"/>
+<script src="{% static 'forum/MathQuil/mathquill.js' %}"></script>
+{% endblock %}
   <script>
         let MQ = MathQuill.getInterface(2); 
     </script>
     {% block typeQuestion %} <h2>Dodaj Pytanie Otwarte!</h2>{% endblock typeQuestion %}
      <br>
-    <form method="post" name="myForm" required onsubmit="return validateForm()" enctype="multipart/form-data" action="{% block urlName %} {% url 'addQuestionOpenToDatabase' %}{% endblock urlName %}">
+    <form method="post" enctype="multipart/form-data" action="{% block urlName %} {% url 'addQuestionOpenToDatabase' %}{% endblock urlName %}">
       {% csrf_token %}
     <label for="numberTask">Podaj numer zadania na arkuszu: </label>
     <input type="number" name="numberTask" required>
@@ -24,7 +28,6 @@
     <p>Wprowadz treść pytania: <br><br>
 
     <span id="question"></span><textarea name="inputQuestion" id="latex" style="opacity: 0;" required ></textarea></p>
-    <div id="questionError" style="color:red"></div>
     <br>
     <div style="width:305;border-style: solid; display:inline-block;">
         <div id="sqrt" style=" float:left; padding:20px;">√</div>
@@ -39,7 +42,7 @@
     </div><br><br>
     {% block solution %}<p>Wprowadz rozwiazanie: <br><br>
     <span id="answerA"></span><textarea name="solution" id="latexA" style="opacity: 0;" required></textarea></p>
-    <div id="solutionError" style="color:red"></div>
+  
     <br>
     <div style="width:305;border-style: solid; display:inline-block;">
         <div id="sqrtA" style=" float:left; padding:20px;">√</div>
@@ -56,7 +59,6 @@
    <p>Wprowadz Poprawną Odpowiedz: <br><br>
     <span id="answer"></span><textarea name="inputAnswer" id="latex2" style="opacity: 0;" required></textarea></p>
     <br>
-      <div id="answerError" style="color:red"></div>
     <div style="width:305;border-style: solid; display:inline-block;">
         <div id="sqrt2" style=" float:left; padding:20px;">√</div>
         <div id="mld2" style=" float:left;padding:20px;">*</div>
@@ -72,7 +74,7 @@
     <br>
     
     <label for="image">Dodaj zdjecie, jeśli wystepuje:</label> <br> <br>
-<input type="file" name="image" accept="image/png, image/jpeg, image/svg">
+<input type="file" name="image" accept="image/png, image/jpeg, image/svg"/>
     <br><br>
      
   <input type="submit" value="Dodaj zadanie" id="addQuestion"/>
