@@ -4,6 +4,10 @@
 <a href="{% url 'usersHOME' user.id %}"
   ><button><i class="fas fa-home fa-3x"></i></button></a
 ><br /><br />
+{% block imports %}
+ <link rel="stylesheet" href="{% static 'forum/MathQuil/mathquill.css' %}"/>
+<script src="{% static 'forum/MathQuil/mathquill.js' %}"></script>
+{% endblock %}
   <script>
         let MQ = MathQuill.getInterface(2); 
     </script>
@@ -22,7 +26,8 @@
     <input type="number" name="NumberPoints" value="2" required>
     <br><br>
     <p>Wprowadz treść pytania: <br><br>
-    <input id="question"></input></p>
+
+    <span id="question"></span><textarea name="inputQuestion" id="latex" style="opacity: 0;" required ></textarea></p>
     <br>
     <div style="width:305;border-style: solid; display:inline-block;">
         <div id="sqrt" style=" float:left; padding:20px;">√</div>
@@ -36,7 +41,8 @@
         <div id="cbrt" style=" float:left;padding:20px;">∛</div>
     </div><br><br>
     {% block solution %}<p>Wprowadz rozwiazanie: <br><br>
-    <span id="answerA"></span></p>
+    <span id="answerA"></span><textarea name="solution" id="latexA" style="opacity: 0;" required></textarea></p>
+  
     <br>
     <div style="width:305;border-style: solid; display:inline-block;">
         <div id="sqrtA" style=" float:left; padding:20px;">√</div>
@@ -51,7 +57,7 @@
     </div><br><br> {% endblock solution %}
 {% block closedQuestionOption %} {% endblock closedQuestionOption %}
    <p>Wprowadz Poprawną Odpowiedz: <br><br>
-    <span id="answer"></span></p>
+    <span id="answer"></span><textarea name="inputAnswer" id="latex2" style="opacity: 0;" required></textarea></p>
     <br>
     <div style="width:305;border-style: solid; display:inline-block;">
         <div id="sqrt2" style=" float:left; padding:20px;">√</div>
@@ -68,13 +74,11 @@
     <br>
     
     <label for="image">Dodaj zdjecie, jeśli wystepuje:</label> <br> <br>
-<input type="file" name="image" accept="image/png, image/jpeg, image/svg">
+<input type="file" name="image" accept="image/png, image/jpeg, image/svg"/>
     <br><br>
-      
-  <input type="submit" value="Dodaj zadanie" /> <br>
-   <textarea name="inputQuestion" id="latex" style="visibility: hidden;" required></textarea><br><br>
-   <textarea name="inputAnswer" id="latex2" style="visibility: hidden;" required></textarea><br>
-   {% block hidenArea %}<textarea name="solution" id="latexA" style="visibility: hidden;" required></textarea><br> {% endblock hidenArea %}
+     
+  <input type="submit" value="Dodaj zadanie" id="addQuestion"/>
+   
    <input type="hidden" name="user_id" value="{{ user.id }}">
  
   </form>

@@ -1,19 +1,42 @@
-{% extends 'forum/base.html' %} {% block content %} {% for user in users %}
+{% extends 'forum/base.html' %}{% load static %} {% block content %} {% for user in users %}
+{% block imports %}
+{% load static %}
+ <link rel="stylesheet" href="{% static 'forum/MathQuil/mathquill.css' %}"/>
+<script src="{% static 'forum/MathQuil/mathquill.js' %}"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\(','\)']]},
+    svg: {
+    fontCache: 'global'
+  }
+  });
+</script>
+
+<script type="text/javascript"
+  src="http://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+{% endblock %}
+  <script>
+        let MQ = MathQuill.getInterface(2); 
+    </script>
 <h1>Math page</h1>
 <br />
 <hr />
-<form method="post" action="{% url 'math_page3' user.id %} ">
-  {% csrf_token %} {% for zz in zzs %}
+
+<form method="post" action="{% url 'math_page3' user.id %}">
+  {% csrf_token %} 
+
+  {% for zz in zzs %}
   <h1>Zadanie zamkniete nr{{forloop.counter0}}</h1>
-  <p><b>Tresc:</b>{{zz.tresc}}</p>
+  <p><b>Tresc:</b><p>{{zz.tresc}} </p>
+  </p>
   <br />
-  <p><b>odpA:</b>{{zz.odp_a}}</p>
+  <p><b>odpA:</b>$${{zz.odp_a}}$$</p>
   <br />
-  <p><b>odpB:</b>{{zz.odp_b}}</p>
+  <p><b>odpB:</b>$${{zz.odp_b}}$$</p>
   <br />
-  <p><b>odpC:</b>{{zz.odp_c}}</p>
+  <p><b>odpC:</b>$${{zz.odp_c}}$$</p>
   <br />
-  <p><b>odpD:</b>{{zz.odp_d}}</p>
+  <p><b>odpD:</b>$${{zz.odp_d}}$$</p>
   <br />
   <label for="odpZ">Choose the correct answer:</label>
   <select name="odpZ">
@@ -28,12 +51,47 @@
   <h1>Zadanie otwarte nr{{forloop.counter0}}</h1>
   <p><b>Tresc:</b>{{zo.tresc}}</p>
   <br />
-  <label for="odpO">Provide the correct answer:</label>
-  <input type="text" name="odpO" /><br /><br />
+  {% if zo.url != "" %}
+<img src="{% static zo.url %}"/>
+{% endif %}
+<p>Wprowadz rozwiazanie: <br><br>
+    <span id="solution{{forloop.counter0}}"></span><textarea name="solution{{forloop.counter0}}" id="latexsolution{{forloop.counter0}}" style="opacity: 0;" required></textarea></p>
+  
+    <br>
+    <div style="width:305;border-style: solid; display:inline-block;">
+        <div id="sqrtsolution{{forloop.counter0}}" style=" float:left; padding:20px;">√</div>
+        <div id="mldsolution{{forloop.counter0}}" style=" float:left;padding:20px;">*</div>
+        <div id="plussolution{{forloop.counter0}}" style=" float:left;padding:20px;">+</div>
+        <div id="minussolution{{forloop.counter0}}" style=" float:left;padding:20px;">-</div>
+        <div id="przecineksolution{{forloop.counter0}}" style=" float:left;padding:20px;">,</div>
+        <div id="pisolution{{forloop.counter0}}" style=" float:left;padding:20px;">π</div>
+        <div id="dzieleniesolution{{forloop.counter0}}" style=" float:left;padding:20px;">¼</div>
+        <div id="potegasolution{{forloop.counter0}}" style=" float:left;padding:20px;">^</div>
+        <div id="cbrtsolution{{forloop.counter0}}" style=" float:left;padding:20px;">∛</div>
+    </div><br><br>
+  <br />
+  <p>Wprowadz Odpowiedz: <br><br>
+  <span id="answer{{forloop.counter0}}"></span><textarea name="odpO" id="latexanswer{{forloop.counter0}}" style="opacity: 0;" required></textarea></p>
+    <br>
+    <div style="width:305;border-style: solid; display:inline-block;">
+        <div id="sqrtanswer{{forloop.counter0}}" style=" float:left; padding:20px;">√</div>
+        <div id="mldanswer{{forloop.counter0}}" style=" float:left;padding:20px;">*</div>
+        <div id="plusanswer{{forloop.counter0}}" style=" float:left;padding:20px;">+</div>
+        <div id="minusanswer{{forloop.counter0}}" style=" float:left;padding:20px;">-</div>
+        <div id="przecinekanswer{{forloop.counter0}}" style=" float:left;padding:20px;">,</div>
+        <div id="pianswer{{forloop.counter0}}" style=" float:left;padding:20px;">π</div>
+        <div id="dzielenieanswer{{forloop.counter0}}" style=" float:left;padding:20px;">¼</div>
+        <div id="potegaanswer{{forloop.counter0}}" style=" float:left;padding:20px;">^</div>
+        <div id="cbrtanswer{{forloop.counter0}}" style=" float:left;padding:20px;">∛</div>
+    </div><br><br>
+      
+    <br>
+    
   <hr />
   {% endfor %}
   <input type="submit" value="odpQUIZ" /><br /><br />
   <a href="{% url 'math_page' user.id %}">Wróć</a><br /><br />
   {% endfor %}
 </form>
+<script src="{% static "forum/js/displaySetsSolution.js" %}"></script>
 {% endblock content %}

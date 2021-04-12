@@ -1,20 +1,47 @@
-{% extends 'forum/base.html' %} {% block content %}
-<h1>Main Page</h1>
-
-<h2>Users</h2>
-    <i class="fas fa-users fa-3x"></i><br /><br />
-    {% for user in users %}
-    <a href="{% url 'usersHOME' user.id %}">{{ user.name }}</a>
-    {% endfor %}
-    <br /><br /><br />
-    <h2>New User</h2>
-    <a href="{% url 'register1' %}"
-      ><button><i class="fas fa-user-plus fa-3x"></i></button
-    ></a>
-    <a href="{% url 'log_out' %}">
-        <button><i class="fas fa-sign-out-alt fa-3x"></i></button>
-    </a>
-
-    {% endblock content %}
-  </>
-</h2>
+{% extends 'forum/base.html' %}
+{% block content %}
+{% load static %}
+{% block css %} 
+  <link rel="stylesheet" href="{% static 'forum/styles/index/index.css' %}"> 
+{% endblock css %}
+  <header class="container-fluid">
+  </header>
+  <section>
+    
+  </section>
+  <div class="container-fluid info">
+    <div class="row">
+      <div class="col-xl-3"></div>
+      <div class="col-xl-6 infoCenter">
+        <div class="row rowInfo">
+          <div class="col-6 col-xl-6 col-lg-6 px-md-3">
+            <div class="p-3 infoItem text-center">
+              <span class="font-weight-bold">Ćwicz rozwiązywanie arkuszy maturalnych</span>
+              <img class="mx-auto d-block img-fluid imgInfo" src="{% static 'forum/images/index/brain.png' %}"/>
+            </div>
+          </div>
+          <div class="col-6 col-xl-6 col-lg-6 px-md-3">
+            <div class="p-3 infoItem text-center">
+              <span class="font-weight-bold">Forum</span>
+              <img class="mx-auto d-block img-fluid imgInfo" src=""/>
+            </div>
+          </div>
+          <div class="col-6 col-xl-6 col-lg-6 px-md-3">
+            <div class="p-3 infoItem text-center">C</div></div>
+          <div class="col-6 col-xl-6 col-lg-6 px-md-3"><div class="p-3 infoItem text-center">C</div>
+        </div>
+          <div class="col-6 col-xl-6 col-lg-6 px-md-3">
+            <div class="p-3 infoItem text-center">C</div>
+        </div>
+          <div class="col-6 col-xl-6 col-lg-6 px-md-3">
+            <div class="p-3 infoItem text-center">C</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-3"></div>
+    </div>
+  </div>
+  <section id="test" class="container-fluid"> 
+    <div class="btn">Wypróbuj</div>
+  </section>
+{% endblock content %}

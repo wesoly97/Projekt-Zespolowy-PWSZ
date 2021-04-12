@@ -1,4 +1,6 @@
+from django.db.models import Max
 from django.http import HttpResponse,HttpResponseRedirect
+
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 
@@ -12,8 +14,9 @@ from .models import Zadanie_otwarte
 from .models import zadanie_matematyczne
 from .models import Score
 import random
+
 from django.core.files.storage import FileSystemStorage
-from django.db.models import Max
+import re
 
 
 #####################################################
@@ -41,7 +44,37 @@ def auth_user_id(request):
         return request.session['logged_user']
     else:
         return "User not authenticated"
-
+#####################################################
+#                                                   #
+#      Funkcja dodająca nowy post do zadania        #
+#                                                   #
+#####################################################
+def addNewPost(NumberTask,nrWersji):
+    taskAdded = zadanie_matematyczne.objects.get(nr_zadania=NumberTask,nr_wersji=nrWersji)
+    newPost=PostM(zadanie=taskAdded,tresc=taskAdded.tresc)
+    newPost.save()
+#####################################################
+#                                                   #
+#      Funkcja zamieniajaca format dla mathjax      #
+#                                                   #
+#####################################################
+def replace(text):
+    newtext=text.replace('\ ',' ')
+    newtext=newtext+" "
+    newtext=newtext.replace(' \\',' $\\')
+    newtext=newtext.replace('} ','}$ ')
+    list=re.findall(r'\s[1-z]+[-^]', newtext)
+    for i in list:
+       newtext = newtext.replace(i,' $'+i[1:len(i)])
+    count=newtext.count('$')
+    if(count==1):
+        newtext=newtext+"$"
+    list2=re.findall(r'.*?\$(.*)$.*', newtext)
+    for j in list2:
+       tmp=j
+       newSubString=tmp.replace(' ','\ ')
+       newtext = newtext.replace(j,newSubString)
+    return newtext
 
 def index(request):
     users = User.objects.all()
@@ -91,6 +124,7 @@ def addQuestionViewClosedQuestion(request,user_id):
     users = User.objects.filter(id=user_id)
     context = {'users': users}
     return render(request, 'forum/addQuestionClose.html', context)
+
 def addQuestionOpenToDatabase(request):
     NumberTask = request.POST['numberTask']
     section = request.POST['section']
@@ -99,23 +133,31 @@ def addQuestionOpenToDatabase(request):
     inputQuestion = request.POST['inputQuestion']
     inputAnswer = request.POST['inputAnswer']
     solution = request.POST['solution']
-    if request.GET.get('image'):
+    inputQuestion=replace(inputQuestion)
+    if 'image' in request.FILES:
         myfile = request.FILES['image']
         fs = FileSystemStorage()
         filename = fs.save(myfile.name, myfile)
-        uploaded_file_url = fs.url(filename)
+        uploaded_file_url = 'images/'+fs.url(filename)
     else:
         uploaded_file_url = ""
     version = zadanie_matematyczne.objects.filter(nr_zadania=NumberTask)
     ver=version.aggregate(Max('nr_wersji'))
-    newVersion=ver['nr_wersji__max']+1
-
+    if version.exists():
+        newVersion=ver['nr_wersji__max']+1
+    else:
+        newVersion=1
+    
     newQuestion=zadanie_matematyczne(nr_zadania=NumberTask,nr_wersji=newVersion,rodzaj="otwarte",zestaw=set,tresc=inputQuestion,odp_a="",odp_b="",odp_c="",odp_d="",rozwiazanie=solution,odpowiedz=inputAnswer,dzial=section,punkty=NumberPoints,url=uploaded_file_url)
     newQuestion.save()
+
+    addNewPost(NumberTask,newVersion)
+
     users = User.objects.filter(id=request.POST["user_id"])
     nameNew='{% url "addQuestionOpenToDatabase" %}'
     context = {'users': users}
     return render(request, 'forum/addQuestionOpen.html', context)
+
 def addQuestionCloseToDatabase(request):
     NumberTask = request.POST['numberTask']
     section = request.POST['section']
@@ -127,23 +169,33 @@ def addQuestionCloseToDatabase(request):
     inputAnswerB = request.POST['inputAnswerB']
     inputAnswerC = request.POST['inputAnswerC']
     inputAnswerD = request.POST['inputAnswerD']
-    if request.GET.get('image'):
+    inputQuestion=replace(inputQuestion)
+    if 'image' in request.FILES:
         myfile = request.FILES['image']
         fs = FileSystemStorage()
         filename = fs.save(myfile.name, myfile)
-        uploaded_file_url = fs.url(filename)
+        print(fs.url(filename))
+        uploaded_file_url = 'images/'+fs.url(filename)
     else:
         uploaded_file_url = ""
-    version = Zadanie_zamkniete.objects.filter(nr_zadania=NumberTask)
+    version = zadanie_matematyczne.objects.filter(nr_zadania=NumberTask)
     ver=version.aggregate(Max('nr_wersji'))
-    newVersion=ver['nr_wersji__max']+1
+    if version.exists():
+        newVersion=ver['nr_wersji__max']+1
+    else:
+        newVersion=1
+    
 
     newQuestion=zadanie_matematyczne(nr_zadania=NumberTask,nr_wersji=newVersion,rodzaj="zamkniete",zestaw=set,tresc=inputQuestion,odp_a=inputAnswerA,odp_b=inputAnswerB,odp_c=inputAnswerC,odp_d=inputAnswerD,rozwiazanie="",odpowiedz=inputAnswer,dzial=section,punkty=NumberPoints,url=uploaded_file_url)
     newQuestion.save()
+
+    addNewPost(NumberTask,newVersion)
+
     users = User.objects.filter(id=request.POST["user_id"])
     nameNew='{% url "addQuestionOpenToDatabase" %}'
     context = {'users': users}
-    return render(request, 'forum/addQuestionOpen.html', context)
+    return render(request, 'forum/addQuestionClose.html', context)
+
 def register2(request):
     Name = request.POST['Name']
     Password = request.POST['Password']
@@ -171,7 +223,9 @@ def user_at_forum(request, user_id):
     users = User.objects.filter(id=user_id)
     posts = Post.objects.all()
     postsM= PostM.objects.all()
-    context = {'posts': posts,'users': users,'postsM': postsM}
+    postsToChcekM=PostM.objects.filter(stan="check")
+    postsCheched=PostM.objects.filter(stan="")
+    context = {'posts': posts,'users': users,'postsM': postsM,'postsToChcekM': postsToChcekM,'postsCheched': postsCheched}
     return render(request, 'forum/userFORUM.html', context)
 
 def math_page(request, user_id):
@@ -197,9 +251,10 @@ def math_page2(request, user_id):
     request.session['r3'] = r3
     request.session['r4'] = r4
    
-    zos=zadanie_matematyczne.objects.filter(nr_wersji=r).filter(rodzaj="otwarte")
-    zzs=zadanie_matematyczne.objects.filter(nr_wersji=r2).filter(rodzaj="zamkniete")
+    zos=zadanie_matematyczne.objects.filter(id=225)|zadanie_matematyczne.objects.filter(id=230)
 
+
+    zzs=zadanie_matematyczne.objects.filter(id=201)|zadanie_matematyczne.objects.filter(id=181)|zadanie_matematyczne.objects.filter(id=180)
     
     context = {'users': users,'zos': zos,'zzs': zzs}
     return render(request, 'forum/MATH_PAGE2.html', context)
@@ -212,8 +267,8 @@ def math_page3(request, user_id):
     r3=request.session.get('r3')
     r4=request.session.get('r4')
 
-    zos=zadanie_matematyczne.objects.filter(nr_wersji=r).filter(rodzaj="otwarte")
-    zzs=zadanie_matematyczne.objects.filter(nr_wersji=r2).filter(rodzaj="zamkniete")
+    zos=zadanie_matematyczne.objects.filter(nr_wersji=r).filter(rodzaj="otwarte",zestaw="zestaw1")
+    zzs=zadanie_matematyczne.objects.filter(nr_wersji=r2).filter(rodzaj="zamkniete",zestaw="zestaw1")
 
     odpZ = request.POST.getlist('odpZ')
     odpO = request.POST.getlist('odpO')
@@ -341,6 +396,8 @@ def odpM(request, user_id,post_id):
         x=user
     for post in postsM:
         y=post
+        y.stan="check"
+        y.save()
     new_answer = request.POST['comment']
     if (new_answer==""):
         error="Empty,try again"
@@ -364,3 +421,14 @@ def score(request, user_id):
     score = Score.objects.filter(id_user_id=user_id)
     context = {'users':users, 'score':score}
     return render(request, 'forum/userScore.html',context)
+  
+def check(request, user_id,post_id):
+    users = User.objects.filter(id=user_id)
+    postsM = PostM.objects.filter(id=post_id)
+    answersM = AnswerM.objects.filter(zadanie=post_id)
+    for post in postsM:
+        y=post
+        y.stan=""
+        y.save()
+    context = {'postsM': postsM,'answersM': answersM,'users': users}
+    return render(request, 'forum/postsM.html', context)
