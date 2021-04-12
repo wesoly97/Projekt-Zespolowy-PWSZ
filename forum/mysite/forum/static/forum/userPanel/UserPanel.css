@@ -1,0 +1,222 @@
+body{
+    background-color:#f7f7f7;
+}
+.profilePicture
+{  
+    margin-top: 10vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+}
+.ChangeAvatar{
+    margin-bottom:10px;
+    text-decoration: none;
+    color:black;
+}
+.first-name{
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    line-height:40px;
+    font-size: 48px;
+    
+}
+.last-name{
+    font-family: Roboto;
+    font-style: normal;
+    font-weight:200;
+    font-size: 36px;
+}
+.Simple-Data
+{
+    margin-right: auto;
+    margin-left:auto;
+    width:45%;
+    margin-top: 2vh;
+}
+.first{
+    padding-left:10px;
+    font-size:26px;
+}
+.forms
+{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+}
+.forms label {
+    width:150px;
+    clear:left;
+    text-align:right;
+    padding-right:20px;
+    padding-top:5px;
+}
+.forms select{
+    outline: none;
+    border: 1px solid #CED4DA;
+    padding-left:7px;
+    height:37px;
+}
+.first-form
+{
+    display:flex;
+    margin-bottom: 10px;
+}
+.second-form
+{
+    display:flex;
+    margin-bottom: 10px;
+}
+.third-form
+{
+    display:flex;
+}
+.privacy{
+  
+    margin-right: auto;
+    margin-left:auto;
+    width:45%;
+    margin-top: 2vh;
+    
+}
+.checkbox{
+    display:flex;
+    flex-direction: row;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    font-size:15px;
+}
+.checkbox{
+    display:flex;
+    flex-direction: row;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    font-size:15px;
+}
+.checkbox label{
+    padding-top:4px;
+}
+.form-check-label{
+    padding-left:20px;
+    padding-right:20px;
+}
+.form-check-label:after{
+    content: "";
+    position: absolute;
+    display: none;
+}
+.form-check input:checked ~ .form-check-label:after {
+    display: block;
+  }
+  .form-check .form-check-label:after {
+    left: 8px;
+    top: 8px;
+    width: 7px;
+    height: 12px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+  }
+.form-check-input{
+width:25px;
+height:25px;
+border-radius: 20%;
+vertical-align: middle;
+border: 1px solid;
+-webkit-appearance: none;
+outline: none;
+cursor: pointer;
+background-color:white; 
+border:1px solid #CED4DA;
+}
+.form-check-input[type=checkbox]:not(:checked){
+    box-shadow:none;
+}
+.form-check-input[type=checkbox]:checked {
+    background-color:#7749F8; 
+    box-shadow:none;
+}
+@media only screen and (max-device-width: 500px){
+    .first-name{
+        font-size: 68px;
+    }
+    .ChangeAvatar{
+        font-size:24px;
+    }
+    .last-name{
+        font-size: 46px;
+    }
+    .first{
+        font-size:36px;
+    }
+    .Simple-Data
+    {
+    width:65%;
+    }
+    .forms label {
+        width:200px;
+        height:50px;
+        font-size:24px;
+    }
+    .forms input {
+        height:50px;
+        font-size:24px;
+    }
+    .forms select {
+        height:50px;
+        font-size: 24px;
+    }
+    .privacy{
+        width:65%;     
+    }
+    .form-check{
+        padding-top:10px;
+    }
+    .form-check-input{
+        width:36px;
+        height:36px;
+        border-radius:2px;
+        }
+    .checkbox{
+        display:flex;
+        justify-content:center;
+        flex-direction:column;
+        font-size:25px;
+        padding-left:40px;
+    }
+    .profilePicture img
+    {  
+        width:35%;
+        height:auto;
+    }
+    .checkbox label{
+        width:500px;
+        clear:left;
+        text-align:right;
+        padding-right:40px;
+    }
+    .form-check .form-check-label:after {
+        left: 11px;
+        top: 17px;
+        width: 12px;
+        height: 20px;
+        border: solid white;
+        border-width: 0 3px 3px 0;
+        -webkit-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+        transform: rotate(45deg);
+      }
+      .selected{
+        font-size: 12px;
+        background-color:white;
+      }
+      option[selected] {
+        background: white;
+    }
+}

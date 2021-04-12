@@ -35,5 +35,6 @@ urlpatterns = [
 
     path('login', views.login, name='login'),
     path('log_in', views.login_user, name='log_in'),
-    path('logout', views.logout, name='log_out')
+    path('logout', views.logout, name='log_out'),
+    path('userPanel_user_<int:user_id>/', views.userPanel, name='userPanel'), 
 ]
