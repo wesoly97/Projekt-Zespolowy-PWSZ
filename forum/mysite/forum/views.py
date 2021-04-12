@@ -227,6 +227,7 @@ def math_page3(request, user_id):
     tasks_close=''
     tresci_zad_zamknietych=''
     odp_zamkniete=''
+
     tasks_open=''
     tresci_zad_otwartych=''
     odp_otwarte=''
@@ -240,20 +241,22 @@ def math_page3(request, user_id):
         punktyZ=punktyZ+1
       tasks_close+=str(zz.id)+' '
       tresci_zad_zamknietych+=zz.tresc+ '\n'  
-      odp_zamkniete+=zz.odpowiedz+ '\n'
+      odp_zamkniete+=odpZ[x]+ ' '
       x=x+1
+
+    x=0
 
     for zo in zos:
       posts= PostM.objects.filter(zadanie=zo.id)
       for post in posts:
         linki.append(post)
       punktyMAX=punktyMAX+2
-      x=int(punktyO)/2
-      if zo.odpowiedz == odpO:
+      if zo.odpowiedz == odpO[x]:
         punktyO=punktyO+2
       tasks_open+=str(zo.id)+' '
       tresci_zad_otwartych+=zo.tresc+ '\n'
-      odp_otwarte+=zo.odpowiedz+ '\n'  
+      odp_otwarte+=odpO[x]+ '\n'
+      x=x+1  
       
     
     punkty=punktyZ+punktyO
