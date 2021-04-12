@@ -12,6 +12,7 @@ from .models import AnswerM
 from .models import Zadanie_zamkniete
 from .models import Zadanie_otwarte
 from .models import zadanie_matematyczne
+from .models import Score
 import random
 
 from django.core.files.storage import FileSystemStorage
@@ -252,6 +253,7 @@ def math_page2(request, user_id):
    
     zos=zadanie_matematyczne.objects.filter(id=225)|zadanie_matematyczne.objects.filter(id=230)
 
+
     zzs=zadanie_matematyczne.objects.filter(id=201)|zadanie_matematyczne.objects.filter(id=181)|zadanie_matematyczne.objects.filter(id=180)
     
     context = {'users': users,'zos': zos,'zzs': zzs}
@@ -272,11 +274,19 @@ def math_page3(request, user_id):
     odpO = request.POST.getlist('odpO')
 
     linki = []
-
+    
     punktyZ=0
     punktyO=0
     punktyMAX=0
     x=0
+    tasks_close=''
+    tresci_zad_zamknietych=''
+    odp_zamkniete=''
+
+    tasks_open=''
+    tresci_zad_otwartych=''
+    odp_otwarte=''
+
     for zz in zzs:
       posts= PostM.objects.filter(zadanie=zz.id)
       for post in posts:
@@ -284,20 +294,31 @@ def math_page3(request, user_id):
       punktyMAX=punktyMAX+1
       if zz.odpowiedz == odpZ[x]:
         punktyZ=punktyZ+1
+      tasks_close+=str(zz.id)+' '
+      tresci_zad_zamknietych+=zz.tresc+ '\n'  
+      odp_zamkniete+=odpZ[x]+ ' '
       x=x+1
+
+    x=0
 
     for zo in zos:
       posts= PostM.objects.filter(zadanie=zo.id)
       for post in posts:
         linki.append(post)
       punktyMAX=punktyMAX+2
-      x=int(punktyO)/2
-      if zo.odpowiedz == odpO:
+      if zo.odpowiedz == odpO[x]:
         punktyO=punktyO+2
+      tasks_open+=str(zo.id)+' '
+      tresci_zad_otwartych+=zo.tresc+ '\n'
+      odp_otwarte+=odpO[x]+ '\n'
+      x=x+1  
+      
     
     punkty=punktyZ+punktyO
       
-
+    newScore=Score(id_user_id=user_id, id_zad_otwartych=tasks_open, odp_otwarte=odp_otwarte, tresci_zad_otwartych=tresci_zad_otwartych, 
+    id_zad_zamknietych=tasks_close, tresci_zad_zamknietych=tresci_zad_zamknietych, odp_zamkniete=odp_zamkniete, punkty=punkty)
+    newScore.save()
     context = {'users': users,'zos': zos,'zzs': zzs,'odpO': odpO,'odpZ': odpZ,'punktyMAX': punktyMAX,'punkty': punkty,'linki': linki}
     return render(request, 'forum/MATH_PAGE3.html', context)
 
@@ -395,6 +416,12 @@ def delete_odpM(request, user_id,post_id,answer_id):
     context = {'postsM': postsM,'answersM': answersM,'users': users}
     return render(request, 'forum/postsM.html', context)
 
+def score(request, user_id):
+    users = User.objects.filter(id=user_id)
+    score = Score.objects.filter(id_user_id=user_id)
+    context = {'users':users, 'score':score}
+    return render(request, 'forum/userScore.html',context)
+  
 def check(request, user_id,post_id):
     users = User.objects.filter(id=user_id)
     postsM = PostM.objects.filter(id=post_id)

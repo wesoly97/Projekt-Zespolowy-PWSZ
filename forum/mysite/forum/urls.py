@@ -22,6 +22,9 @@ urlpatterns = [
     path('forum_user_<int:user_id>/p<int:post_id>/check/', views.check, name='check'),
     path('forum_user_<int:user_id>/add/', views.add, name='add'),
 
+    path('userScore_<int:user_id>', views.score, name='userScore'),
+
+
     path('register2', views.register2, name='register2'),
     path('register1', views.register1, name='register1'),
 
