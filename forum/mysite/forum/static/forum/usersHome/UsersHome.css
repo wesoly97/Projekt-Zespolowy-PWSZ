@@ -1,0 +1,113 @@
+body{
+    background-color: #F5F5F5;
+}
+#content{
+    margin: auto;
+    width: 70%;
+    padding: 10px;
+    margin-top: 2%;
+}
+#centerCard{
+    margin: 0 auto;
+    
+}
+.bottom{
+    margin-top: 2%;
+}
+.card{
+    margin-top: 10px;
+}
+#upperCard{
+    
+    float:right;
+    
+}
+.btn{
+    background-color: #FFE06B;
+    font-weight: bold;
+    border: #FFE06B;
+    color:black;
+}
+
+@media only screen and (max-width: 1820px) {
+  
+    #upperCard{
+        
+        float: left;
+        margin-right: 0%;
+    }
+    #centerCard{
+        margin: none;
+        float:left;
+        
+    }
+    .cardleft{
+        float: left;
+    }
+}
+@media only screen and (max-width: 1365px) {
+    #upperCard{
+        
+        float: left;
+       
+    }
+    .cardleft{
+        float: left;
+    }
+    #content{
+        width: 80%;
+    }
+    
+   
+}
+
+@media only screen and (max-width: 1196px) {
+    #content{
+        width: 90%;
+    } 
+}
+@media only screen and (max-width: 1066px) {
+    #content{
+        width: 98%;
+    } 
+}
+@media only screen and (max-width: 1010px) {
+    #upperCard{
+        
+        float: none;
+        margin-right: 0%;
+    }
+    .cardleft{
+        float: none;
+    }
+    #content{
+        width: 100%;
+    }
+    .bottom{
+        margin-top: 2%;
+        float:right;
+    }
+   
+}
+@media only screen and (max-width: 643px) {
+.card{
+    margin: 0 auto;
+    float:none;
+    margin-top: 2%;
+}
+#upperCard{
+margin: 0 auto;
+}
+#centerCard{
+    margin: 0 auto;
+    float: none;
+}
+
+.bottom{
+    
+    margin: 0 auto;
+}
+.cardleft{
+    margin: 0 auto;
+}
+}
