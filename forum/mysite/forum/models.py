@@ -4,10 +4,14 @@ class User(models.Model):
     name = models.CharField(max_length=30)
     password = models.CharField(max_length=30)
     numer_kontaktowy = models.CharField(max_length=15,blank=True)
+    email = models.CharField(max_length=100,blank=True)
+    miasto = models.CharField(max_length=100,blank=True)
     szkola = models.CharField(max_length=100,blank=True)
     ranga = models.CharField(max_length=40,blank=True)
     def __str__(self):
         return self.name
+
+
 
 class Post(models.Model):
     userP = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -70,6 +74,7 @@ class zadanie_matematyczne(models.Model):
 class PostM(models.Model):
     zadanie = models.ForeignKey(zadanie_matematyczne, on_delete=models.CASCADE)
     tresc =  models.CharField(max_length=200)
+    stan = models.CharField(max_length=30,blank=True)
     def __str__(self):
         return self.zadanie
 
@@ -79,5 +84,19 @@ class AnswerM(models.Model):
     answer =  models.CharField(max_length=200)
     def __str__(self):
         return self.answer
+        
+class Score(models.Model):
+    id_user=models.ForeignKey(User, on_delete=models.CASCADE)
+    
+    id_zad_otwartych=models.CharField(max_length=50)
+    tresci_zad_otwartych = models.CharField(max_length=300)
+    odp_otwarte=models.CharField(max_length=200)
 
+    id_zad_zamknietych=models.CharField(max_length=50)
+    tresci_zad_zamknietych = models.CharField(max_length=400)
+    odp_zamkniete=models.CharField(max_length=200)
+
+    punkty = models.IntegerField()
+    def __str__(self):
+        return self.id_user
    

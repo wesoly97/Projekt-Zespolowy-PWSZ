@@ -6,6 +6,12 @@
 {% for p in postsM %}
 <h1>Zadanie</h1>
 <p><b>Treść:</b>{{p.tresc}}</p>
+<div class="form">
+  <form method="post" action="{% url 'check' user.id p.id %}">
+    {% csrf_token %}
+    <button name="check" type="submit">Check</button>
+  </form>
+</div>
 <hr />
 <h1>Answers:</h1>
 
