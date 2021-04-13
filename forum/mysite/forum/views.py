@@ -519,10 +519,10 @@ def history(request, user_id):
         
         
         for nr in nzZ[:-1]:
-            x=str(Zadanie_zamkniete.objects.filter(id=nr).values('tresc'))[20:-3]
+            x=str(zadanie_matematyczne.objects.filter(id=nr).values('tresc'))[22:-4]
             pytZ.append(x)
         for nr in nzO[:-1]:
-            x=str(Zadanie_otwarte.objects.filter(id=nr).values('tresc'))[20:-3]
+            x=str(zadanie_matematyczne.objects.filter(id=nr).values('tresc'))[22:-4]
             pytO.append(x)
         for o in oZ[:-1]:
             oZZ.append(o)
@@ -530,10 +530,10 @@ def history(request, user_id):
             oOO.append(o)
 
         for r in nzZ[:-1]:
-            odpA=str(Zadanie_zamkniete.objects.filter(id=r).values('odp_a'))[20:-3]
-            odpB=str(Zadanie_zamkniete.objects.filter(id=r).values('odp_b'))[20:-3]
-            odpC=str(Zadanie_zamkniete.objects.filter(id=r).values('odp_c'))[20:-3]
-            odpD=str(Zadanie_zamkniete.objects.filter(id=r).values('odp_d'))[20:-3]
+            odpA=str(zadanie_matematyczne.objects.filter(id=r).values('odp_a'))[22:-4]
+            odpB=str(zadanie_matematyczne.objects.filter(id=r).values('odp_b'))[22:-4]
+            odpC=str(zadanie_matematyczne.objects.filter(id=r).values('odp_c'))[22:-4]
+            odpD=str(zadanie_matematyczne.objects.filter(id=r).values('odp_d'))[22:-4]
             temp="A) "+odpA +"   B) "+odpB +"   C) "+odpC+"   D) "+odpD
             odpZZ.append(temp)
 
