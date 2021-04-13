@@ -105,7 +105,7 @@ class Attempt(models.Model):
     numeryZadanZamknietych = models.CharField(max_length=70)
     numeryZadanOtwartych = models.CharField(max_length=70)
     odpowiedzi = models.CharField(max_length=200)
-    punkty=models.IntegerField();
+    punkty=models.IntegerField()
     def __str__(self):
         return self.punkty
    
