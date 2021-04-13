@@ -73,7 +73,7 @@ let answerMathField2 = MQ.MathField(answerSpan2, {
         answerMathField.reflow();
     });
     $( "#potegasolution0" ).click(function() {
-        answerMathField.write('\\^{}');
+        answerMathField.write('\^{}');
         answerMathField.reflow();
     });
     $( "#cbrtsolution0" ).click(function() {
@@ -110,7 +110,7 @@ $( "#dzielenieanswer0" ).click(function() {
     answerMathField2.write('\\frac{ }{ }');
     answerMathField2.reflow();
 });
-$( "#potegaanswern0" ).click(function() {
+$( "#potegaanswer0" ).click(function() {
     answerMathField2.write('\\^{}');
     answerMathField2.reflow();
 });
@@ -149,7 +149,7 @@ $( "#cbrtanswer0 ").click(function() {
         answerMathField1.reflow();
     });
     $( "#potegasolution1" ).click(function() {
-        answerMathField1.write('\\^{}');
+        answerMathField1.write('\^{}');
         answerMathField1.reflow();
     });
     $( "#cbrtsolution1" ).click(function() {
@@ -186,8 +186,8 @@ $( "#dzielenieanswer1" ).click(function() {
     answerMathField12.write('\\frac{ }{ }');
     answerMathField12.reflow();
 });
-$( "#potegaanswern1" ).click(function() {
-    answerMathField12.write('\\^{}');
+$( "#potegaanswer1" ).click(function() {
+    answerMathField12.write('\^{}');
     answerMathField12.reflow();
 });
 $( "#cbrtanswer1 ").click(function() {
