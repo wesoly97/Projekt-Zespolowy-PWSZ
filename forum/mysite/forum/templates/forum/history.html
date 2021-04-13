@@ -1,16 +1,38 @@
-{% extends 'forum/base.html' %} 
+{% extends 'forum/base.html' %}
 {% block content %}
+ {% block css %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'forum/MathQuil/mathquill.css' %}"/>
+<script src="{% static 'forum/MathQuil/mathquill.js' %}"></script>
+{% endblock %}
+{% block js %}
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\(','\)']]},
+    svg: {
+    fontCache: 'global'
+  }
+  });
+</script>
+<script type="text/javascript"
+  src="http://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+{% endblock %}
+
+
 <div class="home">
   <h1>Historia!</h1>
 {% for pytZ,odpZZ,oZZ in pytaniaZamkniete %}
     PYTANIE : {{ pytZ }} <br>
-    ODPOWIEDZI : {{ odpZZ }}<br>
-    ODPOWIEDZ : {{ oZZ }}<br>
+    ODPOWIEDZI : ${{ odpZZ }}$<br>
+    ODPOWIEDZ : ${{ oZZ }}$<br>
+    <hr>
 {% endfor %}
 
 {% for pytO,oOO in pytaniaOtwarte %}
     PYTANIE : {{ pytO }} <br>
-    ODPOWIEDZ : {{ oOO }}<br>
+    ODPOWIEDZ : ${{ oOO }}$<br>
+    <hr>
 {% endfor %}
   {% comment %} <h3>Pytania zamkniete</h3>
   <div>
