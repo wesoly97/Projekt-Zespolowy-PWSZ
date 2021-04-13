@@ -419,7 +419,8 @@ def delete_odpM(request, user_id,post_id,answer_id):
 def userPanel(request, user_id):
     users = User.objects.filter(id=user_id)
     context = {'users': users}
-    return render(request, 'forum/userPanel.html', context) 
+    return render(request, 'forum/userPanel.html', context)
+     
 def score(request, user_id):
     users = User.objects.filter(id=user_id)
     score = Score.objects.filter(id_user_id=user_id)
