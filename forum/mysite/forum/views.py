@@ -542,5 +542,5 @@ def history(request, user_id):
 
     pytaniaZamkniete=zip(pytZ,odpZZ,oZZ)
     pytaniaOtwarte=zip(pytO,oOO)
-    context = {'pytaniaZamkniete':pytaniaZamkniete, 'pytaniaOtwarte':pytaniaOtwarte}
+    context = {'pytaniaZamkniete':pytaniaZamkniete, 'pytaniaOtwarte':pytaniaOtwarte,'posts':posts}
     return render(request, 'forum/history.html', context)
