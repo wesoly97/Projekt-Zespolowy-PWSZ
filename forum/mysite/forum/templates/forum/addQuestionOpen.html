@@ -72,27 +72,6 @@
             <h6>Rozwiązanie</h6>
             <div class="row">
                <div class="col-sm-7 offset-sm-1 border" >
-                  <span id="answerA" class="border-0"></span><textarea  id="latexA" rows="3" name="solution" required style="opacity:0;width:0px;height:0px;"></textarea>
-               </div>
-               <div class="col-sm-2 border ml-5">
-                  <div class="row">
-                     <div class="col" id="sqrtA">√</div>
-                     <div class="col"  id="mldA">*</div>
-                     <div class="col" id="plusA">+</div>
-                     <div class="w-100"></div>
-                     <div class="col" id="minusA">-</div>
-                     <div class="col" id="przecinekA">,</div>
-                     <div class="col" id="piA">π</div>
-                     <div class="w-100"></div>
-                     <div class="col" id="dzielenieA">¼</div>
-                     <div class="col" id="potegaA">^</div>
-                     <div class="col" id="cbrtA">∛</div>
-                  </div>
-               </div>
-            </div>
-            <h6>Odpowiedź</h6>
-            <div class="row">
-               <div class="col-sm-7 offset-sm-1 border" >
                   <span id="answer" class="border-0"></span><textarea  id="latex2" rows="3" name="inputAnswer" required style="opacity:0;width:0px;height:0px;"></textarea>
                </div>
                <div class="col-sm-2 border ml-5">
@@ -111,6 +90,27 @@
                   </div>
                </div>
             </div>
+            <h6>Odpowiedź</h6>
+            <div class="row">
+               <div class="col-sm-7 offset-sm-1 border" >
+                  <span id="answerA" class="border-0"></span><textarea  id="latexA" rows="3" name="solution" required style="opacity:0;width:0px;height:0px;"></textarea>
+               </div>
+               <div class="col-sm-2 border ml-5">
+                  <div class="row">
+                     <div class="col" id="sqrtA">√</div>
+                     <div class="col"  id="mldA">*</div>
+                     <div class="col" id="plusA">+</div>
+                     <div class="w-100"></div>
+                     <div class="col" id="minusA">-</div>
+                     <div class="col" id="przecinekA">,</div>
+                     <div class="col" id="piA">π</div>
+                     <div class="w-100"></div>
+                     <div class="col" id="dzielenieA">¼</div>
+                     <div class="col" id="potegaA">^</div>
+                     <div class="col" id="cbrtA">∛</div>
+                  </div>
+               </div>
+            </div>
             <h6>Dodaj zdjęcie</h6>
             <div>
                <input type="file" class="form-control-file inputsFile" name="image" accept="image/png, image/jpeg, image/svg">
@@ -123,7 +123,8 @@
   </div>
 </div>
 </form>
-<script src="{% static "forum/js/content.js" %}"></script>
-<script src="{% static "forum/js/answer.js" %}"></script>
+<script src="{% static 'forum/js/content.js' %}"></script>
+<script src="{% static 'forum/js/answer.js' %}"></script>
+<script src="{% static 'forum/js/answerA.js' %}"></script>
 {% block importsJavascript %} {% endblock importsJavascript %}
 {% endfor %} {% endblock content %}
