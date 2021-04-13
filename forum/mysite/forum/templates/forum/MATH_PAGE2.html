@@ -1,6 +1,8 @@
 {% extends 'forum/base.html' %}{% load static %} {% block content %} {% for user in users %}
 {% block imports %}
 {% load static %}
+{% block css %} <link rel="stylesheet" href="{% static 'forum/styles/mathPage2/mathPage2.css' %}"> {% endblock css %} 
+
  <link rel="stylesheet" href="{% static 'forum/MathQuil/mathquill.css' %}"/>
 <script src="{% static 'forum/MathQuil/mathquill.js' %}"></script>
 <script type="text/x-mathjax-config">
@@ -18,46 +20,40 @@
   <script>
         let MQ = MathQuill.getInterface(2); 
     </script>
-<h1>Math page</h1>
-<br />
-<hr />
-
+<div class="container-fluid"> 
 <form method="post" action="{% url 'math_page3' user.id %}">
   {% csrf_token %} 
-
   {% for zz in zzs %}
-  <h1>Zadanie zamkniete nr{{forloop.counter0}}</h1>
-  <p><b>Tresc:</b><p>{{zz.tresc}} </p>
-  </p>
-  <br />
-  <p><b>odpA:</b>$${{zz.odp_a}}$$</p>
-  <br />
-  <p><b>odpB:</b>$${{zz.odp_b}}$$</p>
-  <br />
-  <p><b>odpC:</b>$${{zz.odp_c}}$$</p>
-  <br />
-  <p><b>odpD:</b>$${{zz.odp_d}}$$</p>
-  <br />
-  <label for="odpZ">Choose the correct answer:</label>
-  <select name="odpZ">
-    <option value="A">A</option>
-    <option value="B">B</option>
-    <option value="C">C</option>
-    <option value="D">D</option>
-  </select>
-  <br />
-  <hr />
+  <div id="zadZ">
+  <h1>Zadanie zamkniete nr. {{forloop.counter0}}</h1>
+  <p>{{zz.tresc}} </p>
+  <div id="odpZMain">
+    <div class="odpZ "><b>A:</b>$${{zz.odp_a}}$$</div>
+    <div class="odpZ"><b>B:</b>$${{zz.odp_b}}$$</div>
+    <div class="odpZ"><b>C:</b>$${{zz.odp_c}}$$</div>
+    <div class="odpZ"><b>D:</b>$${{zz.odp_d}}$$</div>
+  </div>
+  <div id="odbZselect">
+    <label for="odpZ">Wybierz poprawną odpowiedź:</label>
+    <select name="odpZ">
+      <option value="A">A</option>
+      <option value="B">B</option>
+      <option value="C">C</option>
+      <option value="D">D</option>
+    </select>
+  </div>
+</div>
   {% endfor %} {% for zo in zos %}
-  <h1>Zadanie otwarte nr{{forloop.counter0}}</h1>
-  <p><b>Tresc:</b>{{zo.tresc}}</p>
+  <div id="odpO">
+  <h1>Zadanie otwarte nr. {{forloop.counter0}}</h1>
+  <p>{{zo.tresc}}</p>
   <br />
   {% if zo.url != "" %}
 <img src="{% static zo.url %}"/>
 {% endif %}
-  <p>Wprowadz Odpowiedz: <br><br>
-  <span id="answer{{forloop.counter0}}" style="width:450px;"></span><textarea name="odpO" id="latexanswer{{forloop.counter0}}" style="opacity: 0;" required></textarea></p>
-    <br>
-    <div style="width:305;border-style: solid; display:inline-block;">
+  <p>Wprowadź odpowiedź:</p>
+  <span id="answer{{forloop.counter0}}" style="width:30%; background-color:white; margin-left:20px;"></span><textarea name="odpO" id="latexanswer{{forloop.counter0}}" style="opacity: 0;" required></textarea></p>
+    <div id="tools">
         <div id="sqrtanswer{{forloop.counter0}}" style=" float:left; padding:20px;">√</div>
         <div id="mldanswer{{forloop.counter0}}" style=" float:left;padding:20px;">*</div>
         <div id="plusanswer{{forloop.counter0}}" style=" float:left;padding:20px;">+</div>
@@ -67,15 +63,16 @@
         <div id="dzielenieanswer{{forloop.counter0}}" style=" float:left;padding:20px;">¼</div>
         <div id="potegaanswer{{forloop.counter0}}" style=" float:left;padding:20px;">^</div>
         <div id="cbrtanswer{{forloop.counter0}}" style=" float:left;padding:20px;">∛</div>
-    </div><br><br>
-      
-    <br>
-    
-  <hr />
+    </div>
+  </div>
+
   {% endfor %}
-  <input type="submit" value="odpQUIZ" /><br /><br />
-  <a href="{% url 'math_page' user.id %}">Wróć</a><br /><br />
+  <div id="sendAnswers">
+  <input type="submit" value="Sprawdź zestaw" />
+  <button value="Wróć"><a href="{% url 'math_page' user.id %}">Wróć</a></button>
+  </div>
   {% endfor %}
 </form>
+</div>
 <script src="{% static "forum/js/displaySetsSolution.js" %}"></script>
 {% endblock content %}
