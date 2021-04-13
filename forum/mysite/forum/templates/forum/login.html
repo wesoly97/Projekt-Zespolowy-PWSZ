@@ -1,17 +1,57 @@
 {% extends 'forum/base.html' %}
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'forum/styles/login/styleLogin.css' %}">
+{% endblock css %}
+
 {% block content %}
 
-<h1>Zaloguj się</h1>
+<div class="container-fluid Wrapper">
 
-<form method="post" action="{% url 'log_in' %}">
-    {% csrf_token %}
-    <input type="text" name="login" placeholder="Login" />
-    <br><br>
-    <input type="password" name="password" placeholder="Hasło" />
-    <br><br>
-    <input type="submit" value="Zaloguj">
-</form>
+    <div class="row no-gutters">
+        <div class="col-md-3 d-none d-md-block"></div>
+        <div class="col-md-6 col-12">
+            <div class="LoginForm">
+                <div class="container pt-5 Logo">
+                    <img src="{% static 'forum/images/register/logo.png' %}" alt="Logo serwisu Cyrkielek">
+                </div>
 
-<h2>{{ error }}</h2>
+                <span class="LoginLabel">
+                    Logowanie
+                </span>
+
+                <form method="post" action="{% url 'log_in' %}">
+                    {% csrf_token %}
+                    <div class="InputLabels">
+                        <div class="form-group col-8 col-md-8 col-xl-6">
+                            <label class="InputLabelsHover" for="Name">Nazwa użytkownika</label>
+                            <input type="text" class="form-control" id="Name" aria-required="true" name="login">
+                        </div>
+                    </div>
+                    <div class="InputLabels">
+                        <div class="form-group col-8 col-md-8 col-xl-6">
+                            <label class="InputLabelsHover" for="Password">Podaj hasło</label>
+                            <input type="password" class="form-control" id="Password" aria-required="true"
+                                   name="password">
+                        </div>
+                    </div>
+                    <div class="InputLabels mb-5">
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-outline-primary SubmitButton" value="Zaloguj">Zaloguj
+                            </button>
+                        </div>
+                    </div>
+                </form>
+                <br/>
+                <h2>{{ error }}</h2>
+                <br/><br/>
+            </div>
+        </div>
+        <div class="col-md-3 d-none d-md-block"></div>
+    </div>
+
+
+</div>
 
 {% endblock content %}

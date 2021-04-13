@@ -85,6 +85,15 @@ class AnswerM(models.Model):
     def __str__(self):
         return self.answer
         
+class Attempts(models.Model):
+    user = models.IntegerField(blank=True)
+    numeryZadanZamknietych = models.CharField(max_length=70)
+    numeryZadanOtwartych = models.CharField(max_length=70)
+    odpowiedzi = models.CharField(max_length=200)
+    punkty=models.IntegerField()
+    def __str__(self):
+        return self.punkty
+        
 class Score(models.Model):
     id_user=models.ForeignKey(User, on_delete=models.CASCADE)
     
@@ -99,4 +108,6 @@ class Score(models.Model):
     punkty = models.IntegerField()
     def __str__(self):
         return self.id_user
+
+
    

@@ -19,6 +19,9 @@ from django.core.files.storage import FileSystemStorage
 import re
 
 
+
+
+
 #####################################################
 #                                                   #
 #   Funkcja sprawdzająca czy user jest zalogowany   #
@@ -44,6 +47,21 @@ def auth_user_id(request):
         return request.session['logged_user']
     else:
         return "User not authenticated"
+
+
+#####################################################
+#                                                   #
+#   Funkcja zwracająca range zalogowanego usera     #
+#                                                   #
+#####################################################
+def auth_user_rank(request):
+    if is_user_authenticated(request):
+        user = User.objects.filter(id=auth_user_id(request))[0]
+        return user.ranga
+    else:
+        return 0
+
+
 #####################################################
 #                                                   #
 #      Funkcja dodająca nowy post do zadania        #
@@ -53,6 +71,8 @@ def addNewPost(NumberTask,nrWersji):
     taskAdded = zadanie_matematyczne.objects.get(nr_zadania=NumberTask,nr_wersji=nrWersji)
     newPost=PostM(zadanie=taskAdded,tresc=taskAdded.tresc)
     newPost.save()
+
+
 #####################################################
 #                                                   #
 #      Funkcja zamieniajaca format dla mathjax      #
@@ -75,6 +95,7 @@ def replace(text):
        newSubString=tmp.replace(' ','\ ')
        newtext = newtext.replace(j,newSubString)
     return newtext
+
 
 def index(request):
     users = User.objects.all()
@@ -110,22 +131,34 @@ def logout(request):
 
 
 def register1(request):
+    if is_user_authenticated(request):
+        return redirect('usersHOME', user_id=auth_user_id(request))
     users = User.objects.all()
     context = {'users': users}
     return render(request, 'forum/register1.html', context)
 
-def addQuestionView(request,user_id):
+
+def addQuestionView(request, user_id):
+    if auth_user_rank(request) != 'admin' and auth_user_rank(request) != 'moderator':
+        return render(request, 'forum/error.html', context={'error': 'Brak uprawnień'})
     users = User.objects.filter(id=user_id)
 
     context = {'users': users}
     
     return render(request, 'forum/addQuestionOpen.html', context)
-def addQuestionViewClosedQuestion(request,user_id):
+
+
+def addQuestionViewClosedQuestion(request, user_id):
+    if auth_user_rank(request) != 'admin' and auth_user_rank(request) != 'moderator':
+        return render(request, 'forum/error.html', context={'error': 'Brak uprawnień'})
     users = User.objects.filter(id=user_id)
     context = {'users': users}
     return render(request, 'forum/addQuestionClose.html', context)
 
+
 def addQuestionOpenToDatabase(request):
+    if auth_user_rank(request) != 'admin' and auth_user_rank(request) != 'moderator':
+        return render(request, 'forum/error.html', context={'error': 'Brak uprawnień'})
     NumberTask = request.POST['numberTask']
     section = request.POST['section']
     set = request.POST['set']
@@ -159,6 +192,8 @@ def addQuestionOpenToDatabase(request):
     return render(request, 'forum/addQuestionOpen.html', context)
 
 def addQuestionCloseToDatabase(request):
+    if auth_user_rank(request) != 'admin' and auth_user_rank(request) != 'moderator':
+        return render(request, 'forum/error.html', context={'error': 'Brak uprawnień'})
     NumberTask = request.POST['numberTask']
     section = request.POST['section']
     set = request.POST['set']
@@ -203,7 +238,7 @@ def register2(request):
         msg="Empty,try again"
     else:
         if(User.objects.filter(name=Name).count()==0):
-            u = User(name=Name,password=Password)
+            u = User(name=Name,password=Password,ranga="user")
             u.save()
             msg="User added"
         else:
@@ -212,15 +247,16 @@ def register2(request):
     return render(request, 'forum/register2.html', context)
 
 def usersHOME(request, user_id):
-    if is_user_authenticated(request):
-        users = User.objects.filter(id=auth_user_id(request))
-        context = {'users': users}
-        return render(request, 'forum/usersHome.html', context)
-    else:
-        return render(request, 'forum/error.html', {'error': auth_user_id(request)})
+    if not is_user_authenticated(request):
+        return render(request, 'forum/error.html', context={'error': 'Nie jesteś zalogowany'})
+
+    users = User.objects.filter(id=auth_user_id(request))
+    context = {'users': users}
+    return render(request, 'forum/usersHome.html', context)
+
 
 def user_at_forum(request, user_id):
-    users = User.objects.filter(id=user_id)
+    users = User.objects.filter(id=auth_user_id(request))
     posts = Post.objects.all()
     postsM= PostM.objects.all()
     postsToChcekM=PostM.objects.filter(stan="check")
@@ -229,12 +265,16 @@ def user_at_forum(request, user_id):
     return render(request, 'forum/userFORUM.html', context)
 
 def math_page(request, user_id):
-    users = User.objects.filter(id=user_id)
+    if not is_user_authenticated(request):
+        return render(request, 'forum/error.html', context={'error': 'Nie jesteś zalogowany'})
+    users = User.objects.filter(id=auth_user_id(request))
     context = {'users': users}
     return render(request, 'forum/MATH_PAGE.html', context)
 
 def math_page2(request, user_id):
-    users = User.objects.filter(id=user_id)
+    if not is_user_authenticated(request):
+        return render(request, 'forum/error.html', context={'error': 'Nie jesteś zalogowany'})
+    users = User.objects.filter(id=auth_user_id(request))
 
     r=request.session.get('r')
     r2=request.session.get('r2')
@@ -260,15 +300,19 @@ def math_page2(request, user_id):
     return render(request, 'forum/MATH_PAGE2.html', context)
 
 def math_page3(request, user_id):
-    users = User.objects.filter(id=user_id)
+    if not is_user_authenticated(request):
+        return render(request, 'forum/error.html', context={'error': 'Nie jesteś zalogowany'})
+    users = User.objects.filter(id=auth_user_id(request))
 
     r=request.session.get('r')
     r2=request.session.get('r2')
     r3=request.session.get('r3')
     r4=request.session.get('r4')
 
-    zos=zadanie_matematyczne.objects.filter(nr_wersji=r).filter(rodzaj="otwarte",zestaw="zestaw1")
-    zzs=zadanie_matematyczne.objects.filter(nr_wersji=r2).filter(rodzaj="zamkniete",zestaw="zestaw1")
+    zos=zadanie_matematyczne.objects.filter(id=225)|zadanie_matematyczne.objects.filter(id=230)
+
+
+    zzs=zadanie_matematyczne.objects.filter(id=201)|zadanie_matematyczne.objects.filter(id=181)|zadanie_matematyczne.objects.filter(id=180)
 
     odpZ = request.POST.getlist('odpZ')
     odpO = request.POST.getlist('odpO')
@@ -323,21 +367,27 @@ def math_page3(request, user_id):
     return render(request, 'forum/MATH_PAGE3.html', context)
 
 def post(request, user_id,post_id):
-    users = User.objects.filter(id=user_id)
+    if not is_user_authenticated(request):
+        return render(request, 'forum/error.html', context={'error': 'Nie jesteś zalogowany'})
+    users = User.objects.filter(id=auth_user_id(request))
     posts = Post.objects.filter(id=post_id)
     answers = Answer.objects.filter(post=post_id)
     context = {'posts': posts,'answers': answers,'users': users}
     return render(request, 'forum/posts.html', context)
 
 def postM(request, user_id,post_id):
-    users = User.objects.filter(id=user_id)
+    if not is_user_authenticated(request):
+        return render(request, 'forum/error.html', context={'error': 'Nie jesteś zalogowany'})
+    users = User.objects.filter(id=auth_user_id(request))
     postsM = PostM.objects.filter(id=post_id)
     answersM = AnswerM.objects.filter(zadanie=post_id)
     context = {'postsM': postsM,'answersM': answersM,'users': users}
     return render(request, 'forum/postsM.html', context)
 
 def add(request, user_id):
-    users = User.objects.filter(id=user_id)
+    if not is_user_authenticated(request):
+        return render(request, 'forum/error.html', context={'error': 'Nie jesteś zalogowany'})
+    users = User.objects.filter(id=auth_user_id(request))
     temat = request.POST['temat']
     tresc = request.POST['tresc']
     for user in users:
@@ -354,14 +404,18 @@ def add(request, user_id):
     return render(request, 'forum/add.html', context)
 
 def delete(request, user_id,post_id):
-    users = User.objects.filter(id=user_id)
+    if not is_user_authenticated(request):
+        return render(request, 'forum/error.html', context={'error': 'Nie jesteś zalogowany'})
+    users = User.objects.filter(id=auth_user_id(request))
     posts = Post.objects.filter(id=post_id)
     posts.delete()
     context = {'users': users}
     return render(request, 'forum/delete.html', context)
 
 def odp(request, user_id,post_id):
-    users = User.objects.filter(id=user_id)
+    if not is_user_authenticated(request):
+        return render(request, 'forum/error.html', context={'error': 'Nie jesteś zalogowany'})
+    users = User.objects.filter(id=auth_user_id(request))
     posts = Post.objects.filter(id=post_id)
     answers = Answer.objects.filter(post=post_id)
     error=""
@@ -379,7 +433,9 @@ def odp(request, user_id,post_id):
     return render(request, 'forum/posts.html', context)
 
 def delete_odp(request, user_id,post_id,answer_id):
-    users = User.objects.filter(id=user_id)
+    if not is_user_authenticated(request):
+        return render(request, 'forum/error.html', context={'error': 'Nie jesteś zalogowany'})
+    users = User.objects.filter(id=auth_user_id(request))
     posts = Post.objects.filter(id=post_id)
     answers = Answer.objects.filter(id=answer_id)
     answers.delete()
@@ -388,7 +444,9 @@ def delete_odp(request, user_id,post_id,answer_id):
     return render(request, 'forum/posts.html', context)
 
 def odpM(request, user_id,post_id):
-    users = User.objects.filter(id=user_id)
+    if not is_user_authenticated(request):
+        return render(request, 'forum/error.html', context={'error': 'Nie jesteś zalogowany'})
+    users = User.objects.filter(id=auth_user_id(request))
     postsM = PostM.objects.filter(id=post_id)
     answersM = AnswerM.objects.filter(zadanie=post_id)
     error=""
@@ -408,7 +466,9 @@ def odpM(request, user_id,post_id):
     return render(request, 'forum/postsM.html', context)
 
 def delete_odpM(request, user_id,post_id,answer_id):
-    users = User.objects.filter(id=user_id)
+    if not is_user_authenticated(request):
+        return render(request, 'forum/error.html', context={'error': 'Nie jesteś zalogowany'})
+    users = User.objects.filter(id=auth_user_id(request))
     postsM = PostM.objects.filter(id=post_id)
     answersM = AnswerM.objects.filter(id=answer_id)
     answersM.delete()
@@ -419,7 +479,8 @@ def delete_odpM(request, user_id,post_id,answer_id):
 def userPanel(request, user_id):
     users = User.objects.filter(id=user_id)
     context = {'users': users}
-    return render(request, 'forum/userPanel.html', context) 
+    return render(request, 'forum/userPanel.html', context)
+     
 def score(request, user_id):
     users = User.objects.filter(id=user_id)
     score = Score.objects.filter(id_user_id=user_id)
@@ -427,7 +488,9 @@ def score(request, user_id):
     return render(request, 'forum/userScore.html',context)
   
 def check(request, user_id,post_id):
-    users = User.objects.filter(id=user_id)
+    if not is_user_authenticated(request):
+        return render(request, 'forum/error.html', context={'error': 'Nie jesteś zalogowany'})
+    users = User.objects.filter(id=auth_user_id(request))
     postsM = PostM.objects.filter(id=post_id)
     answersM = AnswerM.objects.filter(zadanie=post_id)
     for post in postsM:
@@ -436,3 +499,50 @@ def check(request, user_id,post_id):
         y.save()
     context = {'postsM': postsM,'answersM': answersM,'users': users}
     return render(request, 'forum/postsM.html', context)
+
+def history(request, user_id):
+    score = Score.objects.filter(id_user_id=user_id)
+    posts = Post.objects.filter(userP_id=user_id)
+    answer = Answer.objects.filter(userA_id=user_id)
+    answerM = AnswerM.objects.filter(userA_id=user_id)
+
+    nzO=[]
+    nzZ=[]
+    oZZ=[]
+    oOO=[]
+    pytZ=[]
+    pytO=[]
+    odpZZ=[]
+    for s in score:
+        nzO = list(s.id_zad_otwartych.split(" "))
+        nzZ = list(s.id_zad_zamknietych.split(" "))
+        oZ = list(s.odp_zamkniete.split(" "))
+        oO = list(s.odp_otwarte.split("\n"))
+        
+        
+        for nr in nzZ[:-1]:
+            x=str(zadanie_matematyczne.objects.filter(id=nr).values('tresc'))[22:-4]
+            x=x.replace('\\\\',' \\')
+            pytZ.append(x)
+        for nr in nzO[:-1]:
+            x=str(zadanie_matematyczne.objects.filter(id=nr).values('tresc'))[22:-4]
+            x=x.replace('\\\\',' \\')
+            pytO.append(x)
+        for o in oZ[:-1]:
+            oZZ.append(o)
+        for o in oO[:-1]:
+            oOO.append(o)
+
+        for r in nzZ[:-1]:
+            odpA=str(zadanie_matematyczne.objects.filter(id=r).values('odp_a'))[22:-4]
+            odpB=str(zadanie_matematyczne.objects.filter(id=r).values('odp_b'))[22:-4]
+            odpC=str(zadanie_matematyczne.objects.filter(id=r).values('odp_c'))[22:-4]
+            odpD=str(zadanie_matematyczne.objects.filter(id=r).values('odp_d'))[22:-4]
+            temp="A) "+odpA +"B) "+odpB +"C) "+odpC+"D) "+odpD
+            temp=temp.replace('\\\\',' \\')
+            odpZZ.append(temp)
+
+    pytaniaZamkniete=zip(pytZ,odpZZ,oZZ)
+    pytaniaOtwarte=zip(pytO,oOO)
+    context = {'pytaniaZamkniete':pytaniaZamkniete, 'pytaniaOtwarte':pytaniaOtwarte,'posts':posts,'answer':answer,'answerM':answerM}
+    return render(request, 'forum/history.html', context)

@@ -1,0 +1,55 @@
+.SiteWrapper {
+    background-image: url("/static/forum/images/login/mathematics.png");
+    padding: 0!important;
+}
+
+.Wrapper {
+    background-color: #343a40a1;
+    backdrop-filter: blur(5px);
+    color: white;
+}
+
+.FormLabel {
+    color: #002030;
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 2em;
+    transition: all .4s ease-in-out;
+}
+
+.FormLabel:hover {
+    transform: scale(1.1);
+}
+
+.Logo {
+    display: flex;
+    justify-content: center;
+    transition: all .4s ease-in-out;
+    margin-bottom: 2rem;
+}
+
+.Logo:hover {
+    transform: scale(1.1);
+}
+
+.SubmitButton {
+    transition: all .2s ease-in-out;
+    margin-top: 1rem;
+    color: #e5be00 !important;
+    border-color: #e5be00!important;
+}
+
+.SubmitButton:hover {
+    transform: scale(1.1);
+    background-color: #e5be00!important;
+    color: white!important;
+}
+
+.InputLabels {
+    transition: all .2s ease-in-out;
+}
+
+.InputLabels:hover {
+    transform: scale(1.05);
+}
+

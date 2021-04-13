@@ -1,0 +1,122 @@
+
+#zadZ{
+    font-family: Roboto;
+    background-color: #f7f7f7 ;
+    width:50%;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    margin-left:auto;
+    margin-right:auto;
+}
+#zadZ p{
+    font-size:18px;
+    padding-left:20px;
+    padding-right:20px;
+}
+#zadZ label{
+    font-size:18px;
+    padding-left:20px;
+}
+#zadZ select{
+    
+    width:40px;
+    margin-left:20px;
+    margin-bottom:10px;
+}
+
+.MathJax_Display
+{
+    display:flex;
+    width:20%;
+    margin-right:10px;
+}
+#zadZ h1{
+    background-color:#668099;
+    color:#fff176;
+    font-size: 24px;
+    padding:10px 10px;
+}
+#odpZMain{
+    display:flex;
+    flex-direction:row;
+    justify-content:center
+}
+#odpZselect{
+    
+}
+.odpZ{
+    padding-left:80px;
+    
+}
+.container-fluid
+{
+    margin-top:10px;
+}
+#odpO{
+    font-family: Roboto;
+    background-color: #f7f7f7;
+    width:50%;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    margin-left:auto;
+    margin-right:auto;
+}
+#odpO p{
+    font-size:18px;
+    padding-left:20px;
+    padding-right:20px;
+}
+#odpO label{
+    font-size:18px;
+    padding-left:20px;
+}
+#odpO h1{
+    background-color:#668099;
+    color:#fff176;
+    font-size: 24px;
+    padding:10px 10px;
+}
+#odpO img{
+    width:50%;
+    height:auto;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px;
+}
+#tools{
+    width:30%;
+    border-style: solid; 
+    display:inline-block; 
+    margin-left:20px; 
+    margin-bottom: 20px;
+}
+#sendAnswers{
+    margin-top:40px;
+    margin-left: auto;
+    margin-right: auto;
+    display:flex;
+    justify-content:center;
+    margin-top: 40px;
+}
+#sendAnswers input{
+    border:none;
+    font-family: Roboto;
+    height: 30px;
+    width:130px;
+    background-color:#fff176;
+    margin-right: 10px;
+}
+#sendAnswers button{
+    border:none;
+    font-family: Roboto;
+    height: 30px;
+    width:130px;
+    background-color:#fff176;
+}
+#sendAnswers a{
+    color:black;
+    font-family: Roboto;
+    text-decoration:none;
+}

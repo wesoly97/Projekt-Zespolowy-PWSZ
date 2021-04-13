@@ -1,0 +1,61 @@
+{% extends 'forum/base.html' %}
+{% block content %}
+ {% block css %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'forum/MathQuil/mathquill.css' %}"/>
+<script src="{% static 'forum/MathQuil/mathquill.js' %}"></script>
+{% endblock %}
+{% block js %}
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\(','\)']]},
+    svg: {
+    fontCache: 'global'
+  }
+  });
+</script>
+<script type="text/javascript"
+  src="http://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+{% endblock %}
+
+
+<div class="home">
+  <h1>Pytania zamkniete</h1>
+{% for pytZ,odpZZ,oZZ in pytaniaZamkniete %}
+    PYTANIE : {{ pytZ }} <br>
+    ODPOWIEDZI : ${{ odpZZ }}$<br>
+    ODPOWIEDZ : ${{ oZZ }}$<br>
+    <hr>
+{% endfor %}
+
+<h1>Pytania otwarte</h1>
+{% for pytO,oOO in pytaniaOtwarte %}
+    PYTANIE : {{ pytO }} <br>
+    ODPOWIEDZ : ${{ oOO }}$<br>
+    <hr>
+{% endfor %}
+
+<h1>POSTY</h1>
+{% for p in posts %}
+    temat : {{ p.subject }} <br>
+    tresc : {{ p.text }}<br>
+    <hr>
+{% endfor %}
+
+<h1>KOMENTARZE DO POSTOW UZYTKOWNIKOW</h1>
+{% for p in answer %}
+    temat : placeholder <br>
+    tresc : {{ p.answer }}<br>
+    <hr>
+{% endfor %}
+
+<h1>KOMENTARZE DO POSTOW ZADAN</h1>
+{% for p in answerM %}
+    zadanie : placeholder <br>
+    tresc : {{ p.answer }}<br>
+    <hr>
+{% endfor %}
+
+  </div>
+ {% endblock content %}
