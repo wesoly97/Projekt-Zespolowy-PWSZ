@@ -2,152 +2,130 @@
 {% load static %}
 {% block content %}{% for user in users %}
 {% block css %} 
-  <link rel="stylesheet" href="{% static 'forum/styles/addQuestionOpen/OpenQuestionsInput.css' %}"> 
-  
+<link rel="stylesheet" href="{% static 'forum/styles/addQuestionOpen/OpenQuestionsInput.css' %}">
 {% endblock css %} 
-  <script>
-        let MQ = MathQuill.getInterface(2); 
-    </script>
-    {% block typeQuestion %} <h2>Dodaj Pytanie Otwarte!</h2>{% endblock typeQuestion %}
-     <br>
-    <form method="post" enctype="multipart/form-data" action="{% block urlName %} {% url 'addQuestionOpenToDatabase' %}{% endblock urlName %}">
-      {% csrf_token %}
-
-      <div class="container-fluid">
-      <div class="row ">
-      <div class="col-sm-3 offset-sm-1">
-          <div id="data">
-            <div class="top">
+<script>
+   let MQ = MathQuill.getInterface(2); 
+</script>
+{% block typeQuestion %} {% endblock typeQuestion %}
+<br>
+<form method="post" enctype="multipart/form-data" action="{% block urlName %} {% url 'addQuestionOpenToDatabase' %}{% endblock urlName %}">
+   {% csrf_token %}
+   <div class="container-fluid">
+   <div class="row">
+   <div class="col-sm-3 offset-sm-1">
+      <div id="data">
+         <div class="top">
             <h5>Dane</h5>
-            </div>
-            
-            <div id="data_content">
-           <h6> Numer zadania </h6> 
+         </div>
+         <div id="data_content">
+            <h6> Numer zadania </h6>
             <input class="form-control inputs" type="text" placeholder="Numer zadania" name="numberTask">
-           <h6>Dział</h6> 
+            <h6>Dział</h6>
             <select class="form-control inputs" name="section">
-              <option>1</option>
-              <option>2</option>
-              <option>3</option>
-              <option>4</option>
-              <option>5</option>
+               <option>1</option>
+               <option>2</option>
+               <option>3</option>
+               <option>4</option>
+               <option>5</option>
             </select>
-            <h6>Zestaw</h6> 
-               <select class="form-control inputs" name="set">
-              <option>test</option>
-              <option>2</option>
-              <option>3</option>
-              <option>4</option>
-              <option>5</option>
+            <h6>Zestaw</h6>
+            <select class="form-control inputs" name="set">
+               <option>test</option>
+               <option>2</option>
+               <option>3</option>
+               <option>4</option>
+               <option>5</option>
             </select>
-            <h6>Punkty</h6> 
+            <h6>Punkty</h6>
             <input class="form-control inputs" type="number" placeholder="Punkty" name="numberTask">
-            </div>
-          </div>
+         </div>
       </div>
-      <div class ="col-sm-7">
-          <div  id="que">
-            <div class="top">
+   </div>
+   <div class ="col-sm-7">
+      <div  id="que">
+         <div class="top">
             <h5>Pytanie</h5>
-            </div>
-            <div id="que_content">
-            
-               <h6>Treść pytania</h6> 
-               <div class="row">
-                  <div class="col-sm-7 offset-sm-1 border" >
+         </div>
+         <div id="que_content">
+            <h6>Treść pytania</h6>
+            <div class="row">
+               <div class="col-sm-7 offset-sm-1 border" >
                   <span id="question" class="border-0"></span><textarea  id="latex" rows="3" name="inputQuestion" required style="opacity:0;width:0px;height:0px;"></textarea>
+               </div>
+               <div class="col-sm-2 border ml-5">
+                  <div class="row">
+                     <div class="col" id="sqrt">√</div>
+                     <div class="col"  id="mld">*</div>
+                     <div class="col" id="plus">+</div>
+                     <div class="w-100"></div>
+                     <div class="col" id="minus">-</div>
+                     <div class="col" id="przecinek">,</div>
+                     <div class="col" id="pi">π</div>
+                     <div class="w-100"></div>
+                     <div class="col" id="dzielenie">¼</div>
+                     <div class="col" id="potega">^</div>
+                     <div class="col" id="cbrt">∛</div>
                   </div>
-                  <div class="col-sm-2 border ml-5">
-                      <div class="row">
-                      <div class="col" id="sqrt">√</div>
-                      <div class="col"  id="mld">*</div>
-                      <div class="col" id="plus">+</div>
-                      <div class="w-100"></div>
-                      <div class="col" id="minus">-</div>
-                      <div class="col" id="przecinek">,</div>
-                      <div class="col" id="pi">π</div>
-                      <div class="w-100"></div>
-                      <div class="col" id="dzielenie">¼</div>
-                      <div class="col" id="potega">^</div>
-                      <div class="col" id="cbrt">∛</div>
-                   </div>
-                  </div>
-                  
-                </div>
-              <h6>Rozwiązanie</h6> 
-               <div class="row">
-                  <div class="col-sm-7 offset-sm-1 border" >
+               </div>
+            </div>
+            <h6>Rozwiązanie</h6>
+            <div class="row">
+               <div class="col-sm-7 offset-sm-1 border" >
                   <span id="answerA" class="border-0"></span><textarea  id="latexA" rows="3" name="solution" required style="opacity:0;width:0px;height:0px;"></textarea>
+               </div>
+               <div class="col-sm-2 border ml-5">
+                  <div class="row">
+                     <div class="col" id="sqrtA">√</div>
+                     <div class="col"  id="mldA">*</div>
+                     <div class="col" id="plusA">+</div>
+                     <div class="w-100"></div>
+                     <div class="col" id="minusA">-</div>
+                     <div class="col" id="przecinekA">,</div>
+                     <div class="col" id="piA">π</div>
+                     <div class="w-100"></div>
+                     <div class="col" id="dzielenieA">¼</div>
+                     <div class="col" id="potegaA">^</div>
+                     <div class="col" id="cbrtA">∛</div>
                   </div>
-                  <div class="col-sm-2 border ml-5">
-                      <div class="row">
-                      <div class="col" id="sqrtA">√</div>
-                      <div class="col"  id="mldA">*</div>
-                      <div class="col" id="plusA">+</div>
-                      <div class="w-100"></div>
-                      <div class="col" id="minusA">-</div>
-                      <div class="col" id="przecinekA">,</div>
-                      <div class="col" id="piA">π</div>
-                      <div class="w-100"></div>
-                      <div class="col" id="dzielenieA">¼</div>
-                      <div class="col" id="potegaA">^</div>
-                      <div class="col" id="cbrtA">∛</div>
-                   </div>
+               </div>
+            </div>
+            <h6>Odpowiedź</h6>
+            <div class="row">
+               <div class="col-sm-7 offset-sm-1 border" >
+                  <span id="answer" class="border-0"></span><textarea  id="latex2" rows="3" name="inputAnswer" required style="opacity:0;width:0px;height:0px;"></textarea>
+               </div>
+               <div class="col-sm-2 border ml-5">
+                  <div class="row">
+                     <div class="col" id="sqrt2">√</div>
+                     <div class="col"  id="mld2">*</div>
+                     <div class="col" id="plus2">+</div>
+                     <div class="w-100"></div>
+                     <div class="col" id="minus2">-</div>
+                     <div class="col" id="przecinek2">,</div>
+                     <div class="col" id="pi2">π</div>
+                     <div class="w-100"></div>
+                     <div class="col" id="dzielenie2">¼</div>
+                     <div class="col" id="potega2">^</div>
+                     <div class="col" id="cbrt2">∛</div>
                   </div>
-                  
-                </div>
-                <h6>Odpowiedź</h6> 
-               <div class="row">
-                  <div class="col-sm-7 offset-sm-1 border" >
-                  <span id="answerA" class="border-0"></span><textarea  id="latexA" rows="3" name="solution" required style="opacity:0;width:0px;height:0px;"></textarea>
-                  </div>
-                  <div class="col-sm-2 border ml-5">
-                      <div class="row">
-                      <div class="col" id="sqrtA">√</div>
-                      <div class="col"  id="mldA">*</div>
-                      <div class="col" id="plusA">+</div>
-                      <div class="w-100"></div>
-                      <div class="col" id="minusA">-</div>
-                      <div class="col" id="przecinekA">,</div>
-                      <div class="col" id="piA">π</div>
-                      <div class="w-100"></div>
-                      <div class="col" id="dzielenieA">¼</div>
-                      <div class="col" id="potegaA">^</div>
-                      <div class="col" id="cbrtA">∛</div>
-                   </div>
-                  </div>
-                  
-                </div>
-                    <h6>Dodaj zdjęcie</h6> 
-                    <div>
-                <input type="file" class="form-control-file inputsFile" name="image" accept="image/png, image/jpeg, image/svg">
-</div>
-    
-     
-  
-          </div>
+               </div>
+            </div>
+            <h6>Dodaj zdjęcie</h6>
+            <div>
+               <input type="file" class="form-control-file inputsFile" name="image" accept="image/png, image/jpeg, image/svg">
+            </div>
+         </div>
+         <input type="submit" value="Dodaj zadanie" id="addQuestion" />
+         <input type="hidden" name="user_id" value="{{ user.id }}">
       </div>
+   </div>
+  </div>
 </div>
-     <!--
-    
-    
-    
-  
-    
-    <label for="image">Dodaj zdjecie, jeśli wystepuje:</label> <br> <br>
-<input type="file" name="image" accept="image/png, image/jpeg, image/svg"/>
-    <br><br>
-     
-  <input type="submit" value="Dodaj zadanie" id="addQuestion"/>
    
-   <input type="hidden" name="user_id" value="{{ user.id }}">
- -->
-  </form>
-
+</form>
 <script src="{% static "forum/js/content.js" %}"></script>
 <script src="{% static "forum/js/answer.js" %}"></script>
 <script src="{% static "forum/js/answerA.js" %}"></script>
-
 {% block importsJavascript %} {% endblock importsJavascript %}
 {% endfor %} {% endblock content %}
-
