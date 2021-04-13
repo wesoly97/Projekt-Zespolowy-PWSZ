@@ -503,6 +503,8 @@ def check(request, user_id,post_id):
 def history(request, user_id):
     score = Score.objects.filter(id_user_id=user_id)
     posts = Post.objects.filter(userP_id=user_id)
+    answer = Answer.objects.filter(userA_id=user_id)
+    answerM = AnswerM.objects.filter(userA_id=user_id)
 
     nzO=[]
     nzZ=[]
@@ -520,9 +522,11 @@ def history(request, user_id):
         
         for nr in nzZ[:-1]:
             x=str(zadanie_matematyczne.objects.filter(id=nr).values('tresc'))[22:-4]
+            x=x.replace('\\\\',' \\')
             pytZ.append(x)
         for nr in nzO[:-1]:
             x=str(zadanie_matematyczne.objects.filter(id=nr).values('tresc'))[22:-4]
+            x=x.replace('\\\\',' \\')
             pytO.append(x)
         for o in oZ[:-1]:
             oZZ.append(o)
@@ -534,10 +538,11 @@ def history(request, user_id):
             odpB=str(zadanie_matematyczne.objects.filter(id=r).values('odp_b'))[22:-4]
             odpC=str(zadanie_matematyczne.objects.filter(id=r).values('odp_c'))[22:-4]
             odpD=str(zadanie_matematyczne.objects.filter(id=r).values('odp_d'))[22:-4]
-            temp="A) "+odpA +"   B) "+odpB +"   C) "+odpC+"   D) "+odpD
+            temp="A) "+odpA +"B) "+odpB +"C) "+odpC+"D) "+odpD
+            temp=temp.replace('\\\\',' \\')
             odpZZ.append(temp)
 
     pytaniaZamkniete=zip(pytZ,odpZZ,oZZ)
     pytaniaOtwarte=zip(pytO,oOO)
-    context = {'pytaniaZamkniete':pytaniaZamkniete, 'pytaniaOtwarte':pytaniaOtwarte}
+    context = {'pytaniaZamkniete':pytaniaZamkniete, 'pytaniaOtwarte':pytaniaOtwarte,'posts':posts,'answer':answer,'answerM':answerM}
     return render(request, 'forum/history.html', context)
