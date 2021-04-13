@@ -43,7 +43,7 @@ $( "#dzielenie" ).click(function() {
     answerMathField.reflow();
 });
 $( "#potega" ).click(function() {
-    answerMathField.write('\\^{}$$');
+    answerMathField.write('\\^{}');
     answerMathField.reflow();
 });
 $( "#cbrt" ).click(function() {
