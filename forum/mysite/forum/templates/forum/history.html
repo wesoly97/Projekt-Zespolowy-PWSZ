@@ -37,10 +37,23 @@
 {% endfor %}
 
 <h1>POSTY</h1>
-
 {% for p in posts %}
     temat : {{ p.subject }} <br>
     tresc : {{ p.text }}<br>
+    <hr>
+{% endfor %}
+
+<h1>KOMENTARZE DO POSTOW UZYTKOWNIKOW</h1>
+{% for p in answer %}
+    temat : placeholder <br>
+    tresc : {{ p.answer }}<br>
+    <hr>
+{% endfor %}
+
+<h1>KOMENTARZE DO POSTOW ZADAN</h1>
+{% for p in answerM %}
+    zadanie : placeholder <br>
+    tresc : {{ p.answer }}<br>
     <hr>
 {% endfor %}
 
