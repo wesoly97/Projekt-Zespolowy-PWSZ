@@ -99,4 +99,13 @@ class Score(models.Model):
     punkty = models.IntegerField()
     def __str__(self):
         return self.id_user
+
+class Podejscie(models.Model):
+    user = models.IntegerField(blank=True)
+    numeryZadanZamknietych = models.CharField(max_length=70)
+    numeryZadanOtwartych = models.CharField(max_length=70)
+    odpowiedzi = models.CharField(max_length=200)
+    punkty=models.IntegerField();
+    def __str__(self):
+        return self.punkty
    
