@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 206 306" width="206" height="306" style="">
+	<style>
+		tspan { white-space:pre }
+		.shp0 { fill: none;stroke: #ccc500;stroke-linejoin:round;stroke-width: 3 } 
+		.shp1 { fill: none;stroke: #ccc500;stroke-linejoin:round;stroke-width: 3;stroke-dasharray: 6,6 } 
+		.shp2 { fill: none;stroke: #ccc500;stroke-width: 4 } 
+	</style>
+	<g id="Layer">
+		<g id="Layer">
+			<g id="Layer">
+				<g id="svg_8">
+					<path id="svg_9" class="shp0 CuDZIYFE_0" d="M12.79 54.29C10.14 36.81 41.62 17.55 83.13 11.26C124.65 4.97 160.42 14.03 163.07 31.51C165.72 48.99 134.24 68.24 92.72 74.54C51.21 80.83 15.43 71.77 12.79 54.29Z"></path>
+					<path id="svg_11" class="shp0 CuDZIYFE_1" d="M44.49 273.72C41.84 256.24 73.32 236.99 114.84 230.69C156.35 224.4 192.13 233.46 194.78 250.94C197.43 268.42 165.95 287.68 124.43 293.97C82.92 300.26 47.14 291.2 44.49 273.72Z"></path>
+					<path id="svg_1" class="shp0 CuDZIYFE_2" d="M11.25 53.77L11.25 53.77Z"></path>
+					<path id="svg_2" class="shp0 CuDZIYFE_3" d="M11.79 53.69L44.46 269.26"></path>
+					<path id="svg_5" class="shp0 CuDZIYFE_4" d="M161.2 29.39L195.1 253.06"></path>
+					<path id="svg_7" class="shp0 CuDZIYFE_5" d="M85.07 37.61L119.54 265.06"></path>
+					<path id="svg_3" class="shp1 CuDZIYFE_6" d="M118.3 264.15L195.56 252.44"></path>
+				</g>
+				<g id="svg_10">
+					<path id="svg_12" class="shp0 CuDZIYFE_7" d="M11.79 54.29C9.14 36.81 40.62 17.55 82.13 11.26C123.65 4.97 159.42 14.03 162.07 31.51C164.72 48.99 133.24 68.24 91.72 74.54C50.21 80.83 14.43 71.77 11.79 54.29Z"></path>
+					<path id="svg_13" class="shp0 CuDZIYFE_8" d="M44.49 273.72C41.84 256.24 73.32 236.99 114.84 230.69C156.35 224.4 192.13 233.46 194.78 250.94C197.43 268.42 165.95 287.68 124.43 293.97C82.92 300.26 47.14 291.2 44.49 273.72Z"></path>
+					<path id="svg_14" class="shp0 CuDZIYFE_9" d="M11.25 53.77L11.25 53.77Z"></path>
+					<path id="svg_15" class="shp0 CuDZIYFE_10" d="M11.79 53.69L44.46 269.26"></path>
+					<path id="svg_16" class="shp0 CuDZIYFE_11" d="M161.2 29.39L195.1 253.06"></path>
+					<path id="svg_17" class="shp0 CuDZIYFE_12" d="M85.07 37.61L119.54 265.06"></path>
+					<path id="svg_18" class="shp1 CuDZIYFE_13" d="M118.3 264.15L195.56 252.44"></path>
+				</g>
+			</g>
+		</g>
+		<path id="svg_4" class="shp2 CuDZIYFE_14" d="M71.81 141.35L71.84 142.44L71.86 142.99L71.94 145.17L72.03 147.9L72.67 150.61L73.92 155.49L75.14 159.28L75.8 162.54L77 165.78L77.66 169.03L77.73 171.22L77.79 172.86L77.84 174.5L77.86 175.04L77.88 175.59L77.86 175.04L77.82 173.95L77.75 171.77L77.7 170.13L78.17 167.92L78.64 165.72L79.68 164.05L80.73 162.92L81.79 161.79L82.86 161.21L84.5 161.15L85.59 161.11L86.69 161.08L87.23 161.06L88.33 161.02L88.91 162.1L88.94 163.19L89.53 164.26L89.56 165.35L89.66 168.08L89.73 170.27L90.35 172.44L90.93 173.51L91.53 175.13L92.1 175.66L93.19 175.62L93.75 176.15"></path>
+		<path id="svg_6" class="shp2 CuDZIYFE_15" d="M128.04 219.23L127.94 218.14L127.35 217.65L127.3 217.11L126.6 215.52L126.51 214.43L125.81 212.85L125.12 211.27L124.43 209.68L123.73 208.1L123.54 205.92L122.25 203.85L122.1 202.21L121.41 200.63L121.31 199.54L121.16 197.91L121.01 196.28L120.91 195.19L120.77 193.56L120.67 192.47L120.57 191.38L121.56 190.19L122.5 188.46L123.54 187.82L124.58 187.17L125.61 186.53L126.7 186.43L128.29 185.74L130.46 185.54L131.55 185.44L132.64 185.34L134.32 185.74L134.92 186.23L136.05 186.68L137.24 187.67L137.34 188.76L137.98 189.8L138.08 190.88L138.23 192.52L138.87 193.56L139.02 195.19L138.58 196.33L138.68 197.41L138.28 199.1L137.78 199.69L136.75 200.33L136.35 202.02L135.31 202.66L134.77 202.71L134.27 203.3L133.18 203.4L132.64 203.45L132.14 204.04L131.06 204.14L130.51 204.19L129.97 204.24L128.88 204.34L127.79 204.44L127.25 204.49L126.7 204.54L126.16 204.59L126.7 204.54L127.25 204.49L128.88 204.34L129.97 204.24L131.06 204.14L131.65 204.64L132.24 205.13L132.84 205.63L134.07 207.16L134.12 207.71L134.77 208.74L134.82 209.29L134.92 210.38L135.01 211.47L135.66 212.5L135.76 213.59L136.35 214.09L136.99 215.13L137.64 216.17L138.23 216.66L138.82 217.15L139.96 217.6L140.56 218.09L141.64 218L142.73 217.9L143.82 217.8L146 217.6L147.53 216.36L148.57 215.72"></path>
+	</g>
+<style data-made-with="vivus-instant">.CuDZIYFE_0{stroke-dasharray:354 356;stroke-dashoffset:355;animation:CuDZIYFE_draw 227ms linear 0ms forwards;}.CuDZIYFE_1{stroke-dasharray:354 356;stroke-dashoffset:355;animation:CuDZIYFE_draw 227ms linear 227ms forwards;}.CuDZIYFE_2{stroke-dasharray:0 2;stroke-dashoffset:1;animation:CuDZIYFE_draw 0ms linear 454ms forwards;}.CuDZIYFE_3{stroke-dasharray:219 221;stroke-dashoffset:220;animation:CuDZIYFE_draw 140ms linear 454ms forwards;}.CuDZIYFE_4{stroke-dasharray:227 229;stroke-dashoffset:228;animation:CuDZIYFE_draw 145ms linear 595ms forwards;}.CuDZIYFE_5{stroke-dasharray:231 233;stroke-dashoffset:232;animation:CuDZIYFE_draw 148ms linear 741ms forwards;}.CuDZIYFE_6{stroke-dasharray:79 81;stroke-dashoffset:80;animation:CuDZIYFE_draw 51ms linear 889ms forwards;}.CuDZIYFE_7{stroke-dasharray:354 356;stroke-dashoffset:355;animation:CuDZIYFE_draw 227ms linear 940ms forwards;}.CuDZIYFE_8{stroke-dasharray:354 356;stroke-dashoffset:355;animation:CuDZIYFE_draw 227ms linear 1167ms forwards;}.CuDZIYFE_9{stroke-dasharray:0 2;stroke-dashoffset:1;animation:CuDZIYFE_draw 0ms linear 1394ms forwards;}.CuDZIYFE_10{stroke-dasharray:219 221;stroke-dashoffset:220;animation:CuDZIYFE_draw 140ms linear 1395ms forwards;}.CuDZIYFE_11{stroke-dasharray:227 229;stroke-dashoffset:228;animation:CuDZIYFE_draw 145ms linear 1536ms forwards;}.CuDZIYFE_12{stroke-dasharray:231 233;stroke-dashoffset:232;animation:CuDZIYFE_draw 148ms linear 1682ms forwards;}.CuDZIYFE_13{stroke-dasharray:79 81;stroke-dashoffset:80;animation:CuDZIYFE_draw 51ms linear 1830ms forwards;}.CuDZIYFE_14{stroke-dasharray:75 77;stroke-dashoffset:76;animation:CuDZIYFE_draw 48ms linear 1881ms forwards;}.CuDZIYFE_15{stroke-dasharray:108 110;stroke-dashoffset:109;animation:CuDZIYFE_draw 69ms linear 1930ms forwards;}@keyframes CuDZIYFE_draw{100%{stroke-dashoffset:0;}}@keyframes CuDZIYFE_fade{0%{stroke-opacity:1;}93.54838709677419%{stroke-opacity:1;}100%{stroke-opacity:0;}}</style></svg>
