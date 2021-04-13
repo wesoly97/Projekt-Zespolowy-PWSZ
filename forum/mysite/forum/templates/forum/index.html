@@ -1,47 +1,131 @@
-{% extends 'forum/base.html' %}
-{% block content %}
-{% load static %}
-{% block css %} 
-  <link rel="stylesheet" href="{% static 'forum/styles/index/index.css' %}"> 
+
+  <link rel="stylesheet" href="{% static 'forum/styles/index/index.css' %}">
 {% endblock css %}
+{% block js %}
+  <script src="https://inorganik.github.io/countUp.js/dist/countUp.umd.js"></script>
+{% endblock js %}
   <header class="container-fluid">
+    <div id="effect">
+      <h1>
+        Z nami uczysz się <span class="typed-text"></span><span class="cursor">&nbsp;</span>
+      </h1>
+    </div>
   </header>
-  <section>
-    
+  <section class="container-fluid" id="statistics">
+    <div class="row font-weight-bold">
+      <div class="col-md-4 text-center pt-5"><i class="fas fa-file-alt fa-4x p-1"></i><div id="tests"></div><h4 class="pb-5"> Roziązanych arkuszy</h4></div>
+      <div class="col-md-4 text-center pt-5"><i class="fas fa-tasks fa-4x p-1"></i><div id="tasks"></div><h4 class="pb-5"> Zadań w bazie</h4></div>
+      <div class="col-md-4 text-center pt-5"><i class="fas fa-users fa-4x p-1"></i><div id="users"></div><h4 class="pb-5"> Aktywnych użytkowników</h4></div>
+    </div>
   </section>
-  <div class="container-fluid info">
+  <section class="container-fluid" id="info">
+    <img class="infoImgs" src="{% static 'forum/images/index/idea_animated.svg' %}" />
+    <img class="infoImgs" src="{% static 'forum/images/index/cone_animated.svg' %}" />
+    <img class="infoImgs" src="{% static 'forum/images/index/roller_animated.svg' %}" />
+    <!-- <img id="spange" src="{% static 'forum/images/index/spange.png' %}" /> -->
     <div class="row">
-      <div class="col-xl-3"></div>
-      <div class="col-xl-6 infoCenter">
-        <div class="row rowInfo">
-          <div class="col-6 col-xl-6 col-lg-6 px-md-3">
-            <div class="p-3 infoItem text-center">
-              <span class="font-weight-bold">Ćwicz rozwiązywanie arkuszy maturalnych</span>
-              <img class="mx-auto d-block img-fluid imgInfo" src="{% static 'forum/images/index/brain.png' %}"/>
+      <div class="col-2 col-xl-3"></div>
+      <div class="col-8 col-xl-6">
+        <ul class="row justify-content-center">
+          <li class="m-3">
+            <div>
+              <h2>Title #1</h2>
+              <p>Zadania otwarte i zamknięte</p>
             </div>
-          </div>
-          <div class="col-6 col-xl-6 col-lg-6 px-md-3">
-            <div class="p-3 infoItem text-center">
-              <span class="font-weight-bold">Forum</span>
-              <img class="mx-auto d-block img-fluid imgInfo" src=""/>
+          </li>
+          <li class="m-3">
+            <div>
+              <h2>Title #2</h2>
+              <p>Text Content #2</p>
             </div>
-          </div>
-          <div class="col-6 col-xl-6 col-lg-6 px-md-3">
-            <div class="p-3 infoItem text-center">C</div></div>
-          <div class="col-6 col-xl-6 col-lg-6 px-md-3"><div class="p-3 infoItem text-center">C</div>
-        </div>
-          <div class="col-6 col-xl-6 col-lg-6 px-md-3">
-            <div class="p-3 infoItem text-center">C</div>
-        </div>
-          <div class="col-6 col-xl-6 col-lg-6 px-md-3">
-            <div class="p-3 infoItem text-center">C</div>
-          </div>
+          </li>
+          <li class="m-3">
+            <div>
+              <h2>Title #3</h2>
+              <p>Text Content #3</p>
+            </div>
+          </li>
+          <li class="m-3">
+            <div>
+              <h2>Title #4</h2>
+              <p>Text Content #4</p>
+            </div>
+          </li>
+          <li class="m-3">
+            <div>
+              <h2>Title #5</h2>
+              <p>Text Content #5</p>
+            </div>
+          </li>
+          <li class="m-3">
+            <div>
+              <h2>Title #6</h2>
+              <p>Text Content #6</p>
+            </div>
+          </li>
+          <li class="m-3">
+            <div>
+              <h2>Title #7</h2>
+              <p>Text Content #7</p>
+            </div>
+          </li>
+          <li class="m-3">
+            <div>
+              <h2>Title #8</h2>
+              <p>Text Content #8</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="col-2 col-xl-3"></div>
+    </div>
+  </section>
+  <section class="container-fluid pb-5" id="profile">
+    <div class="row">
+      <div class="col-md-12 text-center pt-2 pb-5"><div class="display-3 font-weight-bold">Zastanawiasz się czy ten serwis Ci pomoże?</div><div class="display-4 mt-3">Wybierz profil z jakim się utożsamiasz</div></div>
+      <div class="col-md-4 text-center pt-2 pb-2 pl-xl-5">
+        <div class="profileCard">
+          <h3 class="pb-4 pt-2">Początkujący</h3>
+          <img src="{% static 'forum/images/index/mage.png' %}" class="rounded mx-auto d-block rounded-circle" alt="">
         </div>
       </div>
-      <div class="col-xl-3"></div>
+      <div class="col-md-4 text-center pt-2 pb-2 pl-xl-5 pr-xl-5">
+        <div class="profileCard">
+          <h3 class="pb-4 pt-2">Adept</h3>
+          <img src="{% static 'forum/images/index/adept.png' %}" class="rounded mx-auto d-block rounded-circle" alt="">
+        </div>
+      </div>
+      <div class="col-md-4 text-center pt-2 pb-2 pr-xl-5">
+        <div class="profileCard">
+          <h3 class="pb-4 pt-2">Mistrz</h3>
+          <img src="{% static 'forum/images/index/mage.png' %}" class="rounded mx-auto d-block rounded-circle" alt="">
+        </div>
+      </div>
     </div>
-  </div>
-  <section id="test" class="container-fluid"> 
+  </section>
+  <section class="container-fluid" id="discovery">
+    <div class="row">
+      <div class="col-xl-2 col-1"></div>
+      <div class="col-xl-4 col-9">
+        <h3>Z technologią za pan brat</h3>
+        <ul>
+          <li>Forum zadaniowe gdzie możesz konsultować się z innymi</li>
+          <li>Arkusze maturalne zgodne z podstawą programową</li>
+          <li>Tryb nauki gdzie możesz uczyć się teori oraz praktyki</li>
+          <li>Rankingi wprowadzające lekką rywalizację między </li>
+          <li>Osiągnięcia powodujące, że Twój profil nabędzie kolorów</li>
+        </ul>
+      </div>
+      <div class="col-xl-6 col-2"></div>
+    </div>
+  </section>
+  <section id="tryit" class="container-fluid"> 
     <div class="btn">Wypróbuj</div>
   </section>
+  
+
 {% endblock content %}
+{% block jquery %}
+<script src="https://cdn.jsdelivr.net/npm/drawsvg@1.1.0/public/jquery.drawsvg.min.js" integrity="sha256-i6x512H+kZ6dH+zQVwgTPMQ5oDF+UfFfVeCRX7OUMq8=" crossorigin="anonymous"></script>
+<script src="{% static 'forum/js/index/index.js' %}"></script>
+{% endblock jquery %} 

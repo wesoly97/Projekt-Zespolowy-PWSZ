@@ -1,0 +1,314 @@
+header{
+    background-image: url("/static/forum/images/index/header.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh;
+    padding: 0 !important;
+    color: white;
+}
+#effect{
+    background: linear-gradient(90deg, rgba(0,32,48,1) 0%, rgba(0,32,48,0.5690651260504201) 57%, rgba(255,255,255,0) 100%);
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+}
+header h1{
+    padding-top: 200px;
+    padding-left: 150px;
+}
+header .typed-text{
+    color: #ccc500;
+}
+header span.cursor {
+    display: inline-block;
+    background-color: white;
+    margin-left: 0.1rem;
+    width: 3px;
+    animation: blink 1s infinite;
+}
+header span.cursor.typing {
+    animation: none;
+}
+@keyframes blink {
+    0%  { background-color: white; }
+    49% { background-color: white; }
+    50% { background-color: transparent; }
+    99% { background-color: transparent; }
+    100%  { background-color: white; }
+}
+
+#statistics{
+    background-color: #90ab23;
+    color: #002030;
+}
+#statistics .row div div{
+    font-weight: 500;
+    font-size: 3.5rem;
+    line-height: 1.2;
+}
+#info{
+    background: #002030;
+    color: #7d7906;
+    background-image: none;
+    padding-bottom: 100px;
+    cursor: url("/static/forum/images/index/spange.cur"), auto;
+}
+@media only screen and (min-width: 1200px){
+    #info{
+        background-image: url("/static/forum/images/index/leftInfo.png"),  url("/static/forum/images/index/rightInfo.png");
+        width: 100%;
+        background-size: contain ,contain;
+        background-repeat: no-repeat;
+        background-position: -50px 0 , 101% 0;
+    }
+}
+#info .row div:nth-child(2){
+    margin-top: 180px
+}
+.infoImgs{
+    position: absolute;
+}
+.infoImgs:nth-child(1){
+    left: 46%;
+    width: 150px;
+    height: auto;
+    margin-top: -8px;
+}
+.infoImgs:nth-child(2){
+    left: 250px;
+    width: 140px;
+    height: auto;
+    margin-top: 580px;
+}
+.infoImgs:nth-child(3){
+    right: 1%;
+    width: 140px;
+    height: auto;
+    margin-top: 240px;
+}
+@media only screen and (min-width: 1247px){
+    .infoImgs:nth-child(2){
+        left: 190px;
+        width: 120px;
+        margin-top: 480px;
+    }
+    .infoImgs:nth-child(3){
+        right: 1%;
+        width: 100px;
+        margin-top: 220px;
+    }
+}
+@media only screen and (min-width: 1631px){
+    .infoImgs:nth-child(2){
+        left: 140px;
+        width: 90px;
+        margin-top: 370px;
+    }
+    .infoImgs:nth-child(3){
+        right: 0%;
+        width: 80px;
+        margin-top: 180px;
+    }
+}
+#info h2 {
+    font-weight: bold;
+    font-size: 2rem;
+}
+#info p{
+    font-size: 1.4rem;
+}
+#info ul,li{
+    list-style: none;
+}
+#info ul li div{
+    text-decoration: none;
+    color:#000;
+    background:#ffc;
+    display: block;
+    height: 10em;
+    width: 10em;
+    padding: 1em;
+    box-shadow: 5px 5px 7px rgba(33,33,33,.7);
+    transform: rotate(-6deg);
+    transition: transform .15s linear;
+}
+  
+#info ul li:nth-child(even) div{
+    transform: rotate(4deg);
+    position: relative;
+    top: 5px;
+    background:#cfc;
+}
+#info ul li:nth-child(3n) div{
+    transform: rotate(-3deg);
+    position: relative;
+    top: -5px;
+    background:#ccf;
+}
+#info ul li:nth-child(5n) div{
+    transform: rotate(5deg);
+    position: relative;
+    top: -10px;
+}
+#info ul li div:hover,ul li div:focus{
+    box-shadow: 10px 10px 7px rgba(0,0,0,.7);
+    transform: scale(1.25);
+    position: relative;
+}
+
+/*
+#spange{
+    position: absolute;
+    width: 100px;
+    left: 50vw;
+    cursor: grab;
+    z-index: 1;
+}
+*/
+
+
+.rowInfo{
+    margin-top: 150px;
+    margin-bottom: 50px;
+}
+@media only screen and (max-width: 770px){
+    #info{
+        background-image: url("/static/forum/images/index/leftInfo.png"), none;
+        background-size: cover, cover;
+    }
+}
+
+
+#profile{
+    background-color: #90ab23;
+    color: #002030;
+}
+.profileCard{
+    background-color: #7D4500;
+    color: #390C7D;
+    min-height: 300px;
+}
+.profileCard img{
+    width: 150px;
+    height: auto;
+}
+
+#discovery{
+    padding-top: 15px;
+    padding-bottom: 15px;
+    background: #002030;
+    color: #c2f1db;
+    position: relative;
+    overflow: hidden;
+}
+#discovery .row div:nth-child(2){
+    background-color: #002030a1;
+    backdrop-filter: blur(5px);
+}
+#discovery::before{
+    content: "";
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    top: -70%;
+    left: -50%;
+    background: url('/static/forum/images/index/pi.png') 0 0 repeat;
+    transform: rotate(30deg);
+}
+#discovery ul{
+    list-style-type: none;
+}
+#discovery ul li{
+    margin: 15px 0 15px 0;
+}
+#discovery ul li::before{
+    content: '';
+    margin-right: 15px;
+    vertical-align: middle;
+    display: inline-block;
+    background-image: url('/static/forum/images/index/checkbox.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    width: 30px;
+    height: 30px;
+}
+#tryit{
+    background-image: url("/static/forum/images/index/exam.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center center;
+    height: 400px;
+    color: #fff;
+    text-align: center;
+    padding: 0 0;
+}
+@media (min-width: 576px) {
+    #tryit .btn::after,
+    #tryit .btn::before{
+        content: '';
+        display: block;
+        position: absolute;
+        width: 30%;
+        height: 40%;
+        border: 2px solid;
+        transition: all 0.6s ease;
+        border-radius: 2px;
+    }
+    
+    #tryit .btn::after
+    {
+        bottom: 0;
+        right: 0;
+        border-top-color: transparent;
+        border-left-color: transparent;
+        border-bottom-color: white;
+        border-right-color: white;
+    }
+    
+    #tryit .btn::before
+    {
+        top: 0;
+        left: 0;
+        border-bottom-color: transparent;
+        border-right-color: transparent;
+        border-top-color: white;
+        border-left-color: white;
+    }
+    
+    #tryit .btn:hover:after,
+    #tryit .btn:hover:before
+    {
+        width: 105%;
+        height: 125%;
+    }
+}
+#tryit::before {
+    content: '';
+    display: block;
+    background-color: #00293bb4;
+    height: 400px;
+    -moz-backdrop-filter: blur(3px);
+    backdrop-filter: blur(3px);
+}
+#tryit .btn{
+    margin-top: -424px;
+	position: relative;	
+	padding: 1.4rem 4.2rem;
+	font-size: 1.4rem;
+	color: white;
+	letter-spacing: 1.1rem;
+	text-transform: uppercase;
+    cursor: pointer;
+}
+@media (max-width: 575.98px) {
+    #tryit .btn{
+        padding: 1.4rem .8rem !important;
+        border: 2px white solid;
+        letter-spacing: .5rem;
+    }
+}
+
