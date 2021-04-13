@@ -1,20 +1,10 @@
 {% extends 'forum/base.html' %} 
 {% load static %}
 {% block content %}{% for user in users %}
-<<<<<<< Updated upstream
-<a href="{% url 'usersHOME' user.id %}"
-  ><button><i class="fas fa-home fa-3x"></i></button></a
-><br /><br />
-{% block imports %}
- <link rel="stylesheet" href="{% static 'forum/MathQuil/mathquill.css' %}"/>
-<script src="{% static 'forum/MathQuil/mathquill.js' %}"></script>
-{% endblock %}
-=======
 {% block css %} 
   <link rel="stylesheet" href="{% static 'forum/styles/addQuestionOpen/OpenQuestionsInput.css' %}"> 
   
 {% endblock css %} 
->>>>>>> Stashed changes
   <script>
         let MQ = MathQuill.getInterface(2); 
     </script>
@@ -22,90 +12,120 @@
      <br>
     <form method="post" enctype="multipart/form-data" action="{% block urlName %} {% url 'addQuestionOpenToDatabase' %}{% endblock urlName %}">
       {% csrf_token %}
-<<<<<<< Updated upstream
-=======
 
       <div class="container-fluid">
-      <div class="row">
-      <div class="col-sm">
+      <div class="row ">
+      <div class="col-sm-3 offset-sm-1">
           <div id="data">
             <div class="top">
             <h5>Dane</h5>
             </div>
-            <div id="data_content">
             
+            <div id="data_content">
+           <h6> Numer zadania </h6> 
+            <input class="form-control inputs" type="text" placeholder="Numer zadania" name="numberTask">
+           <h6>Dział</h6> 
+            <select class="form-control inputs" name="section">
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
+            </select>
+            <h6>Zestaw</h6> 
+               <select class="form-control inputs" name="set">
+              <option>test</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
+            </select>
+            <h6>Punkty</h6> 
+            <input class="form-control inputs" type="number" placeholder="Punkty" name="numberTask">
             </div>
           </div>
       </div>
-      <div class ="col-sm">
+      <div class ="col-sm-7">
           <div  id="que">
             <div class="top">
             <h5>Pytanie</h5>
             </div>
             <div id="que_content">
-            </div>
+            
+               <h6>Treść pytania</h6> 
+               <div class="row">
+                  <div class="col-sm-7 offset-sm-1 border" >
+                  <span id="question" class="border-0"></span><textarea  id="latex" rows="3" name="inputQuestion" required style="opacity:0;width:0px;height:0px;"></textarea>
+                  </div>
+                  <div class="col-sm-2 border ml-5">
+                      <div class="row">
+                      <div class="col" id="sqrt">√</div>
+                      <div class="col"  id="mld">*</div>
+                      <div class="col" id="plus">+</div>
+                      <div class="w-100"></div>
+                      <div class="col" id="minus">-</div>
+                      <div class="col" id="przecinek">,</div>
+                      <div class="col" id="pi">π</div>
+                      <div class="w-100"></div>
+                      <div class="col" id="dzielenie">¼</div>
+                      <div class="col" id="potega">^</div>
+                      <div class="col" id="cbrt">∛</div>
+                   </div>
+                  </div>
+                  
+                </div>
+              <h6>Rozwiązanie</h6> 
+               <div class="row">
+                  <div class="col-sm-7 offset-sm-1 border" >
+                  <span id="answerA" class="border-0"></span><textarea  id="latexA" rows="3" name="solution" required style="opacity:0;width:0px;height:0px;"></textarea>
+                  </div>
+                  <div class="col-sm-2 border ml-5">
+                      <div class="row">
+                      <div class="col" id="sqrtA">√</div>
+                      <div class="col"  id="mldA">*</div>
+                      <div class="col" id="plusA">+</div>
+                      <div class="w-100"></div>
+                      <div class="col" id="minusA">-</div>
+                      <div class="col" id="przecinekA">,</div>
+                      <div class="col" id="piA">π</div>
+                      <div class="w-100"></div>
+                      <div class="col" id="dzielenieA">¼</div>
+                      <div class="col" id="potegaA">^</div>
+                      <div class="col" id="cbrtA">∛</div>
+                   </div>
+                  </div>
+                  
+                </div>
+                <h6>Rozwiązanie</h6> 
+               <div class="row">
+                  <div class="col-sm-7 offset-sm-1 border" >
+                  <span id="answerA" class="border-0"></span><textarea  id="latexA" rows="3" name="solution" required style="opacity:0;width:0px;height:0px;"></textarea>
+                  </div>
+                  <div class="col-sm-2 border ml-5">
+                      <div class="row">
+                      <div class="col" id="sqrtA">√</div>
+                      <div class="col"  id="mldA">*</div>
+                      <div class="col" id="plusA">+</div>
+                      <div class="w-100"></div>
+                      <div class="col" id="minusA">-</div>
+                      <div class="col" id="przecinekA">,</div>
+                      <div class="col" id="piA">π</div>
+                      <div class="w-100"></div>
+                      <div class="col" id="dzielenieA">¼</div>
+                      <div class="col" id="potegaA">^</div>
+                      <div class="col" id="cbrtA">∛</div>
+                   </div>
+                  </div>
+                  
+                </div>
           </div>
       </div>
 </div>
-      <!-- 
->>>>>>> Stashed changes
-    <label for="numberTask">Podaj numer zadania na arkuszu: </label>
-    <input type="number" name="numberTask" required>
-    <br><br>
-    <label for="section">Podaj dział matematyki: </label>
-    <input type="text" name="section" required><br><br>
-    <label for="set">Podaj nazwę zestawu: </label>
-    <input type="text" name="set" required><br><br>
-    <label for="NumberPoints">Podaj ilość punktów za to zadanie: </label>
-    <input type="number" name="NumberPoints" value="2" required>
-    <br><br>
-    <p>Wprowadz treść pytania: <br><br>
-
-    <span id="question"></span><textarea name="inputQuestion" id="latex" style="opacity: 0;" required ></textarea></p>
-    <br>
-    <div style="width:305;border-style: solid; display:inline-block;">
-        <div id="sqrt" style=" float:left; padding:20px;">√</div>
-        <div id="mld" style=" float:left;padding:20px;">*</div>
-        <div id="plus" style=" float:left;padding:20px;">+</div>
-        <div id="minus" style=" float:left;padding:20px;">-</div>
-        <div id="przecinek" style=" float:left;padding:20px;">,</div>
-        <div id="pi" style=" float:left;padding:20px;">π</div>
-        <div id="dzielenie" style=" float:left;padding:20px;">¼</div>
-        <div id="potega" style=" float:left;padding:20px;">^</div>
-        <div id="cbrt" style=" float:left;padding:20px;">∛</div>
-    </div><br><br>
-    {% block solution %}<p>Wprowadz rozwiazanie: <br><br>
-    <span id="answerA"></span><textarea name="solution" id="latexA" style="opacity: 0;" required></textarea></p>
+     <!--
+    
+    
+    
   
-    <br>
-    <div style="width:305;border-style: solid; display:inline-block;">
-        <div id="sqrtA" style=" float:left; padding:20px;">√</div>
-        <div id="mldA" style=" float:left;padding:20px;">*</div>
-        <div id="plusA" style=" float:left;padding:20px;">+</div>
-        <div id="minusA" style=" float:left;padding:20px;">-</div>
-        <div id="przecinekA" style=" float:left;padding:20px;">,</div>
-        <div id="piA" style=" float:left;padding:20px;">π</div>
-        <div id="dzielenieA" style=" float:left;padding:20px;">¼</div>
-        <div id="potegaA" style=" float:left;padding:20px;">^</div>
-        <div id="cbrtA" style=" float:left;padding:20px;">∛</div>
-    </div><br><br> {% endblock solution %}
-{% block closedQuestionOption %} {% endblock closedQuestionOption %}
-   <p>Wprowadz Poprawną Odpowiedz: <br><br>
-    <span id="answer"></span><textarea name="inputAnswer" id="latex2" style="opacity: 0;" required></textarea></p>
-    <br>
-    <div style="width:305;border-style: solid; display:inline-block;">
-        <div id="sqrt2" style=" float:left; padding:20px;">√</div>
-        <div id="mld2" style=" float:left;padding:20px;">*</div>
-        <div id="plus2" style=" float:left;padding:20px;">+</div>
-        <div id="minus2" style=" float:left;padding:20px;">-</div>
-        <div id="przecinek2" style=" float:left;padding:20px;">,</div>
-        <div id="pi2" style=" float:left;padding:20px;">π</div>
-        <div id="dzielenie2" style=" float:left;padding:20px;">¼</div>
-        <div id="potega2" style=" float:left;padding:20px;">^</div>
-        <div id="cbrt2" style=" float:left;padding:20px;">∛</div>
-    </div><br><br>
-      
-    <br>
     
     <label for="image">Dodaj zdjecie, jeśli wystepuje:</label> <br> <br>
 <input type="file" name="image" accept="image/png, image/jpeg, image/svg"/>
@@ -114,12 +134,13 @@
   <input type="submit" value="Dodaj zadanie" id="addQuestion"/>
    
    <input type="hidden" name="user_id" value="{{ user.id }}">
- 
+ -->
   </form>
 
 <script src="{% static "forum/js/content.js" %}"></script>
 <script src="{% static "forum/js/answer.js" %}"></script>
 <script src="{% static "forum/js/answerA.js" %}"></script>
+
 {% block importsJavascript %} {% endblock importsJavascript %}
 {% endfor %} {% endblock content %}
 

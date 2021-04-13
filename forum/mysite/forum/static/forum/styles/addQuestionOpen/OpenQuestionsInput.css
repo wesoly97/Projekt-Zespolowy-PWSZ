@@ -1,4 +1,56 @@
-h5{
+.top{
     color:#FFE06B;
     background-color: #495F75;
+    padding-top: 0.1%;
+    padding-bottom: 0.1%;
+    padding-left: 1%;
+    align-items:center;
+    
+}
+.row{
+    margin: auto;
+}
+span{
+    
+    
+
+ font-size:20px  !important;
+ 
+ display: run-in !important;
+ max-width: 100%;
+}
+.border{
+  height: fit-content;
+  padding: 3px;
+  border: 1px solid #CED4DA;
+  background: #FFFFFF;
+  border-radius: 5px;
+}
+#data{
+    
+}
+#que{
+
+}
+#data_content{
+    padding-top: 20px;
+    padding-bottom: 20px;
+    background-color: #EBEBEB;
+
+}
+#que_content{
+    background-color: #EBEBEB;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+h6{
+    margin-left: 28%;
+}
+#que h6{
+    margin-left: 8%;
+}
+.inputs{
+    width: 40%;
+    margin: auto;
+    padding-left: 1%;
 }
