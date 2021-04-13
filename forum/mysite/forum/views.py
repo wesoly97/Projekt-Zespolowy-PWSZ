@@ -439,5 +439,42 @@ def check(request, user_id,post_id):
     return render(request, 'forum/postsM.html', context)
 
 def history(request, user_id):
-    context = {}
+    score = Score.objects.filter(id_user_id=user_id)
+    posts = Post.objects.filter(userP_id=user_id)
+
+    nzO=[]
+    nzZ=[]
+    oZZ=[]
+    oOO=[]
+    pytZ=[]
+    pytO=[]
+    odpZZ=[]
+    for s in score:
+        nzO = list(s.id_zad_otwartych.split(" "))
+        nzZ = list(s.id_zad_zamknietych.split(" "))
+        oZ = list(s.odp_zamkniete.split(" "))
+        oO = list(s.odp_otwarte.split("\n"))
+
+        for nr in nzZ[:-1]:
+            x=str(Zadanie_zamkniete.objects.filter(id=nr).values('tresc'))[20:-3]
+            pytZ.append(x)
+        for nr in nzO[:-1]:
+            x=str(Zadanie_otwarte.objects.filter(id=nr).values('tresc'))[20:-3]
+            pytO.append(x)
+        for o in oZ[:-1]:
+            oZZ.append(o)
+        for o in oO[:-1]:
+            oOO.append(o)
+
+        for r in nzZ[:-1]:
+            odpA=str(Zadanie_zamkniete.objects.filter(id=r).values('odp_a'))[20:-3]
+            odpB=str(Zadanie_zamkniete.objects.filter(id=r).values('odp_b'))[20:-3]
+            odpC=str(Zadanie_zamkniete.objects.filter(id=r).values('odp_c'))[20:-3]
+            odpD=str(Zadanie_zamkniete.objects.filter(id=r).values('odp_d'))[20:-3]
+            temp="A) "+odpA +"   B) "+odpB +"   C) "+odpC+"   D) "+odpD
+            odpZZ.append(temp)
+
+    pytaniaZamkniete=zip(pytZ,odpZZ,oZZ)
+    pytaniaOtwarte=zip(pytO,oOO)
+    context = {'pytaniaZamkniete':pytaniaZamkniete, 'pytaniaOtwarte':pytaniaOtwarte}
     return render(request, 'forum/history.html', context)

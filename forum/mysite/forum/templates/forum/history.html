@@ -1,5 +1,30 @@
 {% extends 'forum/base.html' %} 
 {% block content %}
 <div class="home">
-  <h1>Wyniki!</h1>
+  <h1>Historia!</h1>
+{% for pytZ,odpZZ,oZZ in pytaniaZamkniete %}
+    PYTANIE : {{ pytZ }} <br>
+    ODPOWIEDZI : {{ odpZZ }}<br>
+    ODPOWIEDZ : {{ oZZ }}<br>
+{% endfor %}
+
+{% for pytO,oOO in pytaniaOtwarte %}
+    PYTANIE : {{ pytO }} <br>
+    ODPOWIEDZ : {{ oOO }}<br>
+{% endfor %}
+  {% comment %} <h3>Pytania zamkniete</h3>
+  <div>
+  {% for z in pytZ %}
+  {{z}}
+  <hr>
+  {% endfor %}
+
+  <h3>Pytania otwarte</h3>
+  <div>
+  {% for o in pytO %}
+  {{o}}
+  <hr>
+  {% endfor %} {% endcomment %}
+
+  </div>
  {% endblock content %}
