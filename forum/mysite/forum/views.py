@@ -437,3 +437,7 @@ def check(request, user_id,post_id):
         y.save()
     context = {'postsM': postsM,'answersM': answersM,'users': users}
     return render(request, 'forum/postsM.html', context)
+
+def history(request, user_id):
+    context = {}
+    return render(request, 'forum/history.html', context)

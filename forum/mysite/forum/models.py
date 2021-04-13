@@ -100,7 +100,7 @@ class Score(models.Model):
     def __str__(self):
         return self.id_user
 
-class Podejscie(models.Model):
+class Attempt(models.Model):
     user = models.IntegerField(blank=True)
     numeryZadanZamknietych = models.CharField(max_length=70)
     numeryZadanOtwartych = models.CharField(max_length=70)

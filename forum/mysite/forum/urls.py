@@ -24,6 +24,8 @@ urlpatterns = [
 
     path('userScore_<int:user_id>', views.score, name='userScore'),
 
+    path('history_<int:user_id>', views.history, name='history'),
+
 
     path('register2', views.register2, name='register2'),
     path('register1', views.register1, name='register1'),
