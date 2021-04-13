@@ -3,14 +3,14 @@
 {% load static %}  
 {% for user in users %}
 {% block css %} 
-  <link rel="stylesheet" href="{% static 'forum/usersHome/UsersHome.css' %}"> 
+  <link rel="stylesheet" href="{% static 'forum/styles/usersHome/UsersHome.css' %}"> 
 {% endblock css %} 
 
 <div id="cont">
      <div id="content" class="container-fluid">
      <div class="row " >
       <div class="col-sm flex-column  "><div class="card" style="width: 18rem;" id="upperCard">
-        <img class="card-img-top" src="{% static 'forum/usersHome/pictures/math1.png' %}" alt="Card image cap">
+        <img class="card-img-top" src="{% static 'forum/images/usersHome/math1.png' %}" alt="Card image cap">
         <div class="card-body">
           <h5 class="card-title">Wygeneruj zestaw</h5>
           <p class="card-text">Wygenerujemy dla Ciebie unikatowy zestaw maturalny.</p>
@@ -18,7 +18,7 @@
         </div>
       </div></div>
       <div class="col-sm flex-column  " ><div class="card" style="width: 18rem;" id="centerCard">
-        <img class="card-img-top" src="{% static 'forum/usersHome/pictures/forum.png' %}" alt="Card image cap">
+        <img class="card-img-top" src="{% static 'forum/images/usersHome/forum.png' %}" alt="Card image cap">
         <div class="card-body">
           <h5 class="card-title">Forum</h5>
           <p class="card-text">Poproś o pomoc innych użytkowników!</p>
@@ -27,7 +27,7 @@
       </div></div>
       
       <div class="col-sm flex-column " id="test"><div class="card" style="width: 18rem;" >
-        <img class="card-img-top" src="{% static 'forum/usersHome/pictures/math2.png' %}" alt="Card image cap">
+        <img class="card-img-top" src="{% static 'forum/images/usersHome/math2.png' %}" alt="Card image cap">
         <div class="card-body">
           <h5 class="card-title">Wygeneruj zadanie</h5>
           <p class="card-text">Wygeneruj losowe zadanie z wybranej kategori.</p>
@@ -37,21 +37,21 @@
       </div>
       <div class="row ">
       <div class="col-sm bottom flex-column "><div class="card cardleft" style="width: 18rem;" >
-        <img class="card-img-top" src="{% static 'forum/usersHome/pictures/history.png' %}" alt="Card image cap">
+        <img class="card-img-top" src="{% static 'forum/images/usersHome/history.png' %}" alt="Card image cap">
         <div class="card-body">
           <h5 class="card-title">Historia</h5>
           <a href="#" class="btn btn-primary float-right">Otwórz</a>
         </div>
       </div></div>
       <div class="col-sm bottom"><div class="card" style="width: 18rem;">
-        <img class="card-img-top" src="{% static 'forum/usersHome/pictures/statistic.png' %}" alt="Card image cap">
+        <img class="card-img-top" src="{% static 'forum/images/usersHome/statistic.png' %}" alt="Card image cap">
         <div class="card-body">
           <h5 class="card-title">Moje statystyki</h5>
           <a href="#" class="btn btn-primary float-right">Otwórz</a>
         </div>
       </div></div>
       <div class="col-sm bottom"><div class="card cardleft" style="width: 18rem;">
-        <img class="card-img-top" src="{% static 'forum/usersHome/pictures/que1.jpg' %}" alt="Card image cap">
+        <img class="card-img-top" src="{% static 'forum/images/usersHome/que1.jpg' %}" alt="Card image cap">
         <div class="card-body">
           <h5 class="card-title">Dodaj zadanie zamknięte</h5>
    
@@ -59,7 +59,7 @@
         </div>
       </div></div>
       <div class="col-sm bottom"><div class="card" style="width: 18rem;" >
-        <img class="card-img-top" src="{% static 'forum/usersHome/pictures/que2.jpg' %}" alt="Card image cap">
+        <img class="card-img-top" src="{% static 'forum/images/usersHome/que2.jpg' %}" alt="Card image cap">
         <div class="card-body">
           <h5 class="card-title">Dodaj zadanie otwarte</h5>
                 <a href="{% url 'addQuestionOpen' user.id %}" class="btn btn-primary float-right">Dodaj</a>
