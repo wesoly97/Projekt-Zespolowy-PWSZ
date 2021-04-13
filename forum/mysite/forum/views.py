@@ -16,6 +16,9 @@ from django.db.models import Max
 import re
 
 
+
+
+
 #####################################################
 #                                                   #
 #   Funkcja sprawdzająca czy user jest zalogowany   #
@@ -41,6 +44,22 @@ def auth_user_id(request):
         return request.session['logged_user']
     else:
         return "User not authenticated"
+
+
+#####################################################
+#                                                   #
+#   Funkcja zwracająca range zalogowanego usera     #
+#                                                   #
+#####################################################
+def auth_user_rank(request):
+    if is_user_authenticated(request):
+        user = User.objects.filter(id=auth_user_id(request))[0]
+        return user.ranga
+    else:
+        return 0
+
+
+
 #####################################################
 #                                                   #
 #      Funkcja dodająca nowy post do zadania        #
@@ -108,17 +127,23 @@ def logout(request):
 
 
 def register1(request):
+    if is_user_authenticated(request):
+        return redirect('usersHOME', user_id=auth_user_id(request))
     users = User.objects.all()
     context = {'users': users}
     return render(request, 'forum/register1.html', context)
 
 def addQuestionView(request,user_id):
+    if auth_user_rank(request) != 'admin' or auth_user_rank(request) != 'moderator':
+        return render(request, 'forum/error.html', context={'error': 'Brak uprawnień'})
     users = User.objects.filter(id=user_id)
 
     context = {'users': users}
     
     return render(request, 'forum/addQuestionOpen.html', context)
 def addQuestionViewClosedQuestion(request,user_id):
+    if auth_user_rank(request) != 'admin' or auth_user_rank(request) != 'moderator':
+        return render(request, 'forum/error.html', context={'error': 'Brak uprawnień'})
     users = User.objects.filter(id=user_id)
     context = {'users': users}
     return render(request, 'forum/addQuestionClose.html', context)
@@ -193,7 +218,7 @@ def register2(request):
         msg="Empty,try again"
     else:
         if(User.objects.filter(name=Name).count()==0):
-            u = User(name=Name,password=Password)
+            u = User(name=Name,password=Password,ranga="user")
             u.save()
             msg="User added"
         else:
