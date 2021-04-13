@@ -520,9 +520,11 @@ def history(request, user_id):
         
         for nr in nzZ[:-1]:
             x=str(zadanie_matematyczne.objects.filter(id=nr).values('tresc'))[22:-4]
+            x=x.replace('\\\\',' \\')
             pytZ.append(x)
         for nr in nzO[:-1]:
             x=str(zadanie_matematyczne.objects.filter(id=nr).values('tresc'))[22:-4]
+            x=x.replace('\\\\',' \\')
             pytO.append(x)
         for o in oZ[:-1]:
             oZZ.append(o)
@@ -534,7 +536,8 @@ def history(request, user_id):
             odpB=str(zadanie_matematyczne.objects.filter(id=r).values('odp_b'))[22:-4]
             odpC=str(zadanie_matematyczne.objects.filter(id=r).values('odp_c'))[22:-4]
             odpD=str(zadanie_matematyczne.objects.filter(id=r).values('odp_d'))[22:-4]
-            temp="A) "+odpA +"   B) "+odpB +"   C) "+odpC+"   D) "+odpD
+            temp="A) "+odpA +"B) "+odpB +"C) "+odpC+"D) "+odpD
+            temp=temp.replace('\\\\',' \\')
             odpZZ.append(temp)
 
     pytaniaZamkniete=zip(pytZ,odpZZ,oZZ)
