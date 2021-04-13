@@ -309,8 +309,10 @@ def math_page3(request, user_id):
     r3=request.session.get('r3')
     r4=request.session.get('r4')
 
-    zos=zadanie_matematyczne.objects.filter(nr_wersji=r).filter(rodzaj="otwarte",zestaw="zestaw1")
-    zzs=zadanie_matematyczne.objects.filter(nr_wersji=r2).filter(rodzaj="zamkniete",zestaw="zestaw1")
+    zos=zadanie_matematyczne.objects.filter(id=225)|zadanie_matematyczne.objects.filter(id=230)
+
+
+    zzs=zadanie_matematyczne.objects.filter(id=201)|zadanie_matematyczne.objects.filter(id=181)|zadanie_matematyczne.objects.filter(id=180)
 
     odpZ = request.POST.getlist('odpZ')
     odpO = request.POST.getlist('odpO')
