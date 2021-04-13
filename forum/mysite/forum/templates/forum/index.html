@@ -1,8 +1,4 @@
-<<<<<<< Updated upstream
-{% extends 'forum/base.html' %}
-{% block content %}
-{% load static %}
-{% block css %} 
+
   <link rel="stylesheet" href="{% static 'forum/styles/index/index.css' %}">
 {% endblock css %}
 {% block js %}
@@ -133,25 +129,3 @@
 <script src="https://cdn.jsdelivr.net/npm/drawsvg@1.1.0/public/jquery.drawsvg.min.js" integrity="sha256-i6x512H+kZ6dH+zQVwgTPMQ5oDF+UfFfVeCRX7OUMq8=" crossorigin="anonymous"></script>
 <script src="{% static 'forum/js/index/index.js' %}"></script>
 {% endblock jquery %} 
-=======
-{% extends 'forum/base.html' %} {% block content %}
-<h1>Main Page</h1>
-
-<h2>Users</h2>
-    <i class="fas fa-users fa-3x"></i><br /><br />
-    {% for user in users %}
-    <a href="{% url 'usersHOME' user.id %}">{{ user.name }}</a>
-    {% endfor %}
-    <br /><br /><br />
-    <h2>New User</h2>
-    <a href="{% url 'register1' %}"
-      ><button><i class="fas fa-user-plus fa-3x"></i></button
-    ></a>
-    <a href="{% url 'log_out' %}">
-        <button><i class="fas fa-sign-out-alt fa-3x"></i></button>
-    </a>
->>>>>>> Stashed changes
-
-    {% endblock content %}
-  </>
-</h2>

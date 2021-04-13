@@ -22,7 +22,13 @@
 <a href="{% url 'post' user.id post.id %}">{{ post.subject }}</a><br /><br />
 {% endfor %}
 <h1>Posty do zadań</h1>
-{% for post in postsM %}
+<hr />
+{% for post in postsToChcekM %}
+<a href="{% url 'postM' user.id post.id %}">{{ post.tresc }}</a><br /><br />
+<br />
+{% endfor %}
+<hr />
+{% for post in postsCheched %}
 <a href="{% url 'postM' user.id post.id %}">{{ post.tresc }}</a><br /><br />
 <br />
 {% endfor %} {% endfor %} {% endblock content %}

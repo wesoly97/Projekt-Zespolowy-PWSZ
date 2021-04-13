@@ -1,20 +1,104 @@
-{% extends 'forum/base.html' %} {% block content %}
-<div class="home">
-  <h1>Home page for user</h1>
-  <br /><br />
-  <a href="{% url 'index' %}">
-    <button><i class="fas fa-home fa-3x"></i></button>
-  </a>
-  <a href="{% url 'log_out' %}">
-    <button><i class="fas fa-sign-out-alt fa-3x"></i></button>
-  </a>
+{% extends 'forum/base.html' %} {% block content %}{% load static %}  {% for user in users %}
+{% block css %} <link rel="stylesheet" href="{% static 'forum/usersHome/UsersHome.css' %}"> {% endblock css %} 
+
+<div id="cont">
+           <!--NAVBAR-->
+  <nav class="navbar navbar-expand-lg  bg-dark navbar-dark">
+    <a class="navbar-brand" href="#">Navbar</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav">
+        <li class="nav-item active">
+          <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Features</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Pricing</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Dropdown link
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <a class="dropdown-item" href="#">Action</a>
+            <a class="dropdown-item" href="#">Another action</a>
+            <a class="dropdown-item" href="#">Something else here</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </nav>
+ 
+
+     <!--/NAVBAR-->
+     <div id="content" class="container-fluid">
+     <div class="row " >
+      <div class="col-sm flex-column  "><div class="card" style="width: 18rem;" id="upperCard">
+        <img class="card-img-top" src="{% static 'forum/usersHome/pictures/math1.png' %}" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">Wygeneruj zestaw</h5>
+          <p class="card-text">Wygenerujemy dla Ciebie unikatowy zestaw maturalny.</p>
+          <a href="{% url 'math_page' user.id %}" class="btn btn-primary float-right">Generuj</a>
+        </div>
+      </div></div>
+      <div class="col-sm flex-column  " ><div class="card" style="width: 18rem;" id="centerCard">
+        <img class="card-img-top" src="{% static 'forum/usersHome/pictures/forum.png' %}" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">Forum</h5>
+          <p class="card-text">Poproś o pomoc innych użytkowników!</p>
+          <a href="{% url 'user_at_forum' user.id %}" class="btn btn-primary float-right">Otwórz</a>
+        </div>
+      </div></div>
+      
+      <div class="col-sm flex-column " id="test"><div class="card" style="width: 18rem;" >
+        <img class="card-img-top" src="{% static 'forum/usersHome/pictures/math2.png' %}" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">Wygeneruj zadanie</h5>
+          <p class="card-text">Wygeneruj losowe zadanie z wybranej kategori.</p>
+          <a href="#" class="btn btn-primary float-right">Generuj</a>
+        </div>
+      </div></div>
+      </div>
+      <div class="row ">
+      <div class="col-sm bottom flex-column "><div class="card cardleft" style="width: 18rem;" >
+        <img class="card-img-top" src="{% static 'forum/usersHome/pictures/history.png' %}" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">Historia</h5>
+          <a href="#" class="btn btn-primary float-right">Otwórz</a>
+        </div>
+      </div></div>
+      <div class="col-sm bottom"><div class="card" style="width: 18rem;">
+        <img class="card-img-top" src="{% static 'forum/usersHome/pictures/statistic.png' %}" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">Moje statystyki</h5>
+          <a href="#" class="btn btn-primary float-right">Otwórz</a>
+        </div>
+      </div></div>
+      <div class="col-sm bottom"><div class="card cardleft" style="width: 18rem;">
+        <img class="card-img-top" src="{% static 'forum/usersHome/pictures/que1.jpg' %}" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">Dodaj zadanie zamknięte</h5>
+   
+          <a href="{% url 'addQuestionClose' user.id %}" class="btn btn-primary float-right">Dodaj</a>
+        </div>
+      </div></div>
+      <div class="col-sm bottom"><div class="card" style="width: 18rem;" >
+        <img class="card-img-top" src="{% static 'forum/usersHome/pictures/que2.jpg' %}" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">Dodaj zadanie otwarte</h5>
+                <a href="{% url 'addQuestionOpen' user.id %}" class="btn btn-primary float-right">Dodaj</a>
+        </div>
+      </div></div>
+      
+    </div>
+  </div>
+
 </div>
-{% for user in users %}
-<p><b>Hello {{user.name}}</b></p>
-<br /><br />
-<a href="{% url 'math_page' user.id %}">ZESTAW TESTOWY</a><br /><br />
-<a href="{% url 'user_at_forum' user.id %}">FORUM</a>
-<br><br>
-<a href="{% url 'addQuestionOpen' user.id %}">DODAJ ZADANIE OTWARTE</a>
-<a href="{% url 'addQuestionClose' user.id %}">DODAJ ZADANIE ZAMKNIETE</a>
+
+
+
 {% endfor %} {% endblock content %}

@@ -1,0 +1,54 @@
+{% extends 'forum/base.html' %} {% block content %} {% for user in users %}
+{% load static %} 
+{% block css %} <link rel="stylesheet" href="{% static 'forum/userPanel/UserPanel.css' %}"> {% endblock css %} 
+    <div class="container-fluid">
+        <div class="profilePicture">
+            <img src="{% static 'forum/userPanel/profilePicture.png' %}" class="img-fluid" alt="ProfilePicture">
+            <a href="./" class='ChangeAvatar'>zmień avatar</a>
+            <h2 class="first-name">ANONIM</h2>
+            <h2 class="last-name">GAL</h2>
+        </div>
+        <div class="Simple-Data">
+            <p class="first">Zmiana podstawowych danych</p>
+            <hr>
+            <div class="forms">
+                <form>
+                    <div class="form-group first-form " >
+                        <label>Płeć</label> 
+                        <select class="form-select"  style="width:400px;">
+                            <option class="selected">Mężczyzna</option>
+                            <option class="selected">Kobieta</option>
+                        </select>
+                    </div>
+                    <div class="form-group second-form">
+                        <label>Imię</label> 
+                        <input class="form-control" type="text" placeholder="Wprowadź imię" style="width:400px;">
+                    </div>
+                    <div class="form-group third-form">
+                        <label>Wybierz poziom</label> <select class="form-select"  style="width:400px;">
+                            <option class="selected">Liceum/Technikum</option>
+                        </select>
+                    </div>
+                </form>
+            </div>   
+        </div>
+        <div class="privacy">
+            <p class="first">Prywatność</p>
+            <hr>
+            <div class="checkbox">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+                    <label class="form-check-label" for="inlineCheckbox1">Chcę zdobywać osiągnięcia</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
+                    <label class="form-check-label" for="inlineCheckbox2">Zezwalaj na wysyłanie powiadomień</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option3">
+                    <label class="form-check-label" for="inlineCheckbox3"> wyświetlaj moje wyniki</label>
+                  </div>
+            </div>
+        </div>
+    </div>
+{% endfor %} {% endblock content %}

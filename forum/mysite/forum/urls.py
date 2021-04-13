@@ -19,7 +19,11 @@ urlpatterns = [
     path('forum_user_<int:user_id>/p<int:post_id>/odp/', views.odp, name='odp'),
     path('forum_user_<int:user_id>/p<int:post_id>/delete_odpM<int:answer_id>/', views.delete_odpM, name='delete_odpM'),
     path('forum_user_<int:user_id>/p<int:post_id>/odpM/', views.odpM, name='odpM'),
+    path('forum_user_<int:user_id>/p<int:post_id>/check/', views.check, name='check'),
     path('forum_user_<int:user_id>/add/', views.add, name='add'),
+
+    path('userScore_<int:user_id>', views.score, name='userScore'),
+
 
     path('register2', views.register2, name='register2'),
     path('register1', views.register1, name='register1'),
@@ -31,5 +35,6 @@ urlpatterns = [
 
     path('login', views.login, name='login'),
     path('log_in', views.login_user, name='log_in'),
-    path('logout', views.logout, name='log_out')
+    path('logout', views.logout, name='log_out'),
+    path('userPanel_user_<int:user_id>/', views.userPanel, name='userPanel'), 
 ]
