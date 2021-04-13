@@ -47,7 +47,7 @@
         <img class="card-img-top" src="{% static 'forum/usersHome/pictures/statistic.png' %}" alt="Card image cap">
         <div class="card-body">
           <h5 class="card-title">Moje statystyki</h5>
-          <a href="#" class="btn btn-primary float-right">Otwórz</a>
+          <a href="{% url 'userScore' user.id%}" class="btn btn-primary float-right">Otwórz</a>
         </div>
       </div></div>
       <div class="col-sm bottom"><div class="card cardleft" style="width: 18rem;">
