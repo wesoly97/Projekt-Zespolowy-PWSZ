@@ -454,7 +454,8 @@ def history(request, user_id):
         nzZ = list(s.id_zad_zamknietych.split(" "))
         oZ = list(s.odp_zamkniete.split(" "))
         oO = list(s.odp_otwarte.split("\n"))
-
+        
+        
         for nr in nzZ[:-1]:
             x=str(Zadanie_zamkniete.objects.filter(id=nr).values('tresc'))[20:-3]
             pytZ.append(x)
