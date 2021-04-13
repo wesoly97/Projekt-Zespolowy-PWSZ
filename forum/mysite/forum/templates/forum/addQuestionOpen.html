@@ -1,6 +1,7 @@
 {% extends 'forum/base.html' %} 
 {% load static %}
 {% block content %}{% for user in users %}
+<<<<<<< Updated upstream
 <a href="{% url 'usersHOME' user.id %}"
   ><button><i class="fas fa-home fa-3x"></i></button></a
 ><br /><br />
@@ -8,6 +9,12 @@
  <link rel="stylesheet" href="{% static 'forum/MathQuil/mathquill.css' %}"/>
 <script src="{% static 'forum/MathQuil/mathquill.js' %}"></script>
 {% endblock %}
+=======
+{% block css %} 
+  <link rel="stylesheet" href="{% static 'forum/styles/addQuestionOpen/OpenQuestionsInput.css' %}"> 
+  
+{% endblock css %} 
+>>>>>>> Stashed changes
   <script>
         let MQ = MathQuill.getInterface(2); 
     </script>
@@ -15,6 +22,33 @@
      <br>
     <form method="post" enctype="multipart/form-data" action="{% block urlName %} {% url 'addQuestionOpenToDatabase' %}{% endblock urlName %}">
       {% csrf_token %}
+<<<<<<< Updated upstream
+=======
+
+      <div class="container-fluid">
+      <div class="row">
+      <div class="col-sm">
+          <div id="data">
+            <div class="top">
+            <h5>Dane</h5>
+            </div>
+            <div id="data_content">
+            
+            </div>
+          </div>
+      </div>
+      <div class ="col-sm">
+          <div  id="que">
+            <div class="top">
+            <h5>Pytanie</h5>
+            </div>
+            <div id="que_content">
+            </div>
+          </div>
+      </div>
+</div>
+      <!-- 
+>>>>>>> Stashed changes
     <label for="numberTask">Podaj numer zadania na arkuszu: </label>
     <input type="number" name="numberTask" required>
     <br><br>
