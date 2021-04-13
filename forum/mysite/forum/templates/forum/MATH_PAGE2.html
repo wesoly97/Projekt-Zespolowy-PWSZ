@@ -54,24 +54,8 @@
   {% if zo.url != "" %}
 <img src="{% static zo.url %}"/>
 {% endif %}
-<p>Wprowadz rozwiazanie: <br><br>
-    <span id="solution{{forloop.counter0}}"></span><textarea name="solution{{forloop.counter0}}" id="latexsolution{{forloop.counter0}}" style="opacity: 0;" required></textarea></p>
-  
-    <br>
-    <div style="width:305;border-style: solid; display:inline-block;">
-        <div id="sqrtsolution{{forloop.counter0}}" style=" float:left; padding:20px;">√</div>
-        <div id="mldsolution{{forloop.counter0}}" style=" float:left;padding:20px;">*</div>
-        <div id="plussolution{{forloop.counter0}}" style=" float:left;padding:20px;">+</div>
-        <div id="minussolution{{forloop.counter0}}" style=" float:left;padding:20px;">-</div>
-        <div id="przecineksolution{{forloop.counter0}}" style=" float:left;padding:20px;">,</div>
-        <div id="pisolution{{forloop.counter0}}" style=" float:left;padding:20px;">π</div>
-        <div id="dzieleniesolution{{forloop.counter0}}" style=" float:left;padding:20px;">¼</div>
-        <div id="potegasolution{{forloop.counter0}}" style=" float:left;padding:20px;">^</div>
-        <div id="cbrtsolution{{forloop.counter0}}" style=" float:left;padding:20px;">∛</div>
-    </div><br><br>
-  <br />
   <p>Wprowadz Odpowiedz: <br><br>
-  <span id="answer{{forloop.counter0}}"></span><textarea name="odpO" id="latexanswer{{forloop.counter0}}" style="opacity: 0;" required></textarea></p>
+  <span id="answer{{forloop.counter0}}" style="width:450px;"></span><textarea name="odpO" id="latexanswer{{forloop.counter0}}" style="opacity: 0;" required></textarea></p>
     <br>
     <div style="width:305;border-style: solid; display:inline-block;">
         <div id="sqrtanswer{{forloop.counter0}}" style=" float:left; padding:20px;">√</div>
