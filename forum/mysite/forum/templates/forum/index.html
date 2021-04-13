@@ -1,9 +1,12 @@
-
+{% extends 'forum/base.html' %}
+{% load static %}
+{% block css %}
   <link rel="stylesheet" href="{% static 'forum/styles/index/index.css' %}">
 {% endblock css %}
 {% block js %}
   <script src="https://inorganik.github.io/countUp.js/dist/countUp.umd.js"></script>
 {% endblock js %}
+{% block content %}
   <header class="container-fluid">
     <div id="effect">
       <h1>

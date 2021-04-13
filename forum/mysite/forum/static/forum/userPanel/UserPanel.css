@@ -114,7 +114,7 @@ body{
   }
   .form-check .form-check-label:after {
     left: 8px;
-    top: 8px;
+    top: 10px;
     width: 7px;
     height: 12px;
     border: solid white;
