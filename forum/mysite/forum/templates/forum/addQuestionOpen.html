@@ -4,6 +4,20 @@
 {% block css %} 
 <link rel="stylesheet" href="{% static 'forum/styles/addQuestionOpen/OpenQuestionsInput.css' %}">
 {% endblock css %} 
+{% block js %}
+<script src="{% static 'forum/MathQuil/mathquill.js' %}"></script>
+<script id="MathJax-script" async src="{% static 'forum/mathjax-master/es5/tex-chtml.js'%}"></script>
+<script>
+MathJax = {
+tex: {
+inlineMath: [['$', '$'], ['\\(', '\\)']]
+},
+svg: {
+fontCache: 'global'
+}
+};
+</script>
+{% endblock js %}
 <script>
    let MQ = MathQuill.getInterface(2); 
 </script>
@@ -134,8 +148,8 @@
                      <div class="col" id="geA">⩾</div>
                      <div class="col" id="nalezyA">∈</div>
                      <div class="w-100"></div>
-                     <div class="col" id="indexA">$x^k_n$</div>
-                     <div class="col" id="infA">∞</div>
+                     <div class="col" id="indexAnswer">$x^k_n$</div>
+                     <div class="col" id="infAnswer">∞</div>
                   </div>
                </div>
             </div>
@@ -153,5 +167,5 @@
 </div>
 </form>
 
-<script src="{% static 'forum/js/addQuestion/addQuestion.js' %}"></script>
+<script src="{% static 'forum/js/addQuestion.js' %}"></script>
 {% endfor %} {% endblock content %}
