@@ -1,130 +1,223 @@
-{% extends 'forum/base.html' %} 
-{% load static %}
-{% block content %}{% for user in users %}
-{% block css %} 
-<link rel="stylesheet" href="{% static 'forum/styles/addQuestionOpen/OpenQuestionsInput.css' %}">
-{% endblock css %} 
+{% extends 'forum/base.html' %} {% load static %} {% block content %}{% for user in users %} {% block css %}
+<link
+  rel="stylesheet"
+  href="{% static 'forum/styles/addQuestionOpen/OpenQuestionsInput.css' %}"
+/>
+{% endblock css %}
+    {% block js %}
+    <script src="{% static 'forum/MathQuil/mathquill.js' %}"></script>
+    <script id="MathJax-script" async src="{% static 'forum/mathjax-master/es5/tex-chtml.js'%}"></script>
+  <script>
+MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']]
+  },
+  svg: {
+    fontCache: 'global'
+  }
+};
+</script>
+    {% endblock js %}
 <script>
-   let MQ = MathQuill.getInterface(2); 
+  let MQ = MathQuill.getInterface(2);
 </script>
 {% block typeQuestion %} {% endblock typeQuestion %}
-<br>
-<form method="post" enctype="multipart/form-data" action="{% block urlName %} {% url 'addQuestionOpenToDatabase' %}{% endblock urlName %}">
-   {% csrf_token %}
-   <div class="container-fluid">
-   <div class="row">
-   <div class="col-sm-3 offset-sm-1">
-      <div id="data">
-         <div class="top">
+<br />
+<form
+  method="post"
+  enctype="multipart/form-data"
+  action="{% block urlName %} {% url 'addQuestionOpenToDatabase' %}{% endblock urlName %}"
+>
+  {% csrf_token %}
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-3 offset-sm-1">
+        <div id="data">
+          <div class="top">
             <h5>Dane</h5>
-         </div>
-         <div id="data_content">
-            <h6> Numer zadania </h6>
-            <input class="form-control inputs" type="text" placeholder="Numer zadania" name="numberTask">
+          </div>
+          <div id="data_content">
+            <h6>Numer zadania</h6>
+            <input
+              class="form-control inputs"
+              type="text"
+              placeholder="Numer zadania"
+              name="numberTask"
+            />
             <h6>Dział</h6>
             <select class="form-control inputs" name="section">
-               <option>1</option>
-               <option>2</option>
-               <option>3</option>
-               <option>4</option>
-               <option>5</option>
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
             </select>
             <h6>Zestaw</h6>
             <select class="form-control inputs" name="set">
-               <option>test</option>
-               <option>2</option>
-               <option>3</option>
-               <option>4</option>
-               <option>5</option>
+              <option>test</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
             </select>
             <h6>Punkty</h6>
-            <input class="form-control inputs" type="number" placeholder="Punkty" name="NumberPoints">
-         </div>
+            <input
+              class="form-control inputs"
+              type="number"
+              placeholder="Punkty"
+              name="NumberPoints"
+            />
+          </div>
+        </div>
       </div>
-   </div>
-   <div class ="col-sm-7">
-      <div  id="que">
-         <div class="top">
+      <div class="col-sm-7">
+        <div id="que">
+          <div class="top">
             <h5>Pytanie</h5>
-         </div>
-         <div id="que_content">
+          </div>
+          <div id="que_content">
             <h6>Treść pytania</h6>
             <div class="row">
-               <div class="col-sm-7 offset-sm-1 border" >
-                  <span id="mathQuillQuestion" class="border-0"></span><textarea  id="latexQuestion" rows="3" name="inputQuestion" required style="opacity:0;width:0px;height:0px;"></textarea>
-               </div>
-               <div class="col-sm-2 border ml-5">
-                  <div class="row">
-                     <div class="col" id="sqrtQuestion">√</div>
-                     <div class="col"  id="mldQuestion">*</div>
-                     <div class="col" id="plusQuestion">+</div>
-                     <div class="w-100"></div>
-                     <div class="col" id="minusQuestion">-</div>
-                     <div class="col" id="przecinekQuestion">,</div>
-                     <div class="col" id="piQuestion">π</div>
-                     <div class="w-100"></div>
-                     <div class="col" id="dzielenieQuestion">¼</div>
-                     <div class="col" id="potegaQuestion">^</div>
-                     <div class="col" id="cbrtQuestion">∛</div>
-                  </div>
-               </div>
+              <div class="col-sm-7 offset-sm-1 border">
+                <span id="mathQuillQuestion" class="border-0"></span
+                ><textarea
+                  id="latexQuestion"
+                  rows="3"
+                  name="inputQuestion"
+                  required
+                  style="opacity: 0; width: 0px; height: 0px"
+                ></textarea>
+              </div>
+              <div class="col-sm-2 border ml-5">
+                <div class="row">
+                 <div class="col" id="sqrtQuestion">√</div>
+                  <div class="col" id="piQuestion">π</div>
+                  <div class="col" id="przerwaQuestion">↵</div>
+                  <div class="w-100"></div>
+                  <div class="col" id="dzielenieQuestion">¼</div>
+                  <div class="col" id="potegaQuestion">^</div>
+                  <div class="col" id="cbrtQuestion">∛</div>
+                  <div class="w-100"></div>
+                  <div class="col" id="calkaQuestion">∫</div>
+                  <div class="col" id="sumaQuestion">Σ</div>
+                  <div class="col" id="logQuestion">$\log_{n}k$</div>
+                   <div class="w-100"></div>
+                  <div class="col" id="newtonQuestion">$\binom{N}{k}$</div>
+                  <div class="col" id="AlfaQuestion">α</div>
+                  <div class="col" id="BetaQuestion">β</div>
+              
+                 <div class="w-100"></div>
+                  <div class="col" id="leQuestion">⩽</div>
+                  <div class="col" id="geQuestion">⩾</div>
+                  <div class="col" id="nalezyQuestion">∈</div>
+                           
+                <div class="w-100"></div>
+                  <div class="col" id="indexQuestion">$x^k_n$</div>
+                  <div class="col" id="infQuestion">∞</div>
+                </div>
+              </div>
             </div>
             <h6>Rozwiązanie</h6>
             <div class="row">
-               <div class="col-sm-7 offset-sm-1 border" >
-                  <span id="mathQuillAnswer" class="border-0"></span><textarea  id="latexAnswer" rows="3" name="inputAnswer" required style="opacity:0;width:0px;height:0px;"></textarea>
-               </div>
-               <div class="col-sm-2 border ml-5">
-                  <div class="row">
-                     <div class="col" id="sqrtAnswer">√</div>
-                     <div class="col"  id="mldAnswer">*</div>
-                     <div class="col" id="plusAnswer">+</div>
-                     <div class="w-100"></div>
-                     <div class="col" id="minusAnswer">-</div>
-                     <div class="col" id="przecinekAnswer">,</div>
-                     <div class="col" id="piAnswer">π</div>
-                     <div class="w-100"></div>
-                     <div class="col" id="dzielenieAnswer">¼</div>
-                     <div class="col" id="potegaAnswer">^</div>
-                     <div class="col" id="cbrtAnswer">∛</div>
-                  </div>
-               </div>
+              <div class="col-sm-7 offset-sm-1 border">
+                <span id="mathQuillAnswer" class="border-0"></span
+                ><textarea
+                  id="latexAnswer"
+                  rows="3"
+                  name="inputAnswer"
+                  required
+                  style="opacity: 0; width: 0px; height: 0px"
+                ></textarea>
+              </div>
+              <div class="col-sm-2 border ml-5">
+                <div class="row">
+                  <div class="col" id="sqrtAnswer">√</div>
+                  <div class="col" id="piAnswer">π</div>
+                  <div class="col" id="przerwaAnswer">π</div>
+                  <div class="w-100"></div>
+                  <div class="col" id="dzielenieAnswer">¼</div>
+                  <div class="col" id="potegaAnswer">^</div>
+                  <div class="col" id="cbrtAnswer">∛</div>
+                  <div class="w-100"></div>
+                  <div class="col" id="calkaAnswer">∫</div>
+                  <div class="col" id="sumaAnswer">Σ</div>
+                  <div class="col" id="logAnswer">$\log_{n}k$</div>
+                   <div class="w-100"></div>
+                  <div class="col" id="newtonAnswer">$\binom{N}{k}$</div>
+                  <div class="col" id="AlfaAnswer">α</div>
+                  <div class="col" id="BetaAnswer">β</div>
+              
+                 <div class="w-100"></div>
+                  <div class="col" id="leAnswer">⩽</div>
+                  <div class="col" id="geAnswer">⩾</div>
+                  <div class="col" id="nalezyAnswer">∈</div>
+                           
+                <div class="w-100"></div>
+                  <div class="col" id="indexAnswer">$x^k_n$</div>
+                  <div class="col" id="infAnswer">∞</div>
+                
+                </div>
+              </div>
             </div>
-             {% block closedQuestionOption %}
+            {% block closedQuestionOption %}
             <h6>Odpowiedź</h6>
             <div class="row">
-               <div class="col-sm-7 offset-sm-1 border" >
+              <div class="col-sm-7 offset-sm-1 border">
+                <span id="mathQuillA" class="border-0"></span
+                ><textarea
+                  id="latexA"
+                  rows="3"
+                  name="solution"
+                  required
+                  style="opacity: 0; width: 0px; height: 0px"
+                ></textarea>
+              </div>
+              <div class="col-sm-2 border ml-5">
+                <div class="row">
+                  <div class="col" id="sqrtA">√</div>
+                  <div class="col" id="piA">π</div>
+                  <div class="col" id="przerwaA">↵</div>
+                  <div class="w-100"></div>
+                  <div class="col" id="dzielenieA">¼</div>
+                  <div class="col" id="potegaA">^</div>
+                  <div class="col" id="cbrtA">∛</div>
+                  <div class="w-100"></div>
+                  <div class="col" id="calkaA">∫</div>
+                  <div class="col" id="sumaA">Σ</div>
+                  <div class="col" id="logA">$\log_{n}k$</div>
+                   <div class="w-100"></div>
+                  <div class="col" id="newtonA">$\binom{N}{k}$</div>
+                  <div class="col" id="AlfaA">α</div>
+                  <div class="col" id="BetaA">β</div>
               
-                  <span id="mathQuillA" class="border-0"></span><textarea  id="latexA" rows="3" name="solution" required style="opacity:0;width:0px;height:0px;"></textarea>
-               </div>
-               <div class="col-sm-2 border ml-5">
-                  <div class="row">
-                     <div class="col" id="sqrtA">√</div>
-                     <div class="col"  id="mldA">*</div>
-                     <div class="col" id="plusA">+</div>
-                     <div class="w-100"></div>
-                     <div class="col" id="minusA">-</div>
-                     <div class="col" id="przecinekA">,</div>
-                     <div class="col" id="piA">π</div>
-                     <div class="w-100"></div>
-                     <div class="col" id="dzielenieA">¼</div>
-                     <div class="col" id="potegaA">^</div>
-                     <div class="col" id="cbrtA">∛</div>
-                  </div>
-               </div>
+                 <div class="w-100"></div>
+                  <div class="col" id="leA">⩽</div>
+                  <div class="col" id="geA">⩾</div>
+                  <div class="col" id="nalezyA">∈</div>
+                           
+                <div class="w-100"></div>
+                  <div class="col" id="indexA">$x^k_n$</div>
+                  <div class="col" id="infA">∞</div>
+                </div>
+              </div>
             </div>
             {% endblock closedQuestionOption %}
             <h6>Dodaj zdjęcie</h6>
             <div>
-               <input type="file" class="form-control-file inputsFile" name="image" accept="image/png, image/jpeg, image/svg">
+              <input
+                type="file"
+                class="form-control-file inputsFile"
+                name="image"
+                accept="image/png, image/jpeg, image/svg"
+              />
             </div>
-         </div>
-         <input type="submit" value="Dodaj zadanie" id="addQuestion" />
-         <input type="hidden" name="user_id" value="{{ user.id }}">
+          </div>
+          <input type="submit" value="Dodaj zadanie" id="addQuestion" />
+          <input type="hidden" name="user_id" value="{{ user.id }}" />
+        </div>
       </div>
-   </div>
+    </div>
   </div>
-</div>
 </form>
 <script src="{% static 'forum/js/addQuestion.js' %}"></script>
 {% endfor %} {% endblock content %}
