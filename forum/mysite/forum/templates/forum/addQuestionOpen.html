@@ -20,9 +20,9 @@
          </div>
          <div id="data_content">
             <h6> Numer zadania </h6>
-            <input class="form-control inputs" type="text" placeholder="Numer zadania" name="numberTask">
+            <input class="form-control inputs" type="text" placeholder="Numer zadania" name="numberTask" required>
             <h6>Dział</h6>
-            <select class="form-control inputs" name="section">
+            <select class="form-control inputs" name="section" required>
                <option>1</option>
                <option>2</option>
                <option>3</option>
@@ -30,7 +30,7 @@
                <option>5</option>
             </select>
             <h6>Zestaw</h6>
-            <select class="form-control inputs" name="set">
+            <select class="form-control inputs" name="set" required>
                <option>test</option>
                <option>2</option>
                <option>3</option>
@@ -38,7 +38,7 @@
                <option>5</option>
             </select>
             <h6>Punkty</h6>
-            <input class="form-control inputs" type="number" placeholder="Punkty" name="NumberPoints">
+            <input class="form-control inputs" type="number" placeholder="Punkty" name="NumberPoints" required>
          </div>
       </div>
    </div>
@@ -49,11 +49,11 @@
          </div>
          <div id="que_content">
             <h6>Treść pytania</h6>
-            <div class="row">
-               <div class="col-sm-7 offset-sm-1 border" >
+            <div class="row" >
+               <div class="col-sm-7 offset-sm-1 border2" id="QueDivQuestion" >
                   <span id="mathQuillQuestion" class="border-0"></span><textarea  id="latexQuestion" rows="3" name="inputQuestion" required style="opacity:0;width:0px;height:0px;"></textarea>
                </div>
-               <div class="col-sm-2 border ml-5">
+               <div class="col-sm-2 border2 ml-5">
                   <div class="row">
                      <div class="col" id="sqrtQuestion">√</div>
                      <div class="col"  id="mldQuestion">*</div>
@@ -71,10 +71,10 @@
             </div>
             <h6>Rozwiązanie</h6>
             <div class="row">
-               <div class="col-sm-7 offset-sm-1 border" >
+               <div class="col-sm-7 offset-sm-1 border2" id="QueDivAnswer" >
                   <span id="mathQuillAnswer" class="border-0"></span><textarea  id="latexAnswer" rows="3" name="inputAnswer" required style="opacity:0;width:0px;height:0px;"></textarea>
                </div>
-               <div class="col-sm-2 border ml-5">
+               <div class="col-sm-2 border2 ml-5">
                   <div class="row">
                      <div class="col" id="sqrtAnswer">√</div>
                      <div class="col"  id="mldAnswer">*</div>
@@ -93,11 +93,10 @@
              {% block closedQuestionOption %}
             <h6>Odpowiedź</h6>
             <div class="row">
-               <div class="col-sm-7 offset-sm-1 border" >
-              
+               <div class="col-sm-7 offset-sm-1 border2" id="QueDivA" >
                   <span id="mathQuillA" class="border-0"></span><textarea  id="latexA" rows="3" name="solution" required style="opacity:0;width:0px;height:0px;"></textarea>
                </div>
-               <div class="col-sm-2 border ml-5">
+               <div class="col-sm-2 border2 ml-5">
                   <div class="row">
                      <div class="col" id="sqrtA">√</div>
                      <div class="col"  id="mldA">*</div>
@@ -126,5 +125,6 @@
   </div>
 </div>
 </form>
-<script src="{% static 'forum/js/addQuestion.js' %}"></script>
+
+<script src="{% static 'forum/js/addQuestion/addQuestion.js' %}"></script>
 {% endfor %} {% endblock content %}

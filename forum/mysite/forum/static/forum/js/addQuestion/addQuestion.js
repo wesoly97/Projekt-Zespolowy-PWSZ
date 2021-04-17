@@ -15,12 +15,22 @@ handlers: {
         }
     }
 });
-
-
-$( "#sqrt"+id).click(function() {
-answerMathField2.write('\\sqrt{}');
-answerMathField2.reflow();
+$(document).click(function(e){
+    
+})
+$('#QueDiv'+id ).click( function(e) {
+    $("div[id^='QueDiv']").css("outline","0");
+    $("div[id^='QueDiv']").css("-webkit-box-shadow","0 0 0 0.2rem rgba(102,175,233,.4)");
+    $("div[id^='QueDiv']").css("box-shadow","0 0 0 0.2rem rgba(102,175,233,.4)");
+    $("div[id^='QueDiv']").css("border-color","#66afe9");
+    answerMathField2.focus();
+    $(this).css("border-color","#66afe9");
+    
+    
+   
+    
 });
+
 
 $( "#mld"+id).click(function() {
 answerMathField2.write('\\cdot');

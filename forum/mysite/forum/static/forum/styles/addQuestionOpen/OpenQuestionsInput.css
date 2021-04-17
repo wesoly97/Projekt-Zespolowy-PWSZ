@@ -8,6 +8,9 @@
     font-weight: bold !important;
     
 }
+span{
+    border:solid 0 !important;
+}
 .container-fluid{
     padding-top: 2%;
     padding-bottom: 2%;
@@ -18,15 +21,19 @@
 span{
     font-size:20px  !important;
     display: run-in !important;
+    
     max-width: 100%;
+    padding: 10px;
 }
-.border{
+.border2{
     height: fit-content;
-    padding: 3px;
+    padding: 20px;
     border: 1px solid #CED4DA;
     background: #FFFFFF;
     border-radius: 5px;
+    
 }
+
 #data_content{
     padding-top: 20px;
     padding-bottom: 20px;
