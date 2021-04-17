@@ -3,13 +3,10 @@
     background-color: #495F75;
     padding-top: 10px;
     padding-bottom: 5px;
-    padding-left: 10px;
+    padding-left: 5px;
     align-items:center;
     font-weight: bold !important;
     
-}
-span{
-    border:solid 0 !important;
 }
 .container-fluid{
     padding-top: 2%;
@@ -19,21 +16,20 @@ span{
     margin: auto;
 }
 span{
-    font-size:20px  !important;
+    height: fit-content;
+   
     display: run-in !important;
-    
     max-width: 100%;
-    padding: 10px;
+    box-shadow: none!important;
+    -webkit-box-shadow:none !important;
 }
 .border2{
     height: fit-content;
-    padding: 20px;
+    padding: 3px;
     border: 1px solid #CED4DA;
     background: #FFFFFF;
     border-radius: 5px;
-    
 }
-
 #data_content{
     padding-top: 20px;
     padding-bottom: 20px;
@@ -68,4 +64,3 @@ h6{
     border-radius: 5px;
     font-weight: bold;
 }
-
