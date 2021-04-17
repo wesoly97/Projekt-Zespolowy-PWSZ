@@ -96,13 +96,12 @@ class Attempts(models.Model):
         
 class Score(models.Model):
     id_user=models.ForeignKey(User, on_delete=models.CASCADE)
-    
+    data_testu=models.DateTimeField()
+
     id_zad_otwartych=models.CharField(max_length=50)
-    tresci_zad_otwartych = models.CharField(max_length=300)
     odp_otwarte=models.CharField(max_length=200)
 
     id_zad_zamknietych=models.CharField(max_length=50)
-    tresci_zad_zamknietych = models.CharField(max_length=400)
     odp_zamkniete=models.CharField(max_length=200)
 
     punkty = models.IntegerField()
