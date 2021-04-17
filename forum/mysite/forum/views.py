@@ -14,7 +14,7 @@ from .models import Zadanie_otwarte
 from .models import zadanie_matematyczne
 from .models import Score
 import random
-
+from datetime import date, datetime
 from django.core.files.storage import FileSystemStorage
 import re
 
@@ -323,13 +323,16 @@ def math_page3(request, user_id):
     punktyO=0
     punktyMAX=0
     x=0
+
+    dzisiaj = datetime.now()#pobieram dzisiejsza date
+    data_wyslania_testu = dzisiaj.strftime("%Y-%m-%d %H:%M:%S")
+
     tasks_close=''
-    tresci_zad_zamknietych=''
     odp_zamkniete=''
 
     tasks_open=''
-    tresci_zad_otwartych=''
     odp_otwarte=''
+    
 
     for zz in zzs:
       posts= PostM.objects.filter(zadanie=zz.id)
@@ -339,7 +342,6 @@ def math_page3(request, user_id):
       if zz.odpowiedz == odpZ[x]:
         punktyZ=punktyZ+1
       tasks_close+=str(zz.id)+' '
-      tresci_zad_zamknietych+=zz.tresc+ '\n'  
       odp_zamkniete+=odpZ[x]+ ' '
       x=x+1
 
@@ -353,15 +355,14 @@ def math_page3(request, user_id):
       if zo.odpowiedz == odpO[x]:
         punktyO=punktyO+2
       tasks_open+=str(zo.id)+' '
-      tresci_zad_otwartych+=zo.tresc+ '\n'
       odp_otwarte+=odpO[x]+ '\n'
       x=x+1  
       
     
     punkty=punktyZ+punktyO
       
-    newScore=Score(id_user_id=user_id, id_zad_otwartych=tasks_open, odp_otwarte=odp_otwarte, tresci_zad_otwartych=tresci_zad_otwartych, 
-    id_zad_zamknietych=tasks_close, tresci_zad_zamknietych=tresci_zad_zamknietych, odp_zamkniete=odp_zamkniete, punkty=punkty)
+    newScore=Score(id_user_id=user_id, data_testu=data_wyslania_testu, id_zad_otwartych=tasks_open, odp_otwarte=odp_otwarte,
+    id_zad_zamknietych=tasks_close, odp_zamkniete=odp_zamkniete, punkty=punkty)
     newScore.save()
     context = {'users': users,'zos': zos,'zzs': zzs,'odpO': odpO,'odpZ': odpZ,'punktyMAX': punktyMAX,'punkty': punkty,'linki': linki}
     return render(request, 'forum/MATH_PAGE3.html', context)
