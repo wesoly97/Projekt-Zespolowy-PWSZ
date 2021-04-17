@@ -38,7 +38,7 @@
                <option>5</option>
             </select>
             <h6>Punkty</h6>
-            <input class="form-control inputs" type="number" placeholder="Punkty" name="numberTask">
+            <input class="form-control inputs" type="number" placeholder="Punkty" name="NumberPoints">
          </div>
       </div>
    </div>
@@ -51,49 +51,51 @@
             <h6>Treść pytania</h6>
             <div class="row">
                <div class="col-sm-7 offset-sm-1 border" >
-                  <span id="question" class="border-0"></span><textarea  id="latex" rows="3" name="inputQuestion" required style="opacity:0;width:0px;height:0px;"></textarea>
+                  <span id="mathQuillQuestion" class="border-0"></span><textarea  id="latexQuestion" rows="3" name="inputQuestion" required style="opacity:0;width:0px;height:0px;"></textarea>
                </div>
                <div class="col-sm-2 border ml-5">
                   <div class="row">
-                     <div class="col" id="sqrt">√</div>
-                     <div class="col"  id="mld">*</div>
-                     <div class="col" id="plus">+</div>
+                     <div class="col" id="sqrtQuestion">√</div>
+                     <div class="col"  id="mldQuestion">*</div>
+                     <div class="col" id="plusQuestion">+</div>
                      <div class="w-100"></div>
-                     <div class="col" id="minus">-</div>
-                     <div class="col" id="przecinek">,</div>
-                     <div class="col" id="pi">π</div>
+                     <div class="col" id="minusQuestion">-</div>
+                     <div class="col" id="przecinekQuestion">,</div>
+                     <div class="col" id="piQuestion">π</div>
                      <div class="w-100"></div>
-                     <div class="col" id="dzielenie">¼</div>
-                     <div class="col" id="potega">^</div>
-                     <div class="col" id="cbrt">∛</div>
+                     <div class="col" id="dzielenieQuestion">¼</div>
+                     <div class="col" id="potegaQuestion">^</div>
+                     <div class="col" id="cbrtQuestion">∛</div>
                   </div>
                </div>
             </div>
             <h6>Rozwiązanie</h6>
             <div class="row">
                <div class="col-sm-7 offset-sm-1 border" >
-                  <span id="answer" class="border-0"></span><textarea  id="latex2" rows="3" name="inputAnswer" required style="opacity:0;width:0px;height:0px;"></textarea>
+                  <span id="mathQuillAnswer" class="border-0"></span><textarea  id="latexAnswer" rows="3" name="inputAnswer" required style="opacity:0;width:0px;height:0px;"></textarea>
                </div>
                <div class="col-sm-2 border ml-5">
                   <div class="row">
-                     <div class="col" id="sqrt2">√</div>
-                     <div class="col"  id="mld2">*</div>
-                     <div class="col" id="plus2">+</div>
+                     <div class="col" id="sqrtAnswer">√</div>
+                     <div class="col"  id="mldAnswer">*</div>
+                     <div class="col" id="plusAnswer">+</div>
                      <div class="w-100"></div>
-                     <div class="col" id="minus2">-</div>
-                     <div class="col" id="przecinek2">,</div>
-                     <div class="col" id="pi2">π</div>
+                     <div class="col" id="minusAnswer">-</div>
+                     <div class="col" id="przecinekAnswer">,</div>
+                     <div class="col" id="piAnswer">π</div>
                      <div class="w-100"></div>
-                     <div class="col" id="dzielenie2">¼</div>
-                     <div class="col" id="potega2">^</div>
-                     <div class="col" id="cbrt2">∛</div>
+                     <div class="col" id="dzielenieAnswer">¼</div>
+                     <div class="col" id="potegaAnswer">^</div>
+                     <div class="col" id="cbrtAnswer">∛</div>
                   </div>
                </div>
             </div>
+             {% block closedQuestionOption %}
             <h6>Odpowiedź</h6>
             <div class="row">
                <div class="col-sm-7 offset-sm-1 border" >
-                  <span id="answerA" class="border-0"></span><textarea  id="latexA" rows="3" name="solution" required style="opacity:0;width:0px;height:0px;"></textarea>
+              
+                  <span id="mathQuillA" class="border-0"></span><textarea  id="latexA" rows="3" name="solution" required style="opacity:0;width:0px;height:0px;"></textarea>
                </div>
                <div class="col-sm-2 border ml-5">
                   <div class="row">
@@ -111,6 +113,7 @@
                   </div>
                </div>
             </div>
+            {% endblock closedQuestionOption %}
             <h6>Dodaj zdjęcie</h6>
             <div>
                <input type="file" class="form-control-file inputsFile" name="image" accept="image/png, image/jpeg, image/svg">
@@ -123,8 +126,5 @@
   </div>
 </div>
 </form>
-<script src="{% static 'forum/js/content.js' %}"></script>
-<script src="{% static 'forum/js/answer.js' %}"></script>
-<script src="{% static 'forum/js/answerA.js' %}"></script>
-{% block importsJavascript %} {% endblock importsJavascript %}
+<script src="{% static 'forum/js/addQuestion.js' %}"></script>
 {% endfor %} {% endblock content %}

@@ -1,16 +1,11 @@
 {% extends 'forum/addQuestionOpen.html' %} 
 {% load static %}
-{% block importsJavascript %} 
-<script src="{% static "forum/js/answerB.js" %}"></script>
-<script src="{% static "forum/js/answerC.js" %}"></script>
-<script src="{% static "forum/js/answerD.js" %}"></script>
-{% endblock importsJavascript %}
 {% block typeQuestion %} <h2>Dodaj Pytanie Zamknięte!</h2>{% endblock typeQuestion %}
 {% block urlName %} {% url 'addQuestionCloseToDatabase' %}{% endblock urlName %}
 {% block solution %} {% endblock solution %}
 {% block closedQuestionOption %}
    <p>Wprowadz Odpowiedz A): <br><br>
-    <span id="answerA"></span><textarea name="inputAnswerA" id="latexA" style="opacity: 0;" required></textarea></p>
+    <span id="mathQuillA"></span><textarea name="inputAnswerA" id="latexA" style="opacity: 0;" required></textarea></p>
     <br>
     <div style="width:305;border-style: solid; display:inline-block;">
         <div id="sqrtA" style=" float:left; padding:20px;">√</div>
@@ -24,7 +19,7 @@
         <div id="cbrtA" style=" float:left;padding:20px;">∛</div>
     </div><br><br>
 <p>Wprowadz Odpowiedz B): <br><br>
-    <span id="answerB"></span><textarea name="inputAnswerB" id="latexB" style="opacity: 0;" required></textarea></p>
+    <span id="mathQuillB"></span><textarea name="inputAnswerB" id="latexB" style="opacity: 0;" required></textarea></p>
     <br>
     <div style="width:305;border-style: solid; display:inline-block;">
         <div id="sqrtB" style=" float:left; padding:20px;">√</div>
@@ -38,7 +33,7 @@
         <div id="cbrtB" style=" float:left;padding:20px;">∛</div>
     </div><br><br>
 <p>Wprowadz Odpowiedz C): <br><br>
-    <span id="answerC"></span><textarea name="inputAnswerC" id="latexC" style="opacity: 0;" required></textarea></p>
+    <span id="mathQuillC"></span><textarea name="inputAnswerC" id="latexC" style="opacity: 0;" required></textarea></p>
     <br>
     <div style="width:305;border-style: solid; display:inline-block;">
         <div id="sqrtC" style=" float:left; padding:20px;">√</div>
@@ -52,7 +47,7 @@
         <div id="cbrtC" style=" float:left;padding:20px;">∛</div>
     </div><br><br>
 <p>Wprowadz Odpowiedz D): <br><br>
-    <span id="answerD"></span><textarea name="inputAnswerD" id="latexD" style="opacity: 0;" required></textarea></p>
+    <span id="mathQuillD"></span><textarea name="inputAnswerD" id="latexD" style="opacity: 0;" required></textarea></p>
     <br>
     <div style="width:305;border-style: solid; display:inline-block;">
         <div id="sqrtD" style=" float:left; padding:20px;">√</div>

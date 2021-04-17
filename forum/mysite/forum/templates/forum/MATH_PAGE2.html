@@ -64,6 +64,61 @@
         <div id="potegaanswer{{forloop.counter0}}" style=" float:left;padding:20px;">^</div>
         <div id="cbrtanswer{{forloop.counter0}}" style=" float:left;padding:20px;">∛</div>
     </div>
+    <script>
+    createMathquill({{forloop.counter0}});
+function createMathquill(id)
+{
+
+let answerMathField2 = MQ.MathField(document.getElementById('answer'+id), {
+    handlers: {
+         edit: function() {
+                answerMathField2.latex();
+                document.getElementById('latexanswer'+id).textContent = answerMathField2.latex();
+            }
+        }
+    });
+
+
+ $( "#sqrtanswer"+id).click(function() {
+    answerMathField2.write('\\sqrt{}');
+    answerMathField2.reflow();
+});
+
+$( "#mldanswer"+id).click(function() {
+    answerMathField2.write('\\cdot');
+    answerMathField2.reflow();
+});
+$( "#plusanswer"+id).click(function() {
+    answerMathField2.write('+');
+    answerMathField2.reflow();
+});
+$( "#minusanswer"+id).click(function() {
+    answerMathField2.write('-');
+    answerMathField2.reflow();
+});
+$( "#przecinekanswer"+id).click(function() {
+    answerMathField2.write(',');
+    answerMathField2.reflow();
+});
+$( "#pianswer"+id).click(function() {
+    answerMathField2.write('\\pi');
+    answerMathField2.reflow();
+});
+$( "#dzielenieanswer"+id ).click(function() {
+    answerMathField2.write('\\frac{ }{ }');
+    answerMathField2.reflow();
+});
+$( "#potegaanswer"+id ).click(function() {
+    answerMathField2.write('\\^{}');
+    answerMathField2.reflow();
+});
+$( "#cbrtanswer"+id).click(function() {
+    answerMathField2.write('\\sqrt[]{}');
+    answerMathField2.reflow();
+});
+
+    }
+  </script>
   </div>
 
   {% endfor %}
@@ -74,5 +129,4 @@
   {% endfor %}
 </form>
 </div>
-<script src="{% static "forum/js/displaySetsSolution.js" %}"></script>
 {% endblock content %}
