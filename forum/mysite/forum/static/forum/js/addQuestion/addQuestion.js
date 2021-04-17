@@ -102,42 +102,49 @@ $("#przerwa" + id).click(function () {
     clearInputs();
     answerMathField2.write("\\textcolor{black}{\\text{}}");
     answerMathField2.reflow();
+    answerMathField2.focus();
     focusInput('#QueDiv'+id);
   });
   $( "#calka"+id).click(function() {
     clearInputs();
     answerMathField2.write('\\ \\int');
     answerMathField2.reflow();
+    answerMathField2.focus();
     focusInput('#QueDiv'+id);
 });
 $("#suma"+id).click(function() {
     clearInputs();
     answerMathField2.write('\\sum');
     answerMathField2.reflow();
+    answerMathField2.focus();
     focusInput('#QueDiv'+id);
 });
 $("#log"+id).click(function() {
     clearInputs();
     answerMathField2.write('\\log_{}{}');
     answerMathField2.reflow();
+    answerMathField2.focus();
     focusInput('#QueDiv'+id);
 });
 $("#newton"+id).click(function() {
     clearInputs();
     answerMathField2.write('\\binom{ }{ }');
     answerMathField2.reflow();
+    answerMathField2.focus();
     focusInput('#QueDiv'+id);
 });
 $("#Alfa"+id).click(function() {
     clearInputs();
     answerMathField2.write('\\alpha');
     answerMathField2.reflow();
+    answerMathField2.focus();
     focusInput('#QueDiv'+id);
 });
 $("#Beta"+id).click(function() {
     clearInputs();
     answerMathField2.write('\\beta');
     answerMathField2.reflow();
+    answerMathField2.focus();
     focusInput('#QueDiv'+id);
 });
 
@@ -145,6 +152,7 @@ $("#le"+id).click(function() {
     clearInputs();
     answerMathField2.write('\\le');
     answerMathField2.reflow();
+    answerMathField2.focus();
     focusInput('#QueDiv'+id);
 });
 
@@ -152,6 +160,7 @@ $("#ge"+id).click(function() {
     clearInputs();
     answerMathField2.write('\\ge');
     answerMathField2.reflow();
+    answerMathField2.focus();
     focusInput('#QueDiv'+id);
 });
 
@@ -159,18 +168,21 @@ $("#nalezy"+id).click(function() {
     clearInputs();
     answerMathField2.write('\\isin');
     answerMathField2.reflow();
+    answerMathField2.focus();
     focusInput('#QueDiv'+id);
 });
 $("#index"+id).click(function() {
     clearInputs();
     answerMathField2.write('{}_{}^{}');
     answerMathField2.reflow();
+    answerMathField2.focus();
     focusInput('#QueDiv'+id);
 });
 $("#inf"+id).click(function() {
     clearInputs();
     answerMathField2.write('\\infin');
     answerMathField2.reflow();
+    answerMathField2.focus();
     focusInput('#QueDiv'+id);
 });
 }
