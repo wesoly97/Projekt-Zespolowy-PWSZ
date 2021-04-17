@@ -4,61 +4,129 @@
 {% block urlName %} {% url 'addQuestionCloseToDatabase' %}{% endblock urlName %}
 {% block solution %} {% endblock solution %}
 {% block closedQuestionOption %}
-   <p>Wprowadz Odpowiedz A): <br><br>
-    <span id="mathQuillA"></span><textarea name="inputAnswerA" id="latexA" style="opacity: 0;" required></textarea></p>
-    <br>
-    <div style="width:305;border-style: solid; display:inline-block;">
-        <div id="sqrtA" style=" float:left; padding:20px;">√</div>
-        <div id="mldA" style=" float:left;padding:20px;">*</div>
-        <div id="plusA" style=" float:left;padding:20px;">+</div>
-        <div id="minusA" style=" float:left;padding:20px;">-</div>
-        <div id="przecinekA" style=" float:left;padding:20px;">,</div>
-        <div id="piA" style=" float:left;padding:20px;">π</div>
-        <div id="dzielenieA" style=" float:left;padding:20px;">¼</div>
-        <div id="potegaA" style=" float:left;padding:20px;">^</div>
-        <div id="cbrtA" style=" float:left;padding:20px;">∛</div>
-        <div id="przerwaA" style=" float:left;padding:20px;">\n</div>
-    </div><br><br>
-<p>Wprowadz Odpowiedz B): <br><br>
-    <span id="mathQuillB"></span><textarea name="inputAnswerB" id="latexB" style="opacity: 0;" required></textarea></p>
-    <br>
-    <div style="width:305;border-style: solid; display:inline-block;">
-        <div id="sqrtB" style=" float:left; padding:20px;">√</div>
-        <div id="mldB" style=" float:left;padding:20px;">*</div>
-        <div id="plusB" style=" float:left;padding:20px;">+</div>
-        <div id="minusB" style=" float:left;padding:20px;">-</div>
-        <div id="przecinekB" style=" float:left;padding:20px;">,</div>
-        <div id="piB" style=" float:left;padding:20px;">π</div>
-        <div id="dzielenieB" style=" float:left;padding:20px;">¼</div>
-        <div id="potegaB" style=" float:left;padding:20px;">^</div>
-        <div id="cbrtB" style=" float:left;padding:20px;">∛</div>
-    </div><br><br>
-<p>Wprowadz Odpowiedz C): <br><br>
-    <span id="mathQuillC"></span><textarea name="inputAnswerC" id="latexC" style="opacity: 0;" required></textarea></p>
-    <br>
-    <div style="width:305;border-style: solid; display:inline-block;">
-        <div id="sqrtC" style=" float:left; padding:20px;">√</div>
-        <div id="mldC" style=" float:left;padding:20px;">*</div>
-        <div id="plusC" style=" float:left;padding:20px;">+</div>
-        <div id="minusC" style=" float:left;padding:20px;">-</div>
-        <div id="przecinekC" style=" float:left;padding:20px;">,</div>
-        <div id="piC" style=" float:left;padding:20px;">π</div>
-        <div id="dzielenieC" style=" float:left;padding:20px;">¼</div>
-        <div id="potegaC" style=" float:left;padding:20px;">^</div>
-        <div id="cbrtC" style=" float:left;padding:20px;">∛</div>
-    </div><br><br>
-<p>Wprowadz Odpowiedz D): <br><br>
-    <span id="mathQuillD"></span><textarea name="inputAnswerD" id="latexD" style="opacity: 0;" required></textarea></p>
-    <br>
-    <div style="width:305;border-style: solid; display:inline-block;">
-        <div id="sqrtD" style=" float:left; padding:20px;">√</div>
-        <div id="mldD" style=" float:left;padding:20px;">*</div>
-        <div id="plusD" style=" float:left;padding:20px;">+</div>
-        <div id="minusD" style=" float:left;padding:20px;">-</div>
-        <div id="przecinekD" style=" float:left;padding:20px;">,</div>
-        <div id="piD" style=" float:left;padding:20px;">π</div>
-        <div id="dzielenieD" style=" float:left;padding:20px;">¼</div>
-        <div id="potegaD" style=" float:left;padding:20px;">^</div>
-        <div id="cbrtD" style=" float:left;padding:20px;">∛</div>
-    </div><br><br>
+   <h6>Odpowiedź A</h6>
+    <div class="row">
+               <div class="col-sm-7 offset-sm-1 border2" id="QueDivA" >
+              
+                  <span id="mathQuillA" class="border-0"></span><textarea  id="latexA" rows="3" name="inputAnswerA" required style="opacity:0;width:0px;height:0px;"></textarea>
+               </div>
+                <div class="col-sm-3 border2 ml-5">
+                  <div class="row">
+                     <div class="col" id="sqrtA">√</div>
+                     <div class="col" id="piA">π</div>
+                     <div class="col" id="przerwaA">↵</div>
+                     <div class="col" id="dzielenieA">¼</div>
+                     <div class="col" id="potegaA">^</div>
+                     <div class="w-100"></div>
+                     <div class="col" id="cbrtA">∛</div>
+                     <div class="col" id="calkaA">∫</div>
+                     <div class="col" id="sumaA">Σ</div>
+                     <div class="col" id="logA">$\log_{n}k$</div>
+                     <div class="col" id="newtonA">$\binom{N}{k}$</div>
+                     <div class="w-100"></div>
+                     <div class="col" id="AlfaA">α</div>
+                     <div class="col" id="BetaA">β</div>
+                     <div class="col" id="leA">⩽</div>
+                     <div class="col" id="geA">⩾</div>
+                     <div class="col" id="nalezyA">∈</div>
+                     <div class="w-100"></div>
+                     <div class="col offset-sm-3" id="indexA">$x^k_n$</div>
+                     <div class="col" id="infA">∞</div>
+                  </div>
+               </div>
+            </div>
+<h6>Odpowiedź B</h6>
+   <div class="row">
+               <div class="col-sm-7 offset-sm-1 border2" id="QueDivB" >
+              
+                  <span id="mathQuillB" class="border-0"></span><textarea  id="latexB" rows="3" name="inputAnswerB" required style="opacity:0;width:0px;height:0px;"></textarea>
+               </div>
+                <div class="col-sm-3 border2 ml-5">
+                  <div class="row">
+                     <div class="col" id="sqrtB">√</div>
+                     <div class="col" id="piB">π</div>
+                     <div class="col" id="przerwaB">↵</div>
+                     <div class="col" id="dzielenieB">¼</div>
+                     <div class="col" id="potegaB">^</div>
+                     <div class="w-100"></div>
+                     <div class="col" id="cbrtB">∛</div>
+                     <div class="col" id="calkaB">∫</div>
+                     <div class="col" id="sumaB">Σ</div>
+                     <div class="col" id="logB">$\log_{n}k$</div>
+                     <div class="col" id="newtonB">$\binom{N}{k}$</div>
+                     <div class="w-100"></div>
+                     <div class="col" id="AlfaB">α</div>
+                     <div class="col" id="BetaB">β</div>
+                     <div class="col" id="leB">⩽</div>
+                     <div class="col" id="geB">⩾</div>
+                     <div class="col" id="nalezyB">∈</div>
+                     <div class="w-100"></div>
+                     <div class="col offset-sm-3" id="indexB">$x^k_n$</div>
+                     <div class="col" id="infB">∞</div>
+                  </div>
+               </div>
+            </div>
+<h6>Odpowiedź C</h6>
+ <div class="row">
+               <div class="col-sm-7 offset-sm-1 border2" id="QueDivC" >
+              
+                  <span id="mathQuillC" class="border-0"></span><textarea  id="latexC" rows="3" name="inputAnswerC" required style="opacity:0;width:0px;height:0px;"></textarea>
+               </div>
+                <div class="col-sm-3 border2 ml-5">
+                  <div class="row">
+                     <div class="col" id="sqrtC">√</div>
+                     <div class="col" id="piC">π</div>
+                     <div class="col" id="przerwaC">↵</div>
+                     <div class="col" id="dzielenieC">¼</div>
+                     <div class="col" id="potegaC">^</div>
+                     <div class="w-100"></div>
+                     <div class="col" id="cbrtC">∛</div>
+                     <div class="col" id="calkaC">∫</div>
+                     <div class="col" id="sumaC">Σ</div>
+                     <div class="col" id="logC">$\log_{n}k$</div>
+                     <div class="col" id="newtonC">$\binom{N}{k}$</div>
+                     <div class="w-100"></div>
+                     <div class="col" id="AlfaC">α</div>
+                     <div class="col" id="BetaC">β</div>
+                     <div class="col" id="leC">⩽</div>
+                     <div class="col" id="geC">⩾</div>
+                     <div class="col" id="nalezyC">∈</div>
+                     <div class="w-100"></div>
+                     <div class="col offset-sm-3" id="indexC">$x^k_n$</div>
+                     <div class="col" id="infC">∞</div>
+                  </div>
+               </div>
+            </div>
+<h6>Odpowiedź D</h6>
+  <div class="row">
+               <div class="col-sm-7 offset-sm-1 border2" id="QueDivD" >
+              
+                  <span id="mathQuillD" class="border-0"></span><textarea  id="latexD" rows="3" name="inputAnswerD" required style="opacity:0;width:0px;height:0px;"></textarea>
+               </div>
+                   <div class="col-sm-3 border2 ml-5">
+                  <div class="row">
+                     <div class="col" id="sqrtD">√</div>
+                     <div class="col" id="piD">π</div>
+                     <div class="col" id="przerwaD">↵</div>
+                     <div class="col" id="dzielenieD">¼</div>
+                     <div class="col" id="potegaD">^</div>
+                     <div class="w-100"></div>
+                     <div class="col" id="cbrtD">∛</div>
+                     <div class="col" id="calkaD">∫</div>
+                     <div class="col" id="sumaD">Σ</div>
+                     <div class="col" id="logD">$\log_{n}k$</div>
+                     <div class="col" id="newtonD">$\binom{N}{k}$</div>
+                     <div class="w-100"></div>
+                     <div class="col" id="AlfaD">α</div>
+                     <div class="col" id="BetaD">β</div>
+                     <div class="col" id="leD">⩽</div>
+                     <div class="col" id="geD">⩾</div>
+                     <div class="col" id="nalezyD">∈</div>
+                     <div class="w-100"></div>
+                     <div class="col offset-sm-3" id="indexD">$x^k_n$</div>
+                     <div class="col" id="infD">∞</div>
+                  </div>
+               </div>
+            </div>
+            </div>
 {% endblock closedQuestionOption %}

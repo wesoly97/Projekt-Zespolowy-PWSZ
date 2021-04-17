@@ -16,11 +16,14 @@
     margin: auto;
 }
 span{
-    font-size:20px  !important;
+    height: fit-content;
+   
     display: run-in !important;
     max-width: 100%;
+    box-shadow: none!important;
+    -webkit-box-shadow:none !important;
 }
-.border{
+.border2{
     height: fit-content;
     padding: 3px;
     border: 1px solid #CED4DA;
@@ -61,4 +64,3 @@ h6{
     border-radius: 5px;
     font-weight: bold;
 }
-
