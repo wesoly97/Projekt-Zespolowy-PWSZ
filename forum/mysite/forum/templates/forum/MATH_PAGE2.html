@@ -1,80 +1,75 @@
 {% extends 'forum/base.html' %}{% load static %} {% block content %} {% for user in users %}
-
+{% block imports %}
 {% load static %}
-{% block css %}
- <link rel="stylesheet" href="{% static 'forum/styles/mathPage2/mathPage2.css' %}">
+{% block css %} 
+<link rel="stylesheet" href="{% static 'forum/styles/mathPage2/mathPage2.css' %}"> {% endblock css %} 
 <link rel="stylesheet" href="{% static 'forum/MathQuil/mathquill.css' %}"/>
-
-{% endblock css %} 
-    {% block js %}
-    <script src="{% static 'forum/MathQuil/mathquill.js' %}"></script>
-    <script id="MathJax-script" async src="{% static 'forum/mathjax-master/es5/tex-chtml.js'%}"></script>
-  <script>
-MathJax = {
-  tex: {
-    inlineMath: [['$', '$'], ['\\(', '\\)']]
-  },
-  svg: {
+<script src="{% static 'forum/MathQuil/mathquill.js' %}"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\(','\)']]},
+    svg: {
     fontCache: 'global'
   }
-};
+  });
 </script>
-    {% endblock js %}
+<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+{% endblock %}
+<script>
+    let MQ = MathQuill.getInterface(2); 
+</script>
 
-  <script>
-        let MQ = MathQuill.getInterface(2); 
-    </script>
-<div class="container-fluid"> 
-<form method="post" action="{% url 'math_page3' user.id %}">
+<form class="container-fluid" method="post" action="{% url 'math_page3' user.id %} " >
   {% csrf_token %} 
   {% for zz in zzs %}
-  <div id="zadZ">
-  <h1>Zadanie zamkniete nr. {{forloop.counter0}}</h1>
-  <p>{{zz.tresc}} </p>
-  <div id="odpZMain">
-    <div class="odpZ "><b>A:</b>$${{zz.odp_a}}$$</div>
-    <div class="odpZ"><b>B:</b>$${{zz.odp_b}}$$</div>
-    <div class="odpZ"><b>C:</b>$${{zz.odp_c}}$$</div>
-    <div class="odpZ"><b>D:</b>$${{zz.odp_d}}$$</div>
+  <div class="row" >
+  <div class="col-12 description mb-2 pb-1">Zadanie zamkniete nr. {{forloop.counter0}}</div>
+  <div class="col-12"><p>{{zz.tresc}} </p></div>
+  <div class="form-check col-md-3 col-6"  >
+    <input type="radio" class="radioButton" name="flexRadioDefault{{forloop.counter0}}" id="flexRadioDefault{{forloop.counter0}}1">
+    <label class="form-check-label" for="flexRadioDefault{{forloop.counter0}}1" >
+      $${{zz.odp_a}}$$
+    </label>
   </div>
-  <div id="odbZselect">
-    <label for="odpZ">Wybierz poprawną odpowiedź:</label>
-    <select name="odpZ">
-      <option value="A">A</option>
-      <option value="B">B</option>
-      <option value="C">C</option>
-      <option value="D">D</option>
-    </select>
+  <div class="form-check col-md-3 col-6">
+    <input type="radio"  class="radioButton" name="flexRadioDefault{{forloop.counter0}}" id="flexRadioDefault{{forloop.counter0}}2">
+    <label class="form-check-label" for="flexRadioDefault{{forloop.counter0}}2">
+      $${{zz.odp_b}}$$
+    </label>
+  </div>
+  <div class="form-check col-md-3 col-6">
+    <input type="radio"  class="radioButton" name="flexRadioDefault{{forloop.counter0}}" id="flexRadioDefault{{forloop.counter0}}3" >
+    <label class="form-check-label" for="flexRadioDefault{{forloop.counter0}}3">
+      $${{zz.odp_c}}$$
+    </label>
+  </div>
+  <div class="form-check col-md-3 col-6">
+    <input type="radio" class="radioButton" name="flexRadioDefault{{forloop.counter0}}" id="flexRadioDefault{{forloop.counter0}}4" >
+    <label class="form-check-label" for="flexRadioDefault{{forloop.counter0}}4">
+      $${{zz.odp_d}}$$
+    </label>
   </div>
 </div>
   {% endfor %} {% for zo in zos %}
-  <div id="odpO">
-  <h1>Zadanie otwarte nr. {{forloop.counter0}}</h1>
-  <p>{{zo.tresc}}</p>
-  <br />
+  <div class="row">
+  <div class="col-12 description mb-2 pb-1">Zadanie otwarte nr. {{forloop.counter0}}</div>
+  <div class="col-12">{{zo.tresc}}</div>
   {% if zo.url != "" %}
-<img src="{% static zo.url %}"/>
+  <div class="col-12"><img class="rounded mx-auto d-block" src="{% static zo.url %}"/></div>
 {% endif %}
-  <p>Wprowadź odpowiedź:</p>
-  <span id="answer{{forloop.counter0}}" style="width:30%; background-color:white; margin-left:20px;"></span><textarea name="odpO" id="latexanswer{{forloop.counter0}}" style="opacity: 0;" required></textarea></p>
+<div class="col-12"><p>Wprowadź odpowiedź:</p></div>
+<div class="col-12">
+  <span id="answer{{forloop.counter0}}" class="answerO" ></span><textarea name="odpO" id="latexanswer{{forloop.counter0}}" style="opacity: 0;"></textarea></p>
     <div id="tools">
         <div id="sqrtanswer{{forloop.counter0}}" style=" float:left; padding:20px;">√</div>
+        <div id="mldanswer{{forloop.counter0}}" style=" float:left;padding:20px;">*</div>
+        <div id="plusanswer{{forloop.counter0}}" style=" float:left;padding:20px;">+</div>
+        <div id="minusanswer{{forloop.counter0}}" style=" float:left;padding:20px;">-</div>
+        <div id="przecinekanswer{{forloop.counter0}}" style=" float:left;padding:20px;">,</div>
         <div id="pianswer{{forloop.counter0}}" style=" float:left;padding:20px;">π</div>
         <div id="dzielenieanswer{{forloop.counter0}}" style=" float:left;padding:20px;">¼</div>
         <div id="potegaanswer{{forloop.counter0}}" style=" float:left;padding:20px;">^</div>
         <div id="cbrtanswer{{forloop.counter0}}" style=" float:left;padding:20px;">∛</div>
-        <div id="przerwaanswer{{forloop.counter0}}" style=" float:left;padding:20px;">↵</div>
-        <div id="calkaanswer{{forloop.counter0}}" style=" float:left;padding:20px;">∫</div>
-        <div id="sumaanswer{{forloop.counter0}}" style=" float:left;padding:20px;">Σ</div>
-        <div id="loganswer{{forloop.counter0}}" style=" float:left;padding:20px;">$\log_{n}k$</div>
-        <div id="newtonanswer{{forloop.counter0}}" style=" float:left;padding:20px;">$\binom{N}{k}$</div>
-        <div id="Alfaanswer{{forloop.counter0}}" style=" float:left;padding:20px;">α</div>
-        <div id="Betaanswer{{forloop.counter0}}" style=" float:left;padding:20px;">β</div>
-        <div id="leanswer{{forloop.counter0}}" style=" float:left;padding:20px;">⩽</div>
-               <div id="geanswer{{forloop.counter0}}" style=" float:left;padding:20px;">⩾</div>
-        <div id="nalezyanswer{{forloop.counter0}}" style=" float:left;padding:20px;">∈</div>
-        <div id="indexanswer{{forloop.counter0}}" style=" float:left;padding:20px;">$x^k_n$</div>
-      <div id="infanswer{{forloop.counter0}}" style=" float:left;padding:20px;">∞</div>
+    </div>
     </div>
     <script>
     createMathquill({{forloop.counter0}});
@@ -91,11 +86,27 @@ let answerMathField2 = MQ.MathField(document.getElementById('answer'+id), {
     });
 
 
- $( "#sqrtanswer"+id).click(function() {
+$( "#sqrtanswer"+id).click(function() {
     answerMathField2.write('\\sqrt{}');
     answerMathField2.reflow();
 });
 
+$( "#mldanswer"+id).click(function() {
+    answerMathField2.write('\\cdot');
+    answerMathField2.reflow();
+});
+$( "#plusanswer"+id).click(function() {
+    answerMathField2.write('+');
+    answerMathField2.reflow();
+});
+$( "#minusanswer"+id).click(function() {
+    answerMathField2.write('-');
+    answerMathField2.reflow();
+});
+$( "#przecinekanswer"+id).click(function() {
+    answerMathField2.write(',');
+    answerMathField2.reflow();
+});
 $( "#pianswer"+id).click(function() {
     answerMathField2.write('\\pi');
     answerMathField2.reflow();
@@ -112,57 +123,7 @@ $( "#cbrtanswer"+id).click(function() {
     answerMathField2.write('\\sqrt[]{}');
     answerMathField2.reflow();
 });
-$( "#przerwaanswer"+id).click(function() {
-    answerMathField2.write('\\textcolor{black}{\\text{}}');
-    answerMathField2.reflow();
-});
-$( "#calkaanswer"+id).click(function() {
-    answerMathField2.write('\\ \\int');
-    answerMathField2.reflow();
-});
-$("#sumaanswer"+id).click(function() {
-    answerMathField2.write('\\sum');
-    answerMathField2.reflow();
-});
-$("#loganswer"+id).click(function() {
-    answerMathField2.write('\\log_{}{}');
-    answerMathField2.reflow();
-});
-$("#newtonanswer"+id).click(function() {
-    answerMathField2.write('\\binom{ }{ }');
-    answerMathField2.reflow();
-});
-$("#Alfaanswer"+id).click(function() {
-    answerMathField2.write('\\alpha');
-    answerMathField2.reflow();
-});
-$("#Betaanswer"+id).click(function() {
-    answerMathField2.write('\\beta');
-    answerMathField2.reflow();
-});
 
-$("#leanswer"+id).click(function() {
-    answerMathField2.write('\\le');
-    answerMathField2.reflow();
-});
-
-$("#geanswer"+id).click(function() {
-    answerMathField2.write('\\ge');
-    answerMathField2.reflow();
-});
-
-$("#nalezyanswer"+id).click(function() {
-    answerMathField2.write('\\isin');
-    answerMathField2.reflow();
-});
-$("#indexanswer"+id).click(function() {
-    answerMathField2.write('{}_{}^{}');
-    answerMathField2.reflow();
-});
-$("#infanswer"+id).click(function() {
-    answerMathField2.write('\\infin');
-    answerMathField2.reflow();
-});
     }
   </script>
   </div>
@@ -174,5 +135,4 @@ $("#infanswer"+id).click(function() {
   </div>
   {% endfor %}
 </form>
-</div>
 {% endblock content %}
