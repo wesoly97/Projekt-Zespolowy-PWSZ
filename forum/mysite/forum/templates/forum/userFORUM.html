@@ -1,34 +1,171 @@
-{% extends 'forum/base.html' %} {% block content %} {% for user in users %}
-<div class="home">
-  <h1>Forum page</h1>
-  <br /><br />
-  <a href="{% url 'usersHOME' user.id %}"
-    ><button><i class="fas fa-home fa-3x"></i></button
-  ></a>
+{% extends 'forum/base.html' %}
+
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'forum/styles/login/styleForum.css' %}">
+{% endblock css %}
+
+
+{% block content %} {% for user in users %}
+
+<div class="container-fluid pt-5 pb-2">
+  <div class="row no-gutters">
+    <div class="col-md-3 d-none d-md-block"></div>
+
+    <div class="col-md-6 col-12 justify-content-center mt-5">
+      <h2 class="text-center">{{user.name}} witaj na naszym forum</h2>
+    </div>
+
+    <div class="col-md-3 d-none d-md-block"></div>
+  </div>
+</div>
+<hr class="my-4" style="width: 60%"/>
+<div class="container-fluid pt-3">
+  <div class="row no-gutters">
+    <div class="col-md-3 d-none d-md-block"></div>
+
+    <div class="col-md-6 col-12 justify-content-center">
+
+      <h3 class="text-center">Dodaj nowy post</h2>
+
+        <form class="pt-5" method="post" action="{% url 'add' user.id %}">
+          {% csrf_token %}
+          <div class="form-group">
+            <label for="temat">Dodaj nazwę tematu</label>
+            <input type="text" class="form-control" id="temat" aria-required="true" name="temat">
+          </div>
+          <div class="form-group">
+            <label for="tresc">Dodaj treść postu</label>
+            <textarea type="text" class="form-control" id="tresc" aria-required="true" name="tresc" rows="6"></textarea>
+          </div>
+          <div class="mb-5">
+            <div class="form-group text-center pt-2">
+              <button type="submit" class="btn btn-outline-dark" value="Add post">Dodaj</button>
+            </div>
+          </div>
+        </form>
+
+    </div>
+
+    <div class="col-md-3 d-none d-md-block"></div>
+  </div>
 </div>
 
-<div class="form">
-  <form method="post" action="{% url 'add' user.id %}">
-    {% csrf_token %}
-    <label for="temat">Subject:</label>
-    <input type="temat" name="temat" id="temat" /><br /><br />
-    <label for="tresc">Content</label>
-    <input type="tresc" name="tresc" id="tresc" /><br /><br />
-    <input type="submit" value="Add post" />
-  </form>
+<div class="container-fluid pt-5 pb-2">
+  <div class="row no-gutters">
+    <div class="col-md-3 d-none d-md-block"></div>
+
+    <div class="col-md-6 col-12 justify-content-center">
+      <h2 class="text-center">Posty użytkowników</h2>
+    </div>
+
+    <div class="col-md-3 d-none d-md-block"></div>
+  </div>
 </div>
-<h1>Posty użytkowników</h1>
-{% for post in posts %}
-<a href="{% url 'post' user.id post.id %}">{{ post.subject }}</a><br /><br />
-{% endfor %}
-<h1>Posty do zadań</h1>
-<hr />
-{% for post in postsToChcekM %}
-<a href="{% url 'postM' user.id post.id %}">{{ post.tresc }}</a><br /><br />
-<br />
-{% endfor %}
-<hr />
-{% for post in postsCheched %}
-<a href="{% url 'postM' user.id post.id %}">{{ post.tresc }}</a><br /><br />
-<br />
-{% endfor %} {% endfor %} {% endblock content %}
+<hr class="my-4" style="width: 60%;" />
+<div class="container-fluid pt-3">
+  <div class="row no-gutters">
+    <div class="col-md-2 d-none d-md-block"></div>
+
+    <div class="col-md-8 col-12 justify-content-center">
+
+      {% for post in posts %}
+
+      <div class="jumbotron">
+        <h1 class="display-4">Temat: {{ post.subject }}</h1>
+        <hr class="my-4">
+        <p>Aby zobaczyć treść postu naciśnij guzik</p>
+        <a class="btn btn-outline-dark btn-md" href="{% url 'post' user.id post.id %}" role="button">Przejdź</a>
+      </div>
+
+      {% endfor %}
+
+    </div>
+
+    <div class="col-md-2 d-none d-md-block"></div>
+  </div>
+</div>
+
+
+<div class="container-fluid pt-5 pb-2">
+  <div class="row no-gutters">
+    <div class="col-md-3 d-none d-md-block"></div>
+
+    <div class="col-md-6 col-12 justify-content-center">
+      <h2 class="text-center">Posty do zadań</h2>
+      <hr class="my-4" />
+    </div>
+    <div class="col-md-3 d-none d-md-block"></div>
+  </div>
+</div>
+<div class="container-fluid pt-5 pb-2">
+  <div class="row no-gutters">
+    <div class="col-md-3 d-none d-md-block"></div>
+
+    <div class="col-md-6 col-12 justify-content-center">
+      <h4 class="text-center">Twoje aktywne posty</h4>
+    </div>
+    <div class="col-md-3 d-none d-md-block"></div>
+  </div>
+</div>
+<hr class="my-4" style="width: 60%;" />
+<div class="container-fluid pt-3">
+  <div class="row no-gutters">
+    <div class="col-md-2 d-none d-md-block"></div>
+
+    <div class="col-md-8 col-12 justify-content-center">
+
+      {% for post in postsToChcekM %}
+
+      <div class="jumbotron">
+        <h1 class="display-4">Zadanie: {{ post.zadanie }}</h1>
+        <hr class="my-4">
+        <p>Aby przejść do tematu zadania naciśnij guzik</p>
+        <a class="btn btn-outline-dark btn-md" href="{% url 'postM' user.id post.id %}" role="button">Przejdź</a>
+      </div>
+
+      {% endfor %}
+
+    </div>
+
+    <div class="col-md-2 d-none d-md-block"></div>
+  </div>
+</div>
+
+
+<div class="container-fluid pt-5 pb-2">
+  <div class="row no-gutters">
+    <div class="col-md-3 d-none d-md-block"></div>
+
+    <div class="col-md-6 col-12 justify-content-center">
+      <h4 class="text-center">Wszystkie posty zadań</h4>
+    </div>
+    <div class="col-md-3 d-none d-md-block"></div>
+  </div>
+</div>
+<hr class="my-4" style="width: 60%;" />
+<div class="container-fluid pt-3">
+  <div class="row no-gutters">
+    <div class="col-md-2 d-none d-md-block"></div>
+
+    <div class="col-md-8 col-12 justify-content-center">
+
+      {% for post in postsCheched %}
+
+      <div class="jumbotron">
+        <h1 class="display-4">Zadanie: {{ post.zadanie }}</h1>
+        <hr class="my-4">
+        <p>Aby przejść do tematu zadania naciśnij guzik</p>
+        <a class="btn btn-outline-dark btn-md" href="{% url 'postM' user.id post.id %}" role="button">Przejdź</a>
+      </div>
+
+      {% endfor %}
+
+    </div>
+
+    <div class="col-md-2 d-none d-md-block"></div>
+  </div>
+</div>
+
+ {% endfor %} {% endblock content %}
