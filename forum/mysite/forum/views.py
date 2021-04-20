@@ -90,10 +90,10 @@ def replace(text):
     if(count==1):
         newtext=newtext+"$"
     list2=re.findall(r'.*?\$(.*)$.*', newtext)
-    for j in list2:
-       tmp=j
-       newSubString=tmp.replace(' ','\ ')
-       newtext = newtext.replace(j,newSubString)
+    # for j in list2:
+    #    tmp=j
+    # #    newSubString=tmp.replace(' ','\ ')
+    #    newtext = newtext.replace(j,newSubString)
     return newtext
 
 
@@ -234,11 +234,16 @@ def addQuestionCloseToDatabase(request):
 def register2(request):
     Name = request.POST['Name']
     Password = request.POST['Password']
-    if (Name=="" or Password=="" ):
+    Email = request.POST['Email']
+    SchoolName = request.POST['SchoolName']
+    City = request.POST['City']
+    ContactNumber = request.POST['ContactNumber']
+    
+    if (Name=="" or Password=="" or Email=="" or SchoolName=="" or City=="" or ContactNumber==""):
         msg="Empty,try again"
     else:
         if(User.objects.filter(name=Name).count()==0):
-            u = User(name=Name,password=Password,ranga="user")
+            u = User(name=Name,password=Password,ranga="user",numer_kontaktowy=ContactNumber,email=Email,miasto=City,szkola=SchoolName)
             u.save()
             msg="User added"
         else:
@@ -391,6 +396,7 @@ def add(request, user_id):
     users = User.objects.filter(id=auth_user_id(request))
     temat = request.POST['temat']
     tresc = request.POST['tresc']
+    tresc = replace(tresc)
     for user in users:
         w=user
     error=""
@@ -428,6 +434,7 @@ def odp(request, user_id,post_id):
     if (new_answer==""):
         error="Empty,try again"
     else:
+        new_answer=replace(new_answer)
         a = Answer(post=y,userA=x,answer=new_answer)
         a.save()
     context = {'posts': posts,'answers': answers,'users': users,'new_answer': new_answer,'error': error}
