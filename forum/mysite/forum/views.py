@@ -506,6 +506,7 @@ def history(request, user_id):
     posts = Post.objects.filter(userP_id=user_id)
     answer = Answer.objects.filter(userA_id=user_id)
     answerM = AnswerM.objects.filter(userA_id=user_id)
+    postsM= PostM.objects.all()
 
     nzO=[]
     nzZ=[]
@@ -545,5 +546,5 @@ def history(request, user_id):
 
     pytaniaZamkniete=zip(pytZ,odpZZ,oZZ)
     pytaniaOtwarte=zip(pytO,oOO)
-    context = {'pytaniaZamkniete':pytaniaZamkniete, 'pytaniaOtwarte':pytaniaOtwarte,'posts':posts,'answer':answer,'answerM':answerM}
+    context = {'pytaniaZamkniete':pytaniaZamkniete, 'pytaniaOtwarte':pytaniaOtwarte,'posts':posts,'answer':answer,'answerM':answerM,'postsM': postsM}
     return render(request, 'forum/history.html', context)
