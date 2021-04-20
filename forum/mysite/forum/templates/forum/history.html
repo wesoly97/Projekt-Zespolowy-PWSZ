@@ -26,34 +26,47 @@
 
 <div class="home">
   <h1>Pytania zamkniete</h1>
-  {% for pytZ,odpZZ,oZZ in pytaniaZamkniete %} PYTANIE : {{ pytZ }} <br />
+  {% for pytZ,odpZZ,oZZ in pytaniaZamkniete %} 
+  PYTANIE : {{ pytZ }} <br />
   ODPOWIEDZI : ${{ odpZZ }}$<br />
   ODPOWIEDZ : ${{ oZZ }}$<br />
   <hr />
   {% endfor %}
 
   <h1>Pytania otwarte</h1>
-  {% for pytO,oOO in pytaniaOtwarte %} PYTANIE : {{ pytO }} <br />
+  {% for pytO,oOO in pytaniaOtwarte %} 
+  PYTANIE : {{ pytO }} <br />
   ODPOWIEDZ : ${{ oOO }}$<br />
   <hr />
   {% endfor %}
 
   <h1>POSTY</h1>
-  {% for p in posts %} temat : {{ p.subject }} <br />
+  {% for p in posts %} 
+  temat : {{ p.subject }} <br />
   tresc : {{ p.text }}<br />
-  <hr />
+  <a class="btn btn-outline-dark btn-md" 
+  href="{% url 'post'  p.userP_id p.id %}" role="button">Przejdź</a>
+  <hr>
   {% endfor %}
 
   <h1>KOMENTARZE DO POSTOW UZYTKOWNIKOW</h1>
-  {% for p in answer %} temat : placeholder <br />
+  {% for p in answer %} 
+  temat : {{p.post}} <br />
   tresc : {{ p.answer }}<br />
-  <hr />
+   <a class="btn btn-outline-dark btn-md" 
+  href="{% url 'post'  p.userA_id p.post_id %}" role="button">Przejdź</a>
+  <hr>
+      </div>
   {% endfor %}
 
   <h1>KOMENTARZE DO POSTOW ZADAN</h1>
-  {% for p in answerM %} zadanie : placeholder <br />
+  {% for p in answerM %} 
+  zadanie : ${{p.zadanie.tresc}}$ <br />
   tresc : {{ p.answer }}<br />
-  <hr />
+  <a class="btn btn-outline-dark btn-md" 
+  href="{% url 'postM' p.userA_id p.zadanie_id %}" role="button">Przejdź</a>
+   <hr>
+  </div>
   {% endfor %}
 </div>
 {% endblock content %}
