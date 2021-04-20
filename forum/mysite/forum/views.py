@@ -463,6 +463,7 @@ def odpM(request, user_id,post_id):
     else:
         a = AnswerM(zadanie=y,userA=x,answer=new_answer)
         a.save()
+        return redirect('postM', user_id=auth_user_id(request), post_id=post_id)
     context = {'postsM': postsM,'answersM': answersM,'users': users,'new_answer': new_answer,'error': error}
     return render(request, 'forum/postsM.html', context)
 
@@ -474,8 +475,7 @@ def delete_odpM(request, user_id,post_id,answer_id):
     answersM = AnswerM.objects.filter(id=answer_id)
     answersM.delete()
     answersM = AnswerM.objects.filter(zadanie=post_id)
-    context = {'postsM': postsM,'answersM': answersM,'users': users}
-    return render(request, 'forum/postsM.html', context)
+    return redirect('postM', user_id=auth_user_id(request), post_id=post_id)
 
 def userPanel(request, user_id):
     users = User.objects.filter(id=user_id)
