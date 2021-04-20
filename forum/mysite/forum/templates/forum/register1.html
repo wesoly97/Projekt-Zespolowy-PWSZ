@@ -1,70 +1,108 @@
-{% extends 'forum/base.html' %}
-{% load static %}
-
-{% block css %}
-<link rel="stylesheet" type="text/css" href="{% static 'forum/styles/register/styleRegister.css' %}">
-{% endblock css %}
-
-
-{% block content %}
+{% extends 'forum/base.html' %} {% load static %} {% block css %}
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="{% static 'forum/styles/register/styleRegister.css' %}"
+/>
+{% endblock css %} {% block content %}
 <div class="container-fluid SiteWrapper">
-    <div class="container pt-5 pb-5 Wrapper">
-
-        <div class="container pt-4">
-            <p class="Logo">
-                <img src="{% static 'forum/images/register/logo.png' %}" alt="Logo serwisu Cyrkielek">
-            </p>
-            <p class="FormLabel">
-                Formularz Rejestracji
-            </p>
-            <hr/>
-        </div>
-
-
-        <form class="text-center pb-5" method="post" action="{% url 'register2' %}">
-            {% csrf_token %}
-            <div class="form-row justify-content-center pt-5">
-                <div class="form-group col-md-6">
-                    <label class="InputLabels" for="Name">Nazwa użytkownika</label>
-                    <input type="text" class="form-control" id="Name" aria-required="true">
-                </div>
-            </div>
-            <div class="form-row justify-content-center">
-                <div class="form-group col-md-6">
-                    <label class="InputLabels" for="Password">Hasło użytkownika</label>
-                    <input type="password" class="form-control" id="Password" aria-required="true">
-                </div>
-            </div>
-            <div class="form-row justify-content-center">
-                <div class="form-group col-md-6">
-                    <label class="InputLabels" for="Email">Podaj adres e-mail</label>
-                    <input type="email" class="form-control" id="Email" aria-required="true">
-                </div>
-            </div>
-            <div class="form-row justify-content-center">
-                <div class="form-group col-md-3">
-                    <label class="InputLabels" for="ContactNumber">Numer Kontaktowy</label>
-                    <input type="number" class="form-control" id="ContactNumber">
-                </div>
-            </div>
-            <div class="form-row justify-content-center">
-                <div class="form-group col-md-6">
-                    <label class="InputLabels" for="SchoolName">Podaj nazwę szkoły</label>
-                    <input type="text" class="form-control" id="SchoolName" placeholder="PWSZ w Elblągu">
-                </div>
-            </div>
-            <div class="form-row justify-content-center">
-                <div class="form-group col-md-6">
-                    <label class="InputLabels" for="City">Podaj miasto</label>
-                    <input type="text" class="form-control" id="City" aria-required="true">
-                </div>
-            </div>
-
-            <button type="submit" class="btn btn-outline-succes SubmitButton" value="add user">Zarejestruj</button>
-
-        </form>
-
+  <div class="container pt-5 pb-5 Wrapper">
+    <div class="container pt-4">
+      <p class="Logo">
+        <img
+          src="{% static 'forum/images/register/logo.png' %}"
+          alt="Logo serwisu Cyrkielek"
+        />
+      </p>
+      <p class="FormLabel">Formularz Rejestracji</p>
+      <hr />
     </div>
+
+    <form class="text-center pb-5" method="post" action="{% url 'register2' %}">
+      {% csrf_token %}
+      <div class="form-row justify-content-center pt-5">
+        <div class="form-group col-md-6">
+          <label class="InputLabels" for="Name">Nazwa użytkownika</label>
+          <input
+            type="text"
+            class="form-control"
+            name="Name"
+            id="Name"
+            aria-required="true"
+          />
+        </div>
+      </div>
+      <div class="form-row justify-content-center">
+        <div class="form-group col-md-6">
+          <label class="InputLabels" for="Password">Hasło użytkownika</label>
+          <input
+            type="password"
+            class="form-control"
+            name="Password"
+            id="Password"
+            aria-required="true"
+          />
+        </div>
+      </div>
+      <div class="form-row justify-content-center">
+        <div class="form-group col-md-6">
+          <label class="InputLabels" for="Email">Podaj adres e-mail</label>
+          <input
+            type="email"
+            class="form-control"
+            name="Email"
+            id="Email"
+            aria-required="true"
+          />
+        </div>
+      </div>
+      <div class="form-row justify-content-center">
+        <div class="form-group col-md-3">
+          <label class="InputLabels" for="ContactNumber"
+            >Numer Kontaktowy</label
+          >
+          <input
+            type="number"
+            class="form-control"
+            name="ContactNumber"
+            id="ContactNumber"
+          />
+        </div>
+      </div>
+      <div class="form-row justify-content-center">
+        <div class="form-group col-md-6">
+          <label class="InputLabels" for="SchoolName">Podaj nazwę szkoły</label>
+          <input
+            type="text"
+            class="form-control"
+            name="SchoolName"
+            id="SchoolName"
+            placeholder="PWSZ w Elblągu"
+          />
+        </div>
+      </div>
+      <div class="form-row justify-content-center">
+        <div class="form-group col-md-6">
+          <label class="InputLabels" for="City">Podaj miasto</label>
+          <input
+            type="text"
+            class="form-control"
+            name="City"
+            id="City"
+            aria-required="true"
+          />
+        </div>
+      </div>
+
+      <button
+        type="submit"
+        class="btn btn-outline-succes SubmitButton"
+        value="add user"
+      >
+        Zarejestruj
+      </button>
+    </form>
+  </div>
 </div>
 
 {% endblock content %}
