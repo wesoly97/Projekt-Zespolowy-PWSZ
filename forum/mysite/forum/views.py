@@ -373,7 +373,7 @@ def post(request, user_id,post_id):
     users = User.objects.filter(id=auth_user_id(request))
     posts = Post.objects.filter(id=post_id)
     answers = Answer.objects.filter(post=post_id)
-    context = {'posts': posts,'answers': answers,'users': users}
+    context = {'posts': posts,'answers': answers,'users': users, 'role': auth_user_rank(request), 'auth_user_id': auth_user_id(request)}
     return render(request, 'forum/posts.html', context)
 
 def postM(request, user_id,post_id):
@@ -382,7 +382,7 @@ def postM(request, user_id,post_id):
     users = User.objects.filter(id=auth_user_id(request))
     postsM = PostM.objects.filter(id=post_id)
     answersM = AnswerM.objects.filter(zadanie=post_id)
-    context = {'postsM': postsM,'answersM': answersM,'users': users}
+    context = {'postsM': postsM,'answersM': answersM,'users': users, 'role': auth_user_rank(request), 'auth_user_id': auth_user_id(request)}
     return render(request, 'forum/postsM.html', context)
 
 def add(request, user_id):
@@ -430,7 +430,8 @@ def odp(request, user_id,post_id):
     else:
         a = Answer(post=y,userA=x,answer=new_answer)
         a.save()
-    context = {'posts': posts,'answers': answers,'users': users,'new_answer': new_answer,'error': error}
+        return redirect('post', user_id=auth_user_id(request), post_id=post_id)
+    context = {'posts': posts, 'answers': answers, 'users': users,  'new_answer': new_answer, 'error': error}
     return render(request, 'forum/posts.html', context)
 
 def delete_odp(request, user_id,post_id,answer_id):
@@ -441,8 +442,7 @@ def delete_odp(request, user_id,post_id,answer_id):
     answers = Answer.objects.filter(id=answer_id)
     answers.delete()
     answers = Answer.objects.filter(post=post_id)
-    context = {'posts': posts,'answers': answers,'users': users}
-    return render(request, 'forum/posts.html', context)
+    return redirect('post', user_id=auth_user_id(request), post_id=post_id)
 
 def odpM(request, user_id,post_id):
     if not is_user_authenticated(request):

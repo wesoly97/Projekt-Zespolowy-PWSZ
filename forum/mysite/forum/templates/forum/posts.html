@@ -7,9 +7,11 @@
 <p><b>Author:</b>{{p.userP}}</p>
 <p><b>Subject:</b>{{p.subject}}</p>
 <p>{{p.text}}</p>
-<a href="{% url 'delete' user.id p.id %}"
-  ><button><i class="fas fa-trash fa-3x"></i></button
-></a>
+{% if role == 'admin' or role == 'moderator' or p.userP.id == auth_user_id %}
+<a href="{% url 'delete' user.id p.id %}">
+  <button><i class="fas fa-trash fa-3x"></i></button>
+</a>
+{% endif %}
 <hr />
 <h1>Answers:</h1>
 
@@ -17,9 +19,11 @@
 
 <p><b>{{a.userA}} </b>answered:</p>
 <p>{{a.answer}}</p>
-<a href="{% url 'delete_odp' user.id p.id a.id%}"
-  ><button><i class="fas fa-trash fa-3x"></i></button
-></a>
+{% if role == 'admin' or role == 'moderator' or a.userA.id == auth_user_id %}
+<a href="{% url 'delete_odp' user.id p.id a.id%}">
+  <button><i class="fas fa-trash fa-3x"></i></button>
+</a>
+{% endif %}
 <hr />
 {% endfor %}
 <div class="form">
