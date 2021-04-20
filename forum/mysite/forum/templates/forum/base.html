@@ -25,12 +25,18 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarText">
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="{% url 'register1' %}">Rejestracja</a>
-          </li>
-          <li class="nav-item active">
-            <a class="nav-link" href="{% url 'log_out' %}">Logowanie</a>
-          </li>
+            {% if request.session.logged_user == 0 or request.session.logged_user == '0' %}
+                <li class="nav-item active">
+                <a class="nav-link" href="{% url 'register1' %}">Rejestracja</a>
+                </li>
+                <li class="nav-item active">
+                <a class="nav-link" href="{% url 'login' %}">Logowanie</a>
+                </li>
+            {% else %}
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'log_out' %}">Wyloguj</a>
+                </li>
+            {% endif %}
         </ul>
       </div>
     </nav>

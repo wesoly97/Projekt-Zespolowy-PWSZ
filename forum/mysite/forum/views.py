@@ -127,7 +127,7 @@ def login_user(request):
 
 def logout(request):
     request.session['logged_user'] = "0"
-    return redirect('login')
+    return redirect('index')
 
 
 def register1(request):
@@ -251,7 +251,7 @@ def usersHOME(request, user_id):
         return render(request, 'forum/error.html', context={'error': 'Nie jesteś zalogowany'})
 
     users = User.objects.filter(id=auth_user_id(request))
-    context = {'users': users}
+    context = {'users': users, 'role': auth_user_rank(request)}
     return render(request, 'forum/usersHome.html', context)
 
 
