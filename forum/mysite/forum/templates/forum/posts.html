@@ -47,7 +47,9 @@
             <p class="card-text">{{p.text}}</p>
           </div>
           <div class="card-footer">
+              {% if p.userP.id == auth_user_id or role == 'admin' or role == 'moderator' %}
             <a href="{% url 'delete' user.id p.id %}">Usuń post</a>
+              {% endif %}
           </div>
         </div>
       </div>
@@ -74,7 +76,9 @@
             <p class="card-text">{{a.answer}}</p>
           </div>
           <div class="card-footer">
-            <a href="{% url 'delete' user.id p.id %}">Usuń post</a>
+              {% if a.userA.id == auth_user_id or role == 'admin' or role == 'moderator' %}
+            <a href="{% url 'delete_odp' user.id p.id a.id %}">Usuń post</a>
+              {% endif %}
           </div>
         </div>
       </div>
