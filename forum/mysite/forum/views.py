@@ -127,7 +127,7 @@ def login_user(request):
 
 def logout(request):
     request.session['logged_user'] = "0"
-    return redirect('login')
+    return redirect('index')
 
 
 def register1(request):
@@ -256,7 +256,7 @@ def usersHOME(request, user_id):
         return render(request, 'forum/error.html', context={'error': 'Nie jesteś zalogowany'})
 
     users = User.objects.filter(id=auth_user_id(request))
-    context = {'users': users}
+    context = {'users': users, 'role': auth_user_rank(request)}
     return render(request, 'forum/usersHome.html', context)
 
 
@@ -378,7 +378,7 @@ def post(request, user_id,post_id):
     users = User.objects.filter(id=auth_user_id(request))
     posts = Post.objects.filter(id=post_id)
     answers = Answer.objects.filter(post=post_id)
-    context = {'posts': posts,'answers': answers,'users': users}
+    context = {'posts': posts,'answers': answers,'users': users, 'role': auth_user_rank(request), 'auth_user_id': auth_user_id(request)}
     return render(request, 'forum/posts.html', context)
 
 def postM(request, user_id,post_id):
@@ -387,7 +387,7 @@ def postM(request, user_id,post_id):
     users = User.objects.filter(id=auth_user_id(request))
     postsM = PostM.objects.filter(id=post_id)
     answersM = AnswerM.objects.filter(zadanie=post_id)
-    context = {'postsM': postsM,'answersM': answersM,'users': users}
+    context = {'postsM': postsM,'answersM': answersM,'users': users, 'role': auth_user_rank(request), 'auth_user_id': auth_user_id(request)}
     return render(request, 'forum/postsM.html', context)
 
 def add(request, user_id):
@@ -437,7 +437,8 @@ def odp(request, user_id,post_id):
         new_answer=replace(new_answer)
         a = Answer(post=y,userA=x,answer=new_answer)
         a.save()
-    context = {'posts': posts,'answers': answers,'users': users,'new_answer': new_answer,'error': error}
+        return redirect('post', user_id=auth_user_id(request), post_id=post_id)
+    context = {'posts': posts, 'answers': answers, 'users': users,  'new_answer': new_answer, 'error': error}
     return render(request, 'forum/posts.html', context)
 
 def delete_odp(request, user_id,post_id,answer_id):
@@ -448,8 +449,7 @@ def delete_odp(request, user_id,post_id,answer_id):
     answers = Answer.objects.filter(id=answer_id)
     answers.delete()
     answers = Answer.objects.filter(post=post_id)
-    context = {'posts': posts,'answers': answers,'users': users}
-    return render(request, 'forum/posts.html', context)
+    return redirect('post', user_id=auth_user_id(request), post_id=post_id)
 
 def odpM(request, user_id,post_id):
     if not is_user_authenticated(request):
@@ -470,6 +470,7 @@ def odpM(request, user_id,post_id):
     else:
         a = AnswerM(zadanie=y,userA=x,answer=new_answer)
         a.save()
+        return redirect('postM', user_id=auth_user_id(request), post_id=post_id)
     context = {'postsM': postsM,'answersM': answersM,'users': users,'new_answer': new_answer,'error': error}
     return render(request, 'forum/postsM.html', context)
 
@@ -481,8 +482,7 @@ def delete_odpM(request, user_id,post_id,answer_id):
     answersM = AnswerM.objects.filter(id=answer_id)
     answersM.delete()
     answersM = AnswerM.objects.filter(zadanie=post_id)
-    context = {'postsM': postsM,'answersM': answersM,'users': users}
-    return render(request, 'forum/postsM.html', context)
+    return redirect('postM', user_id=auth_user_id(request), post_id=post_id)
 
 def userPanel(request, user_id):
     users = User.objects.filter(id=user_id)

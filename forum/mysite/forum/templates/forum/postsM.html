@@ -19,9 +19,11 @@
 
 <p><b>{{a.userA}} </b>answered:</p>
 <p>{{a.answer}}</p>
-<a href="{% url 'delete_odpM' user.id p.id a.id%}"
-  ><button><i class="fas fa-trash fa-3x"></i></button
-></a>
+{% if role == 'admin' or role == 'moderator' or a.userA.id == auth_user_id %}
+<a href="{% url 'delete_odpM' user.id p.id a.id%}">
+  <button><i class="fas fa-trash fa-3x"></i></button>
+</a>
+{% endif %}
 <hr />
 {% endfor %}
 <div class="form">
