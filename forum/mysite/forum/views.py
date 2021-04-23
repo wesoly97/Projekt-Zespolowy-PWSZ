@@ -13,6 +13,7 @@ from .models import Zadanie_zamkniete
 from .models import Zadanie_otwarte
 from .models import zadanie_matematyczne
 from .models import Score
+from .models import Zrodlo
 import random
 from datetime import date, datetime
 from django.core.files.storage import FileSystemStorage
@@ -297,8 +298,6 @@ def math_page2(request, user_id):
     request.session['r4'] = r4
    
     zos=zadanie_matematyczne.objects.filter(id=225)|zadanie_matematyczne.objects.filter(id=230)
-
-
     zzs=zadanie_matematyczne.objects.filter(id=201)|zadanie_matematyczne.objects.filter(id=181)|zadanie_matematyczne.objects.filter(id=180)
     
     context = {'users': users,'zos': zos,'zzs': zzs}
@@ -315,11 +314,10 @@ def math_page3(request, user_id):
     r4=request.session.get('r4')
 
     zos=zadanie_matematyczne.objects.filter(id=225)|zadanie_matematyczne.objects.filter(id=230)
-
-
     zzs=zadanie_matematyczne.objects.filter(id=201)|zadanie_matematyczne.objects.filter(id=181)|zadanie_matematyczne.objects.filter(id=180)
 
-    odpZ = request.POST.getlist('odpZ')
+    #odpZ = request.POST.getlist('odpZ')
+    odpZ=[]
     odpO = request.POST.getlist('odpO')
 
     linki = []
@@ -344,10 +342,13 @@ def math_page3(request, user_id):
       for post in posts:
         linki.append(post)
       punktyMAX=punktyMAX+1
-      if zz.odpowiedz == odpZ[x]:
+      flexRadioDefaultNumber="flexRadioDefault"+str(x)
+      my_answer = request.POST[flexRadioDefaultNumber]
+      odpZ.append(my_answer)
+      if zz.odpowiedz == my_answer:
         punktyZ=punktyZ+1
       tasks_close+=str(zz.id)+' '
-      odp_zamkniete+=odpZ[x]+ ' '
+      odp_zamkniete+=my_answer+ ' '
       x=x+1
 
     x=0
