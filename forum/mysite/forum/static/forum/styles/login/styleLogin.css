@@ -37,11 +37,6 @@
     margin-bottom: 4rem;
 }
 
-.Logo:hover {
-    transform: scale(1.1);
-}
-
-
 .LoginLabel {
     color: #002030;
     font-size: 2rem;

@@ -1,11 +1,10 @@
 {% extends 'forum/base.html' %} 
 {% block content %}
 {% load static %}  
-{% for user in users %}
 {% block css %} 
   <link rel="stylesheet" href="{% static 'forum/styles/usersHome/UsersHome.css' %}"> 
 {% endblock css %} 
-
+{% for user in users %}
 <div id="cont">
      <div id="content" class="container-fluid">
      <div class="row " >
@@ -71,10 +70,10 @@
   </div>
 
 </div>
-{% block js %}
-<script src="{% static 'forum/js/usersHome/usersHome.js' %}"></script>
-{% endblock js %}
-
 
 {% endfor %}
+
 {% endblock content %}
+{% block jquery %}
+<script src="{% static 'forum/js/UsersHome/UsersHome.js' %}"></script>
+{% endblock jquery %}

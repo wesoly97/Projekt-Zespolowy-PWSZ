@@ -18,19 +18,11 @@
     transition: all .4s ease-in-out;
 }
 
-.FormLabel:hover {
-    transform: scale(1.1);
-}
-
 .Logo {
     display: flex;
     justify-content: center;
     transition: all .4s ease-in-out;
     margin-bottom: 2rem;
-}
-
-.Logo:hover {
-    transform: scale(1.1);
 }
 
 .SubmitButton {
