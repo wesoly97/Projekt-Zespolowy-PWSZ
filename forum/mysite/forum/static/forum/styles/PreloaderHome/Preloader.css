@@ -1,26 +1,3 @@
-/* 
- _____   _           _         _                        _                  
-|_   _| | |         | |       | |                      | |                 
-  | |   | |__   __ _| |_ ___  | |_ ___  _ __ ___   __ _| |_ ___   ___  ___ 
-  | |   | '_ \ / _` | __/ _ \ | __/ _ \| '_ ` _ \ / _` | __/ _ \ / _ \/ __|
- _| |_  | | | | (_| | ||  __/ | || (_) | | | | | | (_| | || (_) |  __/\__ \
- \___/  |_| |_|\__,_|\__\___|  \__\___/|_| |_| |_|\__,_|\__\___/ \___||___/
-
-Oh nice, welcome to the stylesheet of dreams. 
-It has it all. Classes, ID's, comments...the whole lot:)
-Enjoy responsibly!
-@ihatetomatoes
-
-*/
-
-/* ==========================================================================
-   Chrome Frame prompt
-   ========================================================================== */
-
-
-/* ==========================================================================
-   Author's custom styles
-   ========================================================================== */
 
 
 #loader-wrapper {
@@ -41,10 +18,10 @@ Enjoy responsibly!
     margin: -75px 0 0 -75px;
     border-radius: 50%;
     border: 3px solid transparent;
-    border-top-color: #3498db;
+    border-top-color: #BD4CF6;
 
-    -webkit-animation: spin 2s linear infinite; /* Chrome, Opera 15+, Safari 5+ */
-    animation: spin 2s linear infinite; /* Chrome, Firefox 16+, IE 10+, Opera */
+    -webkit-animation: spin 4s linear infinite; /* Chrome, Opera 15+, Safari 5+ */
+    animation: spin 4s linear infinite; /* Chrome, Firefox 16+, IE 10+, Opera */
 
     z-index: 1001;
 }
@@ -58,10 +35,10 @@ Enjoy responsibly!
         bottom: 5px;
         border-radius: 50%;
         border: 3px solid transparent;
-        border-top-color: #e74c3c;
+        border-top-color: #fbff00;
 
-        -webkit-animation: spin 3s linear infinite; /* Chrome, Opera 15+, Safari 5+ */
-        animation: spin 3s linear infinite; /* Chrome, Firefox 16+, IE 10+, Opera */
+        -webkit-animation: spin2 1s linear infinite; /* Chrome, Opera 15+, Safari 5+ */
+        animation: spin2 1s linear infinite; /* Chrome, Firefox 16+, IE 10+, Opera */
     }
 
     #loader:after {
@@ -73,13 +50,13 @@ Enjoy responsibly!
         bottom: 15px;
         border-radius: 50%;
         border: 3px solid transparent;
-        border-top-color: #f9c922;
+        border-top-color: #45DE53;
 
         -webkit-animation: spin 1.5s linear infinite; /* Chrome, Opera 15+, Safari 5+ */
           animation: spin 1.5s linear infinite; /* Chrome, Firefox 16+, IE 10+, Opera */
     }
 
-    @-webkit-keyframes spin {
+    @-webkit-keyframes spin2 {
         0%   { 
             -webkit-transform: rotate(0deg);  /* Chrome, Opera 15+, Safari 3.1+ */
             -ms-transform: rotate(0deg);  /* IE 9 */
@@ -89,6 +66,30 @@ Enjoy responsibly!
             -webkit-transform: rotate(360deg);  /* Chrome, Opera 15+, Safari 3.1+ */
             -ms-transform: rotate(360deg);  /* IE 9 */
             transform: rotate(360deg);  /* Firefox 16+, IE 10+, Opera */
+        }
+    }
+    @keyframes spin2 {
+        0%   { 
+            -webkit-transform: rotate(0deg);  /* Chrome, Opera 15+, Safari 3.1+ */
+            -ms-transform: rotate(0deg);  /* IE 9 */
+            transform: rotate(0deg);  /* Firefox 16+, IE 10+, Opera */
+        }
+        100% {
+            -webkit-transform: rotate(360deg);  /* Chrome, Opera 15+, Safari 3.1+ */
+            -ms-transform: rotate(360deg);  /* IE 9 */
+            transform: rotate(360deg);  /* Firefox 16+, IE 10+, Opera */
+        }
+    }
+    @-webkit-keyframes spin {
+        0%   { 
+            -webkit-transform: rotate(0deg);  /* Chrome, Opera 15+, Safari 3.1+ */
+            -ms-transform: rotate(0deg);  /* IE 9 */
+            transform: rotate(0deg);  /* Firefox 16+, IE 10+, Opera */
+        }
+        100% {
+            -webkit-transform: rotate(-360deg);  /* Chrome, Opera 15+, Safari 3.1+ */
+            -ms-transform: rotate(-360deg);  /* IE 9 */
+            transform: rotate(-360deg);  /* Firefox 16+, IE 10+, Opera */
         }
     }
     @keyframes spin {
@@ -98,9 +99,9 @@ Enjoy responsibly!
             transform: rotate(0deg);  /* Firefox 16+, IE 10+, Opera */
         }
         100% {
-            -webkit-transform: rotate(360deg);  /* Chrome, Opera 15+, Safari 3.1+ */
-            -ms-transform: rotate(360deg);  /* IE 9 */
-            transform: rotate(360deg);  /* Firefox 16+, IE 10+, Opera */
+            -webkit-transform: rotate(-360deg);  /* Chrome, Opera 15+, Safari 3.1+ */
+            -ms-transform: rotate(-360deg);  /* IE 9 */
+            transform: rotate(-360deg);  /* Firefox 16+, IE 10+, Opera */
         }
     }
 
@@ -167,11 +168,44 @@ Enjoy responsibly!
         color: #222222;
     }
 
- 
+    #content {
+        margin: 0 auto;
+        padding-bottom: 50px;
+        width: 80%;
+        max-width: 978px;
+    }  
 
 
 
 
+
+
+/* ==========================================================================
+   Helper classes
+   ========================================================================== */
+
+/*
+ * Image replacement
+ */
+
+.ir {
+    background-color: transparent;
+    border: 0;
+    overflow: hidden;
+    /* IE 6/7 fallback */
+    *text-indent: -9999px;
+}
+
+.ir:before {
+    content: "";
+    display: block;
+    width: 0;
+    height: 150%;
+}
+
+/*
+ * Hide from both screenreaders and browsers: h5bp.com/u
+ */
 
 .hidden {
     display: none !important;
@@ -323,17 +357,6 @@ Enjoy responsibly!
         margin: 0.5cm;
     }
 
-    p,
-    h2,
-    h3 {
-        orphans: 3;
-        widows: 3;
-    }
-
-    h2,
-    h3 {
-        page-break-after: avoid;
-    }
 }
 
 /* 
