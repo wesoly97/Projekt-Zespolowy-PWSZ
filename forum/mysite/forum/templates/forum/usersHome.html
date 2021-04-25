@@ -22,7 +22,7 @@
         <div class="card-body">
           <h5 class="card-title">Forum</h5>
           <p class="card-text">Poproś o pomoc innych użytkowników!</p>
-          <a href="{% url 'user_at_forum' user.id %}" class="btn btn-primary float-right">Otwórz</a>
+          <input type="button" id="buttonForum" href="" data-url="{% url 'user_at_forum' user.id %}" class="btn btn-primary float-right" value="Otwórz"></input>
         </div>
       </div></div>
       
@@ -39,7 +39,7 @@
         <img class="card-img-top" src="{% static 'forum/images/usersHome/history.png' %}" alt="Card image cap">
         <div class="card-body">
           <h5 class="card-title">Historia</h5>
-          <a href="{% url 'history' user.id%}" class="btn btn-primary float-right">Otwórz</a>
+          <input type="button"  href="" data-url="{% url 'history' user.id%}" class="btn btn-primary float-right" id="buttonHistory" value="Otwórz"></a>
         </div>
       </div></div>
       <div class="col-sm bottom"><div class="card" id="upperCard" style="width: 18rem;">
