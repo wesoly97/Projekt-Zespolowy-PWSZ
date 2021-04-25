@@ -16,7 +16,7 @@ header{
 }
 header h1{
     padding-top: 200px;
-    padding-left: 150px;
+    padding-left: 15vw;
 }
 header .typed-text{
     color: #ccc500;
@@ -69,6 +69,7 @@ header span.cursor.typing {
 }
 .infoImgs{
     position: absolute;
+    display: none;
 }
 .infoImgs:nth-child(1){
     left: 46%;
@@ -125,7 +126,7 @@ header span.cursor.typing {
 #info ul li div{
     text-decoration: none;
     color:#000;
-    background:#ffc;
+    background:#acff89;
     display: block;
     height: 10em;
     width: 10em;
@@ -139,15 +140,15 @@ header span.cursor.typing {
     transform: rotate(4deg);
     position: relative;
     top: 5px;
-    background:#cfc;
+    background:#d4dbff;
 }
 #info ul li:nth-child(3n) div{
     transform: rotate(-3deg);
     position: relative;
     top: -5px;
-    background:#ccf;
+    background:#fff471;
 }
-#info ul li:nth-child(5n) div{
+#info ul li:nth-child(4n) div{
     transform: rotate(5deg);
     position: relative;
     top: -10px;
@@ -157,16 +158,6 @@ header span.cursor.typing {
     transform: scale(1.25);
     position: relative;
 }
-
-/*
-#spange{
-    position: absolute;
-    width: 100px;
-    left: 50vw;
-    cursor: grab;
-    z-index: 1;
-}
-*/
 
 
 .rowInfo{
@@ -194,12 +185,27 @@ header span.cursor.typing {
     width: 150px;
     height: auto;
 }
-
+#profile div div div:nth-child(1){
+    font-size: 4rem;
+}
+@media (max-width: 1200px) {
+    #profile div div div:nth-child(1){
+      font-size: calc(1.525rem + 3.3vw);
+    }
+}
+#profile div div div:nth-child(2){
+    font-size: 2rem;
+}
+@media (max-width: 1200px) {
+    #profile div div div:nth-child(2){
+      font-size: calc(.525rem + 2.3vw);
+    }
+}
 #discovery{
     padding-top: 15px;
     padding-bottom: 15px;
     background: #002030;
-    color: #c2f1db;
+    color: white;
     position: relative;
     overflow: hidden;
 }
