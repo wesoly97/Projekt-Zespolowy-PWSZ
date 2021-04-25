@@ -100,9 +100,11 @@ def replace(text):
 
 def index(request):
     users = User.objects.all()
-    context = {'users': users}
+    userNumber = User.objects.aggregate(Max('id'))
+    questionNumber = zadanie_matematyczne.objects.aggregate(Max('id'))
+    doneSet = Score.objects.aggregate(Max('id'))
+    context = {'users': users,'numberUsers':userNumber['id__max'],'NumberQuestion':questionNumber['id__max'],'NumberDone':doneSet['id__max']}
     return render(request, 'forum/index.html', context)
-
 
 def login(request):
     if is_user_authenticated(request):

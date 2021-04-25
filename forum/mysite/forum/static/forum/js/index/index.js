@@ -40,9 +40,9 @@ function showNumbers(){
         const options = {
             duration: 3,
         };
-        let tests = new countUp.CountUp('tests', 12640, options);
-        let tasks = new countUp.CountUp('tasks', 2200, options);
-        let users = new countUp.CountUp('users', 46352, options);
+        let tests = new countUp.CountUp('tests', NumberDone, options);
+        let tasks = new countUp.CountUp('tasks', numberQuestion, options);
+        let users = new countUp.CountUp('users', userNumber, options);
 
         if($(window).scrollTop()>=200 && $(window).scrollTop()<=1190){
             tests.start();
