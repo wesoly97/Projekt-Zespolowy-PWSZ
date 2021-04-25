@@ -1,25 +1,45 @@
-{% extends 'forum/base.html' %}{% load static %} {% block content %} {% for user in users %}
-{% block imports %}
+{% extends 'forum/base.html' %}
 {% load static %}
-{% block css %} 
-<link rel="stylesheet" href="{% static 'forum/styles/mathPage2/mathPage2.css' %}"> {% endblock css %} 
-<link rel="stylesheet" href="{% static 'forum/MathQuil/mathquill.css' %}"/>
+{% block content %}
+{% for user in users %}
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'forum/styles/mathPage2/mathPage2.css' %}">
+<link rel="stylesheet" href="{% static 'forum/MathQuil/mathquill.css' %}" />
+{% endblock css %}
+{% block js %}
 <script src="{% static 'forum/MathQuil/mathquill.js' %}"></script>
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\(','\)']]},
-    svg: {
-    fontCache: 'global'
-  }
-  });
-</script>
-<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-{% endblock %}
+<script id="MathJax-script" async src="{% static 'forum/mathjax-master/es5/tex-chtml.js'%}"></script>
 <script>
-    let MQ = MathQuill.getInterface(2); 
+  MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']]
+    },
+    svg: {
+      fontCache: 'global'
+    }
+  };
+
+  function createMathquill(id) {
+
+    let answerMathField2 = MQ.MathField(document.getElementById('answer' + id), {
+      handlers: {
+        edit: function () {
+          answerMathField2.latex();
+          document.getElementById('latexanswer' + id).textContent = answerMathField2.latex();
+        }
+      }
+    });
+
+  }
+</script>
+{% endblock js %}
+<script>
+  let MQ = MathQuill.getInterface(2);
 </script>
 
-<form class="container-fluid" method="post" action="{% url 'math_page3' user.id %} " >
-  {% csrf_token %} 
+<form class="container-fluid" method="post" action="{% url 'math_page3' user.id %}">
+  {% csrf_token %}
   {% for zz in zzs %}
   <div class="row" >
   <div class="col-12 description mb-2 pb-1">Zadanie zamkniete nr. {{forloop.counter0}}</div>
@@ -48,91 +68,41 @@
       $${{zz.odp_d}}$$
     </label>
   </div>
-</div>
-  {% endfor %} {% for zo in zos %}
+  {% endfor %}
+  {% for zo in zos %}
   <div class="row">
-  <div class="col-12 description mb-2 pb-1">Zadanie otwarte nr. {{forloop.counter0}}</div>
-  <div class="col-12">{{zo.tresc}}</div>
-  {% if zo.url != "" %}
-  <div class="col-12"><img class="rounded mx-auto d-block" src="{% static zo.url %}"/></div>
-{% endif %}
-<div class="col-12"><p>Wprowadź odpowiedź:</p></div>
-<div class="col-12">
-  <span id="answer{{forloop.counter0}}" class="answerO" ></span><textarea name="odpO" id="latexanswer{{forloop.counter0}}" style="opacity: 0;"></textarea></p>
-    <div id="tools">
-        <div id="sqrtanswer{{forloop.counter0}}" style=" float:left; padding:20px;">√</div>
-        <div id="mldanswer{{forloop.counter0}}" style=" float:left;padding:20px;">*</div>
-        <div id="plusanswer{{forloop.counter0}}" style=" float:left;padding:20px;">+</div>
-        <div id="minusanswer{{forloop.counter0}}" style=" float:left;padding:20px;">-</div>
-        <div id="przecinekanswer{{forloop.counter0}}" style=" float:left;padding:20px;">,</div>
-        <div id="pianswer{{forloop.counter0}}" style=" float:left;padding:20px;">π</div>
-        <div id="dzielenieanswer{{forloop.counter0}}" style=" float:left;padding:20px;">¼</div>
-        <div id="potegaanswer{{forloop.counter0}}" style=" float:left;padding:20px;">^</div>
-        <div id="cbrtanswer{{forloop.counter0}}" style=" float:left;padding:20px;">∛</div>
+    <div class="col-12 description mb-2 pb-1">Zadanie otwarte nr. {{forloop.counter0}}</div>
+    <div class="col-12">{{zo.tresc}}</div>
+    {% if zo.url != "" %}
+    <div class="col-12">
+      <img class="rounded mx-auto d-block" src="{% static zo.url %}" />
     </div>
+    {% endif %}
+    <div class="col-12">
+      <p>Wprowadź odpowiedź:</p>
+    </div>
+    <div class="col-12 answerDiv">
+      <span id="answer{{forloop.counter0}}" class="answerO mb-3 keyboard"></span>
+      <textarea name="odpO" id="latexanswer{{forloop.counter0}}" class="hiddenAnswer"></textarea>
     </div>
     <script>
-    createMathquill({{forloop.counter0}});
-function createMathquill(id)
-{
-
-let answerMathField2 = MQ.MathField(document.getElementById('answer'+id), {
-    handlers: {
-         edit: function() {
-                answerMathField2.latex();
-                document.getElementById('latexanswer'+id).textContent = answerMathField2.latex();
-            }
-        }
-    });
-
-
-$( "#sqrtanswer"+id).click(function() {
-    answerMathField2.write('\\sqrt{}');
-    answerMathField2.reflow();
-});
-
-$( "#mldanswer"+id).click(function() {
-    answerMathField2.write('\\cdot');
-    answerMathField2.reflow();
-});
-$( "#plusanswer"+id).click(function() {
-    answerMathField2.write('+');
-    answerMathField2.reflow();
-});
-$( "#minusanswer"+id).click(function() {
-    answerMathField2.write('-');
-    answerMathField2.reflow();
-});
-$( "#przecinekanswer"+id).click(function() {
-    answerMathField2.write(',');
-    answerMathField2.reflow();
-});
-$( "#pianswer"+id).click(function() {
-    answerMathField2.write('\\pi');
-    answerMathField2.reflow();
-});
-$( "#dzielenieanswer"+id ).click(function() {
-    answerMathField2.write('\\frac{ }{ }');
-    answerMathField2.reflow();
-});
-$( "#potegaanswer"+id ).click(function() {
-    answerMathField2.write('\\^{}');
-    answerMathField2.reflow();
-});
-$( "#cbrtanswer"+id).click(function() {
-    answerMathField2.write('\\sqrt[]{}');
-    answerMathField2.reflow();
-});
-
-    }
-  </script>
+      createMathquill({{ forloop.counter0 }});
+    </script>
   </div>
-
   {% endfor %}
   <div id="sendAnswers">
-  <input type="submit" value="Sprawdź zestaw" />
-  <button value="Wróć"><a href="{% url 'math_page' user.id %}">Wróć</a></button>
+    <input type="submit" value="Sprawdź zestaw" />
+    <button value="Wróć">
+      <a href="{% url 'math_page' user.id %}">Wróć</a>
+    </button>
   </div>
   {% endfor %}
 </form>
 {% endblock content %}
+{% block jquery %}
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<link href="{% static 'forum/Keyboard/css/keyboard.css' %}" rel="stylesheet">
+<script src="{% static 'forum/Keyboard/js/jquery.keyboard.js' %}"></script>
+<script src="{% static 'forum/Keyboard/js/jquery.keyboard.extension-typing.js' %}"></script>
+<script src="{% static 'forum/js/keyboard.js' %}"></script>
+{% endblock jquery %}
