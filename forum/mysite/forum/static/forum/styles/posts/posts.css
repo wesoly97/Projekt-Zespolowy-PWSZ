@@ -12,3 +12,9 @@ img{ width:70px; height:auto;}
     color: #007bff;
     text-decoration: none;
 }
+.addAnswer button:hover
+{
+    color: -webkit-link;
+    text-decoration:underline;
+    cursor: pointer;
+}
