@@ -1,19 +1,20 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="pl">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="stylesheet" href="{% static 'forum/MathQuil/mathquill.css' %}"/>
-    <link rel="stylesheet" href="{% static 'forum/Bootstrap/css/bootstrap.min.css' %}">
-    <link rel="stylesheet" href="{% static 'forum/styles/PreloaderHome/Preloader.css' %}">
-    {% block css %}
 
-    {% endblock css %} 
-    {% block js %}
-    
-    {% endblock js %}
-    <script src="{% static 'forum/JQuery/jquery-3.6.0.min.js' %}"></script>
-     <script>
+<head>
+  <meta charset="UTF-8" />
+  <link rel="stylesheet" href="{% static 'forum/Bootstrap/css/bootstrap.min.css' %}">
+  <link rel="stylesheet" href="{% static 'forum/styles/PreloaderHome/Preloader.css' %}">
+  {% block css %}
+
+  {% endblock css %}
+  {% block js %}
+
+  {% endblock js %}
+
+  <script src="{% static 'forum/JQuery/jquery-3.6.0.min.js' %}"></script>
+  <script>
     $(document).ready(function () {
       $('body').addClass('loaded');
     });
@@ -52,55 +53,56 @@
                 </li>
             {% endif %}
 
-        </ul>
-      </div>
-    </nav>
-    {% block content %}
+      </ul>
+    </div>
+  </nav>
+  {% block content %}
 
-    {% endblock %}
-    <footer class="container-fluid pt-5 bg-dark text-light">
-      <div class="mx-5">
-          <div class="row mb-4 ">
-              <div class="col-md-4 col-sm-11 col-xs-11">
-                  <h1>Cyrkielek</h1>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi non pariatur numquam animi nam at impedit odit nisi.</p>
-                  <div class="mt-2 mb-3">
-                    <i class="fab fa-facebook-f fa-2x p-1"></i>
-                    <i class="fab fa-instagram fa-2x p-1"></i>
-                    <i class="fab fa-twitter fa-2x p-1"></i>
-                    <i class="fab fa-linkedin-in fa-2x p-1"></i>
-                  </div>
-              </div>
-              <div class="col-md-1 col-sm-1 col-xs-1 mb-2"></div>
-              <div class="col-md-3 col-sm-4 col-xs-4">
-                  <h5>Matura</h5>
-                  <ul>
-                      <li>Zestawy</li>
-                      <li>Teoria</li>
-                      <li>Punktacja</li>
-                  </ul>
-              </div>
-              <div class="col-md-3 col-sm-4 col-xs-4">
-                  <h5>Zespół</h5>
-                  <ul>
-                      <li>O nas</li>
-                      <li>Kontakt</li>
-                  </ul>
-              </div>
+  {% endblock %}
+  <footer class="container-fluid pt-5 bg-dark text-light">
+    <div class="mx-5">
+      <div class="row mb-4 ">
+        <div class="col-md-4 col-sm-11 col-xs-11">
+          <h1>Cyrkielek</h1>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi non pariatur numquam animi nam at impedit
+            odit nisi.</p>
+          <div class="mt-2 mb-3">
+            <i class="fab fa-facebook-f fa-2x p-1"></i>
+            <i class="fab fa-instagram fa-2x p-1"></i>
+            <i class="fab fa-twitter fa-2x p-1"></i>
+            <i class="fab fa-linkedin-in fa-2x p-1"></i>
           </div>
-          <div class="row">
-              <div class="col-md-6 col-sm-6 col-xs-6">
-                  <p class="copyright"><i class="fas fa-copyright"></i> 2021</p>
-              </div>
-              <div class="col-md-6 col-sm-6 col-xs-6"></div>
-          </div>
+        </div>
+        <div class="col-md-1 col-sm-1 col-xs-1 mb-2"></div>
+        <div class="col-md-3 col-sm-4 col-xs-4">
+          <h5>Matura</h5>
+          <ul>
+            <li>Zestawy</li>
+            <li>Teoria</li>
+            <li>Punktacja</li>
+          </ul>
+        </div>
+        <div class="col-md-3 col-sm-4 col-xs-4">
+          <h5>Zespół</h5>
+          <ul>
+            <li>O nas</li>
+            <li>Kontakt</li>
+          </ul>
+        </div>
       </div>
+      <div class="row">
+        <div class="col-md-6 col-sm-6 col-xs-6">
+          <p class="copyright"><i class="fas fa-copyright"></i> 2021</p>
+        </div>
+        <div class="col-md-6 col-sm-6 col-xs-6"></div>
+      </div>
+    </div>
   </footer>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="{% static 'forum/Bootstrap/js/bootstrap.min.js' %}"></script>
+  {% block jquery %}
 
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-    <script src="{% static 'forum/Bootstrap/js/bootstrap.min.js' %}"></script>
-    {% block jquery %}
-    
-    {% endblock jquery %} 
-  </body>
+  {% endblock jquery %}
+</body>
+
 </html>
