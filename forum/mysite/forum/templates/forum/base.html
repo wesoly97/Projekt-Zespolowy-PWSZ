@@ -19,42 +19,39 @@
       $('body').addClass('loaded');
     });
   </script>
-  <script src="{% static 'forum/MathQuil/mathquill.js' %}"></script>
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css"
-    integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp" crossorigin="anonymous" />
-  <link rel="stylesheet" type="text/css" href="{% static 'forum/styles/style.css' %}" />
-  <title>Cyrkielek - naucz się do swojej matury</title>
-</head>
-
-<body>
+    <script src="{% static 'forum/MathQuil/mathquill.js' %}"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp" crossorigin="anonymous" />
+    <link rel="stylesheet" type="text/css" href="{% static 'forum/styles/style.css' %}" />
+    <title>Cyrkielek - naucz się do swojej matury</title>
+  </head>
+  <body>
   <div id="loader-wrapper">
-    <div id="loader"></div>
-    <div class="loader-section section-left"></div>
-    <div class="loader-section section-right"></div>
-  </div>
-  <nav id="navbar" class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="{% url 'index' %}">Cyrkielek</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
-      aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarText">
-      <ul class="navbar-nav ml-auto">
-        {% if request.session.logged_user == 0 or request.session.logged_user == '0' %}
-        <li class="nav-item active">
-          <a class="nav-link" href="{% url 'register1' %}">Rejestracja</a>
-        </li>
-        <li class="nav-item active">
-          <a class="nav-link" href="{% url 'login' %}">Logowanie</a>
-        </li>
-        {% else %}
-        <li class="nav-item active">
-          <a class="nav-link" href="{% url 'usersHOME' request.session.logged_user %}">Panel użytkownika</a>
-        </li>
-        <li class="nav-item active">
-          <a class="nav-link" href="{% url 'log_out' %}">Wyloguj</a>
-        </li>
-        {% endif %}
+			<div id="loader"></div>
+			<div class="loader-section section-left"></div>
+      <div class="loader-section section-right"></div>
+	</div>
+    <nav id="navbar" class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand" href="{% url 'index' %}">Cyrkielek</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav ml-auto">
+            {% if request.session.logged_user == 0 or request.session.logged_user == '0' %}
+                <li class="nav-item active">
+                <a class="nav-link" href="{% url 'register1' %}">Rejestracja</a>
+                </li>
+                <li class="nav-item active">
+                <a class="nav-link" href="{% url 'login' %}">Logowanie</a>
+                </li>
+            {% else %}
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'usersHOME' request.session.logged_user %}">Panel użytkownika</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'log_out' %}">Wyloguj</a>
+                </li>
+            {% endif %}
 
       </ul>
     </div>
