@@ -1,34 +1,312 @@
-{% extends 'forum/base.html' %} {% block content %} {% for user in users %}
-<div class="home">
-  <h1>Forum page</h1>
-  <br /><br />
-  <a href="{% url 'usersHOME' user.id %}"
-    ><button><i class="fas fa-home fa-3x"></i></button
-  ></a>
+{% extends 'forum/base.html' %}
+{% load static %}
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'forum/styles/login/styleForum.css' %}">
+ <link rel="stylesheet" href="{% static 'forum/MathQuil/mathquill.css' %}"/> 
+{% endblock css %}
+
+{% block js %}
+    <script src="{% static 'forum/MathQuil/mathquill.js' %}"></script>
+    <script id="MathJax-script" async src="{% static 'forum/mathjax-master/es5/tex-chtml.js'%}"></script>
+  <script>
+MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']]
+  },
+  svg: {
+    fontCache: 'global'
+  }
+};
+</script>
+    {% endblock js %}
+{% comment %} 
+  <script>
+        let MQ = MathQuill.getInterface(2); 
+    </script>  {% endcomment %}
+
+
+
+
+
+
+{% block content %} {% for user in users %}
+
+<div class="container-fluid pt-5 pb-2">
+  <div class="row no-gutters">
+    <div class="col-md-3 d-none d-md-block"></div>
+
+    <div class="col-md-6 col-12 justify-content-center mt-5">
+      <h2 class="text-center">{{user.name}} witaj na naszym forum</h2>
+    </div>
+
+    <div class="col-md-3 d-none d-md-block"></div>
+  </div>
+</div>
+<hr class="my-4" style="width: 60%"/>
+<div class="container-fluid pt-3">
+  <div class="row no-gutters">
+    <div class="col-md-3 d-none d-md-block"></div>
+
+    <div class="col-md-6 col-12 justify-content-center">
+
+      <h3 class="text-center">Dodaj nowy post</h2>
+
+        <form class="pt-5" method="post" action="{% url 'add' user.id %}">
+          {% csrf_token %}
+          <div class="form-group">
+            <label for="temat">Dodaj nazwę tematu</label>
+            <input type="text" class="form-control" id="temat" aria-required="true" name="temat">
+          </div>
+          <div class="form-group">
+            <label for="tresc">Dodaj treść postu</label>
+            <span id="answer0" style="width:30%; background-color:white; margin-left:20px;"></span><textarea name="tresc" id="latexanswer0" style="opacity: 0;" required></textarea></p>
+            <div id="tools0">
+            <div id="sqrtanswer0" style=" float:left; padding:20px;">√</div>
+            <div id="pianswer0" style=" float:left;padding:20px;">π</div>
+            <div id="dzielenieanswer0" style=" float:left;padding:20px;">¼</div>
+            <div id="potegaanswer0" style=" float:left;padding:20px;">^</div>
+            <div id="cbrtanswer0" style=" float:left;padding:20px;">∛</div>
+            <div id="przerwaanswer0" style=" float:left;padding:20px;">↵</div>
+            <div id="calkaanswer0" style=" float:left;padding:20px;">∫</div>
+            <div id="sumaanswer0" style=" float:left;padding:20px;">Σ</div>
+            <div id="loganswer0" style=" float:left;padding:20px;">$\log_{n}k$</div>
+            <div id="newtonanswer0" style=" float:left;padding:20px;">$\binom{N}{k}$</div>
+            <div id="Alfaanswer0" style=" float:left;padding:20px;">α</div>
+            <div id="Betaanswer0" style=" float:left;padding:20px;">β</div>
+            <div id="leanswer0" style=" float:left;padding:20px;">⩽</div>
+            <div id="geanswer0" style=" float:left;padding:20px;">⩾</div>
+            <div id="nalezyanswer0" style=" float:left;padding:20px;">∈</div>
+            <div id="indexanswer0" style=" float:left;padding:20px;">$x^k_n$</div>
+          <div id="infanswer0" style=" float:left;padding:20px;">∞</div>
+        </div> 
+   
+          {% comment %} <script>
+            createMathquill("0"); 
+          </script> {% endcomment %}
+
+
+
+          </div>
+          <div class="mb-5">
+            <div class="form-group text-center pt-2">
+              <button type="submit" class="btn btn-outline-dark" value="Add post">Dodaj</button>
+            </div>
+          </div>
+        </form>
+
+    </div>
+
+    <div class="col-md-3 d-none d-md-block"></div>
+  </div>
 </div>
 
-<div class="form">
-  <form method="post" action="{% url 'add' user.id %}">
-    {% csrf_token %}
-    <label for="temat">Subject:</label>
-    <input type="temat" name="temat" id="temat" /><br /><br />
-    <label for="tresc">Content</label>
-    <input type="tresc" name="tresc" id="tresc" /><br /><br />
-    <input type="submit" value="Add post" />
-  </form>
+<div class="container-fluid pt-5 pb-2">
+  <div class="row no-gutters">
+    <div class="col-md-3 d-none d-md-block"></div>
+
+    <div class="col-md-6 col-12 justify-content-center">
+      <h2 class="text-center">Posty użytkowników</h2>
+    </div>
+
+    <div class="col-md-3 d-none d-md-block"></div>
+  </div>
 </div>
-<h1>Posty użytkowników</h1>
-{% for post in posts %}
-<a href="{% url 'post' user.id post.id %}">{{ post.subject }}</a><br /><br />
-{% endfor %}
-<h1>Posty do zadań</h1>
-<hr />
-{% for post in postsToChcekM %}
-<a href="{% url 'postM' user.id post.id %}">{{ post.tresc }}</a><br /><br />
-<br />
-{% endfor %}
-<hr />
-{% for post in postsCheched %}
-<a href="{% url 'postM' user.id post.id %}">{{ post.tresc }}</a><br /><br />
-<br />
-{% endfor %} {% endfor %} {% endblock content %}
+<hr class="my-4" style="width: 60%;" />
+<div class="container-fluid pt-3">
+  <div class="row no-gutters">
+    <div class="col-md-2 d-none d-md-block"></div>
+
+    <div class="col-md-8 col-12 justify-content-center">
+
+      {% for post in posts %}
+
+      <div class="jumbotron">
+        <h1 class="display-4">Temat: {{post.subject}}</h1>
+        <hr class="my-4">
+        <p>Autor: {{post.userP}}</p>
+        <p>Aby zobaczyć treść postu naciśnij guzik</p>
+        <a class="btn btn-outline-dark btn-md" href="{% url 'post' user.id post.id %}" role="button">Przejdź</a>
+      </div>
+
+      {% endfor %}
+
+    </div>
+
+    <div class="col-md-2 d-none d-md-block"></div>
+  </div>
+</div>
+
+
+<div class="container-fluid pt-5 pb-2">
+  <div class="row no-gutters">
+    <div class="col-md-3 d-none d-md-block"></div>
+
+    <div class="col-md-6 col-12 justify-content-center">
+      <h2 class="text-center">Posty do zadań</h2>
+      <hr class="my-4" />
+    </div>
+    <div class="col-md-3 d-none d-md-block"></div>
+  </div>
+</div>
+<div class="container-fluid pt-5 pb-2">
+  <div class="row no-gutters">
+    <div class="col-md-3 d-none d-md-block"></div>
+
+    <div class="col-md-6 col-12 justify-content-center">
+      <h4 class="text-center">Twoje aktywne posty</h4>
+    </div>
+    <div class="col-md-3 d-none d-md-block"></div>
+  </div>
+</div>
+<hr class="my-4" style="width: 60%;" />
+<div class="container-fluid pt-3">
+  <div class="row no-gutters">
+    <div class="col-md-2 d-none d-md-block"></div>
+
+    <div class="col-md-8 col-12 justify-content-center">
+
+      {% for post in postsToChcekM %}
+
+      <div class="jumbotron">
+        <h1 class="display-4">Zadanie: {{ post.zadanie }}</h1>
+        <hr class="my-4">
+        <p>Aby przejść do tematu zadania naciśnij guzik</p>
+        <a class="btn btn-outline-dark btn-md" href="{% url 'postM' user.id post.id %}" role="button">Przejdź</a>
+      </div>
+
+      {% endfor %}
+
+    </div>
+
+    <div class="col-md-2 d-none d-md-block"></div>
+  </div>
+</div>
+
+
+<div class="container-fluid pt-5 pb-2">
+  <div class="row no-gutters">
+    <div class="col-md-3 d-none d-md-block"></div>
+
+    <div class="col-md-6 col-12 justify-content-center">
+      <h4 class="text-center">Wszystkie posty zadań</h4>
+    </div>
+    <div class="col-md-3 d-none d-md-block"></div>
+  </div>
+</div>
+<hr class="my-4" style="width: 60%;" />
+<div class="container-fluid pt-3">
+  <div class="row no-gutters">
+    <div class="col-md-2 d-none d-md-block"></div>
+
+    <div class="col-md-8 col-12 justify-content-center">
+
+      {% for post in postsCheched %}
+
+      <div class="jumbotron">
+        <h1 class="display-4">Zadanie: {{ post.zadanie }}</h1>
+        <hr class="my-4">
+        <p>Aby przejść do tematu zadania naciśnij guzik</p>
+        <a class="btn btn-outline-dark btn-md" href="{% url 'postM' user.id post.id %}" role="button">Przejdź</a>
+      </div>
+
+      {% endfor %}
+
+    </div>
+
+    <div class="col-md-2 d-none d-md-block"></div>
+  </div>
+</div>
+
+
+ <script>
+        let MQ = MathQuill.getInterface(2); 
+        createMathquill("0"); 
+        function createMathquill(id)
+{
+
+let answerMathField2 = MQ.MathField(document.getElementById('answer'+id), {
+    handlers: {
+         edit: function() {
+                answerMathField2.latex();
+                document.getElementById('latexanswer'+id).textContent = answerMathField2.latex();
+            }
+        }
+    });
+
+
+ $( "#sqrtanswer"+id).click(function() {
+    answerMathField2.write('\\sqrt{}');
+    answerMathField2.reflow();
+});
+
+$( "#pianswer"+id).click(function() {
+    answerMathField2.write('\\pi');
+    answerMathField2.reflow();
+});
+$( "#dzielenieanswer"+id ).click(function() {
+    answerMathField2.write('\\frac{ }{ }');
+    answerMathField2.reflow();
+});
+$( "#potegaanswer"+id ).click(function() {
+    answerMathField2.write('\\^{}');
+    answerMathField2.reflow();
+});
+$( "#cbrtanswer"+id).click(function() {
+    answerMathField2.write('\\sqrt[]{}');
+    answerMathField2.reflow();
+});
+$( "#przerwaanswer"+id).click(function() {
+    answerMathField2.write('\\textcolor{black}{\\text{}}');
+    answerMathField2.reflow();
+});
+$( "#calkaanswer"+id).click(function() {
+    answerMathField2.write('\\ \\int');
+    answerMathField2.reflow();
+});
+$("#sumaanswer"+id).click(function() {
+    answerMathField2.write('\\sum');
+    answerMathField2.reflow();
+});
+$("#loganswer"+id).click(function() {
+    answerMathField2.write('\\log_{}{}');
+    answerMathField2.reflow();
+});
+$("#newtonanswer"+id).click(function() {
+    answerMathField2.write('\\binom{ }{ }');
+    answerMathField2.reflow();
+});
+$("#Alfaanswer"+id).click(function() {
+    answerMathField2.write('\\alpha');
+    answerMathField2.reflow();
+});
+$("#Betaanswer"+id).click(function() {
+    answerMathField2.write('\\beta');
+    answerMathField2.reflow();
+});
+
+$("#leanswer"+id).click(function() {
+    answerMathField2.write('\\le');
+    answerMathField2.reflow();
+});
+
+$("#geanswer"+id).click(function() {
+    answerMathField2.write('\\ge');
+    answerMathField2.reflow();
+});
+
+$("#nalezyanswer"+id).click(function() {
+    answerMathField2.write('\\isin');
+    answerMathField2.reflow();
+});
+$("#indexanswer"+id).click(function() {
+    answerMathField2.write('{}_{}^{}');
+    answerMathField2.reflow();
+});
+$("#infanswer"+id).click(function() {
+    answerMathField2.write('\\infin');
+    answerMathField2.reflow();
+});
+    }
+    </script> 
+ {% endfor %} 
+ {% endblock content %}

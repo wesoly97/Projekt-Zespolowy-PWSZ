@@ -1,82 +1,112 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="pl">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="stylesheet" href="{% static 'forum/Bootstrap/css/bootstrap.min.css' %}">
-    {% block css %}
 
-    {% endblock css %} 
-    {% block js %}
-    
-    {% endblock js %}
-    <script src="{% static 'forum/JQuery/jquery-3.6.0.min.js' %}"></script>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp" crossorigin="anonymous" />
-    <link rel="stylesheet" type="text/css" href="{% static 'forum/styles/style.css' %}" />
-    <title>Cyrkielek - naucz się do swojej matury</title>
-  </head>
-  <body>
-    <nav id="navbar" class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <a class="navbar-brand" href="index.html">Cyrkielek</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarText">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="{% url 'register1' %}">Rejestracja</a>
-          </li>
-          <li class="nav-item active">
-            <a class="nav-link" href="{% url 'log_out' %}">Logowanie</a>
-          </li>
-        </ul>
-      </div>
-    </nav>
-    {% block content %}
+<head>
+  <meta charset="UTF-8" />
+  <link rel="stylesheet" href="{% static 'forum/Bootstrap/css/bootstrap.min.css' %}">
+  <link rel="stylesheet" href="{% static 'forum/styles/PreloaderHome/Preloader.css' %}">
+  {% block css %}
 
-    {% endblock %}
-    <footer class="container-fluid pt-5 bg-dark text-light">
-      <div class="mx-5">
-          <div class="row mb-4 ">
-              <div class="col-md-4 col-sm-11 col-xs-11">
-                  <h1>Cyrkielek</h1>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi non pariatur numquam animi nam at impedit odit nisi.</p>
-                  <div class="mt-2 mb-3">
-                    <i class="fab fa-facebook-f fa-2x p-1"></i>
-                    <i class="fab fa-instagram fa-2x p-1"></i>
-                    <i class="fab fa-twitter fa-2x p-1"></i>
-                    <i class="fab fa-linkedin-in fa-2x p-1"></i>
-                  </div>
-              </div>
-              <div class="col-md-1 col-sm-1 col-xs-1 mb-2"></div>
-              <div class="col-md-3 col-sm-4 col-xs-4">
-                  <h5>Matura</h5>
-                  <ul>
-                      <li>Zestawy</li>
-                      <li>Teoria</li>
-                      <li>Punktacja</li>
-                  </ul>
-              </div>
-              <div class="col-md-3 col-sm-4 col-xs-4">
-                  <h5>Zespół</h5>
-                  <ul>
-                      <li>O nas</li>
-                      <li>Kontakt</li>
-                  </ul>
-              </div>
+  {% endblock css %}
+  {% block js %}
+
+  {% endblock js %}
+
+  <script src="{% static 'forum/JQuery/jquery-3.6.0.min.js' %}"></script>
+  <script>
+    $(document).ready(function () {
+      $('body').addClass('loaded');
+    });
+  </script>
+  <script src="{% static 'forum/MathQuil/mathquill.js' %}"></script>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css"
+    integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp" crossorigin="anonymous" />
+  <link rel="stylesheet" type="text/css" href="{% static 'forum/styles/style.css' %}" />
+  <title>Cyrkielek - naucz się do swojej matury</title>
+</head>
+
+<body>
+  <div id="loader-wrapper">
+    <div id="loader"></div>
+    <div class="loader-section section-left"></div>
+    <div class="loader-section section-right"></div>
+  </div>
+  <nav id="navbar" class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="{% url 'index' %}">Cyrkielek</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
+      aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarText">
+      <ul class="navbar-nav ml-auto">
+        {% if request.session.logged_user == 0 or request.session.logged_user == '0' %}
+        <li class="nav-item active">
+          <a class="nav-link" href="{% url 'register1' %}">Rejestracja</a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="{% url 'login' %}">Logowanie</a>
+        </li>
+        {% else %}
+        <li class="nav-item active">
+          <a class="nav-link" href="{% url 'usersHOME' request.session.logged_user %}">Panel użytkownika</a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="{% url 'log_out' %}">Wyloguj</a>
+        </li>
+        {% endif %}
+
+      </ul>
+    </div>
+  </nav>
+  {% block content %}
+
+  {% endblock %}
+  <footer class="container-fluid pt-5 bg-dark text-light">
+    <div class="mx-5">
+      <div class="row mb-4 ">
+        <div class="col-md-4 col-sm-11 col-xs-11">
+          <h1>Cyrkielek</h1>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi non pariatur numquam animi nam at impedit
+            odit nisi.</p>
+          <div class="mt-2 mb-3">
+            <i class="fab fa-facebook-f fa-2x p-1"></i>
+            <i class="fab fa-instagram fa-2x p-1"></i>
+            <i class="fab fa-twitter fa-2x p-1"></i>
+            <i class="fab fa-linkedin-in fa-2x p-1"></i>
           </div>
-          <div class="row">
-              <div class="col-md-6 col-sm-6 col-xs-6">
-                  <p class="copyright"><i class="fas fa-copyright"></i> 2021</p>
-              </div>
-              <div class="col-md-6 col-sm-6 col-xs-6"></div>
-          </div>
+        </div>
+        <div class="col-md-1 col-sm-1 col-xs-1 mb-2"></div>
+        <div class="col-md-3 col-sm-4 col-xs-4">
+          <h5>Matura</h5>
+          <ul>
+            <li>Zestawy</li>
+            <li>Teoria</li>
+            <li>Punktacja</li>
+          </ul>
+        </div>
+        <div class="col-md-3 col-sm-4 col-xs-4">
+          <h5>Zespół</h5>
+          <ul>
+            <li>O nas</li>
+            <li>Kontakt</li>
+          </ul>
+        </div>
       </div>
+      <div class="row">
+        <div class="col-md-6 col-sm-6 col-xs-6">
+          <p class="copyright"><i class="fas fa-copyright"></i> 2021</p>
+        </div>
+        <div class="col-md-6 col-sm-6 col-xs-6"></div>
+      </div>
+    </div>
   </footer>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-    <script src="{% static 'forum/Bootstrap/js/bootstrap.min.js' %}"></script>
-    {% block jquery %}
-    
-    {% endblock jquery %} 
-  </body>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="{% static 'forum/Bootstrap/js/bootstrap.min.js' %}"></script>
+
+  {% block jquery %}
+
+  {% endblock jquery %}
+</body>
+
 </html>

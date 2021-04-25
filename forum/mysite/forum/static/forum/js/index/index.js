@@ -1,8 +1,11 @@
+
 $(document).ready(function(){
     let showFirstSvg = true;
     let showSecondSvg = true;
     let showThirdSvg = true;
     let showNumber = true;
+
+   
 
     $(window).on('scroll', function(){
         console.log($(window).scrollTop());

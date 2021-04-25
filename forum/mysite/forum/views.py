@@ -13,6 +13,7 @@ from .models import Zadanie_zamkniete
 from .models import Zadanie_otwarte
 from .models import zadanie_matematyczne
 from .models import Score
+from .models import Zrodlo
 import random
 from datetime import date, datetime
 from django.core.files.storage import FileSystemStorage
@@ -90,10 +91,10 @@ def replace(text):
     if(count==1):
         newtext=newtext+"$"
     list2=re.findall(r'.*?\$(.*)$.*', newtext)
-    for j in list2:
-       tmp=j
-       newSubString=tmp.replace(' ','\ ')
-       newtext = newtext.replace(j,newSubString)
+    # for j in list2:
+    #    tmp=j
+    # #    newSubString=tmp.replace(' ','\ ')
+    #    newtext = newtext.replace(j,newSubString)
     return newtext
 
 
@@ -127,7 +128,7 @@ def login_user(request):
 
 def logout(request):
     request.session['logged_user'] = "0"
-    return redirect('login')
+    return redirect('index')
 
 
 def register1(request):
@@ -234,11 +235,16 @@ def addQuestionCloseToDatabase(request):
 def register2(request):
     Name = request.POST['Name']
     Password = request.POST['Password']
-    if (Name=="" or Password=="" ):
+    Email = request.POST['Email']
+    SchoolName = request.POST['SchoolName']
+    City = request.POST['City']
+    ContactNumber = request.POST['ContactNumber']
+    
+    if (Name=="" or Password=="" or Email=="" or SchoolName=="" or City=="" or ContactNumber==""):
         msg="Empty,try again"
     else:
         if(User.objects.filter(name=Name).count()==0):
-            u = User(name=Name,password=Password,ranga="user")
+            u = User(name=Name,password=Password,ranga="user",numer_kontaktowy=ContactNumber,email=Email,miasto=City,szkola=SchoolName)
             u.save()
             msg="User added"
         else:
@@ -251,7 +257,7 @@ def usersHOME(request, user_id):
         return render(request, 'forum/error.html', context={'error': 'Nie jesteś zalogowany'})
 
     users = User.objects.filter(id=auth_user_id(request))
-    context = {'users': users}
+    context = {'users': users, 'role': auth_user_rank(request)}
     return render(request, 'forum/usersHome.html', context)
 
 
@@ -292,8 +298,6 @@ def math_page2(request, user_id):
     request.session['r4'] = r4
    
     zos=zadanie_matematyczne.objects.filter(id=225)|zadanie_matematyczne.objects.filter(id=230)
-
-
     zzs=zadanie_matematyczne.objects.filter(id=201)|zadanie_matematyczne.objects.filter(id=181)|zadanie_matematyczne.objects.filter(id=180)
     
     context = {'users': users,'zos': zos,'zzs': zzs}
@@ -310,11 +314,10 @@ def math_page3(request, user_id):
     r4=request.session.get('r4')
 
     zos=zadanie_matematyczne.objects.filter(id=225)|zadanie_matematyczne.objects.filter(id=230)
-
-
     zzs=zadanie_matematyczne.objects.filter(id=201)|zadanie_matematyczne.objects.filter(id=181)|zadanie_matematyczne.objects.filter(id=180)
 
-    odpZ = request.POST.getlist('odpZ')
+    #odpZ = request.POST.getlist('odpZ')
+    odpZ=[]
     odpO = request.POST.getlist('odpO')
 
     linki = []
@@ -339,10 +342,13 @@ def math_page3(request, user_id):
       for post in posts:
         linki.append(post)
       punktyMAX=punktyMAX+1
-      if zz.odpowiedz == odpZ[x]:
+      flexRadioDefaultNumber="flexRadioDefault"+str(x)
+      my_answer = request.POST[flexRadioDefaultNumber]
+      odpZ.append(my_answer)
+      if zz.odpowiedz == my_answer:
         punktyZ=punktyZ+1
       tasks_close+=str(zz.id)+' '
-      odp_zamkniete+=odpZ[x]+ ' '
+      odp_zamkniete+=my_answer+ ' '
       x=x+1
 
     x=0
@@ -373,7 +379,7 @@ def post(request, user_id,post_id):
     users = User.objects.filter(id=auth_user_id(request))
     posts = Post.objects.filter(id=post_id)
     answers = Answer.objects.filter(post=post_id)
-    context = {'posts': posts,'answers': answers,'users': users}
+    context = {'posts': posts,'answers': answers,'users': users, 'role': auth_user_rank(request), 'auth_user_id': auth_user_id(request)}
     return render(request, 'forum/posts.html', context)
 
 def postM(request, user_id,post_id):
@@ -382,7 +388,7 @@ def postM(request, user_id,post_id):
     users = User.objects.filter(id=auth_user_id(request))
     postsM = PostM.objects.filter(id=post_id)
     answersM = AnswerM.objects.filter(zadanie=post_id)
-    context = {'postsM': postsM,'answersM': answersM,'users': users}
+    context = {'postsM': postsM,'answersM': answersM,'users': users, 'role': auth_user_rank(request), 'auth_user_id': auth_user_id(request)}
     return render(request, 'forum/postsM.html', context)
 
 def add(request, user_id):
@@ -391,6 +397,7 @@ def add(request, user_id):
     users = User.objects.filter(id=auth_user_id(request))
     temat = request.POST['temat']
     tresc = request.POST['tresc']
+    tresc = replace(tresc)
     for user in users:
         w=user
     error=""
@@ -428,9 +435,11 @@ def odp(request, user_id,post_id):
     if (new_answer==""):
         error="Empty,try again"
     else:
+        new_answer=replace(new_answer)
         a = Answer(post=y,userA=x,answer=new_answer)
         a.save()
-    context = {'posts': posts,'answers': answers,'users': users,'new_answer': new_answer,'error': error}
+        return redirect('post', user_id=auth_user_id(request), post_id=post_id)
+    context = {'posts': posts, 'answers': answers, 'users': users,  'new_answer': new_answer, 'error': error}
     return render(request, 'forum/posts.html', context)
 
 def delete_odp(request, user_id,post_id,answer_id):
@@ -441,8 +450,7 @@ def delete_odp(request, user_id,post_id,answer_id):
     answers = Answer.objects.filter(id=answer_id)
     answers.delete()
     answers = Answer.objects.filter(post=post_id)
-    context = {'posts': posts,'answers': answers,'users': users}
-    return render(request, 'forum/posts.html', context)
+    return redirect('post', user_id=auth_user_id(request), post_id=post_id)
 
 def odpM(request, user_id,post_id):
     if not is_user_authenticated(request):
@@ -463,6 +471,7 @@ def odpM(request, user_id,post_id):
     else:
         a = AnswerM(zadanie=y,userA=x,answer=new_answer)
         a.save()
+        return redirect('postM', user_id=auth_user_id(request), post_id=post_id)
     context = {'postsM': postsM,'answersM': answersM,'users': users,'new_answer': new_answer,'error': error}
     return render(request, 'forum/postsM.html', context)
 
@@ -474,8 +483,7 @@ def delete_odpM(request, user_id,post_id,answer_id):
     answersM = AnswerM.objects.filter(id=answer_id)
     answersM.delete()
     answersM = AnswerM.objects.filter(zadanie=post_id)
-    context = {'postsM': postsM,'answersM': answersM,'users': users}
-    return render(request, 'forum/postsM.html', context)
+    return redirect('postM', user_id=auth_user_id(request), post_id=post_id)
 
 def userPanel(request, user_id):
     users = User.objects.filter(id=user_id)
@@ -506,6 +514,7 @@ def history(request, user_id):
     posts = Post.objects.filter(userP_id=user_id)
     answer = Answer.objects.filter(userA_id=user_id)
     answerM = AnswerM.objects.filter(userA_id=user_id)
+    postsM= PostM.objects.all()
 
     nzO=[]
     nzZ=[]
@@ -545,5 +554,5 @@ def history(request, user_id):
 
     pytaniaZamkniete=zip(pytZ,odpZZ,oZZ)
     pytaniaOtwarte=zip(pytO,oOO)
-    context = {'pytaniaZamkniete':pytaniaZamkniete, 'pytaniaOtwarte':pytaniaOtwarte,'posts':posts,'answer':answer,'answerM':answerM}
+    context = {'pytaniaZamkniete':pytaniaZamkniete, 'pytaniaOtwarte':pytaniaOtwarte,'posts':posts,'answer':answer,'answerM':answerM,'postsM': postsM}
     return render(request, 'forum/history.html', context)

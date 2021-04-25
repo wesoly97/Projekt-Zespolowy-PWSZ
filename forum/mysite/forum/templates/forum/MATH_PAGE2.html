@@ -41,39 +41,32 @@
 <form class="container-fluid" method="post" action="{% url 'math_page3' user.id %}">
   {% csrf_token %}
   {% for zz in zzs %}
-  <div class="row">
-    <div class="col-12 description mb-2 pb-1">Zadanie zamkniete nr. {{forloop.counter0}}</div>
-    <div class="col-12">
-      <p>{{zz.tresc}}</p>
-    </div>
-    <div class="form-check col-md-3 col-6">
-      <input type="radio" class="radioButton" name="flexRadioDefault{{forloop.counter0}}"
-        id="flexRadioDefault{{forloop.counter0}}1" />
-      <label class="form-check-label" for="flexRadioDefault{{forloop.counter0}}1">
-        $${{zz.odp_a}}$$
-      </label>
-    </div>
-    <div class="form-check col-md-3 col-6">
-      <input type="radio" class="radioButton" name="flexRadioDefault{{forloop.counter0}}"
-        id="flexRadioDefault{{forloop.counter0}}2" />
-      <label class="form-check-label" for="flexRadioDefault{{forloop.counter0}}2">
-        $${{zz.odp_b}}$$
-      </label>
-    </div>
-    <div class="form-check col-md-3 col-6">
-      <input type="radio" class="radioButton" name="flexRadioDefault{{forloop.counter0}}"
-        id="flexRadioDefault{{forloop.counter0}}3" />
-      <label class="form-check-label" for="flexRadioDefault{{forloop.counter0}}3">
-        $${{zz.odp_c}}$$
-      </label>
-    </div>
-    <div class="form-check col-md-3 col-6">
-      <input type="radio" class="radioButton" name="flexRadioDefault{{forloop.counter0}}"
-        id="flexRadioDefault{{forloop.counter0}}4" />
-      <label class="form-check-label" for="flexRadioDefault{{forloop.counter0}}4">
-        $${{zz.odp_d}}$$
-      </label>
-    </div>
+  <div class="row" >
+  <div class="col-12 description mb-2 pb-1">Zadanie zamkniete nr. {{forloop.counter0}}</div>
+  <div class="col-12"><p>{{zz.tresc}} </p></div>
+  <div class="form-check col-md-3 col-6"  >
+    <input type="radio" class="radioButton" value={{zz.odp_a}} name="flexRadioDefault{{forloop.counter0}}" id="flexRadioDefault{{forloop.counter0}}1">
+    <label class="form-check-label" for="flexRadioDefault{{forloop.counter0}}1" >
+      $${{zz.odp_a}}$$
+    </label>
+  </div>
+  <div class="form-check col-md-3 col-6">
+    <input type="radio"  class="radioButton" value={{zz.odp_b}} name="flexRadioDefault{{forloop.counter0}}" id="flexRadioDefault{{forloop.counter0}}2">
+    <label class="form-check-label" for="flexRadioDefault{{forloop.counter0}}2">
+      $${{zz.odp_b}}$$
+    </label>
+  </div>
+  <div class="form-check col-md-3 col-6">
+    <input type="radio"  class="radioButton" value={{zz.odp_c}} name="flexRadioDefault{{forloop.counter0}}" id="flexRadioDefault{{forloop.counter0}}3" >
+    <label class="form-check-label" for="flexRadioDefault{{forloop.counter0}}3">
+      $${{zz.odp_c}}$$
+    </label>
+  </div>
+  <div class="form-check col-md-3 col-6">
+    <input type="radio" class="radioButton" value={{zz.odp_d}} name="flexRadioDefault{{forloop.counter0}}" id="flexRadioDefault{{forloop.counter0}}4" >
+    <label class="form-check-label" for="flexRadioDefault{{forloop.counter0}}4">
+      $${{zz.odp_d}}$$
+    </label>
   </div>
   {% endfor %}
   {% for zo in zos %}
