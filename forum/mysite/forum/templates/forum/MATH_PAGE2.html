@@ -1,8 +1,5 @@
 {% extends 'forum/base.html' %}
 {% load static %}
-{% block content %}
-{% for user in users %}
-{% load static %}
 {% block css %}
 <link rel="stylesheet" href="{% static 'forum/styles/mathPage2/mathPage2.css' %}">
 <link rel="stylesheet" href="{% static 'forum/MathQuil/mathquill.css' %}" />
@@ -34,6 +31,8 @@
   }
 </script>
 {% endblock js %}
+{% block content %}
+{% for user in users %}
 <script>
   let MQ = MathQuill.getInterface(2);
 </script>
@@ -99,7 +98,7 @@
       <a href="{% url 'math_page' user.id %}">Wróć</a>
     </button>
   </div>
-  {% endfor %}
+{% endfor %}
 </form>
 {% endblock content %}
 {% block jquery %}
