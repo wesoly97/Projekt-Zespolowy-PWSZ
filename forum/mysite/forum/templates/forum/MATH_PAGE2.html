@@ -1,5 +1,6 @@
 {% extends 'forum/base.html' %}
 {% load static %}
+{% block content %}{% for user in users %}
 {% block css %}
 <link rel="stylesheet" href="{% static 'forum/styles/mathPage2/mathPage2.css' %}">
 <link rel="stylesheet" href="{% static 'forum/MathQuil/mathquill.css' %}" />
@@ -8,35 +9,32 @@
 <script src="{% static 'forum/MathQuil/mathquill.js' %}"></script>
 <script id="MathJax-script" async src="{% static 'forum/mathjax-master/es5/tex-chtml.js'%}"></script>
 <script>
-  MathJax = {
-    tex: {
-      inlineMath: [['$', '$'], ['\\(', '\\)']]
-    },
-    svg: {
-      fontCache: 'global'
-    }
-  };
-
-  function createMathquill(id) {
-
-    let answerMathField2 = MQ.MathField(document.getElementById('answer' + id), {
-      handlers: {
-        edit: function () {
-          answerMathField2.latex();
-          document.getElementById('latexanswer' + id).textContent = answerMathField2.latex();
-        }
+   MathJax = {
+      tex: {
+         inlineMath: [['$', '$'], ['\\(', '\\)']]
+      },
+      svg: {
+         fontCache: 'global'
       }
-    });
+   };
 
+   function createMathquill(id) {
+
+  let answerMathField2 = MQ.MathField(document.getElementById('answer' + id), {
+  handlers: {
+    edit: function () {
+      answerMathField2.latex();
+      document.getElementById('latexanswer' + id).textContent = answerMathField2.latex();
+    }
   }
+});
+
+}
 </script>
 {% endblock js %}
-{% block content %}
-{% for user in users %}
 <script>
-  let MQ = MathQuill.getInterface(2);
+   let MQ = MathQuill.getInterface(2);
 </script>
-
 <form class="container-fluid" method="post" action="{% url 'math_page3' user.id %}">
   {% csrf_token %}
   {% for zz in zzs %}
