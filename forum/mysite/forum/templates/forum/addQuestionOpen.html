@@ -3,6 +3,7 @@
 {% block content %}{% for user in users %}
 {% block css %}
 <link rel="stylesheet" href="{% static 'forum/styles/addQuestionOpen/OpenQuestionsInput.css' %}">
+<link rel="stylesheet" href="{% static 'forum/MathQuil/mathquill.css' %}" />
 {% endblock css %}
 {% block js %}
 <script src="{% static 'forum/MathQuil/mathquill.js' %}"></script>
@@ -172,6 +173,5 @@
       </div>
    </div>
 </form>
-
 <script src="{% static 'forum/js/addQuestion/addQuestion.js' %}"></script>
 {% endfor %} {% endblock content %}
