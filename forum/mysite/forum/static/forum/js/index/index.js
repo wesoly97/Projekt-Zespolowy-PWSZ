@@ -1,9 +1,12 @@
+
 $(document).ready(function(){
     //setTopSpange();
     let showFirstSvg = true;
     let showSecondSvg = true;
     let showThirdSvg = true;
     let showNumber = true;
+
+   
 
     $(window).on('scroll', function(){
         showNumbers();
