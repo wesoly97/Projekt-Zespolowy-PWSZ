@@ -272,13 +272,6 @@ def user_at_forum(request, user_id):
     context = {'posts': posts,'users': users,'postsM': postsM,'postsToChcekM': postsToChcekM,'postsCheched': postsCheched}
     return render(request, 'forum/userFORUM.html', context)
 
-def math_page(request, user_id):
-    if not is_user_authenticated(request):
-        return render(request, 'forum/error.html', context={'error': 'Nie jesteś zalogowany'})
-    users = User.objects.filter(id=auth_user_id(request))
-    context = {'users': users}
-    return render(request, 'forum/MATH_PAGE.html', context)
-
 def math_page2(request, user_id):
     if not is_user_authenticated(request):
         return render(request, 'forum/error.html', context={'error': 'Nie jesteś zalogowany'})
