@@ -37,7 +37,7 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarText">
         <ul class="navbar-nav ml-auto">
-            {% if request.session.logged_user == 0 or request.session.logged_user == '0' %}
+            {% if request.session.logged_user == 0 or request.session.logged_user == '0' or not request.session.logged_user%}
                 <li class="nav-item active">
                 <a class="nav-link" href="{% url 'register1' %}">Rejestracja</a>
                 </li>
