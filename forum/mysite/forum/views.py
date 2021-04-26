@@ -30,7 +30,7 @@ import re
 #####################################################
 def is_user_authenticated(request):
     try:
-        if request.session['logged_user'] == 0 or request.session['logged_user'] == "0":
+        if request.session['logged_user'] == 0 or request.session['logged_user'] == "0" or not request.session['logged_user']:
             return False
         else:
             return True
