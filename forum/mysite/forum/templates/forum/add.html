@@ -1,6 +1,40 @@
-{% extends 'forum/base.html' %} {% block content %} {% for user in users %}
-<p>{{error}}</p>
-<a href="{% url 'user_at_forum' user.id %}"
-  ><button><i class="fas fa-home fa-3x"></i></button
-></a>
-{% endfor %} {% endblock content %}
+{% extends 'forum/base.html' %}
+
+{% load static %}
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'forum/styles/addPost/styleAddPost.css' %}">
+
+{% endblock css %}
+
+{% block js %}
+
+{% endblock js %}
+
+
+
+{% block content %}
+{% for user in users %}
+
+<div class="container-fluid pt-5 pb-5">
+
+  <div class="row no-gutters">
+    <div class="col-md-3 d-none d-md-block"></div>
+    <div class="col-md-6 col-12 justify-content-center mt-5 mb-5">
+      <div class="mageImg mb-5">
+        <img src="/static/forum/images/index/mage.png" class="rounded mx-auto d-block rounded-circle" alt="little_mage">
+      </div>
+      <h2 class="text-center">{{user.name}} gratulacje</h2>
+      <h2 class="text-center">{{error}}</h2>
+    </div>
+
+    <div class="col-md-3 d-none d-md-block"></div>
+  </div>
+
+</div>
+
+
+</div>
+
+
+{% endfor %}
+{% endblock content %}

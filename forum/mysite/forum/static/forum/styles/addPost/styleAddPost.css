@@ -1,0 +1,7 @@
+.mageImg img {
+    width: 150px;
+    height: auto;
+
+    margin-left: auto !important;
+    margin-right: auto !important;
+}

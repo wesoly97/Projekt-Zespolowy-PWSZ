@@ -1,7 +1,7 @@
 {% extends 'forum/base.html' %}
 {% load static %}
 {% block css %}
-<link rel="stylesheet" type="text/css" href="{% static 'forum/styles/login/styleForum.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'forum/styles/forum/styleForum.css' %}">
  <link rel="stylesheet" href="{% static 'forum/MathQuil/mathquill.css' %}"/> 
 {% endblock css %}
 
@@ -49,7 +49,7 @@ MathJax = {
 
     <div class="col-md-6 col-12 justify-content-center">
 
-      <h3 class="text-center">Dodaj nowy post</h2>
+      <h3 class="text-center">Dodaj nowy post</h3>
 
         <form class="pt-5" method="post" action="{% url 'add' user.id %}">
           {% csrf_token %}
@@ -58,8 +58,10 @@ MathJax = {
             <input type="text" class="form-control" id="temat" aria-required="true" name="temat">
           </div>
           <div class="form-group">
-            <label for="tresc">Dodaj treść postu</label>
-            <span id="answer0" style="width:30%; background-color:white; margin-left:20px;"></span><textarea name="tresc" id="latexanswer0" style="opacity: 0;" required></textarea></p>
+            <label for="tresc">Dodaj treść postu</label><br/> 
+            <span id="answer0" class="inputPost"></span>
+            <br/>
+            <textarea name="tresc" id="latexanswer0" style="opacity: 0;" required></textarea></p>
             <div id="tools0">
             <div id="sqrtanswer0" style=" float:left; padding:20px;">√</div>
             <div id="pianswer0" style=" float:left;padding:20px;">π</div>
@@ -118,7 +120,7 @@ MathJax = {
 
     <div class="col-md-8 col-12 justify-content-center">
 
-      {% for post in posts %}
+      <!-- {% for post in posts %}
 
       <div class="jumbotron">
         <h1 class="display-4">Temat: {{post.subject}}</h1>
@@ -128,7 +130,7 @@ MathJax = {
         <a class="btn btn-outline-dark btn-md" href="{% url 'post' user.id post.id %}" role="button">Przejdź</a>
       </div>
 
-      {% endfor %}
+      {% endfor %} -->
 
     </div>
 
@@ -165,7 +167,7 @@ MathJax = {
 
     <div class="col-md-8 col-12 justify-content-center">
 
-      {% for post in postsToChcekM %}
+      <!-- {% for post in postsToChcekM %}
 
       <div class="jumbotron">
         <h1 class="display-4">Zadanie: {{ post.zadanie }}</h1>
@@ -174,7 +176,7 @@ MathJax = {
         <a class="btn btn-outline-dark btn-md" href="{% url 'postM' user.id post.id %}" role="button">Przejdź</a>
       </div>
 
-      {% endfor %}
+      {% endfor %} -->
 
     </div>
 
@@ -199,7 +201,7 @@ MathJax = {
     <div class="col-md-2 d-none d-md-block"></div>
 
     <div class="col-md-8 col-12 justify-content-center">
-
+<!-- 
       {% for post in postsCheched %}
 
       <div class="jumbotron">
@@ -209,7 +211,7 @@ MathJax = {
         <a class="btn btn-outline-dark btn-md" href="{% url 'postM' user.id post.id %}" role="button">Przejdź</a>
       </div>
 
-      {% endfor %}
+      {% endfor %} -->
 
     </div>
 

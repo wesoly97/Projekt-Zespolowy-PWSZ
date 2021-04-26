@@ -120,7 +120,7 @@ def login_user(request):
         try:
             user = User.objects.filter(name=request.POST['login'], password=request.POST['password'])[0]
         except IndexError:
-            context = {'cont': "Hfdhshfd", 'error': "Błędne dane logowania"}
+            context = {'cont': "Hfdhshfd", 'error': "Błędne dane logowania. Spróbuj ponownie"}
             return render(request, 'forum/login.html', context)
         request.session['logged_user'] = user.id
         return redirect('usersHOME', user_id=auth_user_id(request))
@@ -243,16 +243,17 @@ def register2(request):
     ContactNumber = request.POST['ContactNumber']
     
     if (Name=="" or Password=="" or Email=="" or SchoolName=="" or City=="" or ContactNumber==""):
-        msg="Empty,try again"
+        msg="Dane są niekompletne, wprowadź ponownie"
     else:
         if(User.objects.filter(name=Name).count()==0):
             u = User(name=Name,password=Password,ranga="user",numer_kontaktowy=ContactNumber,email=Email,miasto=City,szkola=SchoolName)
             u.save()
-            msg="User added"
+            msg="Użytkownik został dodany"
         else:
-            msg="User with that name exists,try again"
+            msg="Użytkownik o tej nazwie już istnieje, wprowadź inną nazwę"
     context = {'msg': msg}
     return render(request, 'forum/register2.html', context)
+
 
 def usersHOME(request, user_id):
     if not is_user_authenticated(request):
@@ -397,11 +398,11 @@ def add(request, user_id):
         w=user
     error=""
     if (temat=="" or tresc==""):
-        error="Empty,try again"
+        error="Nie wprowadziłeś treści! Spróbuj ponownie"
     else:
         q = Post(userP=w,subject=temat,text=tresc)
         q.save()
-        error="Post added"
+        error="Twój post został dodany"
 
     context = {'users': users,'temat': temat,'tresc': tresc,'error': error}
     return render(request, 'forum/add.html', context)

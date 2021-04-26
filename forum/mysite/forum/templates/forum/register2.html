@@ -1,6 +1,39 @@
-{% extends 'forum/base.html' %} {% block content %}
-<a href="{% url 'index' %}"
+{% extends 'forum/base.html' %} 
+{% load static %}
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'forum/styles/register/styleRegister2.css' %}">
+
+{% endblock css %}
+
+{% block js %}
+
+{% endblock js %}
+
+
+{% block content %}
+
+<div class="container-fluid pt-5 pb-5">
+
+  <div class="row no-gutters">
+    <div class="col-md-3 d-none d-md-block"></div>
+    <div class="col-md-6 col-12 justify-content-center mt-5 mb-5">
+
+      <div class="mageImg mb-5">
+        <img src="/static/forum/images/index/mage.png" class="rounded mx-auto d-block rounded-circle" alt="little_mage">
+      </div>
+      <h2 class="text-center">{{msg}}</h2>
+
+    </div>
+
+    <div class="col-md-3 d-none d-md-block"></div>
+  </div>
+
+</div>
+
+
+<!-- <a href="{% url 'index' %}"
   ><button><i class="fas fa-home fa-3x"></i></button></a
 ><br /><br />
-<p>{{msg}}</p>
+<p>{{msg}}</p> -->
+
 {% endblock content %}
