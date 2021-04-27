@@ -1,17 +1,12 @@
 body{
     background-color: #F5F5F5;
 }
-#content{
-    margin: auto;
-    width: 70%;
-    
-    margin-top: 2%;
-    margin-bottom: 2%;
+body > div{
+    padding-top: 5rem;
 }
 #centerCard{
     margin-left:  auto;
     margin-right:  auto;
-    
 }
 .bottom{
     margin-top: 2%;
@@ -21,9 +16,7 @@ body{
     width: 18rem;
 }
 #upperCard{
-    
-    float:right;
-    
+    float: right;
 }
 .btn{
     background-color: #FFE06B;
@@ -33,7 +26,6 @@ body{
 }
 
 @media only screen and (max-width: 1820px) {
-  
     #upperCard{
         
         float: left;
@@ -75,7 +67,6 @@ body{
 }
 @media only screen and (max-width: 1010px) {
     #upperCard{
-        
         float: none;
         margin-right: 0%;
     }
@@ -89,27 +80,25 @@ body{
         margin-top: 2%;
         float:right;
     }
-   
 }
 @media only screen and (max-width: 653px) {
-.card{
+    .card{
+        margin: 0 auto;
+        float:none;
+        margin-top: 2%;
+    }
+    #upperCard{
     margin: 0 auto;
-    float:none;
-    margin-top: 2%;
-}
-#upperCard{
-margin: 0 auto;
-}
-#centerCard{
-    margin: 0 auto;
-    float: none;
-}
-
-.bottom{
-    
-    margin: 0 auto;
-}
-.cardleft{
-    margin: 0 auto;
-}
+    }
+    #centerCard{
+        margin: 0 auto;
+        float: none;
+    }
+    .bottom{
+        
+        margin: 0 auto;
+    }
+    .cardleft{
+        margin: 0 auto;
+    }
 }
