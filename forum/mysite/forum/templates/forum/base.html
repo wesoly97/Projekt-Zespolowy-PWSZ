@@ -25,37 +25,46 @@
 </head>
 
 <body>
+  <nav class="navbar navbar-expand-lg p-lg-0 pt-3 pb-3 pl-3 pr-3" id="nav">
+    <div class="container">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+        <svg id="burger-svg" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50">
+          <g class="burger-svg__bars" fill="#fff">
+            <rect class="burger-svg__bar burger-svg__bar-1" x="14" y="18" width="22" height="2"/>
+            <rect class="burger-svg__bar burger-svg__bar-2" x="14" y="24" width="22" height="2"/>
+            <rect class="burger-svg__bar burger-svg__bar-3" x="14" y="30" width="22" height="2"/>
+          </g>
+        </svg>
+        <span></span>Menu
+      </button>
+      <div class="collapse navbar-collapse" id="ftco-nav">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active"><a href="{% url 'index' %}" class="nav-link">Home</a></li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Page</a>
+              <div class="dropdown-menu" aria-labelledby="dropdown04">
+                <a class="dropdown-item" href="#">Page 1</a>
+                <a class="dropdown-item" href="#">Page 2</a>
+                <a class="dropdown-item" href="#">Page 3</a>
+                <a class="dropdown-item" href="#">Page 4</a>
+              </div>
+            </li>
+          {% if request.session.logged_user == 0 or request.session.logged_user == '0' or not request.session.logged_user%}
+          <li class="nav-item"><a class="nav-link" href="{% url 'register1' %}">Rejestracja</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Logowanie</a></li>
+          {% else %}
+          <li class="nav-item"><a class="nav-link" href="{% url 'usersHOME' request.session.logged_user %}">Panel użytkownika</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'log_out' %}">Wyloguj</a></li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+  </nav>
   <div id="loader-wrapper">
 			<div id="loader"></div>
 			<div class="loader-section section-left"></div>
       <div class="loader-section section-right"></div>
 	</div>
-    <nav id="navbar" class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <a class="navbar-brand" href="{% url 'index' %}">Cyrkielek</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarText">
-        <ul class="navbar-nav ml-auto">
-            {% if request.session.logged_user == 0 or request.session.logged_user == '0' or not request.session.logged_user%}
-                <li class="nav-item active">
-                <a class="nav-link" href="{% url 'register1' %}">Rejestracja</a>
-                </li>
-                <li class="nav-item active">
-                <a class="nav-link" href="{% url 'login' %}">Logowanie</a>
-                </li>
-            {% else %}
-                <li class="nav-item active">
-                    <a class="nav-link" href="{% url 'usersHOME' request.session.logged_user %}">Panel użytkownika</a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="{% url 'log_out' %}">Wyloguj</a>
-                </li>
-            {% endif %}
-
-      </ul>
-    </div>
-  </nav>
   {% block content %}
 
   {% endblock %}

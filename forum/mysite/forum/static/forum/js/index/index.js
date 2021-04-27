@@ -6,83 +6,78 @@ $(document).ready(function(){
     let showNumber = true;
 
    
-
     $(window).on('scroll', function(){
-        console.log($(window).scrollTop());
         showNumbers();
     });
 
     $(window).resize(function(){
         responsiveSvgs();
     });
-
+    showNumbers();
     responsiveSvgs();
 
-function responsiveSvgs(){
-    if($(window).width()>=1200){
-        showSvgs();
-        $(window).on('scroll', function(){
+    function responsiveSvgs(){
+        if($(window).width()>=1200){
             showSvgs();
-        });
-        if(!showFirstSvg) $('.infoImgs:nth-child(1)').css('display', 'block');
-        if(!showSecondSvg) $('.infoImgs:nth-child(2)').css('display', 'block');
-        if(!showThirdSvg) $('.infoImgs:nth-child(3)').css('display', 'block');
-    }
-    else{
-        $('.infoImgs:nth-child(1)').css('display', 'none');
-        $('.infoImgs:nth-child(2)').css('display', 'none');
-        $('.infoImgs:nth-child(3)').css('display', 'none');
-    }
-}
-
-function showNumbers(){
-    if(showNumber){
-        const options = {
-            duration: 3,
-        };
-        let tests = new countUp.CountUp('tests', NumberDone, options);
-        let tasks = new countUp.CountUp('tasks', numberQuestion, options);
-        let users = new countUp.CountUp('users', userNumber, options);
-
-        if($(window).scrollTop()>=200 && $(window).scrollTop()<=1190){
-            tests.start();
-            tasks.start();
-            users.start();
-            showNumber = false;
+            $(window).on('scroll', function(){
+                showSvgs();
+            });
+            if(!showFirstSvg) $('.infoImgs:nth-child(1)').css('display', 'block');
+            if(!showSecondSvg) $('.infoImgs:nth-child(2)').css('display', 'block');
+            if(!showThirdSvg) $('.infoImgs:nth-child(3)').css('display', 'block');
+        }
+        else{
+            $('.infoImgs:nth-child(1)').css('display', 'none');
+            $('.infoImgs:nth-child(2)').css('display', 'none');
+            $('.infoImgs:nth-child(3)').css('display', 'none');
         }
     }
-}
 
-function showSvgs(){
-    if(showFirstSvg){
-        if($(window).scrollTop()>=450 && $(window).scrollTop()<=1330){
-            showFirstSvg = false;
-            $('.infoImgs:nth-child(1)').css('display', 'block');
+    function showNumbers(){
+        if(showNumber){
+            const options = {
+                duration: 3,
+            };
+            let tests = new countUp.CountUp('tests', NumberDone, options);
+            let tasks = new countUp.CountUp('tasks', numberQuestion, options);
+            let users = new countUp.CountUp('users', userNumber, options);
+
+            if($(window).scrollTop()>=200 && $(window).scrollTop()<=1190){
+                tests.start();
+                tasks.start();
+                users.start();
+                showNumber = false;
+            }
         }
     }
-    if(showSecondSvg){
-        if($(window).scrollTop()>=750 && $(window).scrollTop()<=1450){
-            showSecondSvg = false;
-            $('.infoImgs:nth-child(3)').css('display', 'block');
+
+    function showSvgs(){
+        if(showFirstSvg){
+            if($(window).scrollTop()>=450 && $(window).scrollTop()<=1330){
+                showFirstSvg = false;
+                $('.infoImgs:nth-child(1)').css('display', 'block');
+            }
+        }
+        if(showSecondSvg){
+            if($(window).scrollTop()>=750 && $(window).scrollTop()<=1450){
+                showSecondSvg = false;
+                $('.infoImgs:nth-child(3)').css('display', 'block');
+            }
+        }
+        if(showThirdSvg){
+            if($(window).scrollTop()>=1000 && $(window).scrollTop()<=1650){
+                showThirdSvg = false;
+                $('.infoImgs:nth-child(2)').css('display', 'block');
+            }
         }
     }
-    if(showThirdSvg){
-        if($(window).scrollTop()>=1000 && $(window).scrollTop()<=1650){
-            showThirdSvg = false;
-            $('.infoImgs:nth-child(2)').css('display', 'block');
-        }
-    }
-}
-
-
-
 
 });
 
 const typedTextSpan = document.querySelector(".typed-text");
 const cursorSpan = document.querySelector(".cursor");
 
-const textArray = ["LEPIEJ", "SZYBCIEJ", "MOCNIEJ"];
+const textArray = ["WYDAJNIEJ", "SZYBCIEJ", "EFEKTYWNIEJ"];
 const typingDelay = 200;
 const erasingDelay = 100;
 const newTextDelay = 2000; // Delay between current and next text
