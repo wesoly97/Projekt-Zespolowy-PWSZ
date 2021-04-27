@@ -154,3 +154,13 @@
   transform: rotate(-405deg);
   transition: 0.8s 0.5s;
 }
+footer{
+  background: #002030 !important;
+}
+footer i
+{
+  font-size: 16px;  
+}
+footer span{
+  padding-left: 15px;
+}
