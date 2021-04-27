@@ -1,9 +1,11 @@
-img{ width:70px; height:auto;}
-#answer0{
-    width:100%; 
-    background-color:white; 
-
-    height:200px;
+img {
+  width: 70px;
+  height: auto;
+}
+#answer0 {
+  width: 100%;
+  background-color: white;
+  height: 200px;
 }
 .addAnswer button
 {
