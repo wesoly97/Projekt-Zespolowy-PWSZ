@@ -1,0 +1,45 @@
+{% extends 'forum/base.html' %} {% block content %} {% block css %} 
+{% load static %}
+<link rel="stylesheet" href="{% static 'forum/MathQuil/mathquill.css' %}" />
+<script src="{% static 'forum/MathQuil/mathquill.js' %}"></script>
+{% endblock %} {% block js %}
+<script src="{% static 'forum/MathQuil/mathquill.js' %}"></script>
+<script
+  id="MathJax-script"
+  async
+  src="{% static 'forum/mathjax-master/es5/tex-chtml.js'%}"
+></script>
+<script>
+  MathJax = {
+    tex: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"],
+      ],
+    },
+    svg: {
+      fontCache: "global",
+    },
+  };
+</script>
+{% endblock js %}
+
+<div class="home">
+  <h1>Pytania zamkniete</h1>
+  {% for pytZ,odpZZ,oZZ in pytaniaZamkniete %} 
+  PYTANIE : {{ pytZ }} <br />
+  ODPOWIEDZI :${{ odpZZ }}$<br />
+  ODPOWIEDZ : {{ oZZ }}<br />
+  <hr />
+  {% endfor %}
+
+  <h1>Pytania otwarte</h1>
+  {% for pytO,oOO in pytaniaOtwarte %} 
+  PYTANIE : {{ pytO }} <br />
+  ODPOWIEDZ : ${{ oOO }}$<br />
+  <hr />
+  {% endfor %}
+
+  </div>
+</div>
+{% endblock content %}

@@ -491,6 +491,50 @@ def score(request, user_id):
     context = {'users':users, 'score':score}
     return render(request, 'forum/userScore.html',context)
   
+def scoreDetails(request, user_id):
+    users = User.objects.filter(id=user_id)
+    score = Score.objects.filter(id=user_id)
+    nzO=[]
+    nzZ=[]
+    oZZ=[]
+    oOO=[]
+    pytZ=[]
+    pytO=[]
+    odpZZ=[]
+    for s in score:
+        nzO = list(s.id_zad_otwartych.split(" "))
+        nzZ = list(s.id_zad_zamknietych.split(" "))
+        oZ = list(s.odp_zamkniete.split(" "))
+        oO = list(s.odp_otwarte.split("\n"))
+        
+        
+        for nr in nzZ[:-1]:
+            x=str(zadanie_matematyczne.objects.filter(id=nr).values('tresc'))[22:-4]
+            x=x.replace('\\\\',' \\')
+            pytZ.append(x)
+        for nr in nzO[:-1]:
+            x=str(zadanie_matematyczne.objects.filter(id=nr).values('tresc'))[22:-4]
+            x=x.replace('\\\\',' \\')
+            pytO.append(x)
+        for o in oZ[:-1]:
+            oZZ.append(o)
+        for o in oO[:-1]:
+            oOO.append(o)
+
+        for r in nzZ[:-1]:
+            odpA=str(zadanie_matematyczne.objects.filter(id=r).values('odp_a'))[22:-4]
+            odpB=str(zadanie_matematyczne.objects.filter(id=r).values('odp_b'))[22:-4]
+            odpC=str(zadanie_matematyczne.objects.filter(id=r).values('odp_c'))[22:-4]
+            odpD=str(zadanie_matematyczne.objects.filter(id=r).values('odp_d'))[22:-4]
+            temp="A) "+odpA +"B) "+odpB +"C) "+odpC+"D) "+odpD
+            temp=temp.replace('\\\\',' \\')
+            odpZZ.append(temp)
+
+    pytaniaZamkniete=zip(pytZ,odpZZ,oZZ)
+    pytaniaOtwarte=zip(pytO,oOO)
+    context = {'pytaniaZamkniete':pytaniaZamkniete, 'pytaniaOtwarte':pytaniaOtwarte}
+    return render(request, 'forum/userScoreDetails.html',context)
+
 def check(request, user_id,post_id):
     if not is_user_authenticated(request):
         return render(request, 'forum/error.html', context={'error': 'Nie jesteś zalogowany'})
