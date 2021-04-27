@@ -1,6 +1,7 @@
-{% extends 'forum/base.html' %} {% load static %} {% block css %}
+{% extends 'forum/base.html' %}{% block content %}
+ {% load static %} {% block css %}
 <link rel="stylesheet" href="{% static 'forum/MathQuil/mathquill.css' %}" />
-<link rel="stylesheet" href="{% static 'forum/styles/posts/posts.css' %}"> 
+<link rel="stylesheet" href="{% static 'forum/styles/posts/posts.css' %}" />
 {% endblock css %} {% block js %}
 <script src="{% static 'forum/MathQuil/mathquill.js' %}"></script>
 <script
@@ -21,17 +22,23 @@
     },
   };
 </script>
-{% endblock js %} {% block content %} {% for user in users %}
+
+{% endblock js %} 
+
 <div class="container-fluid">
+  {% for user in users %}
   <div class="row"><a href="{% url 'user_at_forum' user.id %}">Forum</a></div>
-    {% comment %} <button><i class="fas fa-home fa-3x"></i></button> {% endcomment %}
-    {% for p in posts %}
-    <div class="row w-75 mx-auto">
-      <div class="col-md-12">
-        <div class="card mb-1">
-          <div class="card-header">
+  {% comment %} <button><i class="fas fa-home fa-3x"></i></button> {% endcomment%} {% for p in posts %}
+  <div class="row w-75 mx-auto mt-5">
+    <div class="col-md-12">
+      <div class="card mb-1">
+        <div class="card-header">
             <div class="media flex-wrap w-100 align-items-center">
-              <img class="d-none d-sm-block"src="{% static 'forum/images/userPanel/profilePicture.png' %}" ald="avatar" >
+              <img
+                class="d-none d-sm-block"
+                src="{% static 'forum/images/userPanel/profilePicture.png' %}"
+                ald="avatar"
+              />
               <div class="media-body ml-sm-4">
                 {{p.userP}}
                 <div class="small">7 dni temu</div>
@@ -51,26 +58,30 @@
             <a href="{% url 'delete' user.id p.id %}">Usuń post</a>
               {% endif %}
           </div>
-        </div>
       </div>
     </div>
-    {% for a in answers %}
-      <div class="row w-75 mx-auto">
-      <div class="col-md-12">
-        <div class="card mb-1">
-          <div class="card-header">
-            <div class="media flex-wrap w-100 align-items-center">
-              <img class="d-none d-sm-block"src="{% static 'forum/images/userPanel/profilePicture.png' %}" ald="avatar" >
-              <div class="media-body ml-sm-4">
-                {{a.userA}}
-                <div class="small">7 dni temu</div>
-              </div>
-              <div class="small">
-                <div>12.02.2017</div>
-                <div>Posty: 12</div>
-              </div>
+  </div>
+  {% for a in answers %}
+  <div class="row w-75 mx-auto">
+    <div class="col-md-12">
+      <div class="card mb-1">
+        <div class="card-header">
+          <div class="media flex-wrap w-100 align-items-center">
+            <img
+              class="d-none d-sm-block"
+              src="{% static 'forum/images/userPanel/profilePicture.png' %}"
+              ald="avatar"
+            />
+            <div class="media-body ml-sm-4">
+              {{a.userA}}
+              <div class="small">7 dni temu</div>
+            </div>
+            <div class="small">
+              <div>12.02.2017</div>
+              <div>Posty: 12</div>
             </div>
           </div>
+        </div>
           <div class="card-body">
             <h5 class="card-title">Re: {{p.subject}}</h5>
             <p class="card-text">{{a.answer}}</p>
@@ -80,138 +91,161 @@
             <a href="{% url 'delete_odp' user.id p.id a.id %}">Usuń post</a>
               {% endif %}
           </div>
-        </div>
       </div>
-      </div>
-    {% endfor %}
-  <form method="post" action="{% url 'odp' user.id p.id %}" class="row w-50 mx-auto addAnswer">
+    </div>
+  </div>
+  {% endfor %}
+  <form
+    method="post"
+    action="{% url 'odp' user.id p.id %}"
+    class="row w-50 mx-auto addAnswer"
+  >
     {% csrf_token %}
     <div class="col-md-12">
       <div class="card mb-1">
         <div class="form-group">
-          <div class="card-header"><label for="tresc"><h4>Dodaj treść postu</h4></label></div>
-          <div class="card-body">
-                <span id="answer0" class="px-auto"></span><textarea name="comment" id="latexanswer0" style="opacity: 0;" required></textarea>
-                <div id="tools0" class="media flex-wrap">
-                <div id="sqrtanswer0" style=" float:left; padding:20px;">√</div>
-                <div id="pianswer0" style=" float:left;padding:20px;">π</div>
-                <div id="dzielenieanswer0" style=" float:left;padding:20px;">¼</div>
-                <div id="potegaanswer0" style=" float:left;padding:20px;">^</div>
-                <div id="cbrtanswer0" style=" float:left;padding:20px;">∛</div>
-                <div id="przerwaanswer0" style=" float:left;padding:20px;">↵</div>
-                <div id="calkaanswer0" style=" float:left;padding:20px;">∫</div>
-                <div id="sumaanswer0" style=" float:left;padding:20px;">Σ</div>
-                <div id="loganswer0" style=" float:left;padding:20px;">$\log_{n}k$</div>
-                <div id="newtonanswer0" style=" float:left;padding:20px;">$\binom{N}{k}$</div>
-                <div id="Alfaanswer0" style=" float:left;padding:20px;">α</div>
-                <div id="Betaanswer0" style=" float:left;padding:20px;">β</div>
-                <div id="leanswer0" style=" float:left;padding:20px;">⩽</div>
-                <div id="geanswer0" style=" float:left;padding:20px;">⩾</div>
-                <div id="nalezyanswer0" style=" float:left;padding:20px;">∈</div>
-                <div id="indexanswer0" style=" float:left;padding:20px;">$x^k_n$</div>
-              <div id="infanswer0" style=" float:left;padding:20px;">∞</div>
-            </div> 
+          <div class="card-header">
+            <label for="tresc"><h4>Dodaj treść postu</h4></label>
           </div>
-          
+          <div class="card-body">
+            <span id="answer0" class="px-auto"></span>
+            <textarea
+              name="comment"
+              id="latexanswer0"
+              style="display:none;"
+              required
+            ></textarea>
+            <div id="tools0" class="media flex-wrap">
+              <div id="sqrtanswer0" style="float: left; padding: 20px">√</div>
+              <div id="pianswer0" style="float: left; padding: 20px">π</div>
+              <div id="dzielenieanswer0" style="float: left; padding: 20px">
+                ¼
+              </div>
+              <div id="potegaanswer0" style="float: left; padding: 20px">^</div>
+              <div id="cbrtanswer0" style="float: left; padding: 20px">∛</div>
+              <div id="przerwaanswer0" style="float: left; padding: 20px">
+                ↵
+              </div>
+              <div id="calkaanswer0" style="float: left; padding: 20px">∫</div>
+              <div id="sumaanswer0" style="float: left; padding: 20px">Σ</div>
+              <div id="loganswer0" style="float: left; padding: 20px">
+                $\log_{n}k$
+              </div>
+              <div id="newtonanswer0" style="float: left; padding: 20px">
+                $\binom{N}{k}$
+              </div>
+              <div id="Alfaanswer0" style="float: left; padding: 20px">α</div>
+              <div id="Betaanswer0" style="float: left; padding: 20px">β</div>
+              <div id="leanswer0" style="float: left; padding: 20px">⩽</div>
+              <div id="geanswer0" style="float: left; padding: 20px">⩾</div>
+              <div id="nalezyanswer0" style="float: left; padding: 20px">∈</div>
+              <div id="indexanswer0" style="float: left; padding: 20px">
+                $x^k_n$
+              </div>
+              <div id="infanswer0" style="float: left; padding: 20px">∞</div>
+            </div>
+          </div>
         </div>
-        <div class="card-footer"><button type="submit">Odpowiedz</button></div>
+        <div class="card-footer"><button type="submit"><span>Odpowiedz</span></button></div>
       </div>
     </div>
   </form>
-<p>{{error}}</p>
- 
-{% endfor %}{% endfor %}
+  <p>{{error}}</p>
+
+  {% endfor %}{% endfor %}
 </div>
 
 <script>
-        let MQ = MathQuill.getInterface(2); 
-        createMathquill("0"); 
-        function createMathquill(id)
-{
+  let MQ = MathQuill.getInterface(2);
+  createMathquill("0");
+  function createMathquill(id) {
+    let answerMathField2 = MQ.MathField(
+      document.getElementById("answer" + id),
+      {
+        handlers: {
+          edit: function () {
+            answerMathField2.latex();
+            document.getElementById(
+              "latexanswer" + id
+            ).textContent = answerMathField2.latex();
+          },
+        },
+      }
+    );
 
-let answerMathField2 = MQ.MathField(document.getElementById('answer'+id), {
-    handlers: {
-         edit: function() {
-                answerMathField2.latex();
-                document.getElementById('latexanswer'+id).textContent = answerMathField2.latex();
-            }
-        }
+    $("#sqrtanswer" + id).click(function () {
+      answerMathField2.write("\\sqrt{}");
+      answerMathField2.reflow();
     });
 
+    $("#pianswer" + id).click(function () {
+      answerMathField2.write("\\pi");
+      answerMathField2.reflow();
+    });
+    $("#dzielenieanswer" + id).click(function () {
+      answerMathField2.write("\\frac{ }{ }");
+      answerMathField2.reflow();
+    });
+    $("#potegaanswer" + id).click(function () {
+      answerMathField2.write("\\^{}");
+      answerMathField2.reflow();
+    });
+    $("#cbrtanswer" + id).click(function () {
+      answerMathField2.write("\\sqrt[]{}");
+      answerMathField2.reflow();
+    });
+    $("#przerwaanswer" + id).click(function () {
+      answerMathField2.write("\\textcolor{black}{\\text{}}");
+      answerMathField2.reflow();
+    });
+    $("#calkaanswer" + id).click(function () {
+      answerMathField2.write("\\ \\int");
+      answerMathField2.reflow();
+    });
+    $("#sumaanswer" + id).click(function () {
+      answerMathField2.write("\\sum");
+      answerMathField2.reflow();
+    });
+    $("#loganswer" + id).click(function () {
+      answerMathField2.write("\\log_{}{}");
+      answerMathField2.reflow();
+    });
+    $("#newtonanswer" + id).click(function () {
+      answerMathField2.write("\\binom{ }{ }");
+      answerMathField2.reflow();
+    });
+    $("#Alfaanswer" + id).click(function () {
+      answerMathField2.write("\\alpha");
+      answerMathField2.reflow();
+    });
+    $("#Betaanswer" + id).click(function () {
+      answerMathField2.write("\\beta");
+      answerMathField2.reflow();
+    });
 
- $( "#sqrtanswer"+id).click(function() {
-    answerMathField2.write('\\sqrt{}');
-    answerMathField2.reflow();
-});
+    $("#leanswer" + id).click(function () {
+      answerMathField2.write("\\le");
+      answerMathField2.reflow();
+    });
 
-$( "#pianswer"+id).click(function() {
-    answerMathField2.write('\\pi');
-    answerMathField2.reflow();
-});
-$( "#dzielenieanswer"+id ).click(function() {
-    answerMathField2.write('\\frac{ }{ }');
-    answerMathField2.reflow();
-});
-$( "#potegaanswer"+id ).click(function() {
-    answerMathField2.write('\\^{}');
-    answerMathField2.reflow();
-});
-$( "#cbrtanswer"+id).click(function() {
-    answerMathField2.write('\\sqrt[]{}');
-    answerMathField2.reflow();
-});
-$( "#przerwaanswer"+id).click(function() {
-    answerMathField2.write('\\textcolor{black}{\\text{}}');
-    answerMathField2.reflow();
-});
-$( "#calkaanswer"+id).click(function() {
-    answerMathField2.write('\\ \\int');
-    answerMathField2.reflow();
-});
-$("#sumaanswer"+id).click(function() {
-    answerMathField2.write('\\sum');
-    answerMathField2.reflow();
-});
-$("#loganswer"+id).click(function() {
-    answerMathField2.write('\\log_{}{}');
-    answerMathField2.reflow();
-});
-$("#newtonanswer"+id).click(function() {
-    answerMathField2.write('\\binom{ }{ }');
-    answerMathField2.reflow();
-});
-$("#Alfaanswer"+id).click(function() {
-    answerMathField2.write('\\alpha');
-    answerMathField2.reflow();
-});
-$("#Betaanswer"+id).click(function() {
-    answerMathField2.write('\\beta');
-    answerMathField2.reflow();
-});
+    $("#geanswer" + id).click(function () {
+      answerMathField2.write("\\ge");
+      answerMathField2.reflow();
+    });
 
-$("#leanswer"+id).click(function() {
-    answerMathField2.write('\\le');
-    answerMathField2.reflow();
-});
-
-$("#geanswer"+id).click(function() {
-    answerMathField2.write('\\ge');
-    answerMathField2.reflow();
-});
-
-$("#nalezyanswer"+id).click(function() {
-    answerMathField2.write('\\isin');
-    answerMathField2.reflow();
-});
-$("#indexanswer"+id).click(function() {
-    answerMathField2.write('{}_{}^{}');
-    answerMathField2.reflow();
-});
-$("#infanswer"+id).click(function() {
-    answerMathField2.write('\\infin');
-    answerMathField2.reflow();
-});
-    }
-    </script> 
+    $("#nalezyanswer" + id).click(function () {
+      answerMathField2.write("\\isin");
+      answerMathField2.reflow();
+    });
+    $("#indexanswer" + id).click(function () {
+      answerMathField2.write("{}_{}^{}");
+      answerMathField2.reflow();
+    });
+    $("#infanswer" + id).click(function () {
+      answerMathField2.write("\\infin");
+      answerMathField2.reflow();
+    });
+  }
+</script>
 
 {% endblock content %}

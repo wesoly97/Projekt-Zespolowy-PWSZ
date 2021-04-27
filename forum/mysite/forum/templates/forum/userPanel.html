@@ -1,7 +1,7 @@
 {% extends 'forum/base.html' %} {% block content %} {% for user in users %}
 {% load static %} 
 {% block css %} <link rel="stylesheet" href="{% static 'forum/styles/userPanel/UserPanel.css' %}"> {% endblock css %} 
-    <div class="container-fluid">
+    <div class="container-fluid pt-5">
         <div class="profilePicture">
             <img src="{% static 'forum/images/userPanel/profilePicture.png' %}" class="img-fluid" alt="ProfilePicture">
             <a href="./" class='ChangeAvatar'>zmień avatar</a>

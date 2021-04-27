@@ -51,7 +51,7 @@
   <h1>Wynik</h1>
   <p><b>Zdobyłeś {{punkty}} punktów na {{punktyMAX}} możliwych do zdobycia</p></b><br>
   <hr>
-  <a href="{% url 'math_page' user.id %}">Wróć</a><br /><br />
+  <a href="{% url 'usersHOME' user.id %}">Wróć</a><br /><br />
   {% endfor %}
 </form>
 {% endblock content %}

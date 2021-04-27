@@ -1,7 +1,10 @@
 form {
   width: 50vw !important;
-  background-color: #f7f7f7;
   font-size: 18px;
+  padding-top: 5rem;
+}
+form > *{
+  background-color: #f7f7f7;
 }
 #check {
   display: flex;
@@ -14,21 +17,10 @@ form {
   color: #fff176;
   font-size: 24px;
 }
-.container-fluid {
-  margin-top: 10px;
-}
 form img {
   width: 60%;
   height: auto;
   margin-bottom: 20px;
-}
-#sendAnswers {
-  margin-top: 40px;
-  margin-left: auto;
-  margin-right: auto;
-  display: flex;
-  justify-content: center;
-  margin-top: 40px;
 }
 #sendAnswers input {
   border: none;
