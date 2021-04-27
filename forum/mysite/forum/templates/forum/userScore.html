@@ -10,14 +10,16 @@
   </a>
 </div>
 {% for score in score %}
-<p>Wyniki użytkownika o  ID równym:{{score.id_user_id}}</p><br/>
 <p>Data wykonania testu: {{score.data_testu|date:"Y/m/d H:i:s"}}</p>
 <p>Numery wylosowanych zadań otwartych: {{score.id_zad_otwartych}}</p>
 <p>Dane odpowiedzi do zadan otwartych: {{score.odp_otwarte}}</p>
 <br>
 <p>Numery wylosowanych zadań zamknietych: {{score.id_zad_zamknietych}}</p>
 <p>Dane odpowiedzi do zadań zamknietych: {{score.odp_zamkniete}}</p>
-
 <p>Uzyskane punkty: {{score.punkty}}</p>
+
+<button>
+  <a href="{% url 'userScoreDetails' score.id %}">Szczegoly</a>
+</button>
 <hr>
 {% endfor %} {% endblock content %}

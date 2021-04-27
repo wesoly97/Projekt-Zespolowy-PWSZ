@@ -22,6 +22,7 @@ urlpatterns = [
     path('forum_user_<int:user_id>/add/', views.add, name='add'),
 
     path('userScore_<int:user_id>', views.score, name='userScore'),
+    path('userScoreDetails_<int:user_id>', views.scoreDetails, name='userScoreDetails'),
 
     path('history_<int:user_id>', views.history, name='history'),
 
