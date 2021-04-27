@@ -7,7 +7,6 @@ $(document).ready(function(){
             $('.hamburger > span:nth-child(2) ').toggleClass('hamburger-middle');
             $('.hamburger > span:nth-child(3) ').toggleClass('hamburger-bottom');
             setTimeout(function() { 
-                console.log("Szymon");
                 disable = false;
             }, 370);
         }
