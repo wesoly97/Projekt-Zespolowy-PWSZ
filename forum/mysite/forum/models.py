@@ -156,6 +156,7 @@ class Attempts(models.Model):
         
 class Score(models.Model):
     id_user=models.ForeignKey(User, on_delete=models.CASCADE)
+    
     data_testu=models.DateTimeField()
 
     id_zad_otwartych=models.CharField(max_length=50)
