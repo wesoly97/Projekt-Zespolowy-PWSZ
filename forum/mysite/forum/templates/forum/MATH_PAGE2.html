@@ -18,15 +18,15 @@
       }
    };
 
-   function createMathquill(id) {
+  function createMathquill(id) {
 
   let answerMathField2 = MQ.MathField(document.getElementById('answer' + id), {
-  handlers: {
-    edit: function () {
-      answerMathField2.latex();
-      document.getElementById('latexanswer' + id).textContent = answerMathField2.latex();
+    handlers: {
+      edit: function () {
+        answerMathField2.latex();
+        document.getElementById('latexanswer' + id).textContent = answerMathField2.latex();
+      }
     }
-  }
 });
 
 }

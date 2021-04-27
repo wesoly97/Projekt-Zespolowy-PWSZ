@@ -28,16 +28,11 @@ Object.keys(specialKeys).forEach(function (key) {
 
 $(".answerDiv").click(function () {
   mathquill = MQ.MathField($(this).parent().find(".answerO")[0]);
-  $(this)
-    .parent()
-    .find(".answerO")
-    .data("keyboardPosition", this)
-    .trigger("focus");
+  $(this).parent().find(".answerO").data("keyboardPosition", this).trigger("focus");
 });
 
 $(".keyboard")
   .on("keyboardChange", function (e, keyboard, el) {
-    console.log(e.action);
     if (specialKeys[e.action]) {
       mathquill.keystroke(specialKeys[e.action]);
     } else {
@@ -46,7 +41,8 @@ $(".keyboard")
     }
   })
   .keyboard({
-    usePreview: false,
+    // usePreview: false, powoduje błąd z wpisywaniem dwukrotnym znaku
+    autoAccept: true,
     lockInput: false,
     restrictInput: false, // Prevent keys not in the displayed keyboard from being typed in
     preventPaste: false, // prevent ctrl-v and right click
