@@ -5,19 +5,6 @@
 {% endblock css %}
 {% block js %}
   <script src="https://inorganik.github.io/countUp.js/dist/countUp.umd.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/letterizejs/lib/letterize.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
-  <script id="MathJax-script" async src="{% static 'forum/mathjax-master/es5/tex-chtml.js'%}"></script>
-  <script>
-    MathJax = {
-       tex: {
-          inlineMath: [['$', '$'], ['\\(', '\\)']]
-       },
-       svg: {
-          fontCache: 'global'
-       }
-    };
- </script>
 {% endblock js %}
 {% block content %}
 
@@ -28,49 +15,10 @@
 </script>
 
   <header class="container-fluid">
-    <div>
-      <div class="animate-me">
-        $\sqrt{7\ }$ $\sqrt{7 
-      </div>
-      <div class="animate-me">
-        delta = b^b * 4 * a*c
-      </div>
-      <div class="animate-me">
-        delta = b^b * 4 * a*c
-      </div>
-      <div class="animate-me">
-        delta = b^b * 4 * a*c
-      </div>
-      <div class="animate-me">
-        letterize.js&anime.js
-      </div>
-      <div class="animate-me">
-        anime.js&letterize.js
-      </div>
-      <div class="animate-me">
-        letterize.js&anime.js
-      </div>
-      <div class="animate-me">
-        anime.js&letterize.js
-      </div>
-      <div class="animate-me">
-        letterize.js&anime.js
-      </div>
-      <div class="animate-me">
-        anime.js&letterize.js
-      </div>
-      <div class="animate-me">
-        letterize.js&anime.js
-      </div>
-      <div class="animate-me">
-        anime.js&letterize.js
-      </div>
-      <div class="animate-me">
-        letterize.js&anime.js
-      </div>
-      <div class="animate-me">
-        anime.js&letterize.js
-      </div>
+    <div id="effect">
+      <h1>
+        Z nami uczysz się <span class="typed-text"></span><span class="cursor">&nbsp;</span>
+      </h1>
     </div>
   </header>
   <section class="container-fluid" id="statistics">

@@ -1,4 +1,3 @@
-
 $(document).ready(function(){
     let showFirstSvg = true;
     let showSecondSvg = true;
@@ -72,48 +71,46 @@ $(document).ready(function(){
         }
     }
 
-
-
 });
 
-const test = new Letterize({
-    targets: ".animate-me"
-});
+const typedTextSpan = document.querySelector(".typed-text");
+const cursorSpan = document.querySelector(".cursor");
 
-const animation = anime.timeline({
-    targets: test.listAll,
-    delay: anime.stagger(100, {
-        grid: [test.list[0].length, test.list.length],
-        from: "center"
-    }),
-    loop: true
-});
+const textArray = ["WYDAJNIEJ", "SZYBCIEJ", "EFEKTYWNIEJ"];
+const typingDelay = 200;
+const erasingDelay = 100;
+const newTextDelay = 2000; // Delay between current and next text
+let textArrayIndex = 0;
+let charIndex = 0;
 
-animation
-.add({
-    scale: 0.5
-}).add({
-    letterSpacing: anime.random(10,15)
-}).add({
-    scale: 1.5
-}).add({
-    letterSpacing: "6px"
-});
+function type() {
+  if (charIndex < textArray[textArrayIndex].length) {
+    if(!cursorSpan.classList.contains("typing")) cursorSpan.classList.add("typing");
+    typedTextSpan.textContent += textArray[textArrayIndex].charAt(charIndex);
+    charIndex++;
+    setTimeout(type, typingDelay);
+  } 
+  else {
+    cursorSpan.classList.remove("typing");
+  	setTimeout(erase, newTextDelay);
+  }
+}
 
-const animation1 = anime.timeline({
-    targets: 'header > div',
-    delay: anime.stagger(100, {
-        from: "center"
-    }),
-    loop: true
-});
+function erase() {
+	if (charIndex > 0) {
+    if(!cursorSpan.classList.contains("typing")) cursorSpan.classList.add("typing");
+    typedTextSpan.textContent = textArray[textArrayIndex].substring(0, charIndex-1);
+    charIndex--;
+    setTimeout(erase, erasingDelay);
+  } 
+  else {
+    cursorSpan.classList.remove("typing");
+    textArrayIndex++;
+    if(textArrayIndex>=textArray.length) textArrayIndex=0;
+    setTimeout(type, typingDelay + 1100);
+  }
+}
 
-animation1.add({
-    background: 'linear-gradient(45deg, #f3ec78, #af4261)'
-}, 0).add({
-    'background-size': '100%'
-}).add({
-    background: 'linear-gradient(45deg, #124215, #642673)'
-}, 0).add({
-    'background-size': '100%'
+document.addEventListener("DOMContentLoaded", function() { // On DOM Load initiate the effect
+  if(textArray.length) setTimeout(type, newTextDelay + 250);
 });

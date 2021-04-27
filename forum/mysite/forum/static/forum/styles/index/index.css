@@ -1,30 +1,42 @@
 header{
-    padding: 0 !important;
-    background: linear-gradient(180deg, rgba(0,32,48,1) 0%, rgba(56,86,43,1) 49%, rgba(144,171,35,1) 100%);
-    color: #fff;
-    font-weight: 400;
-    font-size: 2vw;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    text-transform: uppercase;
-    font-family: "Khula", sans-serif;
+    background-image: url("/static/forum/images/index/header.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
     height: 100vh;
-    box-sizing: border-box;
-    letter-spacing: 6px;
-    margin: 0;
-    line-height: 1.2;
+    padding: 0 !important;
+    color: white;
 }
-header div{
-    background-size: 100%;
-    -webkit-background-clip: text;
-    -moz-background-clip: text;
-    -webkit-text-fill-color: transparent;
-     -moz-text-fill-color: transparent;
+#effect{
+    background: linear-gradient(90deg, rgba(0,32,48,1) 0%, rgba(0,32,48,0.5690651260504201) 57%, rgba(255,255,255,0) 100%);
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
 }
-header > span {
+header h1{
+    padding-top: 200px;
+    padding-left: 15vw;
+}
+header .typed-text{
+    color: #f5b308;
+}
+header span.cursor {
     display: inline-block;
+    background-color: white;
+    margin-left: 0.1rem;
+    width: 3px;
+    animation: blink 1s infinite;
+}
+header span.cursor.typing {
+    animation: none;
+}
+@keyframes blink {
+    0%  { background-color: white; }
+    49% { background-color: white; }
+    50% { background-color: transparent; }
+    99% { background-color: transparent; }
+    100%  { background-color: white; }
 }
 
 #statistics{
@@ -305,4 +317,3 @@ header > span {
         letter-spacing: .5rem;
     }
 }
-
