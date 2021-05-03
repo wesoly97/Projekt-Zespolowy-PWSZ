@@ -1,3 +1,8 @@
+body{
+  min-height: 100vh !important;
+  display: flex  !important;
+  flex-direction: column  !important;
+}
 #nav {
   background: #002030 !important;
   width: 100%;
@@ -156,9 +161,12 @@
 }
 footer{
   background: #002030 !important;
+  margin-top: auto  !important;
+
 }
 footer i
 {
+  margin-top: auto;
   font-size: 16px;  
 }
 footer span{
