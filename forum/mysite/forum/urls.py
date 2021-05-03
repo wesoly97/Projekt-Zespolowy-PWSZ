@@ -39,4 +39,5 @@ urlpatterns = [
     path('log_in', views.login_user, name='log_in'),
     path('logout', views.logout, name='log_out'),
     path('userPanel_user_<int:user_id>/', views.userPanel, name='userPanel'), 
+    path('oneTaskGenerate_user_<int:user_id>/', views.oneTaskGenerate, name='oneTaskGenerate'),
 ]

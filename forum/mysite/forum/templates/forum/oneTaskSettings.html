@@ -1,0 +1,30 @@
+{% extends 'forum/base.html' %}
+{% load static %}
+{% block content %}{% for user in users %}
+{% block css %}
+{% endblock css %}
+{% block js %}
+{% endblock js %}
+<br><br><br>
+<a href="{% url 'usersHOME' user.id %}">Wróć</a>
+<form class="container-fluid" method="post" action="">
+<label for="questionType">Wybierz rodzaj pytania:</label>
+<select name="questionType" id="questionType">
+  <option value="volvo">OTWARTE</option>
+  <option value="saab">ZAMKNIĘTE</option>
+</select>
+<br>
+<label for="questionSection">Wybierz Dział matematyki:</label>
+<select name="questionSection" id="questionSection">
+  <option value="Arytmetyka">ARYTMETYKA</option>
+  <option value="Logarytmy">LOGARYTMY</option>
+  <option value="geometria">GEOMETRIA</option>
+  <option value="prawdopodobieństwo">PRAWDOPODOBIEŃSTWO</option>
+  <option value="procenty">PROCENTY</option>
+</select>
+<br>
+ <input type="submit" value="Wygeneruj zadanie!" />
+ <br>  <br>
+</form>
+{% endfor %} 
+{% endblock content %}

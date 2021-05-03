@@ -595,3 +595,8 @@ def history(request, user_id):
     pytaniaOtwarte=zip(pytO,oOO)
     context = {'pytaniaZamkniete':pytaniaZamkniete, 'pytaniaOtwarte':pytaniaOtwarte,'posts':posts,'answer':answer,'answerM':answerM,'postsM': postsM}
     return render(request, 'forum/history.html', context)
+
+def oneTaskGenerate(request, user_id):
+    users = User.objects.filter(id=user_id)
+    context = {'users': users}
+    return render(request, 'forum/oneTaskSettings.html', context)
