@@ -164,3 +164,18 @@ footer i
 footer span{
   padding-left: 15px;
 }
+footer ul{
+  list-style:none;
+}
+.left{
+  padding-left:10%;
+}
+
+@media (max-width: 575px){
+  footer{
+    text-align:center;
+  }
+  footer ul{
+    padding-left: 0;
+  }
+} 

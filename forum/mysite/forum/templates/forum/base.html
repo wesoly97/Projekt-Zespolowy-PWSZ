@@ -67,10 +67,8 @@
 
   {% endblock %}
   <footer class="container-fluid pt-5 text-light ">
-    <div class="mx-5 ">
-      <div class="row justify-content-center">
-        <div class="col-md-2 col-sm-11 col-xs-11"></div>
-        <div class="col-md-2 col-sm-11 col-xs-11 ">
+      <div class="row"> 
+        <div class="col-12 col-sm-5 left ">
           <h1>Cyrkielek</h1>
           <div><i class="gdlr-icon fa fa-phone" style="font-size: 16px; "></i><span>+48 222-222-222</span></div>
           <div><i class="far fa-envelope" style="font-size: 16px;"></i><span>info@cyrkielek.pl</span></div>
@@ -82,24 +80,26 @@
           </div>
           <p class="copyright"><i class="fas fa-copyright"></i> 2021</p>
         </div>
-        <div class="col-md-1 col-sm-1 col-xs-1 mb-2"></div>
-        <div class="col-md-3 col-sm-4 col-xs-4">
-          <h5>Matura</h5>
-          <ul>
-            <li>Zestawy</li>
-            <li>Teoria</li>
-            <li>Punktacja</li>
-          </ul>
-        </div>
-        <div class="col-md-3 col-sm-4 col-xs-4">
-          <h5>Zespół</h5>
-          <ul>
-            <li>O nas</li>
-            <li>Kontakt</li>
-          </ul>
-        </div>
+        <div class="col-12 col-sm-7 pl-5">
+          <div class="row ">
+          <div class="col-md-6 col-sm-12">
+            <h5>Matura</h5>
+            <ul >
+              <li>Zestawy</li>
+              <li>Teoria</li>
+              <li>Punktacja</li>
+            </ul>
+            </div>
+          <div class="col-md-6 col-sm-12">
+            <h5>Zespół</h5>
+            <ul >
+              <li>O nas</li>
+              <li>Kontakt</li>
+            </ul>
+            </div>
+          </div>
+       </div>
       </div>
-    </div>
   </footer>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
   <script src="{% static 'forum/Bootstrap/js/bootstrap.min.js' %}"></script>
