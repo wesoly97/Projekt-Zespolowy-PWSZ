@@ -1,6 +1,7 @@
 from django.urls import path
 
 from . import views
+from django.conf.urls import url
 
 urlpatterns = [
     path('', views.index, name='index'),
@@ -38,5 +39,9 @@ urlpatterns = [
     path('login', views.login, name='login'),
     path('log_in', views.login_user, name='log_in'),
     path('logout', views.logout, name='log_out'),
-    path('userPanel_user_<int:user_id>/', views.userPanel, name='userPanel'), 
+    path('userPanel_user_<int:user_id>/', views.userPanel, name='userPanel'),
+     
+    path('oneTaskGenerate_user_<int:user_id>/', views.oneTaskGenerate, name='oneTaskGenerate'),
+    path('oneTaskGenerated_user_<int:user_id>/', views.oneTaskGenerateSendSettings, name='oneTaskGenerated'),
+    path('oneTaskGenerated_user_<int:user_id>/oneTaskCheckAnswer/', views.oneTaskCheckAnswer, name='oneTaskCheckAnswer'),
 ]

@@ -29,7 +29,7 @@
       <div class="card-body">
         <h5 class="card-title">Wygeneruj zadanie</h5>
         <p class="card-text">Wygeneruj losowe zadanie z wybranej kategori.</p>
-        <a href="#" class="btn btn-primary float-right">Generuj</a>
+        <a href="{% url 'oneTaskGenerate' user.id %}" class="btn btn-primary float-right">Generuj</a>
       </div>
     </div></div>
     <div id="splitter" class="w-100"></div>
