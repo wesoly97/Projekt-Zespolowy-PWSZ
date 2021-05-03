@@ -7,11 +7,12 @@
 {% endblock js %}
 <br><br><br>
 <a href="{% url 'usersHOME' user.id %}">Wróć</a>
-<form class="container-fluid" method="post" action="">
+<form class="container-fluid" method="post" action="{% url 'oneTaskGenerated' user.id %}">
+  {% csrf_token %}
 <label for="questionType">Wybierz rodzaj pytania:</label>
 <select name="questionType" id="questionType">
-  <option value="volvo">OTWARTE</option>
-  <option value="saab">ZAMKNIĘTE</option>
+  <option value="otwarte">OTWARTE</option>
+  <option value="zamkniete">ZAMKNIĘTE</option>
 </select>
 <br>
 <label for="questionSection">Wybierz Dział matematyki:</label>

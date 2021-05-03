@@ -1,5 +1,4 @@
 from django.db.models import Max
-from django.http import HttpResponse,HttpResponseRedirect
 
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
@@ -18,6 +17,9 @@ import random
 from datetime import date, datetime
 from django.core.files.storage import FileSystemStorage
 import re
+import json
+from django.http.response import HttpResponse
+from django.http import JsonResponse
 
 
 
@@ -600,3 +602,28 @@ def oneTaskGenerate(request, user_id):
     users = User.objects.filter(id=user_id)
     context = {'users': users}
     return render(request, 'forum/oneTaskSettings.html', context)
+
+def oneTaskGenerateSendSettings(request, user_id):
+    questionType = request.POST['questionType']
+    questionSection= request.POST['questionSection']
+    question = list(zadanie_matematyczne.objects.filter(rodzaj=questionType, dzial=questionSection))
+    random_item = random.choice(question)
+    users = User.objects.filter(id=user_id)
+    context = {'users': users,'singleQuestion':random_item}
+    return render(request, 'forum/oneTaskShow.html', context)
+def oneTaskCheckAnswer(request, user_id):
+    sendAnswer=request.POST.get("answer","")
+    questionId=request.POST.get("questionId","")
+    question = zadanie_matematyczne.objects.filter(id=questionId)
+    response_data={}
+    print(question.values('odpowiedz')[0]['odpowiedz'])
+    try:
+        response_data['result']=question.values('odpowiedz')[0]['odpowiedz']
+        if(question.values('odpowiedz')[0]['odpowiedz']==sendAnswer):
+            response_data['message']='<div class="alert alert-success" role="alert"> Twoja odpowiedz jest poprawna!</div>'
+        else:
+            response_data['message']='<div class="alert alert-danger" role="alert"> Twoja odpowiedz nie jest Prawidłowa</div>'
+    except:
+        response_data['result']='Lipa'
+        response_data['message']='cos poszlo nie tak'
+    return JsonResponse(response_data)
