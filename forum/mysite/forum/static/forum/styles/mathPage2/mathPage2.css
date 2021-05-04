@@ -104,24 +104,3 @@ form img {
     height: 20px;
   }
 }
-
-.hiddenAnswer {
-  display: none;
-}
-.keyboard {
-  height: auto;
-}
-.ui-keyboard {
-  position: static !important;
-  margin-bottom: 1rem!important;
-}
-.ui-keyboard-preview-wrapper{ /* wyswietla sie gdy usePreview: false - powoduje błąd z wpisywaniem dwukrotnym znaku */
-  display: none;
-}
-.dropdown-menu{
-  float: none !important;
-  border: none !important;
-}
-.mq-math-mode sup.mq-nthroot {
-  vertical-align: 0 !important;
-}

@@ -1,0 +1,37 @@
+#main{
+    background-image: url('../../images/oneTaskSettings/bg.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding-top: 15rem;
+    min-height: 72.79vh;
+    padding-left: 0;
+}
+label{
+    font-size: 24px;
+    color: #002030;
+}
+select{
+    background-color: #002030 !important;
+    border-color: #ffe06b !important;
+    color: #ffe06b !important;
+    font-weight: 700 !important;
+}
+select:focus{
+    outline: none !important;
+}
+select > option{
+    font-weight: 700 !important;
+}
+.btn{
+    margin: 10px;
+    background-color: #FFE06B;
+    font-weight: bold;
+    border: #FFE06B;
+    color: black;
+    float: right;
+    padding: 10px;
+}
+.btn:hover{
+    background-color: #002030;
+    color: #FFE06B;
+}

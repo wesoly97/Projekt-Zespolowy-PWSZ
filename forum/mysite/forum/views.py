@@ -633,9 +633,9 @@ def oneTaskCheckAnswer(request, user_id):
     try:
         response_data['result']=question.values('odpowiedz')[0]['odpowiedz']
         if(question.values('odpowiedz')[0]['odpowiedz']==sendAnswer):
-            response_data['message']='<div class="alert alert-success" role="alert"> Twoja odpowiedz jest poprawna!</div>'
+            response_data['message']='<div class="alert alert-success" role="alert"><h3>Twoja odpowiedź jest poprawna!</h3><a class="close">&times;</a></div>'
         else:
-            response_data['message']='<div class="alert alert-danger" role="alert"> Twoja odpowiedz nie jest Prawidłowa</div>'
+            response_data['message']='<div class="alert alert-danger" role="alert"><h3>Twoja odpowiedź nie jest prawidłowa!</h3><a class="close">&times;</a></div>'
     except:
         response_data['result']='Lipa'
         response_data['message']='cos poszlo nie tak'
