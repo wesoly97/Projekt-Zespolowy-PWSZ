@@ -17,6 +17,7 @@ class Post(models.Model):
     userP = models.ForeignKey(User, on_delete=models.CASCADE)
     subject =  models.CharField(max_length=50)
     text =  models.CharField(max_length=200)
+    date= models.CharField(max_length=70,blank=True)
     def __str__(self):
         return self.subject
 
@@ -24,6 +25,7 @@ class Answer(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     userA = models.ForeignKey(User, on_delete=models.CASCADE)
     answer =  models.CharField(max_length=200)
+    date= models.CharField(max_length=70,blank=True)
     def __str__(self):
         return self.answer
 
@@ -135,6 +137,7 @@ class PostM(models.Model):
     zadanie = models.ForeignKey(zadanie_matematyczne, on_delete=models.CASCADE)
     tresc =  models.CharField(max_length=200)
     stan = models.CharField(max_length=30,blank=True)
+    date= models.CharField(max_length=70,blank=True)
     def __str__(self):
         return self.zadanie
 
@@ -142,6 +145,7 @@ class AnswerM(models.Model):
     zadanie = models.ForeignKey(PostM, on_delete=models.CASCADE)
     userA = models.ForeignKey(User, on_delete=models.CASCADE)
     answer =  models.CharField(max_length=200)
+    date= models.CharField(max_length=70,blank=True)
     def __str__(self):
         return self.answer
         
@@ -151,6 +155,7 @@ class Attempts(models.Model):
     numeryZadanOtwartych = models.CharField(max_length=70)
     odpowiedzi = models.CharField(max_length=200)
     punkty=models.IntegerField()
+    date= models.CharField(max_length=70,blank=True)
     def __str__(self):
         return self.punkty
         
@@ -168,10 +173,5 @@ class Score(models.Model):
     punkty = models.IntegerField()
     def __str__(self):
         return self.id_user
-    
-class Dzial_matematyki(models.Model):
-    nazwa_dzialu = models.CharField(max_length=40, unique=True)
-    def __str__(self):
-        return self.nazwa_dzialu
 
 
