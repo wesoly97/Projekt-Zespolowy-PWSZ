@@ -20,7 +20,7 @@ import re
 import json
 from django.http.response import HttpResponse
 from django.http import JsonResponse
-
+from datetime import datetime
 
 
 
@@ -99,6 +99,15 @@ def replace(text):
     #    newtext = newtext.replace(j,newSubString)
     return newtext
 
+#####################################################
+#                                                   #
+#          Funkcja zwracająca aktualną datę         #
+#                                                   #
+#####################################################
+def current_date():
+    now = datetime.now() # current date and time
+    date_time = now.strftime("%m/%d/%Y, %H:%M:%S")
+    return date_time
 
 def index(request):
     users = User.objects.all()
@@ -401,7 +410,7 @@ def add(request, user_id):
     if (temat=="" or tresc==""):
         error="Empty,try again"
     else:
-        q = Post(userP=w,subject=temat,text=tresc)
+        q = Post(userP=w,subject=temat,text=tresc,date=current_date())
         q.save()
         error="Post added"
 
@@ -433,7 +442,7 @@ def odp(request, user_id,post_id):
         error="Empty,try again"
     else:
         new_answer=replace(new_answer)
-        a = Answer(post=y,userA=x,answer=new_answer)
+        a = Answer(post=y,userA=x,answer=new_answer,date=current_date())
         a.save()
         return redirect('post', user_id=auth_user_id(request), post_id=post_id)
     context = {'posts': posts, 'answers': answers, 'users': users,  'new_answer': new_answer, 'error': error}
@@ -466,7 +475,7 @@ def odpM(request, user_id,post_id):
     if (new_answer==""):
         error="Empty,try again"
     else:
-        a = AnswerM(zadanie=y,userA=x,answer=new_answer)
+        a = AnswerM(zadanie=y,userA=x,answer=new_answer,date=current_date())
         a.save()
         return redirect('postM', user_id=auth_user_id(request), post_id=post_id)
     context = {'postsM': postsM,'answersM': answersM,'users': users,'new_answer': new_answer,'error': error}
