@@ -2,7 +2,8 @@
 {% load static %}
 {% block content %}{% for user in users %}
 {% block css %}
-<link rel="stylesheet" href="{% static 'forum/styles/mathPage2/mathPage2.css' %}">
+<link rel="stylesheet" href="{% static 'forum/styles/oneTaskShow/oneTaskShow.css' %}">
+<link rel="stylesheet" href="{% static 'forum/styles/keyboard.css' %}">
 <link rel="stylesheet" href="{% static 'forum/MathQuil/mathquill.css' %}" />
 {% endblock css %}
 {% block js %}
@@ -34,97 +35,109 @@
 <script>
    let MQ = MathQuill.getInterface(2);
 </script>
-<br><br><br>
-<form class="container-fluid" method="post" id="form" onsubmit="return false;">
-  {% csrf_token %}
-   
+<div id="main" class="container-fluid">
   <div class="row">
-    <div class="col-12 description mb-2 pb-1">Zadanie</div>
-    <div class="col-12">
-   
-  
-      <p>{{singleQuestion.tresc}} </p>
+    <div class="col-lg-3 col-1"></div>
+    <div class="col-lg-6 col-10">
+      <form method="post" onsubmit="return false;">
+        <div class="row taskBg">
+          <div class="col-12 description mb-2">Zadanie</div>
+          <div class="col-12">
+            {{singleQuestion.tresc}}
+          </div>
+          {% if singleQuestion.url != "" %}
+          <div class="col-12">
+            <img class="rounded mx-auto d-block" src="{% static singleQuestion.url %}" />
+          </div>
+          {% endif %}
+          {% if singleQuestion.rodzaj == "zamkniete" %}
+          <div class="form-check col-md-3 col-6">
+            <input type="radio" class="radioButton" value={{singleQuestion.odp_a}} name="answer" id="flexRadioDefault1">
+            <label class="form-check-label" for="flexRadioDefault1">
+              $${{singleQuestion.odp_a}}$$
+            </label>
+          </div>
+          <div class="form-check col-md-3 col-6">
+            <input type="radio" class="radioButton" value={{singleQuestion.odp_b}} name="answer" id="flexRadioDefault2">
+            <label class="form-check-label" for="flexRadioDefault2">
+              $${{singleQuestion.odp_b}}$$
+            </label>
+          </div>
+          <div class="form-check col-md-3 col-6">
+            <input type="radio" class="radioButton" value={{singleQuestion.odp_c}} name="answer" id="flexRadioDefault3">
+            <label class="form-check-label" for="flexRadioDefault3">
+              $${{singleQuestion.odp_c}}$$
+            </label>
+          </div>
+          <div class="form-check col-md-3 col-6">
+            <input type="radio" class="radioButton" value={{singleQuestion.odp_d}} name="answer" id="flexRadioDefault4">
+            <label class="form-check-label" for="flexRadioDefault4">
+              $${{singleQuestion.odp_d}}$$
+            </label>
+          </div>
+          {% else %}
+          <div class="col-12 pb-2">
+            Wprowadź odpowiedź:
+          </div>
+          <div class="col-12">
+            {% csrf_token %}
+              <span id="answer{{forloop.counter0}}" class="answerO mb-3 keyboard"></span>
+              <textarea name="answer" id="latexanswer{{forloop.counter0}}" class="hiddenAnswer"></textarea>
+          </div>
+          <script>
+            createMathquill({{ forloop.counter0 }});
+          </script>
+          {% endif %}
+          <div class="col-12 pb-3">
+            <input type="submit" value="Sprawdź" id="sender" onclick="checkAnswer()"/>
+          </div>
+        </div>
+      </form>
     </div>
-            {% if singleQuestion.url != "" %}
-    <div class="col-12">
-      <img class="rounded mx-auto d-block" src="{% static singleQuestion.url %}" />
+    <div class="col-lg-3 col-1"></div>
+    <div class="col-lg-3 col-1"></div>
+    <div class="col-lg-6 col-10">
+      <div id='output'></div>
     </div>
-    {% endif %}
-     {% if singleQuestion.rodzaj == "zamkniete" %}
-    <div class="form-check col-md-3 col-6">
-      <input type="radio" class="radioButton" value={{singleQuestion.odp_a}} name="answer" id="flexRadioDefault1">
-      <label class="form-check-label" for="flexRadioDefault1">
-        $${{singleQuestion.odp_a}}$$
-      </label>
-    </div>
-    <div class="form-check col-md-3 col-6">
-      <input type="radio" class="radioButton" value={{singleQuestion.odp_b}} name="answer" id="flexRadioDefault2">
-      <label class="form-check-label" for="flexRadioDefault2">
-        $${{singleQuestion.odp_b}}$$
-      </label>
-    </div>
-    <div class="form-check col-md-3 col-6">
-      <input type="radio" class="radioButton" value={{singleQuestion.odp_c}} name="answer" id="flexRadioDefault3">
-      <label class="form-check-label" for="flexRadioDefault3">
-        $${{singleQuestion.odp_c}}$$
-      </label>
-    </div>
-    <div class="form-check col-md-3 col-6">
-      <input type="radio" class="radioButton" value={{singleQuestion.odp_d}} name="answer" id="flexRadioDefault4">
-      <label class="form-check-label" for="flexRadioDefault4">
-        $${{singleQuestion.odp_d}}$$
-      </label>
-    </div>
+    <div class="col-lg-3 col-1"></div>
+  </div>
+</div>
 
-    {% else %}
-    <div class="col-12">
-      <p>Wprowadź odpowiedź:</p>
-    </div>
-    <div class="col-12 answerDiv">
-      <span id="answer{{forloop.counter0}}" class="answerO mb-3 keyboard"></span>
-      <textarea name="answer" id="latexanswer{{forloop.counter0}}" class="hiddenAnswer"></textarea>
-    </div>
-    <script>
-      createMathquill({{ forloop.counter0 }});
-    </script>
-        {% endif %}
-          <div class="row justify-content-center pt-5 pb-5" id="sendAnswers">
-    <input value="Sprawdź zestaw" id="sender" onclick="checkAnswer()"/>
-    <button value="Wróć">
-      <a href="{% url 'usersHOME' user.id %}">Wróć</a>
-    </button>
-  </div>
-  </div>
-</form>
-<div id='correctAnswer'></div>
-<div id='output'></div>
 <script type="text/javascript">
 function checkAnswer()
-{
-$.ajax({
-  type: 'POST',
-  url:'oneTaskCheckAnswer/',
-  dataType:"json",
-  async:true,
-  data: {
-    questionId:{{singleQuestion.id}},
-    answer: $('.hiddenAnswer').val(),
-    csrfmiddlewaretoken:'{{csrf_token}}',
-  },
-  success: function (data) {
-          document.getElementById('output').innerHTML = data["message"];
-          document.getElementById('correctAnswer').innerHTML = data["result"];
-        }
-});
+  {
+  $.ajax({
+    type: 'POST',
+    url:'oneTaskCheckAnswer/',
+    dataType:"json",
+    async:true,
+    data: {
+      questionId:{{singleQuestion.id}},
+      answer: $('.hiddenAnswer').val(),
+      csrfmiddlewaretoken:'{{csrf_token}}',
+    },
+    success: function (data) {
+            document.getElementById('output').innerHTML = data["message"];
+            document.getElementById('correctAnswer').innerHTML = data["result"];
+          }
+  });
 }
 </script>
 {% endfor %} 
 {% endblock content %}
 {% block jquery %}
-
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 <link href="{% static 'forum/Keyboard/css/keyboard.css' %}" rel="stylesheet">
 <script src="{% static 'forum/Keyboard/js/jquery.keyboard.js' %}"></script>
 <script src="{% static 'forum/Keyboard/js/jquery.keyboard.extension-typing.js' %}"></script>
 <script src="{% static 'forum/js/keyboard.js' %}"></script>
+<script>
+  $(document).ready(function(){
+    $(".close").click(function() {
+      $(this)
+        .parent(".alert")
+        .fadeOut();
+    });
+  })
+</script>
 {% endblock jquery %}
