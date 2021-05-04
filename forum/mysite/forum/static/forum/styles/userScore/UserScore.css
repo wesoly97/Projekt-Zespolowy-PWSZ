@@ -1,0 +1,68 @@
+#statistics_body{
+    padding-top: 2%  !important;
+    width: 100%;
+    height: 430px;
+    
+}
+#statistics_bar{
+   margin-top: 8%;
+   height: 100%;
+   position: relative;
+}
+.progress{
+    width: 70%;
+    margin:auto;
+    margin-bottom: 1%;
+    
+}
+.progress-bar {
+    background: #495F75;
+}
+h5{
+    margin-left:16% ;
+}
+#topic{
+    
+    padding:5px 10px 5px 10px;
+    background: #F1BC31;
+    position: absolute;
+    text-align: center;
+    left:2%;
+    border-bottom-left-radius: 5%;
+    border-bottom-right-radius: 5%;
+}
+#demo1{
+    border:1px solid black;
+}
+#black_line{
+    width: 100%;
+    height: 15%;
+    background: #002030;
+    position: absolute;
+    
+}
+#container_statistics{
+    padding-top: 12%;
+    width: 100%;
+    height: 100%;
+    background:whitesmoke;
+}
+#table_history{
+    margin-top:15% ;
+    width: 100%;
+    margin-bottom:6.5% ;
+    
+}
+#head_table{
+    background: #002030;
+    padding:10px 0px 10px 0px;
+    color:whitesmoke;
+    font-weight: bold;
+}
+.buttonTable{
+    margin:10px;
+    background-color: #FFE06B;
+    font-weight: bold;
+    border: #FFE06B;
+    color:black;
+}
