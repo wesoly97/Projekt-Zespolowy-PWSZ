@@ -573,6 +573,8 @@ def history(request, user_id):
     pytZ=[]
     pytO=[]
     odpZZ=[]
+    pytObrazkiZ=[]
+    pytObrazkiO=[]
     for s in score:
         nzO = list(s.id_zad_otwartych.split(" "))
         nzZ = list(s.id_zad_zamknietych.split(" "))
@@ -588,6 +590,7 @@ def history(request, user_id):
             x=str(zadanie_matematyczne.objects.filter(id=nr).values('tresc'))[22:-4]
             x=x.replace('\\\\',' \\')
             pytO.append(x)
+            pytObrazkiO.append(str(zadanie_matematyczne.objects.filter(id=nr).values('url'))[20:-4])
         for o in oZ[:-1]:
             oZZ.append(o)
         for o in oO[:-1]:
@@ -601,9 +604,10 @@ def history(request, user_id):
             temp="A) "+odpA +"B) "+odpB +"C) "+odpC+"D) "+odpD
             temp=temp.replace('\\\\',' \\')
             odpZZ.append(temp)
+            pytObrazkiZ.append(str(zadanie_matematyczne.objects.filter(id=r).values('url'))[20:-4])
 
-    pytaniaZamkniete=zip(pytZ,odpZZ,oZZ)
-    pytaniaOtwarte=zip(pytO,oOO)
+    pytaniaZamkniete=zip(pytZ,odpZZ,oZZ,pytObrazkiZ)
+    pytaniaOtwarte=zip(pytO,oOO,pytObrazkiO)
     context = {'pytaniaZamkniete':pytaniaZamkniete, 'pytaniaOtwarte':pytaniaOtwarte,'posts':posts,'answer':answer,'answerM':answerM,'postsM': postsM}
     return render(request, 'forum/history.html', context)
 

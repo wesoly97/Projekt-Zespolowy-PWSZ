@@ -1,6 +1,7 @@
 {% extends 'forum/base.html' %} {% block content %} {% block css %} 
 {% load static %}
 <link rel="stylesheet" href="{% static 'forum/MathQuil/mathquill.css' %}" />
+<link rel="stylesheet" href="{% static 'forum/styles/history/history.css' %}">
 <script src="{% static 'forum/MathQuil/mathquill.js' %}"></script>
 {% endblock %} {% block js %}
 <script src="{% static 'forum/MathQuil/mathquill.js' %}"></script>
@@ -25,21 +26,35 @@
 {% endblock js %}
 
 <div class="home">
+<div class="row">
+<div class="form-check col-md-6 col-6">
   <h1>Pytania zamkniete</h1>
-  {% for pytZ,odpZZ,oZZ in pytaniaZamkniete %} 
+  {% for pytZ,odpZZ,oZZ,pytObrazkiZ in pytaniaZamkniete %} 
+  {% if pytObrazkiZ %}
+    <img class="rounded mx-auto d-block" src="{% static pytObrazkiZ %}" />
+  {% endif %}
   PYTANIE : {{ pytZ }} <br />
   ODPOWIEDZI : ${{ odpZZ }}$<br />
   ODPOWIEDZ : ${{ oZZ }}$<br />
   <hr />
   {% endfor %}
-
+  </div>
+  
+  <div class="form-check col-md-6 col-6">
   <h1>Pytania otwarte</h1>
-  {% for pytO,oOO in pytaniaOtwarte %} 
+  {% for pytO,oOO,pytObrazkiO in pytaniaOtwarte %}
+  {% if pytObrazkiO %}
+   <img class="rounded mx-auto d-block" src="{% static pytObrazkiO %}" />
+  {% endif %} 
   PYTANIE : {{ pytO }} <br />
   ODPOWIEDZ : ${{ oOO }}$<br />
   <hr />
   {% endfor %}
+  </div>
+  </div>
 
+  <div class="row">
+  <div class="form-check col-md-4 col-4">
   <h1>POSTY</h1>
   {% for p in posts %} 
   temat : {{ p.subject }} <br />
@@ -48,7 +63,9 @@
   href="{% url 'post'  p.userP_id p.id %}" role="button">Przejdź</a>
   <hr>
   {% endfor %}
+ </div>
 
+<div class="form-check col-md-4 col-4">
   <h1>KOMENTARZE DO POSTOW UZYTKOWNIKOW</h1>
   {% for p in answer %} 
   temat : {{p.post}} <br />
@@ -56,9 +73,10 @@
    <a class="btn btn-outline-dark btn-md" 
   href="{% url 'post'  p.userA_id p.post_id %}" role="button">Przejdź</a>
   <hr>
-      </div>
   {% endfor %}
+  </div>
 
+<div class="form-check col-md-4 col-4">
   <h1>KOMENTARZE DO POSTOW ZADAN</h1>
   {% for p in answerM %} 
   zadanie : ${{p.zadanie.tresc}}$ <br />
@@ -66,7 +84,9 @@
   <a class="btn btn-outline-dark btn-md" 
   href="{% url 'postM' p.userA_id p.zadanie_id %}" role="button">Przejdź</a>
    <hr>
-  </div>
   {% endfor %}
+  </div>
+
+  </div>
 </div>
 {% endblock content %}
