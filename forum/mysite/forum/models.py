@@ -175,7 +175,7 @@ class Score(models.Model):
         return self.id_user
 
 class Dzial_matematyki(models.Model):
-    dzial=models.CharField(max_length=40, unique=True)
+    dzial=models.CharField(max_length=40)
 
     def __str__(self):
         return self.dzial
