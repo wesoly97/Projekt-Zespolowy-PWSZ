@@ -16,7 +16,7 @@
 <h1>Answers:</h1>
 
 {% for a in answersM %}
-
+<p>{{a.date}} </p>
 <p><b>{{a.userA}} </b>answered:</p>
 <p>{{a.answer}}</p>
 {% if role == 'admin' or role == 'moderator' or a.userA.id == auth_user_id %}
