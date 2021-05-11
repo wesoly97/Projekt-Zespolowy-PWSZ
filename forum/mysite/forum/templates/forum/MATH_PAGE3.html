@@ -1,57 +1,152 @@
-{% extends 'forum/base.html' %} {% block content %} {% for user in users %}
-<h1>Math page</h1>
-<br /><hr>
+{% extends 'forum/base.html' %} {% block content %}
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'forum/styles/mathPage3/mathPage3.css' %}">
+<link rel="stylesheet" href="{% static 'forum/MathQuil/mathquill.css' %}" />
+{% endblock css %}
+{% block js %}
+<script src="{% static 'forum/MathQuil/mathquill.js' %}"></script>
+<script id="MathJax-script" async src="{% static 'forum/mathjax-master/es5/tex-chtml.js'%}"></script>
+<script>
+   MathJax = {
+      tex: {
+         inlineMath: [['$', '$'], ['\\(', '\\)']]
+      },
+      svg: {
+         fontCache: 'global'
+      }
+   };
+  function createMathquill(id) {
+
+  let answerMathField2 = MQ.MathField(document.getElementById('answer' + id), {
+    handlers: {
+      edit: function () {
+        answerMathField2.latex();
+        document.getElementById('latexanswer' + id).textContent = answerMathField2.latex();
+      }
+    }
+});
+
+}
+</script>
+{% endblock js %}
+{% for user in users %}
+
+
  {% for zz in zzs %}
-  <h1>Zadanie zamkniete nr{{forloop.counter0}}</h1>
-  <p><b>Tresc:</b>{{zz.tresc}}</p>
-  <br />
-  <p><b>odpA:</b>{{zz.odp_a}}</p>
-  <br />
-  <p><b>odpB:</b>{{zz.odp_b}}</p>
-  <br />
-  <p><b>odpC:</b>{{zz.odp_c}}</p>
-  <br />
-  <p><b>odpD:</b>{{zz.odp_d}}</p>
-  <br />
+ <form class="container-fluid">
+  <div class="row">
+    <div class="col-12 description mb-2 pb-1">Zadanie zamkniete nr. {{forloop.counter0}}</div>
+    <div class="col-12">
+      <p>{{zz.tresc}} </p>
+    </div>
+    <div class="form-check col-md-3 col-6">
+      A:
+      <label class="form-check-label" for="flexRadioDefault{{forloop.counter0}}1">
+         $${{zz.odp_a}}$$
+      </label>
+    </div>
+    <div class="form-check col-md-3 col-6">
+      B: 
+      <label class="form-check-label" for="flexRadioDefault{{forloop.counter0}}2">
+        $${{zz.odp_b}}$$
+      </label>
+    </div>
+    <div class="form-check col-md-3 col-6">
+      C: 
+      <label class="form-check-label" for="flexRadioDefault{{forloop.counter0}}3">
+        $${{zz.odp_c}}$$
+      </label>
+    </div>
+    <div class="form-check col-md-3 col-6">
+      D:
+      <label class="form-check-label" for="flexRadioDefault{{forloop.counter0}}4">
+         $${{zz.odp_d}}$$
+      </label>
+    </div>
   {% if  forloop.counter0 == 0 %}
-  <a href="{% url 'postM' user.id linki.0.id %}">Link do forum</a><br /><br />
-  <p><b>Twoja odpowiedz: </b>{{odpZ.0}}</p><br>
+    <div class="col-12 mt-3"> 
+      <div>
+      <b>Poprawna odpowiedz:</b>
+      <label class="form-check-label">$${{zz.odpowiedz}}$$</label>
+    </div>
+    <div class="mb-3">
+    <b>Twoja odpowiedz: </b>
+      <label class="form-check-label ">  $${{odpZ.0}}$$</label>
+    </div>
+    <div class="sendAnswers mb-3">
+      <button><a href="{% url 'postM' user.id linki.0.id %}">Link do forum</a></button>
+    </div>
+    </div>
   {% endif %}
   {% if  forloop.counter0 == 1 %}
-  <a href="{% url 'postM' user.id linki.1.id %}">Link do forum</a><br /><br />
-  <p><b>Twoja odpowiedz: </b>{{odpZ.1}}</p><br>
+  <div class="col-12 mt-3"> 
+    <b>Poprawna odpowiedz:</b>
+    <label class="form-check-label "> <b> </b>$${{zz.odpowiedz}}$$</label>
+  <div class="mb-3">
+  <b>Twoja odpowiedz: </b>
+    <label class="form-check-label ">  $${{odpZ.1}}$$</label>
+  </div>
+  <div class="sendAnswers mb-3">
+    <button><a href="{% url 'postM' user.id linki.1.id %}">Link do forum</a></button>
+  </div>
+  </div>
   {% endif %}
   {% if  forloop.counter0 == 2 %}
-  <a href="{% url 'postM' user.id linki.2.id %}">Link do forum</a><br /><br />
-  <p><b>Twoja odpowiedz: </b>{{odpZ.2}}</p><br>
+  <div class="col-12 mt-3"> 
+    <b>Poprawna odpowiedz:</b>
+    <label class="form-check-label "> <b> </b>$${{zz.odpowiedz}}$$</label>
+  <div class="mb-3">
+  <b>Twoja odpowiedz: </b>
+    <label class="form-check-label ">  $${{odpZ.2}}$$</label>
+  </div>
+  <div class="sendAnswers mb-3">
+    <button><a href="{% url 'postM' user.id linki.2.id %}">Link do forum</a></button>
+  </div>
+  </div>
   {% endif %}
-  <p><b>Poprawna odpowiedz: </b>{{zz.odpowiedz}}</p><br>
-  <br />
+  </div>
+
+  {% endfor %}{% for zo in zos %}
+  <div class="row">
+    <div class="col-12 description mb-2 pb-1">Zadanie otwarte nr. {{forloop.counter0}}</div>
+    <div class="col-12">{{zo.tresc}}</div>
+    <div class="col-12 mt-3 mb-3">
+    {% if  forloop.counter0 == 0 %}
+    <div ><b>Poprawna odpowiedź:</b>
+      <label class="form-check-label">$${{zo.odpowiedz}}$$</label>
+      </div>
+    <div class="mb-3"><b>Twoja odpowiedz: </b>
+      <label class="form-check-label ">  $${{odpO.0}}$$</label>
+    </div>
+    <div class="sendAnswers">
+      <button><a href="{% url 'postM' user.id linki.3.id %}">Link do forum</a></button>
+    </div>
+    {% endif %}
+    {% if  forloop.counter0 == 1 %}
+    <div ><b>Poprawna odpowiedź:</b>
+      <label class="form-check-label">$${{zo.odpowiedz}}$$</label>
+      </div>
+    <div class="mb-3"><b>Twoja odpowiedz: </b>
+      <label class="form-check-label">$${{odpO.1}}$$</label>
+    </div>
+    <div class="sendAnswers">
+      <button><a href="{% url 'postM' user.id linki.4.id %}">Link do forum</a></button>
+    </div >
+    {% endif %}
+    </div> 
+  </div>
+    {% endfor %}
+  <div class="row">
+    <div class="col-12 d-flex justify-content-center mt-3"><h1>Wynik</h1></div>
+    <div class="col-12 d-flex justify-content-center mb-2"><b>Zdobyłeś {{punkty}} punktów na {{punktyMAX}} możliwych do zdobycia</b></div>
+    <div class="col-12 mb-4 d-flex justify-content-center sendAnswers"><button value="Wróć"><a href="{% url 'usersHOME' user.id %}">Wróć</a></button></div>
+  </div>
+  {% endfor %}
   
-  <hr />
-  {% endfor %} {% for zo in zos %}
-  <h1>Zadanie otwarte nr{{forloop.counter0}}</h1>
-  <p><b>Tresc:</b>{{zo.tresc}}</p><br>
-  {% if  forloop.counter0 == 0 %}
-  <a href="{% url 'postM' user.id linki.3.id %}">Link do forum</a><br /><br />
-  <p><b>Twoja odpowiedz: </b>{{odpO.0}}</p><br>
-  {% endif %}
-  {% if  forloop.counter0 == 1 %}
-  <a href="{% url 'postM' user.id linki.4.id %}">Link do forum</a><br /><br />
-  <p><b>Twoja odpowiedz: </b>{{odpO.1}}</p><br>
-  {% endif %}
-  {% if  forloop.counter0 == 2 %}
-  <a href="{% url 'postM' user.id linki.5.id %}">Link do forum</a><br /><br />
-  <p><b>Twoja odpowiedz: </b>{{odpO.2}}</p><br>
-  {% endif %}
-  <p><b>Poprawna odpowiedź:</b>{{zo.odpowiedz}}</p>
-  <br />
-  <hr />
-  {% endfor %}
-  <h1>Wynik</h1>
-  <p><b>Zdobyłeś {{punkty}} punktów na {{punktyMAX}} możliwych do zdobycia</p></b><br>
-  <hr>
-  <a href="{% url 'usersHOME' user.id %}">Wróć</a><br /><br />
-  {% endfor %}
 </form>
+
 {% endblock content %}
+{% block jquery %}
+
+{% endblock jquery %}
