@@ -1,3 +1,4 @@
+from django.core.paginator import Paginator
 from django.db.models import Max
 
 from django.shortcuts import render, get_object_or_404, redirect
@@ -276,12 +277,36 @@ def usersHOME(request, user_id):
 
 def user_at_forum(request, user_id):
     users = User.objects.filter(id=auth_user_id(request))
-    posts = Post.objects.all()
-    postsM= PostM.objects.all()
-    postsToChcekM=PostM.objects.filter(stan="check")
-    postsCheched=PostM.objects.filter(stan="")
-    context = {'posts': posts,'users': users,'postsM': postsM,'postsToChcekM': postsToChcekM,'postsCheched': postsCheched}
+
+    page_number = request.GET.get('page')
+    if not page_number:
+        page_number = 1
+
+    page_post_checked = page_number
+    page_post_to_check = page_number
+
+    postsToPaginate = Post.objects.all()
+    postsPaginated = Paginator(postsToPaginate, 5)
+    posts = postsPaginated.get_page(page_number)
+
+    postsToChcekMToPaginate=PostM.objects.filter(stan="check")
+    postsToChcekMPaginated = Paginator(postsToChcekMToPaginate, 5)
+
+    if int(page_post_to_check) > postsToChcekMPaginated.num_pages:
+        page_post_to_check = postsToChcekMPaginated.num_pages
+
+    postsToChcekM = postsToChcekMPaginated.get_page(page_post_to_check)
+
+    postsChechedToPaginate=PostM.objects.filter(stan="")
+    postsChechedPaginated = Paginator(postsChechedToPaginate, 5)
+
+    if int(page_post_checked) > postsChechedPaginated.num_pages:
+        page_post_checked = postsChechedPaginated.num_pages
+
+    postsCheched = postsChechedPaginated.get_page(page_post_checked)
+    context = {'posts': posts,'users': users, 'postsToChcekM': postsToChcekM,'postsCheched': postsCheched, 'range': range(posts.paginator.num_pages)}
     return render(request, 'forum/userFORUM.html', context)
+
 
 def math_page2(request, user_id):
     if not is_user_authenticated(request):
