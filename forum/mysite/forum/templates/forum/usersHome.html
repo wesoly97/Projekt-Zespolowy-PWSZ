@@ -6,8 +6,8 @@
 {% endblock css %} 
 {% for user in users %}
   <div class="container-fluid">
-    <div class="row" >
-    <div class="col-sm flex-column  "><div class="card" id="upperCard">
+    <div class="row " >
+    <div class="col-sm   kk"><div class="card" id="upperCard">
       <img class="card-img-top" src="{% static 'forum/images/usersHome/math1.png' %}" alt="Card image cap">
       <div class="card-body">
         <h5 class="card-title">Wygeneruj zestaw</h5>
@@ -15,7 +15,7 @@
         <a href="{% url 'math_page2' user.id %}" class="btn btn-primary float-right">Generuj</a>
       </div>
     </div></div>
-    <div class="col-sm flex-column  " ><div class="card"  id="centerCard">
+    <div class="col-sm kk" ><div class="card"  id="centerCard">
       <img class="card-img-top" src="{% static 'forum/images/usersHome/forum.png' %}" alt="Card image cap">
       <div class="card-body">
         <h5 class="card-title">Forum</h5>
@@ -24,7 +24,7 @@
       </div>
     </div></div>
 
-    <div class="col-sm flex-column " id="test"><div class="card" >
+    <div class="col-sm kk"><div class="card" >
       <img class="card-img-top" src="{% static 'forum/images/usersHome/math2.png' %}" alt="Card image cap">
       <div class="card-body">
         <h5 class="card-title">Wygeneruj zadanie</h5>
@@ -32,15 +32,17 @@
         <a href="{% url 'oneTaskGenerate' user.id %}" class="btn btn-primary float-right">Generuj</a>
       </div>
     </div></div>
-    <div id="splitter" class="w-100"></div>
-    <div class="col-sm bottom flex-column "><div class="card"  >
+    <div id="splitter" class="w-100 "></div>
+    
+    <div class="col-sm-auto offset-sm-2 bottom kk" id="coldel"><div class="card" >
       <img class="card-img-top" src="{% static 'forum/images/usersHome/history.png' %}" alt="Card image cap">
       <div class="card-body">
         <h5 class="card-title">Historia</h5>
         <input type="button"  href="" data-url="{% url 'history' user.id%}" class="btn btn-primary float-right" id="buttonHistory" value="Otwórz"></a>
       </div>
     </div></div>
-    <div class="col-sm bottom"><div class="card" id="upperCard" style="width: 18rem;">
+    
+    <div class="col-sm-auto bottom  "><div class="card"  >
       <img class="card-img-top" src="{% static 'forum/images/usersHome/statistic.png' %}" alt="Card image cap">
       <div class="card-body">
         <h5 class="card-title">Moje statystyki</h5>
@@ -48,7 +50,7 @@
       </div>
     </div></div>
         {% if role == 'admin' or role == 'moderator' %}
-    <div class="col-sm bottom"><div class="card cardleft" >
+    <div class="col-sm-auto bottom "><div class="card" >
       <img class="card-img-top" src="{% static 'forum/images/usersHome/que1.jpg' %}" alt="Card image cap">
       <div class="card-body">
         <h5 class="card-title">Dodaj zadanie zamknięte</h5>
@@ -56,7 +58,7 @@
         <a href="{% url 'addQuestionClose' user.id %}" class="btn btn-primary float-right">Dodaj</a>
       </div>
     </div></div>
-    <div class="col-sm bottom"><div class="card"  >
+    <div class="col-sm-auto bottom "><div class="card"  >
       <img class="card-img-top" src="{% static 'forum/images/usersHome/que2.jpg' %}" alt="Card image cap">
       <div class="card-body">
         <h5 class="card-title">Dodaj zadanie otwarte</h5>
@@ -65,8 +67,10 @@
     </div>
 
     </div>
+  
   {% endif %}
   </div>
+</div>
 
 
 {% endfor %}
