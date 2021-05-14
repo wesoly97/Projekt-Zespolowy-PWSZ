@@ -354,6 +354,17 @@ $("#infanswer"+id).click(function() {
     answerMathField2.reflow();
 });
     }
+
+    function formatMathquill(id) {
+      let pyt_z = MQ.StaticMath(document.getElementById(id), {
+        handlers: {
+          edit: function () {
+            pyt_z.StaticMath();
+            document.getElementById(id) = pyt_z.StaticMath();
+          }
+        }
+    });
+    }
     </script> 
  {% endfor %} 
  {% endblock content %}
