@@ -3,43 +3,54 @@
 <link rel="stylesheet" href="{% static 'forum/MathQuil/mathquill.css' %}" />
 <script src="{% static 'forum/MathQuil/mathquill.js' %}"></script>
 {% endblock %} {% block js %}
-<script src="{% static 'forum/MathQuil/mathquill.js' %}"></script>
-<script
-  id="MathJax-script"
-  async
-  src="{% static 'forum/mathjax-master/es5/tex-chtml.js'%}"
-></script>
+
 <script>
-  MathJax = {
-    tex: {
-      inlineMath: [
-        ["$", "$"],
-        ["\\(", "\\)"],
-      ],
-    },
-    svg: {
-      fontCache: "global",
-    },
-  };
+  
+  function createMathquill(id) {
+    let pyt_z = MQ.StaticMath(document.getElementById(id), {
+      handlers: {
+        edit: function () {
+          pyt_z.StaticMath();
+          document.getElementById(id) = pyt_z.StaticMath();
+        }
+      }
+  });
+  }
+  
 </script>
 {% endblock js %}
-
-<div class="home">
+<script>
+  let MQ = MathQuill.getInterface(2);
+</script>
+<div class="home" style="margin-top:10%">
   <h1>Pytania zamkniete</h1>
   {% for pytZ,odpZZ,oZZ in pytaniaZamkniete %} 
+  <div id="pyt_z{{forloop.counter0}}">
   PYTANIE : {{ pytZ }} <br />
-  ODPOWIEDZI :${{ odpZZ }}$<br />
+  ODPOWIEDZI :{{ odpZZ }}<br />
   ODPOWIEDZ : {{ oZZ }}<br />
+  </div>
   <hr />
+  <script>
+    createMathquill('pyt_z{{forloop.counter0}}');
+  </script>
   {% endfor %}
 
   <h1>Pytania otwarte</h1>
   {% for pytO,oOO in pytaniaOtwarte %} 
-  PYTANIE : {{ pytO }} <br />
-  ODPOWIEDZ : ${{ oOO }}$<br />
+  <div id="pyt_otw{{forloop.counter0}}">
+    PYTANIE : {{ pytO }} <br />
+    ODPOWIEDZ : ${{ oOO }}$<br />
+    <script>
+      createMathquill('pyt_otw{{forloop.counter0}}');
+    </script>
+  </div>
+  
   <hr />
   {% endfor %}
 
   </div>
 </div>
+
 {% endblock content %}
+
