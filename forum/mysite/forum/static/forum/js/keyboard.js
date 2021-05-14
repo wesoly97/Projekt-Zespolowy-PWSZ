@@ -1,3 +1,13 @@
+
+MathJax = {
+  tex: {
+     inlineMath: [['$', '$'], ['\\(', '\\)']]
+  },
+  svg: {
+     fontCache: 'global'
+  }
+};
+
 let mathquill;
 let specialKeys = {
   bksp: "Backspace",
@@ -17,6 +27,9 @@ let specialKeys = {
   beta: "β",
   le: "\\le",
   ge: "\\ge",
+  isin: "\\isin",
+  binom: "\\binom{ }{ }",
+  tg: "\\tan"
 };
 
 // add special keys, but don't override previous keyaction definitions
@@ -65,19 +78,17 @@ $(".keyboard")
       beta: "β",
       ge: "⩾",
       le: "⩽",
+      isin: "∈",
+      binom: "binom",
+      tg: "tg",
     },
     customLayout: {
       default: [
-        //default
-        "1 2 3 + -",
-        "4 5 6 {multi} {div}",
-        "7 8 9 0 = {b}",
-        //functions
-        "sin cos tan cot {log}",
+        "sin cos {tg} cot {log}",
         "{alfa} {beta} {ge} {le}",
         "{frac} {power} {sqrt} {exsqrt}",
         "{sum} \u03c0 {integral} {inf}",
-        ". , < >",
+        "{isin} {binom}"
       ],
     },
     useCombos: false,
