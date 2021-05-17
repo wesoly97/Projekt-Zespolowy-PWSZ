@@ -1,7 +1,5 @@
 body{
   min-height: 100vh !important;
-  display: flex  !important;
-  flex-direction: column  !important;
 }
 #nav {
   background: #002030 !important;
