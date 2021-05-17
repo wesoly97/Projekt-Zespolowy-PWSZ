@@ -21,12 +21,7 @@ $(document).ready(function(){
         }
     });
 
-    if($( window ).width()<1000){
-        $('#splitter').removeClass("w-100");
-    }
-    else{
-        $('#splitter').addClass("w-100");
-    }
+   
 
     $('#buttonForum').click(function(){
         ajaxCall2();
@@ -35,27 +30,26 @@ $(document).ready(function(){
     $('#buttonHistory').click(function(){
         ajaxCall1();
     });
+    $('#buttonStats').click(function(){
+        ajaxCall3();
+    });
 
     function ajaxCall1() {
         var s = $('#buttonHistory').attr("data-url");
         $('body').removeClass("loaded");
-        return  $.ajax({
-            url: s,
-            success: function(result){
-                $('body').html(result);
-            }
-        });
+        window.location.href = s;
     }
     
     function ajaxCall2() {
         var s = $('#buttonForum').attr("data-url");
         $('body').removeClass("loaded");
-        return  $.ajax({
-            url: s,
-            success: function(result){
-                $('body').html(result);
-            }
-        });
+        window.location.href = s;
+        
+    }
+    function ajaxCall3() {
+        var s = $('#buttonStats').attr("data-url");
+        $('body').removeClass("loaded");
+        window.location.href = s;
     }
 
 });
