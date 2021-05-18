@@ -1,0 +1,73 @@
+{% extends 'forum/base.html' %}
+{% load static %}
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'forum/styles/forum/styleForum.css' %}">
+ <link rel="stylesheet" href="{% static 'forum/MathQuil/mathquill.css' %}"/> 
+{% endblock css %}
+
+{% block js %}
+    <script src="{% static 'forum/MathQuil/mathquill.js' %}"></script>
+    <script id="MathJax-script" async src="{% static 'forum/mathjax-master/es5/tex-chtml.js'%}"></script>
+  <script>
+MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']]
+  },
+  svg: {
+    fontCache: 'global'
+  }
+};
+</script>
+    {% endblock js %}
+{% comment %} 
+  <script>
+        let MQ = MathQuill.getInterface(2); 
+    </script>  {% endcomment %}
+
+
+
+
+
+
+{% block content %} {% for user in users %}
+
+    <div class="container-lg">
+
+      <div class="container-fluid mb-5 main_forum">
+
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb mt-4">
+            <li class="breadcrumb-item"><a href="main_forum.html">Forum</a></li>
+            <li class="breadcrumb-item"><a href="main_forum.html">Kategorie</a></li>
+            <li class="breadcrumb-item"><a href="overview-topics.html">Nazwa Forum</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Tworzenie nowego tematu</li>
+          </ol>
+        </nav>
+
+        <div class="row">
+          <div class="col-12 mt-3">
+            <h2 class="h4 text-white mb-3 p-4 rounded forumInfo">Tworzenie nowego tematu</h2>
+
+            
+          </div>
+        </div>
+
+        <form class="mb-3">
+          <div class="form-group">
+            <label class="pt-4" for="topic">Temat:</label>
+            <input class="form-control" type="text" placeholder="Napisz tutaj nazwe Tematu">
+          </div>
+          <div class="form-group">
+            <label class="pt-4" for="comment">Treść:</label>
+            <textarea class="form-control" id="comment" rows="10" placeholder="Napisz tutaj treść nowego Tematu" required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">Wyślij</button>
+        </form>
+        
+    </div>
+
+
+    </div>
+
+    {% endfor %} 
+    {% endblock content %}

@@ -1,0 +1,293 @@
+{% extends 'forum/base.html' %}
+{% load static %}
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'forum/styles/forum/styleForum.css' %}">
+ <link rel="stylesheet" href="{% static 'forum/MathQuil/mathquill.css' %}"/> 
+{% endblock css %}
+
+{% block js %}
+    <script src="{% static 'forum/MathQuil/mathquill.js' %}"></script>
+    <script id="MathJax-script" async src="{% static 'forum/mathjax-master/es5/tex-chtml.js'%}"></script>
+  <script>
+MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']]
+  },
+  svg: {
+    fontCache: 'global'
+  }
+};
+</script>
+    {% endblock js %}
+{% comment %} 
+  <script>
+        let MQ = MathQuill.getInterface(2); 
+    </script>  {% endcomment %}
+
+
+
+
+
+
+{% block content %} {% for user in users %}
+
+    <div class="container-lg">
+
+      <div class="container-fluid mb-5 main_forum">
+
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb mt-4">
+            <li class="breadcrumb-item"><a href="#">Forum</a></li>
+            <li class="breadcrumb-item"><a href="main_forum.html">Kategorie</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Pytania użytkowników</li>
+          </ol>
+        </nav>
+
+        <div class="row">
+          <div class="col-12 mt-3">
+            <h2 class="h4 text-white mb-0 p-4 rounded-top forumInfo">Tematy</h2>
+
+            <table class="table table-striped table-bordered table-responsive-lg">
+              <thead class="thead-light">
+                <tr>
+                  <th scope="col" class="topic-col">Temat</th>
+                  <th scope="col" class="created-col">Stworzono</th>
+                  <th scope="col">Statystyka</th>
+                  <th scope="col" class="last-post-col">Ostatni post</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <h3 class="h6"><span class="badge badge-primary mr-2">7 unread</span><a href="forum\mysite\forum\templates\forum\post.html">Where does it come from?</a></h3>
+                    <div class="small">Przejdź do strony: <a href="#0">1</a>, <a href="#0">2</a>, <a href="#0">3</a> &hellip; <a href="#0">10</a>, <a href="#0">11</a></div>
+                  </td>
+                  <td>
+                    <div>by <a href="#0">Nazwa autora</a></div>
+                    <div>10.11.2015</div>
+                  </td>
+                  <td>
+                    <div>10 odpowiedzi</div>
+                    <div>190 wyświetleń</div>
+                  </td>
+                  <td>
+                    <h4 class="h6 mb-0 font-weight-bold"><a href="#0">Post name</a></h4>
+                    <div>by <a href="#0">Author name</a></div>
+                    <div> 04.05.2021, 20:45</div>
+                  </td>
+                </tr>
+                <tr>
+                    <td>
+                        <h3 class="h6"><span class="badge badge-primary mr-2">3 unread</span><a href="forum\mysite\forum\templates\forum\post.html">Where does it come from?</a></h3>
+                        <div class="small">Przejdź do strony: <a href="#0">1</a>, <a href="#0">2</a>, <a href="#0">3</a> &hellip; <a href="#0">10</a>, <a href="#0">11</a></div>
+                      </td>
+                  <td>
+                    <div>by <a href="#0">Nazwa autora</a></div>
+                    <div>10.11.2015</div>
+                  </td>
+                  <td>
+                    <div>10 odpowiedzi</div>
+                    <div>190 wyświetleń</div>
+                  </td>
+                  <td>
+                    <h4 class="h6 mb-0 font-weight-bold"><a href="#0">Post name</a></h4>
+                    <div>by <a href="#0">Author name</a></div>
+                    <div> 04.05.2021, 20:45</div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <h3 class="h6"><span class="badge badge-primary mr-2">7 unread</span><a href="forum\mysite\forum\templates\forum\post.html">Where does it come from?</a></h3>
+                    <div class="small">Przejdź do strony: <a href="#0">1</a>, <a href="#0">2</a>, <a href="#0">3</a> &hellip; <a href="#0">10</a>, <a href="#0">11</a></div>
+                  </td>
+                  <td>
+                    <div>by <a href="#0">Nazwa autora</a></div>
+                    <div>10.11.2015</div>
+                  </td>
+                  <td>
+                    <div>10 odpowiedzi</div>
+                    <div>190 wyświetleń</div>
+                  </td>
+                  <td>
+                    <h4 class="h6 mb-0 font-weight-bold"><a href="#0">Post name</a></h4>
+                    <div>by <a href="#0">Author name</a></div>
+                    <div> 04.05.2021, 20:45</div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <h3 class="h6"><a href="#0">Where does it come from?</a></h3>
+                    <div class="small">Przejdź do strony: <a href="#0">1</a>, <a href="#0">2</a>, <a href="forum\mysite\forum\templates\forum\post.html">3</a> &hellip; <a href="#0">10</a>, <a href="#0">11</a></div>
+                  </td>
+                  <td>
+                    <div>by <a href="#0">Nazwa autora</a></div>
+                    <div>10.09.2013</div>
+                  </td>
+                  <td>
+                    <div>10 odpowiedzi</div>
+                    <div>190 wyświetleń</div>
+                  </td>
+                  <td>
+                    <h4 class="h6 mb-0 font-weight-bold"><a href="#0">Post name</a></h4>
+                    <div>by <a href="#0">Author name</a></div>
+                    <div> 04.05.2021, 20:45</div>
+                  </td>
+                </tr>
+
+                <tr>
+                    <td>
+                      <h3 class="h6"><a href="forum\mysite\forum\templates\forum\post.html">Przykładowy tytuł postu. Dzielenie przez 0</a></h3>
+                    </td>
+                    <td>
+                      <div>by <a href="#0">Nazwa autora</a></div>
+                      <div>10.11.2015</div>
+                    </td>
+                    <td>
+                      <div>10 odpowiedzi</div>
+                      <div>190 wyświetleń</div>
+                    </td>
+                    <td>
+                      <h4 class="h6 mb-0 font-weight-bold"><a href="#0">Post name</a></h4>
+                      <div>by <a href="#0">Author name</a></div>
+                      <div> 04.05.2021, 20:45</div>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <h3 class="h6"><a href="forum\mysite\forum\templates\forum\post.html">Przykładowy tytuł postu. Dzielenie przez 0</a></h3>
+                    </td>
+                    <td>
+                      <div>by <a href="#0">Nazwa autora</a></div>
+                      <div>10.11.2015</div>
+                    </td>
+                    <td>
+                      <div>10 odpowiedzi</div>
+                      <div>190 wyświetleń</div>
+                    </td>
+                    <td>
+                      <h4 class="h6 mb-0 font-weight-bold"><a href="#0">Post name</a></h4>
+                      <div>by <a href="#0">Author name</a></div>
+                      <div> 04.05.2021, 20:45</div>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <h3 class="h6"><a href="forum\mysite\forum\templates\forum\post.html">Przykładowy tytuł postu. Dzielenie przez 0</a></h3>
+                    </td>
+                    <td>
+                      <div>by <a href="#0">Nazwa autora</a></div>
+                      <div>10.11.2015</div>
+                    </td>
+                    <td>
+                      <div>10 odpowiedzi</div>
+                      <div>190 wyświetleń</div>
+                    </td>
+                    <td>
+                      <h4 class="h6 mb-0 font-weight-bold"><a href="#0">Post name</a></h4>
+                      <div>by <a href="#0">Author name</a></div>
+                      <div> 04.05.2021, 20:45</div>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <h3 class="h6"><a href="forum\mysite\forum\templates\forum\post.html">Przykładowy tytuł postu. Dzielenie przez 0</a></h3>
+                    </td>
+                    <td>
+                      <div>by <a href="#0">Nazwa autora</a></div>
+                      <div>10.11.2015</div>
+                    </td>
+                    <td>
+                      <div>10 odpowiedzi</div>
+                      <div>190 wyświetleń</div>
+                    </td>
+                    <td>
+                      <h4 class="h6 mb-0 font-weight-bold"><a href="#0">Post name</a></h4>
+                      <div>by <a href="#0">Author name</a></div>
+                      <div> 04.05.2021, 20:45</div>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <h3 class="h6"><a href="forum\mysite\forum\templates\forum\post.html">Przykładowy tytuł postu. Dzielenie przez 0</a></h3>
+                    </td>
+                    <td>
+                      <div>by <a href="#0">Nazwa autora</a></div>
+                      <div>10.11.2015</div>
+                    </td>
+                    <td>
+                      <div>10 odpowiedzi</div>
+                      <div>190 wyświetleń</div>
+                    </td>
+                    <td>
+                      <h4 class="h6 mb-0 font-weight-bold"><a href="#0">Post name</a></h4>
+                      <div>by <a href="#0">Author name</a></div>
+                      <div> 04.05.2021, 20:45</div>
+                    </td>
+                  </tr>
+                  
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+
+        <div class="mb-3 clearfix">
+            <nav aria-label="Nawigacja po stronach postów" class="float-lg-right">
+                <ul class="pagination pagination-sm mb-lg-4">
+                    <li class="page-item active"><a href="#0" class="page-link">1</span></a></li>
+                    <li class="page-item"><a href="#0" class="page-link">2</a></li>
+                    <li class="page-item"><a href="#0" class="page-link">3</a></li>
+                    <li class="page-item"><a href="#0" class="page-link">&hellip; 20</a></li>
+                    <li class="page-item"><a href="#0" class="page-link">Next</a></li>
+    
+                </ul>
+            </nav>
+            <form class="form-inline float-lg-left d-block d-sm-flex">
+                <div class="mb-2 mb-sm-0 mr-2">
+                    Wyświetl post z poprzednich:
+                </div>
+                <div class="form-group mr-2">
+                    <label class="sr-only" for="select-time">Okres czasu</label>
+                    <select class="form-control form-control-sm" name="" id="select-time">
+                        <option value="all-posts" selected>Wszystkie posty</option>
+                        <option value="day">1 dzień</option>
+                        <option value="week">1 tydzień</option>
+                        <option value="month">1 miesiąc</option>
+                        <option value="year">1 rok</option>
+                    </select>
+                </div>
+
+                <div class="mb-2 mb-sm-0 mr-2">
+                    Sortuj poprzez:
+                </div>
+                <div class="form-group mr-2">
+                    <label class="sr-only" for="select-sort">Sortuj poprzez</label>
+                    <select class="form-control form-control-sm" name="" id="select-sort">
+                        <option value="author" selected>Autor</option>
+                        <option value="post-time">Najnowsze</option>
+                        <option value="replies">Odpowiedzi</option>
+                        <option value="subject">Temat</option>
+                        <option value="views">Wyświetlenia</option>
+                    </select>
+                </div>
+
+                <div class="form-group mr-2">
+                    <label class="sr-only" for="select-direction">Kierunek sortowania</label>
+                    <select class="form-control form-control-sm" name="" id="select-direction">
+                        <option value="asc">Rosnąco</option>
+                        <option value="desc" selected>Malejąco</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-sm btn-primary">Ok</button>
+            </form>
+        </div>
+        <a href="forum\mysite\forum\templates\forum\new-topic.html" class="btn btn-lg btn-primary">Nowy Temat</a>
+    </div>
+    </div>
+
+    {% endfor %} 
+    {% endblock content %}
