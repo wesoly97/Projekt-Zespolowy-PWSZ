@@ -20,7 +20,7 @@
       <div class="card-body">
         <h5 class="card-title">Forum</h5>
         <p class="card-text">Poproś o pomoc innych użytkowników!</p>
-        <a href="{% url 'user_at_forum' user.id %}"><input type="button" id="buttonForum" class="btn btn-primary float-right" value="Otwórz"></a>
+        <input type="button" id="buttonForum" data-url="{% url 'user_at_forum' user.id %}" class="btn btn-primary float-right" value="Otwórz">
       </div>
     </div></div>
 
@@ -46,7 +46,7 @@
       <img class="card-img-top" src="{% static 'forum/images/usersHome/statistic.png' %}" alt="Card image cap">
       <div class="card-body">
         <h5 class="card-title">Moje statystyki</h5>
-        <a href="{% url 'userScore' user.id%}" class="btn btn-primary float-right">Otwórz</a>
+        <input type="button"  href="" data-url="{% url 'userScore' user.id%}" class="btn btn-primary float-right" id="buttonStats" value="Otwórz"></a>
       </div>
     </div></div>
         {% if role == 'admin' or role == 'moderator' %}
