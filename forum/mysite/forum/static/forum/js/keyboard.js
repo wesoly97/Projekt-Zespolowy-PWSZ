@@ -1,3 +1,4 @@
+
 MathJax = {
   tex: {
      inlineMath: [['$', '$'], ['\\(', '\\)']]
@@ -28,9 +29,7 @@ let specialKeys = {
   ge: "\\ge",
   isin: "\\isin",
   binom: "\\binom{ }{ }",
-  tan: "\\tan",
-  cot: "\\cot",
-  ent: "\\textcolor{black}{\\text{}}"
+  tg: "\\tan"
 };
 
 // add special keys, but don't override previous keyaction definitions
@@ -80,16 +79,13 @@ $(".keyboard")
       ge: "⩾",
       le: "⩽",
       isin: "∈",
-      binom: "({n}^{k})",
-      tan: "tg",
-      cot: "ctg",
-      bksp: "Backspace",
-      ent: "↵"
+      binom: "binom",
+      tg: "tg",
     },
     customLayout: {
       default: [
-        "sin cos {tan} {cot} {log} {b}",
-        "{alfa} {beta} {ge} {le} {ent}",
+        "sin cos {tg} cot {log}",
+        "{alfa} {beta} {ge} {le}",
         "{frac} {power} {sqrt} {exsqrt}",
         "{sum} \u03c0 {integral} {inf}",
         "{isin} {binom}"
