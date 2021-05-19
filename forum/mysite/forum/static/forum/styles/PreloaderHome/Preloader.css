@@ -1,26 +1,4 @@
-/* 
- _____   _           _         _                        _                  
-|_   _| | |         | |       | |                      | |                 
-  | |   | |__   __ _| |_ ___  | |_ ___  _ __ ___   __ _| |_ ___   ___  ___ 
-  | |   | '_ \ / _` | __/ _ \ | __/ _ \| '_ ` _ \ / _` | __/ _ \ / _ \/ __|
- _| |_  | | | | (_| | ||  __/ | || (_) | | | | | | (_| | || (_) |  __/\__ \
- \___/  |_| |_|\__,_|\__\___|  \__\___/|_| |_| |_|\__,_|\__\___/ \___||___/
 
-Oh nice, welcome to the stylesheet of dreams. 
-It has it all. Classes, ID's, comments...the whole lot:)
-Enjoy responsibly!
-@ihatetomatoes
-
-*/
-
-/* ==========================================================================
-   Chrome Frame prompt
-   ========================================================================== */
-
-
-/* ==========================================================================
-   Author's custom styles
-   ========================================================================== */
 
 
 #loader-wrapper {
@@ -173,7 +151,7 @@ Enjoy responsibly!
                 transition: all 0.3s ease-out;
     }
     .loaded #loader-wrapper {
-        visibility: hidden;
+        display:none;
 
         -webkit-transform: translateY(-100%);  /* Chrome, Opera 15+, Safari 3.1+ */
             -ms-transform: translateY(-100%);  /* IE 9 */
@@ -238,6 +216,7 @@ Enjoy responsibly!
 
 .invisible {
     visibility: hidden;
+    display:none;
 }
 
 /*
@@ -360,8 +339,3 @@ Enjoy responsibly!
     }
 }
 
-/* 
-	Ok so you have made it this far, that means you are very keen to on my code. 
-	Anyway I don't really mind it. This is a great way to learn so you actually doing the right thing:)
-	Follow me @ihatetomatoes
-*/
