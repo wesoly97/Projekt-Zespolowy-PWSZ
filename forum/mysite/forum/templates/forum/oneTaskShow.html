@@ -133,7 +133,7 @@ function checkAnswer()
 <script src="{% static 'forum/js/keyboard.js' %}"></script>
 <script>
   $(document).ready(function(){
-    $(".close").click(function() {
+    $("#output").on("click",".close",function() {
       $(this)
         .parent(".alert")
         .fadeOut();

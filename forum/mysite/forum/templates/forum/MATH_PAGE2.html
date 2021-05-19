@@ -83,11 +83,13 @@
       <p>Wprowadź odpowiedź:</p>
     </div>
     <div class="col-12 answerDiv">
-      <span id="answer0" class="answerO mb-3 keyboard"></span>
-      <textarea name="odpO" id="latexanswer0" class="hiddenAnswer"></textarea>
+      <span id="answer{{forloop.counter0}}" class="answerO mb-3 keyboard"></span>
+      <textarea name="odpO" id="latexanswer{{forloop.counter0}}" class="hiddenAnswer"></textarea>
     </div>
-
   </div>
+  <script>
+    createMathquill({{forloop.counter0}});
+  </script>
   {% endfor %}
   <div class="row justify-content-center pt-5 pb-5" id="sendAnswers">
     <input type="submit" value="Sprawdź zestaw" />
@@ -99,9 +101,6 @@
 </form>
 {% endblock content %}
 {% block jquery %}
-    <script>
-      createMathquill(0);
-    </script>
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 <link href="{% static 'forum/Keyboard/css/keyboard.css' %}" rel="stylesheet">
 <script src="{% static 'forum/Keyboard/js/jquery.keyboard.js' %}"></script>
