@@ -1,51 +1,63 @@
-{% extends 'forum/base.html' %} {% block content %} {% block css %} 
+{% extends 'forum/base.html' %} {% block content %} 
 {% load static %}
-<link rel="stylesheet" href="{% static 'forum/MathQuil/mathquill.css' %}" />
-<script src="{% static 'forum/MathQuil/mathquill.js' %}"></script>
-{% endblock %} {% block js %}
 
-<script>
-  
-  function createMathquill(id) {
-    let pyt_z = MQ.StaticMath(document.getElementById(id), {
-      handlers: {
-        edit: function () {
-          pyt_z.StaticMath();
-          document.getElementById(id) = pyt_z.StaticMath();
-        }
-      }
-  });
-  }
-  
-</script>
+{% block css %}
+<link rel="stylesheet" href="{% static 'forum/katex/katex.css' %}"></link>
+<link rel="stylesheet" href="{% static 'forum/katex/katex.min.css' %}"></link>
+{% endblock css %}
+{% block js %}
+<script type="text/javascript" src = "{% static 'forum/katex/katex.js' %}" ></script>
+<script type="text/javascript" src = "{% static 'forum/katex/katex.min.js' %}"></script>
+<script type="text/javascript" src = "{% static 'forum/katex/contrib/auto-render.js' %}"></script>
+
 {% endblock js %}
-<script>
-  let MQ = MathQuill.getInterface(2);
-</script>
-<div class="home" style="margin-top:10%">
+
+<div class="home">
   <h1>Pytania zamkniete</h1>
   {% for pytZ,odpZZ,oZZ in pytaniaZamkniete %} 
-  <div id="pyt_z{{forloop.counter0}}">
-  PYTANIE : {{ pytZ }} <br />
-  ODPOWIEDZI :{{ odpZZ }}<br />
-  ODPOWIEDZ : {{ oZZ }}<br />
+  <div id="pyt_z{{forloop.counter0}}" style="margin-top:10%" class="render">
+    <div>PYTANIE : {{ pytZ }}</div><br/>
+    <div>ODPOWIEDZI :${{ odpZZ }}$<br/></div>
+    <div>ODPOWIEDZ : ${{ oZZ }}$</div>
   </div>
+
+    <script sync>
+      renderMathInElement(document.getElementById('pyt_z{{forloop.counter0}}'),
+      {
+        delimiters: [
+      {left: "$$", right: "$$", display: false},
+      {left: "$", right: "$", display: false},
+      {left: "\\(", right: "\\)", display: false},
+      {left: "\\[", right: "\\]", display: false}
+    ],
+              throwOnError: false
+      });
+    </script>
+  
+    
+
   <hr />
-  <script>
-    createMathquill('pyt_z{{forloop.counter0}}');
-  </script>
   {% endfor %}
 
   <h1>Pytania otwarte</h1>
   {% for pytO,oOO in pytaniaOtwarte %} 
-  <div id="pyt_otw{{forloop.counter0}}">
-    PYTANIE : {{ pytO }} <br />
-    ODPOWIEDZ : ${{ oOO }}$<br />
-    <script>
-      createMathquill('pyt_otw{{forloop.counter0}}');
-    </script>
+  <div id="pyt_otw{{forloop.counter0}}" class="render">
+    <div>PYTANIE : {{ pytO }}</div>
+    <div>ODPOWIEDZ : ${{ oOO }}$</div>
   </div>
-  
+    <script sync>
+      renderMathInElement(document.getElementById('pyt_otw{{forloop.counter0}}'),
+      {
+        delimiters: [
+      {left: "$$", right: "$$", display: false},
+      {left: "$", right: "$", display: false},
+      {left: "\\(", right: "\\)", display: false},
+      {left: "\\[", right: "\\]", display: false}
+    ],
+              throwOnError: false
+      });
+      
+      </script>
   <hr />
   {% endfor %}
 
