@@ -2,6 +2,7 @@
 {% load static %}
 
 {% block css %}
+<link rel="stylesheet" href="{% static 'forum/styles/userScoreDetails/userScoreDetails.css' %}">
 <link rel="stylesheet" href="{% static 'forum/katex/katex.css' %}"></link>
 <link rel="stylesheet" href="{% static 'forum/katex/katex.min.css' %}"></link>
 {% endblock css %}
@@ -12,13 +13,13 @@
 
 {% endblock js %}
 
-<div class="home">
-  <h1>Pytania zamkniete</h1>
+<div class="container-fluid mt-3 mb-3 w-50 shadow">
+  <div class="row mt-5 description pl-2 shadow-sm"><h1>Pytania zamkniete</h1></div>
   {% for pytZ,odpZZ,oZZ in pytaniaZamkniete %} 
-  <div id="pyt_z{{forloop.counter0}}" style="margin-top:10%" class="render">
-    <div>PYTANIE : {{ pytZ }}</div><br/>
-    <div>ODPOWIEDZI :${{ odpZZ }}$<br/></div>
-    <div>ODPOWIEDZ : ${{ oZZ }}$</div>
+  <div id="pyt_z{{forloop.counter0}}"  class="row shadow-sm">
+    <div class="col-12 pt-2">{{ pytZ }}</div>
+    <div class="col-12 pt-2 odp d-flex justify-content-center">${{odpZZ}}$ </div>
+    <div class="col-12 pt-2 mb-3">ODPOWIEDZ : ${{ oZZ }}$</div>
   </div>
 
     <script sync>
@@ -33,17 +34,13 @@
               throwOnError: false
       });
     </script>
-  
-    
-
-  <hr />
   {% endfor %}
 
-  <h1>Pytania otwarte</h1>
+  <div class="row description pl-2 shadow-sm"><h1>Pytania otwarte</div>
   {% for pytO,oOO in pytaniaOtwarte %} 
-  <div id="pyt_otw{{forloop.counter0}}" class="render">
-    <div>PYTANIE : {{ pytO }}</div>
-    <div>ODPOWIEDZ : ${{ oOO }}$</div>
+  <div id="pyt_otw{{forloop.counter0}}" class="row shadow-sm">
+    <div class="col-12 pt-2">{{ pytO }}</div>
+    <div class="col-12 pt-2 mb-3">ODPOWIEDZ : ${{ oOO }}$</div>
   </div>
     <script sync>
       renderMathInElement(document.getElementById('pyt_otw{{forloop.counter0}}'),
@@ -58,10 +55,8 @@
       });
       
       </script>
-  <hr />
   {% endfor %}
 
-  </div>
 </div>
 
 {% endblock content %}
