@@ -5,8 +5,13 @@
 <link rel="stylesheet" href="{% static 'forum/styles/mathPage2/mathPage2.css' %}">
 <link rel="stylesheet" href="{% static 'forum/styles/keyboard.css' %}">
 <link rel="stylesheet" href="{% static 'forum/MathQuil/mathquill.css' %}" />
+<link rel="stylesheet" href="{% static 'forum/katex/katex.css' %}"></link>
+<link rel="stylesheet" href="{% static 'forum/katex/katex.min.css' %}"></link>
 {% endblock css %}
 {% block js %}
+<script type="text/javascript" src = "{% static 'forum/katex/katex.js' %}" ></script>
+<script type="text/javascript" src = "{% static 'forum/katex/katex.min.js' %}"></script>
+<script type="text/javascript" src = "{% static 'forum/katex/contrib/auto-render.js' %}"></script>
 <script src="{% static 'forum/MathQuil/mathquill.js' %}"></script>
 <script id="MathJax-script" async src="{% static 'forum/mathjax-master/es5/tex-chtml.js'%}"></script>
 <script>
@@ -21,14 +26,14 @@
 
   function createMathquill(id) {
 
-  let answerMathField2 = MQ.MathField(document.getElementById('answer' + id), {
-    handlers: {
-      edit: function () {
-        answerMathField2.latex();
-        document.getElementById('latexanswer' + id).textContent = answerMathField2.latex();
+    let answerMathField2 = MQ.MathField(document.getElementById('answer' + id), {
+      handlers: {
+        edit: function () {
+          answerMathField2.latex();
+          document.getElementById('latexanswer' + id).textContent = answerMathField2.latex();
+        }
       }
-    }
-});
+    });
 
 }
 </script>
@@ -36,7 +41,7 @@
 <script>
    let MQ = MathQuill.getInterface(2);
 </script>
-<form class="container-fluid" method="post" action="{% url 'math_page3' user.id %}">
+<form class="container" method="post" action="{% url 'math_page3' user.id %}">
   {% csrf_token %}
   {% for zz in zzs %}
   <div class="row">
@@ -84,7 +89,10 @@
     </div>
     <div class="col-12 answerDiv">
       <span id="answer{{forloop.counter0}}" class="answerO mb-3 keyboard"></span>
-      <textarea name="odp{{forloop.counter0}}" id="latexanswer{{forloop.counter0}}" class="hiddenAnswer"></textarea>
+      <textarea name="odpO" id="latexanswer{{forloop.counter0}}" class="hiddenAnswer"></textarea>
+      <script sync>
+
+        </script>
     </div>
   </div>
   <script>

@@ -1,5 +1,5 @@
 .hiddenAnswer {
-    display: none;
+    display: block;
   }
   .keyboard {
     height: auto;
@@ -18,3 +18,15 @@
   .mq-math-mode sup.mq-nthroot {
     vertical-align: 0 !important;
   }
+  .ui-keyboard button{
+    font-size:90%;
+  }
+  @media only screen and (max-width: 479px) {
+    .ui-keyboard button{
+      font-size:140%;
+    }
+  }
+
+  .mq-textcolor .mq-text-mode {
+    display: block;
+}

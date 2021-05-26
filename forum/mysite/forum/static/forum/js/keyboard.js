@@ -1,21 +1,14 @@
-
-MathJax = {
-  tex: {
-     inlineMath: [['$', '$'], ['\\(', '\\)']]
-  },
-  svg: {
-     fontCache: 'global'
-  }
-};
-
 let mathquill;
+
 let specialKeys = {
   bksp: "Backspace",
   frac: "\\frac{}{}",
   sqrt: "\\sqrt{}",
-  power: "\\^{}",
+  power: "{}^{}",
+  lower: "{}_{}",
   exsqrt: "\\sqrt[]{}",
-  integral: "\\ \\int",
+  integral: "\\int",
+  integral2: "\\int{}^{}_{}",
   sum: "\\sum",
   log: "\\log_{}{}",
   multi: "\\cdot",
@@ -23,13 +16,16 @@ let specialKeys = {
   add: "\\add",
   sub: "\\sub",
   inf: "\\infin",
-  alfa: "α",
-  beta: "β",
+  alfa: "\\alpha",
+  beta: "\\beta",
   le: "\\le",
   ge: "\\ge",
   isin: "\\isin",
   binom: "\\binom{ }{ }",
-  tg: "\\tan"
+  tg: "\\tan",
+  ctg: "\\ctan",
+  lim: "\\lim",
+  ent: "\\textcolor{black}{\\text{}}"
 };
 
 // add special keys, but don't override previous keyaction definitions
@@ -49,11 +45,44 @@ $(".keyboard")
     if (specialKeys[e.action]) {
       mathquill.keystroke(specialKeys[e.action]);
     } else {
-      mathquill.write(e.action);
-      mathquill.reflow();
+      if(e.action === "\\tan"){
+        // katex.render(e.action, el, {
+        //   displayMode: true,
+        //   throwOnError: true
+        // });
+        mathquill.write("\\tan \\ctan");
+        mathquill.reflow();
+      }
+      else{
+        mathquill.write(e.action);
+        mathquill.reflow();
+      }
     }
   })
   .keyboard({
+    beforeVisible : function(event, keyboard, el) {
+      katex.render("\\binom n k", $('.ui-keyboard-binom').children()[0], {
+        throwOnError: false
+      });
+      katex.render("a\\raisebox{0.3em}{$b$}", $('.ui-keyboard-power').children()[0], {
+        throwOnError: false
+      });
+      katex.render("x_n", $('.ui-keyboard-lower').children()[0], {
+        throwOnError: false
+      });
+      katex.render("\\lim", $('.ui-keyboard-lim').children()[0], {
+        throwOnError: false
+      });
+      katex.render("\\log_{n}k", $('.ui-keyboard-log').children()[0], {
+        throwOnError: false
+      });
+      katex.render("\\int", $('.ui-keyboard-integral').children()[0], {
+        throwOnError: false
+      });
+      katex.render("\\int_{0}^{2}", $('.ui-keyboard-integral2').children()[0], {
+        throwOnError: false
+      });
+    },
     // usePreview: false, powoduje błąd z wpisywaniem dwukrotnym znaku
     autoAccept: true,
     lockInput: false,
@@ -66,11 +95,8 @@ $(".keyboard")
     display: {
       frac: "¼",
       sqrt: "√",
-      power: "^",
       exsqrt: "∛",
-      integral: "∫",
       sum: "Σ",
-      log: "log",
       multi: "*",
       div: "÷",
       inf: "∞",
@@ -79,16 +105,17 @@ $(".keyboard")
       ge: "⩾",
       le: "⩽",
       isin: "∈",
-      binom: "binom",
       tg: "tg",
+      ctg: "ctg",
+      ent: "↵"
     },
     customLayout: {
       default: [
-        "sin cos {tg} cot {log}",
-        "{alfa} {beta} {ge} {le}",
-        "{frac} {power} {sqrt} {exsqrt}",
-        "{sum} \u03c0 {integral} {inf}",
-        "{isin} {binom}"
+        "sin cos {tg} {ctg} {log}",
+        "{alfa} {beta} {ge} {le} {ent}",
+        "{frac} {power} {lower} {sqrt} {exsqrt}",
+        "{sum} \u03c0 {integral} {integral2} {inf}",
+        "{isin} {binom} {lim}"
       ],
     },
     useCombos: false,
