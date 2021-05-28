@@ -14,6 +14,7 @@ from .models import Zadanie_otwarte
 from .models import zadanie_matematyczne
 from .models import Score
 from .models import Zrodlo
+from .models import UserStats
 import random
 from datetime import date, datetime
 from django.core.files.storage import FileSystemStorage
@@ -119,37 +120,37 @@ def current_date():
 def addStatistics(questionList,answerList,stats):
     count=0
     for question in questionList:
-        if(upper(question['dzial'])=="GEOMETRIA"):
+        if(upper(question.dzial)=="GEOMETRIA"):
             stats['GEOMETRIA'][0]+=1
-            if(question['odpowiedz']==answerList[count]):
+            if(question.odpowiedz==answerList[count]):
                 stats['GEOMETRIA'][1]+=1
-        if(upper(question['dzial'])=="TRYGONOMETRIA"):
+        if(upper(question.dzial)=="TRYGONOMETRIA"):
             stats['TRYGONOMETRIA'][0]+=1
-            if(question['odpowiedz']==answerList[count]):
+            if(question.odpowiedz==answerList[count]):
                 stats['TRYGONOMETRIA'][1]+=1
-        if(upper(question['dzial'])=="ALGEBRA"):
+        if(upper(question.dzial)=="ALGEBRA"):
             stats['ALGEBRA'][0]+=1
-            if(question['odpowiedz']==answerList[count]):
+            if(question.odpowiedz==answerList[count]):
                 stats['ALGEBRA'][1]+=1
-        if(upper(question['dzial'])=="LOGARYTMY"):
+        if(upper(question.dzial)=="LOGARYTMY"):
             stats['LOGARYTMY'][0]+=1
-            if(question['odpowiedz']==answerList[count]):
+            if(question.odpowiedz==answerList[count]):
                 stats['LOGARYTMY'][1]+=1
-        if(upper(question['dzial'])=="POTEGOWANIE"):
+        if(upper(question.dzial)=="POTEGOWANIE"):
             stats['POTEGOWANIE'][0]+=1
-            if(question['odpowiedz']==answerList[count]):
+            if(question.odpowiedz==answerList[count]):
                 stats['POTEGOWANIE'][1]+=1
-        if(upper(question['dzial'])=="PIERWIASTKOWANIE"):
+        if(upper(question.dzial)=="PIERWIASTKOWANIE"):
             stats['PIERWIASTKOWANIE'][0]+=1
-            if(question['odpowiedz']==answerList[count]):
+            if(question.odpowiedz==answerList[count]):
                 stats['PIERWIASTKOWANIE'][1]+=1
-        if(upper(question['dzial'])=="FUNKCJE"):
+        if(upper(question.dzial)=="FUNKCJE"):
             stats['FUNKCJE'][0]+=1
-            if(question['odpowiedz']==answerList[count]):
+            if(question.odpowiedz==answerList[count]):
                 stats['FUNKCJE'][1]+=1        
-        if(upper(question['dzial'])=="PRAWDOPODOBIENSTWO"):
+        if(upper(question.dzial)=="PRAWDOPODOBIENSTWO"):
             stats['PRAWDOPODOBIENSTWO'][0]+=1
-            if(question['odpowiedz']==answerList[count]):
+            if(question.odpowiedz==answerList[count]):
                 stats['PRAWDOPODOBIENSTWO'][1]+=1      
         count+=1
     return stats
@@ -381,7 +382,7 @@ def math_page3(request, user_id):
     if not is_user_authenticated(request):
         return render(request, 'forum/error.html', context={'error': 'Nie jesteś zalogowany'})
     users = User.objects.filter(id=auth_user_id(request))
-
+    userResult = UserStats.objects.filter(id_user_id=user_id).first()
     r=request.session.get('r')
     r2=request.session.get('r2')
     r3=request.session.get('r3')
@@ -393,9 +394,9 @@ def math_page3(request, user_id):
     #odpZ = request.POST.getlist('odpZ')
     odpZ=[]
     odpO = request.POST.getlist('odpO')
-
+    openQuestion=[]
+    closeQuestion=[]
     linki = []
-    
     punktyZ=0
     punktyO=0
     punktyMAX=0
@@ -412,6 +413,7 @@ def math_page3(request, user_id):
     
 
     for zz in zzs:
+      closeQuestion.append(zz)
       posts= PostM.objects.filter(zadanie=zz.id)
       for post in posts:
         linki.append(post)
@@ -419,6 +421,7 @@ def math_page3(request, user_id):
       flexRadioDefaultNumber="flexRadioDefault"+str(x)
       my_answer = request.POST[flexRadioDefaultNumber]
       odpZ.append(my_answer)
+    
       if zz.odpowiedz == my_answer:
         punktyZ=punktyZ+1
       tasks_close+=str(zz.id)+' '
@@ -428,6 +431,7 @@ def math_page3(request, user_id):
     x=0
 
     for zo in zos:
+      openQuestion.append(zo)
       posts= PostM.objects.filter(zadanie=zo.id)
       for post in posts:
         linki.append(post)
@@ -440,7 +444,43 @@ def math_page3(request, user_id):
       
     
     punkty=punktyZ+punktyO
-      
+    stats={
+        "GEOMETRIA":[0,0],
+        "TRYGONOMETRIA":[0,0],
+        "ALGEBRA":[0,0],
+        "LOGARYTMY":[0,0],
+        "POTEGOWANIE":[0,0],
+        "PIERWIASTKOWANIE":[0,0],
+        "FUNKCJE":[0,0],
+        "PRAWDOPODOBIENSTWO":[0,0],
+    }
+    stats=addStatistics(openQuestion,odpO,stats)
+    stats=addStatistics(closeQuestion,odpZ,stats)
+    sumOfTask=sum(stats[dzial][0] for dzial in stats)
+    sumOfCorrectTask=sum(stats[dzial][1] for dzial in stats)
+
+    if(not userResult):
+        UserStats(id_user_id=user_id,geometria=str(stats['GEOMETRIA'][1])+ '/'+str(stats['GEOMETRIA'][0]),algebra=str(stats['ALGEBRA'][1])+ '/'+str(stats['ALGEBRA'][0]),trygonometria=str(stats['TRYGONOMETRIA'][1])+ '/'+str(stats['TRYGONOMETRIA'][0]),logarytmy=str(stats['LOGARYTMY'][1])+ '/'+str(stats['LOGARYTMY'][0]),potegowanie=str(stats['POTEGOWANIE'][1])+ '/'+str(stats['POTEGOWANIE'][0]),pierwiastkowanie=str(stats['PIERWIASTKOWANIE'][1])+ '/'+str(stats['PIERWIASTKOWANIE'][0]),funkcje=str(stats['FUNKCJE'][1])+ '/'+str(stats['FUNKCJE'][0]),prawdopodobienstwo=str(stats['PRAWDOPODOBIENSTWO'][1])+ '/'+str(stats['PRAWDOPODOBIENSTWO'][0]),zdobyte=str(sumOfCorrectTask)+ '/'+str(sumOfTask)).save()
+    else:
+        tmpFieldString=userResult.geometria.split("/")
+        userResult.geometria=str(int(tmpFieldString[0])+stats['GEOMETRIA'][1])+'/'+str(int(tmpFieldString[1])+stats['GEOMETRIA'][0])
+        tmpFieldString=userResult.algebra.split("/")
+        userResult.algebra=str(int(tmpFieldString[0])+stats['ALGEBRA'][1])+'/'+str(int(tmpFieldString[1])+stats['ALGEBRA'][0])
+        tmpFieldString=userResult.trygonometria.split("/")
+        userResult.trygonometria=str(int(tmpFieldString[0])+stats['TRYGONOMETRIA'][1])+'/'+str(int(tmpFieldString[1])+stats['TRYGONOMETRIA'][0])
+        tmpFieldString=userResult.logarytmy.split("/")
+        userResult.logarytmy=str(int(tmpFieldString[0])+stats['LOGARYTMY'][1])+'/'+str(int(tmpFieldString[1])+stats['LOGARYTMY'][0])
+        tmpFieldString=userResult.potegowanie.split("/")
+        userResult.potegowanie=str(int(tmpFieldString[0])+stats['POTEGOWANIE'][1])+'/'+str(int(tmpFieldString[1])+stats['POTEGOWANIE'][0])
+        tmpFieldString=userResult.pierwiastkowanie.split("/")
+        userResult.pierwiastkowanie=str(int(tmpFieldString[0])+stats['PIERWIASTKOWANIE'][1])+'/'+str(int(tmpFieldString[1])+stats['PIERWIASTKOWANIE'][0])
+        tmpFieldString=userResult.funkcje.split("/")
+        userResult.funkcje=str(int(tmpFieldString[0])+stats['FUNKCJE'][1])+'/'+str(int(tmpFieldString[1])+stats['FUNKCJE'][0])
+        tmpFieldString=userResult.prawdopodobienstwo.split("/")
+        userResult.prawdopodobienstwo=str(int(tmpFieldString[0])+stats['PRAWDOPODOBIENSTWO'][1])+'/'+str(int(tmpFieldString[1])+stats['PRAWDOPODOBIENSTWO'][0])
+        tmpFieldString=userResult.zdobyte.split("/")
+        userResult.zdobyte=str(int(tmpFieldString[0])+sumOfCorrectTask)+'/'+str(int(tmpFieldString[1])+sumOfTask)
+        userResult.save()
     newScore=Score(id_user_id=user_id, data_testu=data_wyslania_testu, id_zad_otwartych=tasks_open, odp_otwarte=odp_otwarte,
     id_zad_zamknietych=tasks_close, odp_zamkniete=odp_zamkniete, punkty=punkty)
     newScore.save()
@@ -568,25 +608,6 @@ def score(request, user_id):
     start_time = time.monotonic()
     users = User.objects.filter(id=user_id)
     score = Score.objects.filter(id_user_id=user_id)
-    openQuestion=[]
-    closeQuestion=[]
-    listOfOpenQuestionIds=[]
-    listOfCloseQuestionIds=[]
-    listOfCloseQuestionAnswer=[]
-    listOfOpenQuestionAnswer=[]
-    sumOfTask=0
-    sumOfCorrectTask=0
-    stats={
-        "GEOMETRIA":[0,0],
-        "TRYGONOMETRIA":[0,0],
-        "ALGEBRA":[0,0],
-        "LOGARYTMY":[0,0],
-        "POTEGOWANIE":[0,0],
-        "PIERWIASTKOWANIE":[0,0],
-        "FUNKCJE":[0,0],
-        "PRAWDOPODOBIENSTWO":[0,0],
-    }
-
     resultStats={
         "GEOMETRIA":'0',
         "TRYGONOMETRIA":'0',
@@ -598,35 +619,36 @@ def score(request, user_id):
         "PRAWDOPODOBIENSTWO":'0',
         "ZDOBYTE":'0',
     }
-    for question in score:
-        for id in list(question.id_zad_otwartych.split(" "))[:-1]:
-            listOfOpenQuestionIds.append(id)
-        for id in list(question.id_zad_zamknietych.split(" "))[:-1]:
-            listOfCloseQuestionIds.append(id)
-        for id in list(question.odp_zamkniete.split(" "))[:-1]:
-            listOfCloseQuestionAnswer.append(id)
-        for id in list(question.odp_otwarte.split("\n"))[:-1]:
-            listOfOpenQuestionAnswer.append(id)
-    for openQuestionId in listOfOpenQuestionIds:
-        openQuestion.append(zadanie_matematyczne.objects.values('dzial','odpowiedz').get(id=openQuestionId))
-    for closeQuestionId in listOfCloseQuestionIds:
-        closeQuestion.append(zadanie_matematyczne.objects.values('dzial','odpowiedz').get(id=closeQuestionId))
-    stats=addStatistics(openQuestion,listOfOpenQuestionAnswer,stats)
-    stats=addStatistics(closeQuestion,listOfCloseQuestionAnswer,stats)
-
-    sumOfTask=sum(stats[dzial][0] for dzial in stats)
-    sumOfCorrectTask=sum(stats[dzial][1] for dzial in stats)
-
-    resultStats['GEOMETRIA'] = ( round((stats['GEOMETRIA'][1] / stats['GEOMETRIA'][0])*100)) if stats['GEOMETRIA'][1] != 0 else 0
-    resultStats['TRYGONOMETRIA'] = ( round((stats['TRYGONOMETRIA'][1] / stats['TRYGONOMETRIA'][0])*100 )) if stats['TRYGONOMETRIA'][1] != 0 else 0
-    resultStats['ALGEBRA'] = ( round((stats['ALGEBRA'][1] / stats['ALGEBRA'][0])*100 )) if stats['ALGEBRA'][1] != 0 else 0
-    resultStats['LOGARYTMY'] = ( round((stats['LOGARYTMY'][1] / stats['LOGARYTMY'][0])*100) ) if stats['LOGARYTMY'][1] != 0 else 0
-    resultStats['POTEGOWANIE'] = ( round((stats['POTEGOWANIE'][1] / stats['POTEGOWANIE'][0])*100) ) if stats['POTEGOWANIE'][1] != 0 else 0
-    resultStats['PIERWIASTKOWANIE'] = round(( (stats['PIERWIASTKOWANIE'][1] / stats['PIERWIASTKOWANIE'][0])*100 )) if stats['PIERWIASTKOWANIE'][1] != 0 else 0
-    resultStats['POTEGOWANIE'] = ( round((stats['POTEGOWANIE'][1] / stats['POTEGOWANIE'][0])*100 )) if stats['POTEGOWANIE'][1] != 0 else 0
-    resultStats['FUNKCJE'] = ( round((stats['FUNKCJE'][1] / stats['FUNKCJE'][0])*100 )) if stats['FUNKCJE'][1] != 0 else 0
-    resultStats['PRAWDOPODOBIENSTWO'] = ( round((stats['PRAWDOPODOBIENSTWO'][1] / stats['PRAWDOPODOBIENSTWO'][0])*100 )) if stats['PRAWDOPODOBIENSTWO'][1] != 0 else 0
-    resultStats['ZDOBYTE'] = ( round((sumOfCorrectTask / sumOfTask)*100 )) if sumOfCorrectTask != 0 else 0
+    userResult = UserStats.objects.filter(id_user_id=user_id).first()
+    if(not userResult):
+        resultStats['GEOMETRIA'] = 0
+        resultStats['TRYGONOMETRIA'] = 0
+        resultStats['ALGEBRA'] = 0
+        resultStats['LOGARYTMY'] = 0
+        resultStats['POTEGOWANIE'] = 0
+        resultStats['PIERWIASTKOWANIE'] = 0
+        resultStats['FUNKCJE'] = 0
+        resultStats['PRAWDOPODOBIENSTWO'] = 0
+        resultStats['ZDOBYTE'] = 0
+    else:
+        tmpFieldString=userResult.geometria.split("/")
+        resultStats['GEOMETRIA'] =round((int(tmpFieldString[0])/(int(tmpFieldString[1])))*100) if tmpFieldString[1] != '0' else 0
+        tmpFieldString=userResult.trygonometria.split("/")
+        resultStats['TRYGONOMETRIA'] =round((int(tmpFieldString[0])/(int(tmpFieldString[1])))*100) if tmpFieldString[1] != '0' else 0
+        tmpFieldString=userResult.algebra.split("/")
+        resultStats['ALGEBRA'] =round((int(tmpFieldString[0])/(int(tmpFieldString[1])))*100) if tmpFieldString[1] != '0' else 0
+        tmpFieldString=userResult.logarytmy.split("/")
+        resultStats['LOGARYTMY'] =round((int(tmpFieldString[0])/(int(tmpFieldString[1])))*100) if tmpFieldString[1] != '0' else 0
+        tmpFieldString=userResult.potegowanie.split("/")
+        resultStats['POTEGOWANIE'] =round((int(tmpFieldString[0])/(int(tmpFieldString[1])))*100) if tmpFieldString[1] != '0' else 0
+        tmpFieldString=userResult.pierwiastkowanie.split("/")
+        resultStats['PIERWIASTKOWANIE'] =round((int(tmpFieldString[0])/(int(tmpFieldString[1])))*100) if tmpFieldString[1] != '0' else 0
+        tmpFieldString=userResult.funkcje.split("/")
+        resultStats['FUNKCJE'] =round((int(tmpFieldString[0])/(int(tmpFieldString[1])))*100) if tmpFieldString[1] != '0' else 0
+        tmpFieldString=userResult.prawdopodobienstwo.split("/")
+        resultStats['PRAWDOPODOBIENSTWO'] =round((int(tmpFieldString[0])/(int(tmpFieldString[1])))*100) if tmpFieldString[1] != '0' else 0
+        tmpFieldString=userResult.zdobyte.split("/")
+        resultStats['ZDOBYTE'] =round((int(tmpFieldString[0])/(int(tmpFieldString[1])))*100) if tmpFieldString[1] != '0' else 0
     print('seconds: ', time.monotonic() - start_time)
     context = {'users':users, 'score':score,'Stats':resultStats}
     return render(request, 'forum/userScore.html',context)
