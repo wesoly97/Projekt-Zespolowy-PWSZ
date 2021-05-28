@@ -179,3 +179,17 @@ class Dzial_matematyki(models.Model):
 
     def __str__(self):
         return self.dzial
+
+class UserStats(models.Model):
+    id_user=models.ForeignKey(User, on_delete=models.CASCADE)
+    geometria=models.CharField(max_length=50)
+    trygonometria=models.CharField(max_length=50)
+    algebra=models.CharField(max_length=50)
+    logarytmy=models.CharField(max_length=50)
+    potegowanie=models.CharField(max_length=50)
+    pierwiastkowanie=models.CharField(max_length=50)
+    funkcje=models.CharField(max_length=50)
+    prawdopodobienstwo=models.CharField(max_length=50)
+    zdobyte=models.CharField(max_length=50)
+    def __str__(self):
+        return self.id_user
