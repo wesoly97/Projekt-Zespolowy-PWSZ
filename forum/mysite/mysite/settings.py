@@ -26,8 +26,8 @@ SECRET_KEY = '=^i0ea9(dma3a9o5vu^(4m0nsusf0#migksiy8pyh+3)r&9g70'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ['*']
+enforce_schema=True
 
 # Application definition
 
@@ -43,6 +43,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -80,15 +81,17 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 
 
 DATABASES = {
-        'default': {
+    'default': {
         'ENGINE': 'djongo',
         'NAME': 'DataBase',
-        'HOST': 'mongodb+srv://user:lol990@cluster0.nvy9l.mongodb.net/DataBase?retryWrites=true&w=majority',
-        'USER': 'user',
-        'PASSWORD': 'lol990',
+        'CLIENT': {
+           'host': 'mongodb+srv://user:lol990@cluster0.nvy9l.mongodb.net/DataBase?retryWrites=true&w=majority',
+           'port': 27017,
+           'username': 'user',
+           'password': 'lol990',
+        }
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
@@ -129,3 +132,4 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'forum\static\images') 
+
