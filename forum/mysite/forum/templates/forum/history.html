@@ -1,35 +1,24 @@
-{% extends 'forum/base.html' %} {% block content %} {% block css %} 
+{% extends 'forum/base.html' %} 
+{% block content %}
 {% load static %}
-<link rel="stylesheet" href="{% static 'forum/MathQuil/mathquill.css' %}" />
+
+{% block css %}
 <link rel="stylesheet" href="{% static 'forum/styles/history/history.css' %}">
-<script src="{% static 'forum/MathQuil/mathquill.js' %}"></script>
-{% endblock %} {% block js %}
-<script src="{% static 'forum/MathQuil/mathquill.js' %}"></script>
-<script
-  id="MathJax-script"
-  async
-  src="{% static 'forum/mathjax-master/es5/tex-chtml.js'%}"
-></script>
-<script>
-  MathJax = {
-    tex: {
-      inlineMath: [
-        ["$", "$"],
-        ["\\(", "\\)"],
-      ],
-    },
-    svg: {
-      fontCache: "global",
-    },
-  };
-</script>
+<link rel="stylesheet" href="{% static 'forum/katex/katex.css' %}"></link>
+<link rel="stylesheet" href="{% static 'forum/katex/katex.min.css' %}"></link>
+{% endblock css %}
+
+{% block js %}
+<script type="text/javascript" src = "{% static 'forum/katex/katex.js' %}" ></script>
+<script type="text/javascript" src = "{% static 'forum/katex/katex.min.js' %}"></script>
+<script type="text/javascript" src = "{% static 'forum/katex/contrib/auto-render.js' %}"></script>
 {% endblock js %}
 
 <div class="home">
 <div class="row">
-<div class="form-check col-md-6 col-6">
+<div class="form-check col-md-6 col-6" id="pytZ">
   <h1>Pytania zamkniete</h1>
-  {% for pytZ,odpZZ,oZZ,pytObrazkiZ in pytaniaZamkniete %} 
+  {% for pytZ,odpZZ,oZZ,pytObrazkiZ in pytaniaZamkniete %}
   {% if pytObrazkiZ %}
     <img class="rounded mx-auto d-block" src="{% static pytObrazkiZ %}" />
   {% endif %}
@@ -39,8 +28,21 @@
   <hr />
   {% endfor %}
   </div>
+
+      <script sync>
+      renderMathInElement(document.getElementById('pytZ'),
+      {
+        delimiters: [
+      {left: "$$", right: "$$", display: false},
+      {left: "$", right: "$", display: false},
+      {left: "\\(", right: "\\)", display: false},
+      {left: "\\[", right: "\\]", display: false}
+    ],
+              throwOnError: false
+      });
+    </script>
   
-  <div class="form-check col-md-6 col-6">
+  <div class="form-check col-md-6 col-6" id="pytO">
   <h1>Pytania otwarte</h1>
   {% for pytO,oOO,pytObrazkiO in pytaniaOtwarte %}
   {% if pytObrazkiO %}
@@ -53,7 +55,21 @@
   </div>
   </div>
 
-  <div class="row">
+        <script sync>
+      renderMathInElement(document.getElementById('pytO'),
+      {
+        delimiters: [
+      {left: "$$", right: "$$", display: false},
+      {left: "$", right: "$", display: false},
+      {left: "\\(", right: "\\)", display: false},
+      {left: "\\[", right: "\\]", display: false}
+    ],
+              throwOnError: false
+      });
+    </script>
+  
+
+  <div class="row" id="posty"> 
   <div class="form-check col-md-4 col-4">
   <h1>POSTY</h1>
   {% for p in posts %} 
@@ -89,4 +105,18 @@
 
   </div>
 </div>
+
+        <script sync>
+      renderMathInElement(document.getElementById('posty'),
+      {
+        delimiters: [
+      {left: "$$", right: "$$", display: false},
+      {left: "$", right: "$", display: false},
+      {left: "\\(", right: "\\)", display: false},
+      {left: "\\[", right: "\\]", display: false}
+    ],
+              throwOnError: false
+      });
+    </script>
+  
 {% endblock content %}
