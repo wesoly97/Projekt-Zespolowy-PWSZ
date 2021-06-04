@@ -114,6 +114,7 @@ function checkAnswer()
     data: {
       questionId:{{singleQuestion.id}},
       answer: $('.hiddenAnswer').val(),
+      answerClose: $('input[name="answer"]:checked').val(),
       csrfmiddlewaretoken:'{{csrf_token}}',
     },
     success: function (data) {

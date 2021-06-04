@@ -15,6 +15,7 @@ from .models import zadanie_matematyczne
 from .models import Score
 from .models import Zrodlo
 from .models import UserStats
+from .models import Dzial_matematyki
 import random
 from datetime import date, datetime
 from django.core.files.storage import FileSystemStorage
@@ -201,8 +202,11 @@ def addQuestionView(request, user_id):
     if auth_user_rank(request) != 'admin' and auth_user_rank(request) != 'moderator':
         return render(request, 'forum/error.html', context={'error': 'Brak uprawnień'})
     users = User.objects.filter(id=user_id)
-
-    context = {'users': users}
+    questionType=Dzial_matematyki.objects.all()
+    sets=[]
+    for i in range(15, 22):
+        sets.append('MATURA20'+str(i))
+    context = {'users': users,'types':questionType,'sets':sets}
     
     return render(request, 'forum/addQuestionOpen.html', context)
 
@@ -211,7 +215,11 @@ def addQuestionViewClosedQuestion(request, user_id):
     if auth_user_rank(request) != 'admin' and auth_user_rank(request) != 'moderator':
         return render(request, 'forum/error.html', context={'error': 'Brak uprawnień'})
     users = User.objects.filter(id=user_id)
-    context = {'users': users}
+    questionType=Dzial_matematyki.objects.all()
+    sets=[]
+    for i in range(15, 22):
+        sets.append('MATURA20'+str(i))
+    context = {'users': users,'types':questionType,'sets':sets}
     return render(request, 'forum/addQuestionClose.html', context)
 
 
@@ -247,7 +255,11 @@ def addQuestionOpenToDatabase(request):
 
     users = User.objects.filter(id=request.POST["user_id"])
     nameNew='{% url "addQuestionOpenToDatabase" %}'
-    context = {'users': users}
+    questionType=Dzial_matematyki.objects.all()
+    sets=[]
+    for i in range(15, 22):
+        sets.append('MATURA20'+str(i))
+    context = {'users': users,'types':questionType,'sets':sets}
     return render(request, 'forum/addQuestionOpen.html', context)
 
 def addQuestionCloseToDatabase(request):
@@ -287,7 +299,11 @@ def addQuestionCloseToDatabase(request):
 
     users = User.objects.filter(id=request.POST["user_id"])
     nameNew='{% url "addQuestionOpenToDatabase" %}'
-    context = {'users': users}
+    questionType=Dzial_matematyki.objects.all()
+    sets=[]
+    for i in range(15, 22):
+        sets.append('MATURA20'+str(i))
+    context = {'users': users,'types':questionType,'sets':sets}
     return render(request, 'forum/addQuestionClose.html', context)
 
 def register2(request):
@@ -764,7 +780,8 @@ def history(request, user_id):
 
 def oneTaskGenerate(request, user_id):
     users = User.objects.filter(id=user_id)
-    context = {'users': users}
+    questionType=Dzial_matematyki.objects.all()
+    context = {'users': users, 'types':questionType}
     return render(request, 'forum/oneTaskSettings.html', context)
 
 def oneTaskGenerateSendSettings(request, user_id):
@@ -776,13 +793,17 @@ def oneTaskGenerateSendSettings(request, user_id):
     context = {'users': users,'singleQuestion':random_item}
     return render(request, 'forum/oneTaskShow.html', context)
 def oneTaskCheckAnswer(request, user_id):
-    sendAnswer=request.POST.get("answer","")
     questionId=request.POST.get("questionId","")
     question = zadanie_matematyczne.objects.filter(id=questionId)
+    if(question.values('rodzaj')[0]['rodzaj']=="otwarte"):
+        sendAnswer=request.POST.get("answer","")
+    else:
+        sendAnswer=request.POST.get("answerClose","")
     response_data={}
     print(question.values('odpowiedz')[0]['odpowiedz'])
     try:
         response_data['result']=question.values('odpowiedz')[0]['odpowiedz']
+        
         if(question.values('odpowiedz')[0]['odpowiedz']==sendAnswer):
             response_data['message']='<div class="alert alert-success" role="alert"><h3>Twoja odpowiedź jest poprawna!</h3><a class="close">&times;</a></div>'
         else:
