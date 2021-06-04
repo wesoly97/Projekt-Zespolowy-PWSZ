@@ -36,22 +36,18 @@
                </div>
                <div id="data_content">
                   <h6> Numer zadania </h6>
-                  <input class="form-control inputs" type="text" placeholder="Numer zadania" name="numberTask" required>
+                  <input class="form-control inputs" type="number" placeholder="Numer zadania" name="numberTask" required>
                   <h6>Dział</h6>
                   <select class="form-control inputs" name="section" required>
-                     <option>1</option>
-                     <option>2</option>
-                     <option>3</option>
-                     <option>4</option>
-                     <option>5</option>
+                     {% for type in types %}
+                     <option>{{type}}</option>
+                     {% endfor %}
                   </select>
                   <h6>Zestaw</h6>
                   <select class="form-control inputs" name="set" required>
-                     <option>test</option>
-                     <option>2</option>
-                     <option>3</option>
-                     <option>4</option>
-                     <option>5</option>
+                   {% for set in sets %}
+                     <option>{{set}}</option>
+                  {% endfor %}
                   </select>
                   <h6>Punkty</h6>
                   <input class="form-control inputs" type="number" placeholder="Punkty" name="NumberPoints" min=0

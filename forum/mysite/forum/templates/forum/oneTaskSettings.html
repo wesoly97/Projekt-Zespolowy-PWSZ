@@ -15,18 +15,16 @@
         <div class="form-group">
           <label htmlFor="questionType">Wybierz rodzaj pytania:</label>
           <select name="questionType" id="questionType" class="custom-select">
-            <option value="otwarte" selected>Otwarte</option>
-            <option value="zamkniete">Zamknięte</option>
+            <option value="otwarte" selected>OTWARTE</option>
+            <option value="zamkniete">ZAMKNIĘTE</option>
           </select>
         </div>
         <div class="form-group">
           <label htmlFor="questionSection">Wybierz dział matematyki:</label>
           <select name="questionSection" id="questionSection" class="custom-select">
-            <option value="Arytmetyka" selected>Arytmetyka</option>
-            <option value="Logarytmy">Logarytmy</option>
-            <option value="geometria">Geometria</option>
-            <option value="prawdopodobieństwo">Prawdopodobieństwo</option>
-            <option value="procenty">Procenty</option>
+          {% for type in types %}
+          <option value={{type}} selected>{{type}}</option>
+          {% endfor %} 
           </select>
         </div>
         <input type="submit" class="btn" value="Wygeneruj zadanie!" />
