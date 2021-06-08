@@ -367,7 +367,6 @@ def user_at_forum(request, user_id):
     context = {'posts': posts,'users': users, 'postsToChcekM': postsToChcekM,'postsCheched': postsCheched, 'range': range(posts.paginator.num_pages)}
     return render(request, 'forum/userFORUM.html', context)
 
-
 def math_page2(request, user_id):
     if not is_user_authenticated(request):
         return render(request, 'forum/error.html', context={'error': 'Nie jesteś zalogowany'})
@@ -378,8 +377,8 @@ def math_page2(request, user_id):
     r3=request.session.get('r3')
     r4=request.session.get('r4')
 
-    r=(random.randint(1,4))
-    r2=(random.randint(1,4))
+    r=(random.randint(1,1))
+    r2=(random.randint(1,1))
     r3=(random.randint(1,3))
     r4=(random.randint(1,3))
 
@@ -388,9 +387,9 @@ def math_page2(request, user_id):
     request.session['r3'] = r3
     request.session['r4'] = r4
    
-    zos=zadanie_matematyczne.objects.filter(id=225)|zadanie_matematyczne.objects.filter(id=230)
-    zzs=zadanie_matematyczne.objects.filter(id=201)|zadanie_matematyczne.objects.filter(id=181)|zadanie_matematyczne.objects.filter(id=180)
-    
+    zos=zadanie_matematyczne.objects.filter(nr_wersji=r).filter(rodzaj="otwarte")
+    zzs=zadanie_matematyczne.objects.filter(nr_wersji=r2).filter(rodzaj="zamkniete")
+
     context = {'users': users,'zos': zos,'zzs': zzs}
     return render(request, 'forum/MATH_PAGE2.html', context)
 
@@ -399,14 +398,14 @@ def math_page3(request, user_id):
         return render(request, 'forum/error.html', context={'error': 'Nie jesteś zalogowany'})
     users = User.objects.filter(id=auth_user_id(request))
     userResult = UserStats.objects.filter(id_user_id=user_id).first()
+
     r=request.session.get('r')
     r2=request.session.get('r2')
     r3=request.session.get('r3')
     r4=request.session.get('r4')
 
-    zos=zadanie_matematyczne.objects.filter(id=225)|zadanie_matematyczne.objects.filter(id=230)
-    zzs=zadanie_matematyczne.objects.filter(id=201)|zadanie_matematyczne.objects.filter(id=181)|zadanie_matematyczne.objects.filter(id=180)
-
+    zos=zadanie_matematyczne.objects.filter(nr_wersji=r).filter(rodzaj="otwarte")
+    zzs=zadanie_matematyczne.objects.filter(nr_wersji=r2).filter(rodzaj="zamkniete")
     #odpZ = request.POST.getlist('odpZ')
     odpZ=[]
     odpO = request.POST.getlist('odpO')
