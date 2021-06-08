@@ -82,8 +82,8 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 DATABASES = {
         'default': {
         'ENGINE': 'djongo',
-        'NAME': 'DataBase',
-        'HOST': 'mongodb+srv://user:lol990@cluster0.nvy9l.mongodb.net/DataBase?retryWrites=true&w=majority',
+        'NAME': 'DataBaseFinal',
+        'HOST': 'mongodb+srv://user:lol990@cluster0.nvy9l.mongodb.net/DataBaseFinal?retryWrites=true&w=majority',
         'USER': 'user',
         'PASSWORD': 'lol990',
     }
