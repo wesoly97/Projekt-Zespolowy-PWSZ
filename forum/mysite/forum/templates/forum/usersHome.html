@@ -5,74 +5,104 @@
   <link rel="stylesheet" href="{% static 'forum/styles/usersHome/UsersHome.css' %}"> 
 {% endblock css %} 
 {% for user in users %}
-  <div class="container-fluid">
+{% if role == 'admin' or role == 'moderator' %}
+  <div class="container">
     <div class="row " >
-    <div class="col-sm   kk"><div class="card" id="upperCard">
+    <div class="col-lg-4  "><div class="card" id="upperCard">
       <img class="card-img-top" src="{% static 'forum/images/usersHome/math1.png' %}" alt="Card image cap">
       <div class="card-body">
         <h5 class="card-title">Wygeneruj zestaw</h5>
         <p class="card-text">Wygenerujemy dla Ciebie unikatowy zestaw maturalny.</p>
-        <a href="{% url 'math_page2' user.id %}" class="btn btn-primary float-right">Generuj</a>
+        <a href="{% url 'math_page2' user.id %}" class="btn  float-right">Generuj</a>
       </div>
     </div></div>
-    <div class="col-sm kk" ><div class="card"  id="centerCard">
+    <div class="col-lg-4 " ><div class="card"  id="centerCard">
       <img class="card-img-top" src="{% static 'forum/images/usersHome/forum.png' %}" alt="Card image cap">
       <div class="card-body">
         <h5 class="card-title">Forum</h5>
         <p class="card-text">Poproś o pomoc innych użytkowników!</p>
-        <input type="button" id="buttonForum" data-url="{% url 'user_at_forum' user.id %}" class="btn btn-primary float-right" value="Otwórz">
+        <input type="button" id="buttonForum" data-url="{% url 'user_at_forum' user.id %}" class="btn  float-right" value="Otwórz">
       </div>
     </div></div>
 
-    <div class="col-sm kk"><div class="card" >
+    <div class="col-lg-4 "><div class="card" >
       <img class="card-img-top" src="{% static 'forum/images/usersHome/math2.png' %}" alt="Card image cap">
       <div class="card-body">
         <h5 class="card-title">Wygeneruj zadanie</h5>
         <p class="card-text">Wygeneruj losowe zadanie z wybranej kategori.</p>
-        <a href="{% url 'oneTaskGenerate' user.id %}" class="btn btn-primary float-right">Generuj</a>
-      </div>
-    </div></div>
-    <div id="splitter" class="w-100 "></div>
-    
-    <div class="col-sm-auto offset-sm-2 bottom kk" id="coldel"><div class="card" >
-      <img class="card-img-top" src="{% static 'forum/images/usersHome/history.png' %}" alt="Card image cap">
-      <div class="card-body">
-        <h5 class="card-title">Historia</h5>
-        <input type="button"  href="" data-url="{% url 'history' user.id%}" class="btn btn-primary float-right" id="buttonHistory" value="Otwórz"></a>
+        <a href="{% url 'oneTaskGenerate' user.id %}" class="btn  float-right">Generuj</a>
       </div>
     </div></div>
     
-    <div class="col-sm-auto bottom  "><div class="card"  >
+    
+    
+    
+    <div class="col-lg-4    "><div class="card" id="lowerLeft" >
       <img class="card-img-top" src="{% static 'forum/images/usersHome/statistic.png' %}" alt="Card image cap">
       <div class="card-body">
         <h5 class="card-title">Moje statystyki</h5>
-        <input type="button"  href="" data-url="{% url 'userScore' user.id%}" class="btn btn-primary float-right" id="buttonStats" value="Otwórz"></a>
+        <input type="button"  href="" data-url="{% url 'userScore' user.id%}" class="btn  float-right" id="buttonStats" value="Otwórz"></a>
       </div>
     </div></div>
-        {% if role == 'admin' or role == 'moderator' %}
-    <div class="col-sm-auto bottom "><div class="card" >
+       
+    <div class="col-lg-4 bottom "><div class="card" >
       <img class="card-img-top" src="{% static 'forum/images/usersHome/que1.jpg' %}" alt="Card image cap">
       <div class="card-body">
         <h5 class="card-title">Dodaj zadanie zamknięte</h5>
   
-        <a href="{% url 'addQuestionClose' user.id %}" class="btn btn-primary float-right">Dodaj</a>
+        <a href="{% url 'addQuestionClose' user.id %}" class="btn  float-right">Dodaj</a>
       </div>
     </div></div>
-    <div class="col-sm-auto bottom "><div class="card"  >
+    <div class="col-lg-4  bottom "><div class="card"  >
       <img class="card-img-top" src="{% static 'forum/images/usersHome/que2.jpg' %}" alt="Card image cap">
       <div class="card-body">
         <h5 class="card-title">Dodaj zadanie otwarte</h5>
-              <a href="{% url 'addQuestionOpen' user.id %}" class="btn btn-primary float-right">Dodaj</a>
+              <a href="{% url 'addQuestionOpen' user.id %}" class="btn  float-right">Dodaj</a>
       </div>
     </div>
-
     </div>
   
   {% endif %}
+  {% if role != 'admin' and role != 'moderator' %}
+  <div class="container">
+    <div class="row " >
+    <div class="col-lg-6  "><div class="card" id="upperCard">
+      <img class="card-img-top" src="{% static 'forum/images/usersHome/math1.png' %}" alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title">Wygeneruj zestaw</h5>
+        <p class="card-text">Wygenerujemy dla Ciebie unikatowy zestaw maturalny.</p>
+        <a href="{% url 'math_page2' user.id %}" class="btn  float-right">Generuj</a>
+      </div>
+    </div></div>
+    <div class="col-lg-6 " ><div class="card"  id="centerCard">
+      <img class="card-img-top" src="{% static 'forum/images/usersHome/forum.png' %}" alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title">Forum</h5>
+        <p class="card-text">Poproś o pomoc innych użytkowników!</p>
+        <input type="button" id="buttonForum" data-url="{% url 'user_at_forum' user.id %}" class="btn  float-right" value="Otwórz">
+      </div>
+    </div></div>
+    <div class="col-lg-6    "><div class="card" id="lowerLeft" >
+      <img class="card-img-top" src="{% static 'forum/images/usersHome/statistic.png' %}" alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title">Moje statystyki</h5>
+        <p class="card-text">Zobacz swóje postępy!</p>
+        <input type="button"  href="" data-url="{% url 'userScore' user.id%}" class="btn  float-right" id="buttonStats" value="Otwórz"></a>
+      </div>
+    </div></div>
+
+    <div class="col-lg-6 "><div class="card" >
+      <img class="card-img-top" src="{% static 'forum/images/usersHome/math2.png' %}" alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title">Wygeneruj zadanie</h5>
+        <p class="card-text">Wygeneruj losowe zadanie z wybranej kategori.</p>
+        <a href="{% url 'oneTaskGenerate' user.id %}" class="btn  float-right">Generuj</a>
+      </div>
+    </div></div>
+ 
+  {% endif %}
   </div>
 </div>
-
-
 {% endfor %}
 
 {% endblock content %}

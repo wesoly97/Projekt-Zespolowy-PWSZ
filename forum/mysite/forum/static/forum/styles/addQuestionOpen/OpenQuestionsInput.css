@@ -56,7 +56,20 @@ h6{
     float: right;
     margin-top: 20px;
     background-color: #FFE06B;
-    border: 2px solid #FFE06B;
+   
     border-radius: 5px;
     font-weight: bold;
 }
+.btn{
+    margin:10px; 
+    background-color: #FFE06B;
+    font-weight: bold;
+    border: #FFE06B;
+    color: black;
+    float: right;
+    
+  }
+  .btn:hover{
+    background-color: #002030 !important;
+    color: #FFE06B;
+  }

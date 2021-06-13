@@ -17,28 +17,26 @@ form > *{
   color: #fff176;
   font-size: 24px;
 }
+.btn{
+  margin:10px; 
+  background-color: #FFE06B;
+  font-weight: bold;
+  border: #FFE06B;
+  color: black;
+  float: right;
+  
+}
+.btn:hover{
+  background-color: #002030;
+  color: #FFE06B;
+}
 form img {
   width: 60%;
   height: auto;
   margin-bottom: 20px;
 }
-#sendAnswers input {
-  border: none;
-  font-family: Roboto;
-  height: 30px;
-  width: 130px;
-  background-color: #fff176;
-  margin-right: 10px;
-  border: 1px black solid;
-}
-#sendAnswers button {
-  border: none;
-  font-family: Roboto;
-  height: 30px;
-  width: 130px;
-  background-color: #fff176;
-  border: 1px black solid;
-}
+
+
 #sendAnswers a {
   color: black;
   font-family: Roboto;
@@ -82,23 +80,8 @@ form img {
   .description {
     font-size: 38px;
   }
-  #sendAnswers input {
-    border: none;
-    font-family: Roboto;
-    height: 50px;
-    width: 190px;
-    background-color: #fff176;
-    margin-right: 10px;
-    border: 1px black solid;
-  }
-  #sendAnswers button {
-    border: none;
-    font-family: Roboto;
-    height: 50px;
-    width: 190px;
-    background-color: #fff176;
-    border: 1px black solid;
-  }
+ 
+  
   .radioButton {
     width: 20px;
     height: 20px;

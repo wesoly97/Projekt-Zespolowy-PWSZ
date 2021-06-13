@@ -92,10 +92,9 @@
   </script>
   {% endfor %}
   <div class="row justify-content-center pt-5 pb-5" id="sendAnswers">
-    <input type="submit" value="Sprawdź zestaw" />
-    <button value="Wróć">
-      <a href="{% url 'usersHOME' user.id %}">Wróć</a>
-    </button>
+    <input type="submit" value="Sprawdź zestaw" class="btn" />
+    <button href="href={% url 'usersHOME' user.id %}"  class="btn" >Wróć</button>
+  
   </div>
 {% endfor %}
 </form>
