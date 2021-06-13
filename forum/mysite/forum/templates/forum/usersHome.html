@@ -53,7 +53,7 @@
         <a href="{% url 'addQuestionClose' user.id %}" class="btn  float-right">Dodaj</a>
       </div>
     </div></div>
-    <div class="col-lg-4  bottom "><div class="card"  >
+    <div class="col-lg-4  bottom "><div class="card" id="lastKafelek"  >
       <img class="card-img-top" src="{% static 'forum/images/usersHome/que2.jpg' %}" alt="Card image cap">
       <div class="card-body">
         <h5 class="card-title">Dodaj zadanie otwarte</h5>
@@ -82,7 +82,7 @@
         <input type="button" id="buttonForum" data-url="{% url 'user_at_forum' user.id %}" class="btn  float-right" value="Otwórz">
       </div>
     </div></div>
-    <div class="col-lg-6    "><div class="card" id="lowerLeft" >
+    <div class="col-lg-6"><div class="card" id="lowerLeft" >
       <img class="card-img-top" src="{% static 'forum/images/usersHome/statistic.png' %}" alt="Card image cap">
       <div class="card-body">
         <h5 class="card-title">Moje statystyki</h5>
@@ -91,12 +91,12 @@
       </div>
     </div></div>
 
-    <div class="col-lg-6 "><div class="card" >
+    <div class="col-lg-6 "><div class="card" id="lastKafelek" >
       <img class="card-img-top" src="{% static 'forum/images/usersHome/math2.png' %}" alt="Card image cap">
       <div class="card-body">
         <h5 class="card-title">Wygeneruj zadanie</h5>
         <p class="card-text">Wygeneruj losowe zadanie z wybranej kategori.</p>
-        <a href="{% url 'oneTaskGenerate' user.id %}" class="btn  float-right">Generuj</a>
+        <a href="{% url 'oneTaskGenerate' user.id %}" class="btn float-right">Generuj</a>
       </div>
     </div></div>
  

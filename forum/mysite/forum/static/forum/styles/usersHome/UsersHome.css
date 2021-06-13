@@ -18,10 +18,7 @@ body > div{
     margin: auto;
     margin-bottom: 20px;
 }
-
-
 .btn{
-    
     background-color: #FFE06B;
     font-weight: bold;
     border: #FFE06B;
@@ -110,6 +107,7 @@ body > div{
         margin-right: 0%;
         margin-left: auto;
          margin-right: auto;
+         margin-bottom: 10px;
     }
     #lowerLeft{
         float: none;
@@ -126,5 +124,8 @@ body > div{
     .bottom{
         margin-top: 2%;
         float:right;
+    }
+    #lastKafelek{
+        margin-bottom: 10px;
     }
 }
