@@ -169,6 +169,10 @@ footer i
   margin-top: auto;
   font-size: 16px;  
 }
+.hiperlinki{
+  color: #fff !important;
+}
+
 footer span{
   padding-left: 15px;
 }
@@ -187,3 +191,4 @@ footer ul{
     padding-left: 0;
   }
 } 
+
