@@ -11,20 +11,6 @@
     color: #fff176;
     font-size: 24px;
 }
-#sender{
-    border: none;
-    font-family: Roboto;
-    height: 30px;
-    width: 130px;
-    float: right;
-    background-color: #fff176;
-    margin-right: 10px;
-    border: 1px black solid;
-}
-#sender:hover{
-    background-color: #668099;
-    color: #FFE06B;
-}
 .alert{
   width:50%;
   margin:20px auto;
