@@ -22,16 +22,3 @@ select:focus{
 select > option{
     font-weight: 700 !important;
 }
-.btn{
-    margin: 10px;
-    background-color: #FFE06B;
-    font-weight: bold;
-    border: #FFE06B;
-    color: black;
-    float: right;
-    padding: 10px;
-}
-.btn:hover{
-    background-color: #002030;
-    color: #FFE06B;
-}

@@ -36,7 +36,7 @@
                </div>
                <div id="data_content">
                   <h6> Numer zadania </h6>
-                  <input class="form-control inputs" type="number" placeholder="Numer zadania" name="numberTask" required>
+                  <input class="form-control inputs" type="number" placeholder="Numer zadania" name="numberTask" min=0 required>
                   <h6>Dział</h6>
                   <select class="form-control inputs" name="section" required>
                      {% for type in types %}
@@ -50,8 +50,7 @@
                   {% endfor %}
                   </select>
                   <h6>Punkty</h6>
-                  <input class="form-control inputs" type="number" placeholder="Punkty" name="NumberPoints" min=0
-                     required>
+                  <input class="form-control inputs" type="number" placeholder="Punkty" name="NumberPoints" min=0 required>
                </div>
             </div>
          </div>

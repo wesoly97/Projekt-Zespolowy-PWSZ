@@ -17,19 +17,6 @@ form > *{
   color: #fff176;
   font-size: 24px;
 }
-.btn{
-  margin:10px; 
-  background-color: #FFE06B;
-  font-weight: bold;
-  border: #FFE06B;
-  color: black;
-  float: right;
-  
-}
-.btn:hover{
-  background-color: #002030;
-  color: #FFE06B;
-}
 form img {
   width: 60%;
   height: auto;
