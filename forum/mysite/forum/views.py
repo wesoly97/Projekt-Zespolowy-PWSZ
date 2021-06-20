@@ -3,6 +3,8 @@ from django.db.models import Max
 
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
+from django.core.mail import send_mail
+from django.conf import settings
 
 from .models import User
 from .models import Post
@@ -183,6 +185,9 @@ def login_user(request):
         except IndexError:
             context = {'cont': "Hfdhshfd", 'error': "Błędne dane logowania"}
             return render(request, 'forum/login.html', context)
+        if(user.ranga=="toConfirm"):
+            context = {'cont': "Hfdhshfd", 'error': "Konto nie aktywowane"}
+            return render(request, 'forum/login.html', context)
         request.session['logged_user'] = user.id
         return redirect('usersHOME', user_id=auth_user_id(request))
     else:
@@ -322,13 +327,24 @@ def register2(request):
         msg="Empty,try again"
     else:
         if(User.objects.filter(name=Name).count()==0):
-            u = User(name=Name,password=Password,ranga="user",numer_kontaktowy=ContactNumber,email=Email,miasto=City,szkola=SchoolName)
+            u = User(name=Name,password=Password,ranga="toConfirm",numer_kontaktowy=ContactNumber,email=Email,miasto=City,szkola=SchoolName)
             u.save()
             msg="User added"
+            subject = 'Registration CyrkielekPWSZ'
+            message = 'click the link to confirm your account: www.cyrkielek.com/confirmAccount/'+u.id
+            email_from = settings.EMAIL_HOST_USER
+            recipient_list = [Email,]
+            send_mail( subject, message, email_from, recipient_list )
         else:
             msg="User with that name exists,try again"
     context = {'msg': msg}
     return render(request, 'forum/register2.html', context)
+
+def confirmAccount(request, user_id):
+    user = User.objects.filter(id=user_id)[0]
+    user.ranga="user"
+    user.save()
+    return redirect('login')
 
 def usersHOME(request, user_id):
     if not is_user_authenticated(request):
