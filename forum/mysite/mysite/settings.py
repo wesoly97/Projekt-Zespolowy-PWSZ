@@ -83,9 +83,9 @@ DATABASES = {
         'default': {
         'ENGINE': 'djongo',
         'NAME': 'DataBaseFinal',
-        'HOST': 'mongodb+srv://user:lol990@cluster0.nvy9l.mongodb.net/DataBaseFinal?retryWrites=true&w=majority',
         'USER': 'user',
         'PASSWORD': 'lol990',
+        'HOST': 'mongodb://user:lol990@cluster0-shard-00-00.nvy9l.mongodb.net:27017,cluster0-shard-00-01.nvy9l.mongodb.net:27017,cluster0-shard-00-02.nvy9l.mongodb.net:27017/DataBase?ssl=true&replicaSet=atlas-qipt8m-shard-0&authSource=admin&retryWrites=true&w=majority&ssl_cert_reqs=CERT_NONE',
     }
 }
 
