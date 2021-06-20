@@ -127,7 +127,9 @@ header span.cursor.typing {
     text-decoration: none;
     color:#000;
     background:#acff89;
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     height: 10em;
     width: 10em;
     padding: 1em;
@@ -146,7 +148,7 @@ header span.cursor.typing {
     transform: rotate(-3deg);
     position: relative;
     top: -5px;
-    background:#fff471;
+    background:#f5b308;
 }
 #info ul li:nth-child(4n) div{
     transform: rotate(5deg);
@@ -155,10 +157,9 @@ header span.cursor.typing {
 }
 #info ul li div:hover,ul li div:focus{
     box-shadow: 10px 10px 7px rgba(0,0,0,.7);
-    transform: scale(1.25);
+    transform: scale(1.15);
     position: relative;
 }
-
 
 .rowInfo{
     margin-top: 150px;
@@ -176,19 +177,13 @@ header span.cursor.typing {
     background-color: #90ab23;
     color: #002030;
 }
-.profileCard{
-    background-color: #7D4500;
-    color: #390C7D;
-    min-height: 300px;
-}
-.profileCard img{
-    width: 150px;
-    height: auto;
+#profile .row{
+    margin-top: -4vw;
 }
 #profile div div div:nth-child(1){
     font-size: 4rem;
 }
-@media (max-width: 1200px) {
+@media screen and (max-width: 1200px) {
     #profile div div div:nth-child(1){
       font-size: calc(1.525rem + 3.3vw);
     }
@@ -196,10 +191,65 @@ header span.cursor.typing {
 #profile div div div:nth-child(2){
     font-size: 2rem;
 }
-@media (max-width: 1200px) {
+@media screen and (max-width: 1200px) {
     #profile div div div:nth-child(2){
       font-size: calc(.525rem + 2.3vw);
     }
+}
+#primary{
+    left: calc(25px - 1vw);
+    bottom: calc(20px + 15vw);
+}
+@media screen and (min-width: 1200px){
+    #primary{
+        left: 12vw;
+        bottom: calc(50px + 15vw);
+    }
+}
+#medium{
+    left: calc(-155px + 30vw);
+    bottom: calc(40px + 15vw);
+}
+@media screen and (min-width: 1200px){
+    #medium{
+        left: 20vw;
+        bottom: calc(100px + 15vw);
+    }
+}
+#studies{
+    left: calc(-80px + 25vw);
+    bottom: calc(-20px + 15vw);
+}
+@media screen and (min-width: 1200px){
+    #studies{
+        left: 28vw;
+        bottom: calc(-20px + 15vw);
+    }
+}
+@media screen and (max-width: 575.98px) {
+    .educationPathContainer{
+        display: none !important;
+    }
+}
+.educationType{
+    width: 15vw;
+    height: 15vw;
+    background: #90ab23;
+    border: 0.57vw dashed #002030;
+    display: inline-block;
+    margin-left: 55px;
+    border-radius: 100%;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+.educationType img {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    object-fit: cover;
+    top: 0;
+    left: 0;
 }
 #discovery{
     padding-top: 15px;
@@ -208,6 +258,11 @@ header span.cursor.typing {
     color: white;
     position: relative;
     overflow: hidden;
+}
+@media screen and (max-width: 575.98px) {
+    #discovery{
+        font-size: calc(.525rem + 1.3vw);
+    }
 }
 #discovery .row div:nth-child(2){
     background-color: #002030a1;
