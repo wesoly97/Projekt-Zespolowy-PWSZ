@@ -31,19 +31,8 @@ form {
     margin-right: 10px;
     border: 1px black solid;
   }
-  .sendAnswers button {
-    border: none;
-    font-family: Roboto;
-    height: 30px;
-    width: 130px;
-    background-color: #fff176;
-    border: 1px black solid;
-  }
-  .sendAnswers a {
-    color: black;
-    font-family: Roboto;
-    text-decoration: none;
-  }
+  
+ 
   
   .answerO {
     width: 100%;
