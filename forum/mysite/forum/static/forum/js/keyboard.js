@@ -32,7 +32,7 @@ let specialKeys = {
   ge: "\\ge",
   isin: "\\isin",
   binom: "\\binom{ }{ }",
-  tg: "\\tg",
+  tg: "\\tan",
   ctg: "\\cot",
   lim: "\\lim",
   ent: "\\textcolor{black}{\\text{}}"

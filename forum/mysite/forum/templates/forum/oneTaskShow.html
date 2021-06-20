@@ -3,23 +3,16 @@
 {% block content %}{% for user in users %}
 {% block css %}
 <link rel="stylesheet" href="{% static 'forum/styles/oneTaskShow/oneTaskShow.css' %}">
-<link rel="stylesheet" href="{% static 'forum/styles/keyboard.css' %}">
+<link rel="stylesheet" href="{% static 'forum/styles/keyboard.css' %}" />
+<link rel="stylesheet" href="{% static 'forum/katex/katex.min.css' %}" />
 <link rel="stylesheet" href="{% static 'forum/MathQuil/mathquill.css' %}" />
 {% endblock css %}
 {% block js %}
+<script type="text/javascript" src = "{% static 'forum/katex/katex.min.js' %}"></script>
+<script type="text/javascript" src = "{% static 'forum/katex/contrib/auto-render.js' %}"></script>
 <script src="{% static 'forum/MathQuil/mathquill.js' %}"></script>
-<script id="MathJax-script" async src="{% static 'forum/mathjax-master/es5/tex-chtml.js'%}"></script>
 <script>
-   MathJax = {
-      tex: {
-         inlineMath: [['$', '$'], ['\\(', '\\)']]
-      },
-      svg: {
-         fontCache: 'global'
-      }
-   };
-  function createMathquill(id) {
-
+function createMathquill(id) {
   let answerMathField2 = MQ.MathField(document.getElementById('answer' + id), {
     handlers: {
       edit: function () {
@@ -28,23 +21,21 @@
       }
     }
 });
-
 }
 </script>
 {% endblock js %}
 <script>
    let MQ = MathQuill.getInterface(2);
 </script>
-<div id="main" class="container-fluid">
+<div id="main" class="container mb-5">
   <div class="row">
-    <div class="col-lg-3 col-1"></div>
-    <div class="col-lg-6 col-10">
+    <div class="col-12">
       <form method="post" onsubmit="return false;">
         <div class="row taskBg">
           <div class="col-12 description">
             <h5>Zadanie</h5>
           </div>
-          <div class="col-12">
+          <div class="col-12 pt-2">
             {{singleQuestion.tresc}}
           </div>
           {% if singleQuestion.url != "" %}
@@ -53,25 +44,25 @@
           </div>
           {% endif %}
           {% if singleQuestion.rodzaj == "zamkniete" %}
-          <div class="form-check col-md-3 col-6">
+          <div class="form-check col-md-3 col-sm-6 col-12">
             <input type="radio" class="radioButton" value={{singleQuestion.odp_a}} name="answer" id="flexRadioDefault1">
             <label class="form-check-label" for="flexRadioDefault1">
               $${{singleQuestion.odp_a}}$$
             </label>
           </div>
-          <div class="form-check col-md-3 col-6">
+          <div class="form-check col-md-3 col-sm-6 col-12">
             <input type="radio" class="radioButton" value={{singleQuestion.odp_b}} name="answer" id="flexRadioDefault2">
             <label class="form-check-label" for="flexRadioDefault2">
               $${{singleQuestion.odp_b}}$$
             </label>
           </div>
-          <div class="form-check col-md-3 col-6">
+          <div class="form-check col-md-3 col-sm-6 col-12 ">
             <input type="radio" class="radioButton" value={{singleQuestion.odp_c}} name="answer" id="flexRadioDefault3">
             <label class="form-check-label" for="flexRadioDefault3">
               $${{singleQuestion.odp_c}}$$
             </label>
           </div>
-          <div class="form-check col-md-3 col-6">
+          <div class="form-check col-md-3 col-sm-6 col-12 ">
             <input type="radio" class="radioButton" value={{singleQuestion.odp_d}} name="answer" id="flexRadioDefault4">
             <label class="form-check-label" for="flexRadioDefault4">
               $${{singleQuestion.odp_d}}$$
@@ -81,9 +72,9 @@
           <div class="col-12 pb-2">
             Wprowadź odpowiedź:
           </div>
-          <div class="col-12">
+          <div class="col-12 keyboardInputDiv">
             {% csrf_token %}
-              <span id="answer{{forloop.counter0}}" class="answerO mb-3 keyboard"></span>
+              <span id="answer{{forloop.counter0}}" class="keyboardInput mb-3 keyboard"></span>
               <textarea name="answer" id="latexanswer{{forloop.counter0}}" class="hiddenAnswer"></textarea>
           </div>
           <script>
@@ -96,15 +87,11 @@
         </div>
       </form>
     </div>
-    <div class="col-lg-3 col-1"></div>
-    <div class="col-lg-3 col-1"></div>
-    <div class="col-lg-6 col-10">
+    <div class="col-12">
       <div id='output'></div>
     </div>
-    <div class="col-lg-3 col-1"></div>
   </div>
 </div>
-
 <script type="text/javascript">
 function checkAnswer()
   {
@@ -136,11 +123,24 @@ function checkAnswer()
 <script src="{% static 'forum/js/keyboard.js' %}"></script>
 <script>
   $(document).ready(function(){
+    $("#sender").on('click',function(){
+      $(this).prop('disabled', true);
+    })
     $("#output").on("click",".close",function() {
       $(this)
         .parent(".alert")
         .fadeOut();
     });
   })
+  renderMathInElement(document.getElementById('keyboardInput'),
+    {
+      delimiters: [
+          {left: "$$", right: "$$", display: true},
+          {left: "\\[", right: "\\]", display: true},
+          {left: "$", right: "$", display: false},
+          {left: "\\(", right: "\\)", display: false}
+      ]
+    }
+  );
 </script>
 {% endblock jquery %}
