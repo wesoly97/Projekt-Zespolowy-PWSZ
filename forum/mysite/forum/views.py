@@ -3,6 +3,8 @@ from django.db.models import Max
 
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
+from django.core.mail import send_mail
+from django.conf import settings
 
 from .models import User
 from .models import Post
@@ -183,6 +185,9 @@ def login_user(request):
         except IndexError:
             context = {'cont': "Hfdhshfd", 'error': "Błędne dane logowania"}
             return render(request, 'forum/login.html', context)
+        if(user.ranga=="toConfirm"):
+            context = {'cont': "Hfdhshfd", 'error': "Konto nie aktywowane"}
+            return render(request, 'forum/login.html', context)
         request.session['logged_user'] = user.id
         return redirect('usersHOME', user_id=auth_user_id(request))
     else:
@@ -322,13 +327,24 @@ def register2(request):
         msg="Empty,try again"
     else:
         if(User.objects.filter(name=Name).count()==0):
-            u = User(name=Name,password=Password,ranga="user",numer_kontaktowy=ContactNumber,email=Email,miasto=City,szkola=SchoolName)
+            u = User(name=Name,password=Password,ranga="toConfirm",numer_kontaktowy=ContactNumber,email=Email,miasto=City,szkola=SchoolName)
             u.save()
             msg="User added"
+            subject = 'Registration CyrkielekPWSZ'
+            message = 'click the link to confirm your account: http://127.0.0.1:8000/confirmAccount/'+str(u.id)
+            email_from = settings.EMAIL_HOST_USER
+            recipient_list = [Email,]
+            send_mail( subject, message, email_from, recipient_list )
         else:
             msg="User with that name exists,try again"
     context = {'msg': msg}
     return render(request, 'forum/register2.html', context)
+
+def confirmAccount(request, user_id):
+    user = User.objects.filter(id=user_id)[0]
+    user.ranga="user"
+    user.save()
+    return redirect('login')
 
 def usersHOME(request, user_id):
     if not is_user_authenticated(request):
@@ -415,7 +431,8 @@ def math_page3(request, user_id):
     odpO = request.POST.getlist('odpO')
     openQuestion=[]
     closeQuestion=[]
-    linki = []
+    linkiOtwarte = []
+    linkiZamkniete = []
     punktyZ=0
     punktyO=0
     punktyMAX=0
@@ -435,7 +452,8 @@ def math_page3(request, user_id):
       closeQuestion.append(zz)
       posts= PostM.objects.filter(zadanie=zz.id)
       for post in posts:
-        linki.append(post)
+        linkiZamkniete.append(post.id)
+      print(len(linkiZamkniete))
       punktyMAX=punktyMAX+1
       flexRadioDefaultNumber="flexRadioDefault"+str(x)
       my_answer = request.POST[flexRadioDefaultNumber]
@@ -453,7 +471,7 @@ def math_page3(request, user_id):
       openQuestion.append(zo)
       posts= PostM.objects.filter(zadanie=zo.id)
       for post in posts:
-        linki.append(post)
+        linkiOtwarte.append(post.id)
       punktyMAX=punktyMAX+2
       if zo.odpowiedz == odpO[x]:
         punktyO=punktyO+2
@@ -503,7 +521,7 @@ def math_page3(request, user_id):
     newScore=Score(id_user_id=user_id, data_testu=data_wyslania_testu, id_zad_otwartych=tasks_open, odp_otwarte=odp_otwarte,
     id_zad_zamknietych=tasks_close, odp_zamkniete=odp_zamkniete, punkty=punkty)
     newScore.save()
-    context = {'users': users,'zos': zos,'zzs': zzs,'odpO': odpO,'odpZ': odpZ,'punktyMAX': punktyMAX,'punkty': punkty,'linki': linki}
+    context = {'users': users,'zos': zos,'zzs': zzs,'odpO': odpO,'odpZ': odpZ,'punktyMAX': punktyMAX,'punkty': punkty,'linkiOtwarte': linkiOtwarte,'linkiZamkniete': linkiZamkniete}
     return render(request, 'forum/MATH_PAGE3.html', context)
 
 def post(request, user_id,post_id):
