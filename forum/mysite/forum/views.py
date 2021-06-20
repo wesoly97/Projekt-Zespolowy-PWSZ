@@ -210,6 +210,8 @@ def register1(request):
 def addQuestionView(request, user_id):
     if auth_user_rank(request) != 'admin' and auth_user_rank(request) != 'moderator':
         return render(request, 'forum/error.html', context={'error': 'Brak uprawnień'})
+    if not user_id==request.session['logged_user']:
+        return render(request, 'forum/index.html')  
     users = User.objects.filter(id=user_id)
     questionType=Dzial_matematyki.objects.all()
     sets=[]
@@ -223,6 +225,8 @@ def addQuestionView(request, user_id):
 def addQuestionViewClosedQuestion(request, user_id):
     if auth_user_rank(request) != 'admin' and auth_user_rank(request) != 'moderator':
         return render(request, 'forum/error.html', context={'error': 'Brak uprawnień'})
+    if not user_id==request.session['logged_user']:
+        return render(request, 'forum/index.html')  
     users = User.objects.filter(id=user_id)
     questionType=Dzial_matematyki.objects.all()
     sets=[]
@@ -235,6 +239,7 @@ def addQuestionViewClosedQuestion(request, user_id):
 def addQuestionOpenToDatabase(request):
     if auth_user_rank(request) != 'admin' and auth_user_rank(request) != 'moderator':
         return render(request, 'forum/error.html', context={'error': 'Brak uprawnień'})
+    
     NumberTask = request.POST['numberTask']
     section = request.POST['section']
     set = request.POST['set']
@@ -349,13 +354,16 @@ def confirmAccount(request, user_id):
 def usersHOME(request, user_id):
     if not is_user_authenticated(request):
         return render(request, 'forum/error.html', context={'error': 'Nie jesteś zalogowany'})
-
+    if not user_id==request.session['logged_user']:
+        return render(request, 'forum/index.html')  
     users = User.objects.filter(id=auth_user_id(request))
     context = {'users': users, 'role': auth_user_rank(request)}
     return render(request, 'forum/usersHome.html', context)
 
 
 def user_at_forum(request, user_id):
+    if not user_id==request.session['logged_user']:
+        return render(request, 'forum/index.html')  
     users = User.objects.filter(id=auth_user_id(request))
 
     page_number = request.GET.get('page')
@@ -390,6 +398,8 @@ def user_at_forum(request, user_id):
 def math_page2(request, user_id):
     if not is_user_authenticated(request):
         return render(request, 'forum/error.html', context={'error': 'Nie jesteś zalogowany'})
+    if not user_id==request.session['logged_user']:
+        return render(request, 'forum/index.html')  
     users = User.objects.filter(id=auth_user_id(request))
 
     r=request.session.get('r')
@@ -416,6 +426,8 @@ def math_page2(request, user_id):
 def math_page3(request, user_id):
     if not is_user_authenticated(request):
         return render(request, 'forum/error.html', context={'error': 'Nie jesteś zalogowany'})
+    if not user_id==request.session['logged_user']:
+        return render(request, 'forum/index.html')  
     users = User.objects.filter(id=auth_user_id(request))
     userResult = UserStats.objects.filter(id_user_id=user_id).first()
 
@@ -637,11 +649,17 @@ def delete_odpM(request, user_id,post_id,answer_id):
     return redirect('postM', user_id=auth_user_id(request), post_id=post_id)
 
 def userPanel(request, user_id):
+    if not is_user_authenticated(request):
+        return render(request, 'forum/index.html')
+    if not user_id==request.session['logged_user']:
+        return render(request, 'forum/index.html')    
     users = User.objects.filter(id=user_id)
     context = {'users': users}
     return render(request, 'forum/userPanel.html', context)
      
 def score(request, user_id):
+    if not user_id==request.session['logged_user']:
+        return render(request, 'forum/index.html')   
     start_time = time.monotonic()
     users = User.objects.filter(id=user_id)
     score = Score.objects.filter(id_user_id=user_id)
@@ -800,6 +818,8 @@ def history(request, user_id):
     return render(request, 'forum/history.html', context)
 
 def oneTaskGenerate(request, user_id):
+    if not user_id==request.session['logged_user']:
+        return render(request, 'forum/index.html')  
     users = User.objects.filter(id=user_id)
     questionType=Dzial_matematyki.objects.all()
     context = {'users': users, 'types':questionType}
