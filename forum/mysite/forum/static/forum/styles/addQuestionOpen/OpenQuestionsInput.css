@@ -1,75 +1,30 @@
 .top{
-    color:#FFE06B;
-    background-color: #495F75;
+    color:#FFC745;
+    background-color: #293642;
     padding-top: 10px;
     padding-bottom: 5px;
     padding-left: 10px;
     align-items:center;
     font-weight: bold !important;
-    
-}
-.row{
-    margin: auto;
 }
 span{
     height: fit-content;
-   
     display: run-in !important;
     max-width: 100%;
     box-shadow: none!important;
     -webkit-box-shadow:none !important;
 }
-.border2{
-    height: fit-content;
-    padding: 3px;
-    border: 1px solid #CED4DA;
-    background: #FFFFFF;
-    border-radius: 5px;
-}
-#data_content{
-    padding-top: 20px;
-    padding-bottom: 20px;
+.bgContent{
     background-color: #EBEBEB;
-
 }
-#que_content{
-    background-color: #EBEBEB;
-    padding-top: 20px;
-    padding-bottom: 20px;
-}
-h6{
-    margin-left: 28%;
-}
-#que h6{
-    margin-left: 8%;
-}
-.inputs{
-    width: 40%;
-    margin: auto;
-    padding-left: 1%;
-}
-.inputsFile{
-    width: 30%;
-    margin-left: 9%;
-}
-#addQuestion{
-    float: right;
-    margin-top: 20px;
-    background-color: #FFE06B;
-   
-    border-radius: 5px;
-    font-weight: bold;
-}
-.btn{
-    margin:10px; 
+.form-control-file::-webkit-file-upload-button {
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
     background-color: #FFE06B;
     font-weight: bold;
     border: #FFE06B;
     color: black;
-    float: right;
-    
-  }
-  .btn:hover{
-    background-color: #002030 !important;
-    color: #FFE06B;
-  }
+    border-radius: .25rem;
+    cursor: pointer;
+}

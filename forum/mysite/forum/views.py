@@ -673,8 +673,8 @@ def score(request, user_id):
     return render(request, 'forum/userScore.html',context)
   
 def scoreDetails(request, user_id):
-    users = User.objects.filter(id=user_id)
     score = Score.objects.filter(id=user_id)
+    users = User.objects.filter(id=request.session['logged_user'])
     nzO=[]
     nzZ=[]
     oZZ=[]
@@ -713,7 +713,7 @@ def scoreDetails(request, user_id):
 
     pytaniaZamkniete=zip(pytZ,odpZZ,oZZ)
     pytaniaOtwarte=zip(pytO,oOO)
-    context = {'pytaniaZamkniete':pytaniaZamkniete, 'pytaniaOtwarte':pytaniaOtwarte}
+    context = {'users':users,'pytaniaZamkniete':pytaniaZamkniete, 'pytaniaOtwarte':pytaniaOtwarte}
     return render(request, 'forum/userScoreDetails.html',context)
 
 def check(request, user_id,post_id):
