@@ -6,6 +6,9 @@
     padding-left: 10px;
     align-items:center;
     font-weight: bold !important;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    
 }
 span{
     height: fit-content;
@@ -16,6 +19,10 @@ span{
 }
 .bgContent{
     background-color: #EBEBEB;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
 }
 .form-control-file::-webkit-file-upload-button {
     padding: .375rem .75rem;
@@ -27,4 +34,22 @@ span{
     color: black;
     border-radius: .25rem;
     cursor: pointer;
+}
+.form-control-file::-webkit-file-upload-button:hover {
+    background-color: #002030;
+    color: #FFE06B;
+}
+@media (min-width: 767px){
+    .bgContent{
+        margin-left: 15px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+}
+@media (max-width: 766px){
+    .bgContent{
+        margin-left: 15px;
+        margin-right: 15px;
+        
+    }
 }
