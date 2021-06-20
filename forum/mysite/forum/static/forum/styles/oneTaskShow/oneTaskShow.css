@@ -4,12 +4,18 @@
     padding-left: 0;
 }
 .taskBg{
-    background-color: #f7f7f7;;
+    background-color: #EBEBEB;
 }
 .description{
-    background-color: #668099;
-    color: #fff176;
-    font-size: 24px;
+    color: #FFC745;
+    background-color: #293642;
+    padding-top: 10px;
+    padding-bottom: 5px;
+    padding-left: 10px;
+    align-items: center;
+    font-weight: bold !important;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
 }
 .alert{
   width:50%;
