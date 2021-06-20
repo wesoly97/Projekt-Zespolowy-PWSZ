@@ -38,7 +38,8 @@
  {{score.punkty}}/40
 </div>
 <div class="col-md-4 text-center border d-flex align-items-center justify-content-center">
-  <a href="{% url 'userScoreDetails' score.id %}" class="buttonTable btn navButtons float-right">Szczegóły</a>
+  
+  <input type="button"   data-url="{% url 'userScoreDetails' score.id %}"  class=" btn navButtons float-right" value="Szczegóły">
 </div>
 
 
