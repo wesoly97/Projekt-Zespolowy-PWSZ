@@ -1,3 +1,14 @@
-.pytZ{
-    margin-top: 200px;
+.padding{
+    padding-top:62px;
 }
+.description {
+    color: #FFC745;
+    background-color: #293642;
+    padding-top: 10px;
+    padding-bottom: 5px;
+    align-items: center;
+    font-weight: bold !important;
+}
+.srodek{
+    background-color: #EBEBEB;
+  }

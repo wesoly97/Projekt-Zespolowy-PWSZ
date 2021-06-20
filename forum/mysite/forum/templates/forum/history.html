@@ -14,20 +14,30 @@
 <script type="text/javascript" src = "{% static 'forum/katex/contrib/auto-render.js' %}"></script>
 {% endblock js %}
 
-<div class="home">
-<div class="row">
-<div class="form-check col-md-6 col-6" id="pytZ">
-  <h1>Pytania zamkniete</h1>
-  {% for pytZ,odpZZ,oZZ,pytObrazkiZ in pytaniaZamkniete %}
-  {% if pytObrazkiZ %}
-    <img class="rounded mx-auto d-block" src="{% static pytObrazkiZ %}" />
-  {% endif %}
-  PYTANIE : {{ pytZ }} <br />
-  ODPOWIEDZI : ${{ odpZZ }}$<br />
-  ODPOWIEDZ : ${{ oZZ }}$<br />
-  <hr />
-  {% endfor %}
-  </div>
+<div class="container-fluid">
+  
+  <div class="row padding ">
+    <div class="col-xl-12 description text-center"><h1>Historia</h1></div>
+    <div class=" px-0 col-xl-6 col-lg-12 srodek" id="pytZ">
+      <h2 class="text-center description">Pytania zamkniete</h2>
+      {% for pytZ,odpZZ,oZZ,pytObrazkiZ in pytaniaZamkniete %}
+      <div class="ml-2 pb-2">
+        {{ pytZ }}
+      </div>
+      {% if pytObrazkiZ %}
+      <div class="ml-2 pb-2">
+        <img class="rounded mx-auto d-block" src="{% static pytObrazkiZ %}" />
+      </div>
+      {% endif %}
+      <div class="ml-2 pb-2">
+        ${{ odpZZ }}$
+      </div>
+      <div class="ml-2">
+        <b>ODPOWIEDŹ : ${{ oZZ }}$ </b>
+      </div>
+      <hr />
+      {% endfor %}
+    </div>
 
       <script sync>
       renderMathInElement(document.getElementById('pytZ'),
@@ -41,18 +51,24 @@
               throwOnError: false
       });
     </script>
+    <div class="px-0 col-xl-6 col-lg-12 srodek " id="pytO">
+      <h2 class="text-center description">Pytania otwarte</h2>
+      {% for pytO,oOO,pytObrazkiO in pytaniaOtwarte %}
   
-  <div class="form-check col-md-6 col-6" id="pytO">
-  <h1>Pytania otwarte</h1>
-  {% for pytO,oOO,pytObrazkiO in pytaniaOtwarte %}
-  {% if pytObrazkiO %}
-   <img class="rounded mx-auto d-block" src="{% static pytObrazkiO %}" />
-  {% endif %} 
-  PYTANIE : {{ pytO }} <br />
-  ODPOWIEDZ : ${{ oOO }}$<br />
-  <hr />
-  {% endfor %}
-  </div>
+      <div class="ml-2">
+        {{ pytO }}
+      </div>
+      {% if pytObrazkiO %}
+      <div class="ml-2 pb-2">
+        <img class="rounded mx-auto d-block" src="{% static pytObrazkiO %}" />
+      </div>
+      {% endif %}
+      <div class="ml-2">
+        ODPOWIEDŹ : ${{ oOO }}$
+      </div>
+      <hr />
+      {% endfor %}
+    </div>
   </div>
 
         <script sync>
@@ -69,40 +85,39 @@
     </script>
   
 
-  <div class="row" id="posty"> 
-  <div class="form-check col-md-4 col-4">
-  <h1>POSTY</h1>
-  {% for p in posts %} 
-  temat : {{ p.subject }} <br />
-  tresc : {{ p.text }}<br />
-  <a class="btn btn-outline-dark btn-md" 
-  href="{% url 'post'  p.userP_id p.id %}" role="button">Przejdź</a>
-  <hr>
-  {% endfor %}
- </div>
+   <div class="row"> 
+    <div class="col-xl-12 px-0 ">
+        <h2 class="description text-center">Posty</h2>
+        {% for p in posts %} 
+          temat : {{ p.subject }} <br />
+          tresc : {{ p.text }}<br />
+          <a class="btn btn-outline-dark btn-md" 
+          href="{% url 'post'  p.userP_id p.id %}" role="button">Przejdź</a>
+        <hr>
+        {% endfor %}
+    </div>
 
-<div class="form-check col-md-4 col-4">
-  <h1>KOMENTARZE DO POSTOW UZYTKOWNIKOW</h1>
-  {% for p in answer %} 
-  temat : {{p.post}} <br />
-  tresc : {{ p.answer }}<br />
-   <a class="btn btn-outline-dark btn-md" 
-  href="{% url 'post'  p.userA_id p.post_id %}" role="button">Przejdź</a>
-  <hr>
-  {% endfor %}
-  </div>
+    <div class="col-xl-12 px-0">
+      <h2 class="description text-center" >Komentarze do postów użytkowników</h2>
+      {% for p in answer %} 
+      temat : {{p.post}} <br />
+      tresc : {{ p.answer }}<br />
+      <a class="btn btn-outline-dark btn-md" 
+      href="{% url 'post'  p.userA_id p.post_id %}" role="button">Przejdź</a>
+      <hr>
+      {% endfor %}
+    </div>
 
-<div class="form-check col-md-4 col-4">
-  <h1>KOMENTARZE DO POSTOW ZADAN</h1>
-  {% for p in answerM %} 
-  zadanie : ${{p.zadanie.tresc}}$ <br />
-  tresc : {{ p.answer }}<br />
-  <a class="btn btn-outline-dark btn-md" 
-  href="{% url 'postM' p.userA_id p.zadanie_id %}" role="button">Przejdź</a>
-   <hr>
-  {% endfor %}
-  </div>
-
+    <div class="col-xl-12 px-0 ">
+      <h2 class="description text-center">Komentarze do postów zadań</h2>
+      {% for p in answerM %} 
+      zadanie : ${{p.zadanie.tresc}}$ <br />
+      tresc : {{ p.answer }}<br />
+      <a class="btn btn-outline-dark btn-md" 
+      href="{% url 'postM' p.userA_id p.zadanie_id %}" role="button">Przejdź</a>
+      <hr>
+      {% endfor %}
+    </div>
   </div>
 </div>
 
