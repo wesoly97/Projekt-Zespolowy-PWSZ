@@ -331,7 +331,7 @@ def register2(request):
             u.save()
             msg="User added"
             subject = 'Registration CyrkielekPWSZ'
-            message = 'click the link to confirm your account: www.cyrkielek.com/confirmAccount/'+u.id
+            message = 'click the link to confirm your account: http://127.0.0.1:8000/confirmAccount/'+str(u.id)
             email_from = settings.EMAIL_HOST_USER
             recipient_list = [Email,]
             send_mail( subject, message, email_from, recipient_list )
@@ -431,7 +431,8 @@ def math_page3(request, user_id):
     odpO = request.POST.getlist('odpO')
     openQuestion=[]
     closeQuestion=[]
-    linki = []
+    linkiOtwarte = []
+    linkiZamkniete = []
     punktyZ=0
     punktyO=0
     punktyMAX=0
@@ -451,7 +452,8 @@ def math_page3(request, user_id):
       closeQuestion.append(zz)
       posts= PostM.objects.filter(zadanie=zz.id)
       for post in posts:
-        linki.append(post)
+        linkiZamkniete.append(post.id)
+      print(len(linkiZamkniete))
       punktyMAX=punktyMAX+1
       flexRadioDefaultNumber="flexRadioDefault"+str(x)
       my_answer = request.POST[flexRadioDefaultNumber]
@@ -469,7 +471,7 @@ def math_page3(request, user_id):
       openQuestion.append(zo)
       posts= PostM.objects.filter(zadanie=zo.id)
       for post in posts:
-        linki.append(post)
+        linkiOtwarte.append(post.id)
       punktyMAX=punktyMAX+2
       if zo.odpowiedz == odpO[x]:
         punktyO=punktyO+2
@@ -519,7 +521,7 @@ def math_page3(request, user_id):
     newScore=Score(id_user_id=user_id, data_testu=data_wyslania_testu, id_zad_otwartych=tasks_open, odp_otwarte=odp_otwarte,
     id_zad_zamknietych=tasks_close, odp_zamkniete=odp_zamkniete, punkty=punkty)
     newScore.save()
-    context = {'users': users,'zos': zos,'zzs': zzs,'odpO': odpO,'odpZ': odpZ,'punktyMAX': punktyMAX,'punkty': punkty,'linki': linki}
+    context = {'users': users,'zos': zos,'zzs': zzs,'odpO': odpO,'odpZ': odpZ,'punktyMAX': punktyMAX,'punkty': punkty,'linkiOtwarte': linkiOtwarte,'linkiZamkniete': linkiZamkniete}
     return render(request, 'forum/MATH_PAGE3.html', context)
 
 def post(request, user_id,post_id):
