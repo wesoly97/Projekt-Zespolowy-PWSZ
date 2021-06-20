@@ -12,8 +12,7 @@
 <script type="text/javascript" src = "{% static 'forum/katex/contrib/auto-render.js' %}"></script>
 <script src="{% static 'forum/MathQuil/mathquill.js' %}"></script>
 <script>
-  function createMathquill(id) {
-
+function createMathquill(id) {
   let answerMathField2 = MQ.MathField(document.getElementById('answer' + id), {
     handlers: {
       edit: function () {
@@ -28,13 +27,15 @@
 <script>
    let MQ = MathQuill.getInterface(2);
 </script>
-<form class="container-fluid" method="post" action="{% url 'math_page3' user.id %}">
+<form class="container" method="post" action="{% url 'math_page3' user.id %}">
   {% csrf_token %}
   {% for zz in zzs %}
   <div class="row">
-    <div class="col-12 description mb-2 pb-1">Zadanie zamkniete nr. {{forloop.counter0}}</div>
-    <div class="col-12">
-      <p>{{zz.tresc}} </p>
+    <div class="col-12 description">
+      <h5>Zadanie zamkniete nr. {{forloop.counter0}}</h5>
+    </div>
+    <div class="col-12 py-2">
+      <p>{{zz.tresc}}</p>
     </div>
     <div class="form-check col-md-3 col-6">
       <input type="radio" class="radioButton" value={{zz.odp_a}} name="flexRadioDefault{{forloop.counter0}}" id="flexRadioDefault{{forloop.counter0}}1">
@@ -64,7 +65,9 @@
   {% endfor %}
   {% for zo in zos %}
   <div class="row">
-    <div class="col-12 description mb-2 pb-1">Zadanie otwarte nr. {{forloop.counter0}}</div>
+    <div class="col-12 description">
+      <h5>Zadanie otwarte nr. {{forloop.counter0}}</h5>
+    </div>
     <div class="col-12">{{zo.tresc}}</div>
     {% if zo.url != "" %}
     <div class="col-12">
