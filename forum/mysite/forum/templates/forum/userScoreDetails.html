@@ -1,18 +1,16 @@
 {% extends 'forum/base.html' %} {% block content %} 
 {% load static %}
-
 {% block css %}
 <link rel="stylesheet" href="{% static 'forum/styles/userScoreDetails/userScoreDetails.css' %}">
-<link rel="stylesheet" href="{% static 'forum/katex/katex.css' %}"></link>
-<link rel="stylesheet" href="{% static 'forum/katex/katex.min.css' %}"></link>
+<link rel="stylesheet" href="{% static 'forum/styles/keyboard.css' %}" />
+<link rel="stylesheet" href="{% static 'forum/katex/katex.min.css' %}" />
+<link rel="stylesheet" href="{% static 'forum/MathQuil/mathquill.css' %}" />
 {% endblock css %}
 {% block js %}
-<script type="text/javascript" src = "{% static 'forum/katex/katex.js' %}" ></script>
 <script type="text/javascript" src = "{% static 'forum/katex/katex.min.js' %}"></script>
 <script type="text/javascript" src = "{% static 'forum/katex/contrib/auto-render.js' %}"></script>
-
+<script src="{% static 'forum/MathQuil/mathquill.js' %}"></script>
 {% endblock js %}
-
 <div class="container-fluid mt-3 mb-3 w-50 shadow">
   <div class="row mt-5 description pl-2 shadow-sm"><h1>Pytania zamkniete</h1></div>
   {% for pytZ,odpZZ,oZZ in pytaniaZamkniete %} 
@@ -21,43 +19,38 @@
     <div class="col-12 pt-2 odp d-flex justify-content-center">${{odpZZ}}$ </div>
     <div class="col-12 pt-2 mb-3">ODPOWIEDZ : ${{ oZZ }}$</div>
   </div>
-
-    <script sync>
+    <script>
       renderMathInElement(document.getElementById('pyt_z{{forloop.counter0}}'),
-      {
-        delimiters: [
-      {left: "$$", right: "$$", display: false},
-      {left: "$", right: "$", display: false},
-      {left: "\\(", right: "\\)", display: false},
-      {left: "\\[", right: "\\]", display: false}
-    ],
-              throwOnError: false
-      });
+        {
+          delimiters: [
+              {left: "$$", right: "$$", display: true},
+              {left: "\\[", right: "\\]", display: true},
+              {left: "$", right: "$", display: false},
+              {left: "\\(", right: "\\)", display: false}
+          ]
+        }
+      );
     </script>
   {% endfor %}
-
   <div class="row description pl-2 shadow-sm"><h1>Pytania otwarte</div>
   {% for pytO,oOO in pytaniaOtwarte %} 
   <div id="pyt_otw{{forloop.counter0}}" class="row shadow-sm">
     <div class="col-12 pt-2">{{ pytO }}</div>
     <div class="col-12 pt-2 mb-3">ODPOWIEDZ : ${{ oOO }}$</div>
   </div>
-    <script sync>
-      renderMathInElement(document.getElementById('pyt_otw{{forloop.counter0}}'),
+  <script>
+    renderMathInElement(document.getElementById('pyt_otw{{forloop.counter0}}'),
       {
         delimiters: [
-      {left: "$$", right: "$$", display: false},
-      {left: "$", right: "$", display: false},
-      {left: "\\(", right: "\\)", display: false},
-      {left: "\\[", right: "\\]", display: false}
-    ],
-              throwOnError: false
-      });
-      
-      </script>
+            {left: "$$", right: "$$", display: true},
+            {left: "\\[", right: "\\]", display: true},
+            {left: "$", right: "$", display: false},
+            {left: "\\(", right: "\\)", display: false}
+        ]
+      }
+    );
+  </script>
   {% endfor %}
-
 </div>
-
 {% endblock content %}
 
