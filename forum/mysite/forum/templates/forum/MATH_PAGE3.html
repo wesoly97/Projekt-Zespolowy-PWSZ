@@ -32,8 +32,8 @@
 {% endblock js %}
 {% for user in users %}
 
-
  {% for zz in zzs %}
+
  <form class="container-fluid">
   <div class="row">
     <div class="col-12 description mb-2 pb-1">Zadanie zamkniete nr. {{forloop.counter0}}</div>
@@ -64,7 +64,6 @@
          $${{zz.odp_d}}$$
       </label>
     </div>
-  {% if  forloop.counter0 == 0 %}
     <div class="col-12 mt-3"> 
       <div>
       <b>Poprawna odpowiedz:</b>
@@ -72,39 +71,23 @@
     </div>
     <div class="mb-3">
     <b>Twoja odpowiedz: </b>
-      <label class="form-check-label ">  $${{odpZ.0}}$$</label>
+      <label class="form-check-label ">  $${{odpZ.forloop.counter0}}$$</label>
     </div>
     <div class="sendAnswers mb-3">
-      <button><a href="{% url 'postM' user.id linki.0.id %}">Link do forum</a></button>
+    {% if  forloop.counter0 == 0 %}
+      <button><a href="{% url 'postM' user.id linkiZamkniete.0%}">Link do forum</a></button>
+    {% endif %}
+           {% if  forloop.counter0 == 1 %}
+      <button><a href="{% url 'postM' user.id linkiZamkniete.1%}">Link do forum</a></button>
+    {% endif %}
+            {% if  forloop.counter0 == 2 %}
+      <button><a href="{% url 'postM' user.id linkiZamkniete.2%}">Link do forum</a></button>
+    {% endif %}
+            {% if  forloop.counter0 == 3 %}
+      <button><a href="{% url 'postM' user.id linkiZamkniete.3%}">Link do forum</a></button>
+    {% endif %}
     </div>
     </div>
-  {% endif %}
-  {% if  forloop.counter0 == 1 %}
-  <div class="col-12 mt-3"> 
-    <b>Poprawna odpowiedz:</b>
-    <label class="form-check-label "> <b> </b>$${{zz.odpowiedz}}$$</label>
-  <div class="mb-3">
-  <b>Twoja odpowiedz: </b>
-    <label class="form-check-label ">  $${{odpZ.1}}$$</label>
-  </div>
-  <div class="sendAnswers mb-3">
-    <button><a href="{% url 'postM' user.id linki.1.id %}">Link do forum</a></button>
-  </div>
-  </div>
-  {% endif %}
-  {% if  forloop.counter0 == 2 %}
-  <div class="col-12 mt-3"> 
-    <b>Poprawna odpowiedz:</b>
-    <label class="form-check-label "> <b> </b>$${{zz.odpowiedz}}$$</label>
-  <div class="mb-3">
-  <b>Twoja odpowiedz: </b>
-    <label class="form-check-label ">  $${{odpZ.2}}$$</label>
-  </div>
-  <div class="sendAnswers mb-3">
-    <button><a href="{% url 'postM' user.id linki.2.id %}">Link do forum</a></button>
-  </div>
-  </div>
-  {% endif %}
   </div>
 
   {% endfor %}{% for zo in zos %}
@@ -112,7 +95,7 @@
     <div class="col-12 description mb-2 pb-1">Zadanie otwarte nr. {{forloop.counter0}}</div>
     <div class="col-12">{{zo.tresc}}</div>
     <div class="col-12 mt-3 mb-3">
-    {% if  forloop.counter0 == 0 %}
+    
     <div ><b>Poprawna odpowiedź:</b>
       <label class="form-check-label">$${{zo.odpowiedz}}$$</label>
       </div>
@@ -120,20 +103,20 @@
       <label class="form-check-label ">  $${{odpO.0}}$$</label>
     </div>
     <div class="sendAnswers">
-      <button><a href="{% url 'postM' user.id linki.3.id %}">Link do forum</a></button>
-    </div>
+       {% if  forloop.counter0 == 0 %}
+      <button><a href="{% url 'postM' user.id linkiOtwarte.0%}">Link do forum</a></button>
     {% endif %}
-    {% if  forloop.counter0 == 1 %}
-    <div ><b>Poprawna odpowiedź:</b>
-      <label class="form-check-label">$${{zo.odpowiedz}}$$</label>
-      </div>
-    <div class="mb-3"><b>Twoja odpowiedz: </b>
-      <label class="form-check-label">$${{odpO.1}}$$</label>
-    </div>
-    <div class="sendAnswers">
-      <button><a href="{% url 'postM' user.id linki.4.id %}">Link do forum</a></button>
-    </div >
+            {% if  forloop.counter0 == 1 %}
+      <button><a href="{% url 'postM' user.id linkiOtwarte.1%}">Link do forum</a></button>
     {% endif %}
+            {% if  forloop.counter0 == 2 %}
+      <button><a href="{% url 'postM' user.id linkiOtwarte.2%}">Link do forum</a></button>
+    {% endif %}
+            {% if  forloop.counter0 == 3 %}
+      <button><a href="{% url 'postM' user.id linkiOtwarte.3%}">Link do forum</a></button>
+    {% endif %}
+    </div>
+
     </div> 
   </div>
     {% endfor %}
