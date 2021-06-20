@@ -16,7 +16,7 @@
   {% for pytZ,odpZZ,oZZ in pytaniaZamkniete %} 
   <div id="pyt_z{{forloop.counter0}}"  class="row shadow-sm">
     <div class="col-12 pt-2">{{ pytZ }}</div>
-    <div class="col-12 pt-2 odp d-flex justify-content-center">${{odpZZ}}$ </div>
+    <div class="col-12 pt-2 d-flex justify-content-center">${{odpZZ}}$ </div>
     <div class="col-12 pt-2 mb-3">ODPOWIEDZ : ${{ oZZ }}$</div>
   </div>
     <script>
