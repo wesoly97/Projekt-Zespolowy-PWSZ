@@ -1,4 +1,5 @@
-.hiddenAnswer {
+
+  .hiddenAnswer {
     display: none;
   }
   .keyboard {
@@ -7,6 +8,16 @@
   .ui-keyboard {
     position: static !important;
     margin-bottom: 1rem!important;
+  }
+  .ui-keyboard-button{
+    background-color: #FFE06B !important;
+    font-weight: bold !important;
+    border: #FFE06B !important;
+    color: black !important;
+  }
+  .ui-keyboard-button:hover{
+    background-color: #002030 !important;
+    color: #FFE06B !important;
   }
   .ui-keyboard-preview-wrapper{ /* wyswietla sie gdy usePreview: false - powoduje błąd z wpisywaniem dwukrotnym znaku */
     display: none;
@@ -18,3 +29,10 @@
   .mq-math-mode sup.mq-nthroot {
     vertical-align: 0 !important;
   }
+  .ui-keyboard-button{
+    height: initial !important;
+ }
+ .keyboardInputDiv{
+   border-color: none !important;
+   box-shadow: none !important;
+ }

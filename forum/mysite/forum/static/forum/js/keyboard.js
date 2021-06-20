@@ -1,36 +1,43 @@
-
-MathJax = {
-  tex: {
-     inlineMath: [['$', '$'], ['\\(', '\\)']]
-  },
-  svg: {
-     fontCache: 'global'
-  }
-};
-
 let mathquill;
+
+MQ.registerEmbed('tg', function(id){
+  console.log("asd")
+  return {
+    htmlString: '<span class="tg"></span>',
+    text: function() { return 'tg'; },
+    latex: function() { return '\\tg'; }
+  };
+});
+
 let specialKeys = {
   bksp: "Backspace",
   frac: "\\frac{}{}",
   sqrt: "\\sqrt{}",
-  power: "\\^{}",
+  power: "{}^{}",
+  lower: "{}_{}",
   exsqrt: "\\sqrt[]{}",
-  integral: "\\ \\int",
+  integral: "\\int",
+  integral2: "\\int{}^{}_{}",
   sum: "\\sum",
-  log: "\\log_{}{}",
+  log2: "\\log_{}",
+  log: "\\log",
   multi: "\\cdot",
   div: "\\div",
   add: "\\add",
   sub: "\\sub",
   inf: "\\infin",
-  alfa: "α",
-  beta: "β",
+  alfa: "\\alpha",
+  beta: "\\beta",
   le: "\\le",
   ge: "\\ge",
   isin: "\\isin",
   binom: "\\binom{ }{ }",
-  tg: "\\tan"
+  tg: "\\tan",
+  ctg: "\\cot",
+  lim: "\\lim",
+  ent: "\\textcolor{black}{\\text{}}"
 };
+
 
 // add special keys, but don't override previous keyaction definitions
 Object.keys(specialKeys).forEach(function (key) {
@@ -39,9 +46,20 @@ Object.keys(specialKeys).forEach(function (key) {
   }
 });
 
-$(".answerDiv").click(function () {
-  mathquill = MQ.MathField($(this).parent().find(".answerO")[0]);
-  $(this).parent().find(".answerO").data("keyboardPosition", this).trigger("focus");
+$(".keyboardInputDiv").click(function () {
+  mathquill = MQ.MathField($(this).find(".keyboardInput")[0]);
+  renderMathInElement(
+    $(this).find(".keyboardInput")[0],
+    {
+      delimiters: [
+          {left: "$$", right: "$$", display: true},
+          {left: "\\[", right: "\\]", display: true},
+          {left: "$", right: "$", display: false},
+          {left: "\\(", right: "\\)", display: false}
+      ]
+    }
+  );
+  $(this).find(".keyboardInput").data("keyboardPosition", this).trigger("focus");
 });
 
 $(".keyboard")
@@ -54,7 +72,33 @@ $(".keyboard")
     }
   })
   .keyboard({
-    // usePreview: false, powoduje błąd z wpisywaniem dwukrotnym znaku
+    beforeVisible : function(event, keyboard, el) {
+      katex.render("\\binom n k", $('.ui-keyboard-binom').children()[0], {
+        throwOnError: false
+      });
+      katex.render("a\\raisebox{0.3em}{$b$}", $('.ui-keyboard-power').children()[0], {
+        throwOnError: false
+      });
+      katex.render("x_n", $('.ui-keyboard-lower').children()[0], {
+        throwOnError: false
+      });
+      katex.render("\\lim", $('.ui-keyboard-lim').children()[0], {
+        throwOnError: false
+      });
+      katex.render("\\log_{n}", $('.ui-keyboard-log2').children()[0], {
+        throwOnError: false
+      });
+      katex.render("\\log", $('.ui-keyboard-log').children()[0], {
+        throwOnError: false
+      });
+      katex.render("\\int", $('.ui-keyboard-integral').children()[0], {
+        throwOnError: false
+      });
+      katex.render("\\int_{0}^{2}", $('.ui-keyboard-integral2').children()[0], {
+        throwOnError: false
+      });
+    },
+    // usePreview: false, causes error with typing double character
     autoAccept: true,
     lockInput: false,
     restrictInput: false, // Prevent keys not in the displayed keyboard from being typed in
@@ -66,11 +110,8 @@ $(".keyboard")
     display: {
       frac: "¼",
       sqrt: "√",
-      power: "^",
       exsqrt: "∛",
-      integral: "∫",
       sum: "Σ",
-      log: "log",
       multi: "*",
       div: "÷",
       inf: "∞",
@@ -79,16 +120,17 @@ $(".keyboard")
       ge: "⩾",
       le: "⩽",
       isin: "∈",
-      binom: "binom",
       tg: "tg",
+      ctg: "ctg",
+      ent: "↵"
     },
     customLayout: {
       default: [
-        "sin cos {tg} cot {log}",
-        "{alfa} {beta} {ge} {le}",
-        "{frac} {power} {sqrt} {exsqrt}",
-        "{sum} \u03c0 {integral} {inf}",
-        "{isin} {binom}"
+        "sin cos {tg} {ctg} {log2} {log}",
+        "{alfa} {beta} {ge} {le} {ent}",
+        "{frac} {power} {lower} {sqrt} {exsqrt}",
+        "{sum} \u03c0 {integral} {integral2} {inf}",
+        "{isin} {binom} {lim}"
       ],
     },
     useCombos: false,

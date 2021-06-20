@@ -1,29 +1,20 @@
 @import url('https://fonts.googleapis.com/css?family=Quicksand&display=swap');
 #main{
     padding-top: 7rem;
-    padding-left: 0;
 }
 .taskBg{
-    background-color: #f7f7f7;;
+    background-color: #EBEBEB;
 }
 .description{
-    background-color: #668099;
-    color: #fff176;
-    font-size: 24px;
-}
-#sender{
-    border: none;
-    font-family: Roboto;
-    height: 30px;
-    width: 130px;
-    float: right;
-    background-color: #fff176;
-    margin-right: 10px;
-    border: 1px black solid;
-}
-#sender:hover{
-    background-color: #668099;
-    color: #FFE06B;
+    color: #FFC745;
+    background-color: #293642;
+    padding-top: 10px;
+    padding-bottom: 5px;
+    padding-left: 10px;
+    align-items: center;
+    font-weight: bold !important;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
 }
 .alert{
   width:50%;

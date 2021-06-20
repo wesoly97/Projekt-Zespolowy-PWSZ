@@ -2,25 +2,17 @@
 {% load static %}
 {% block content %}{% for user in users %}
 {% block css %}
-<link rel="stylesheet" href="{% static 'forum/styles/mathPage2/mathPage2.css' %}">
-<link rel="stylesheet" href="{% static 'forum/styles/keyboard.css' %}">
+<link rel="stylesheet" href="{% static 'forum/styles/mathPage2/mathPage2.css' %}" />
+<link rel="stylesheet" href="{% static 'forum/styles/keyboard.css' %}" />
+<link rel="stylesheet" href="{% static 'forum/katex/katex.min.css' %}" />
 <link rel="stylesheet" href="{% static 'forum/MathQuil/mathquill.css' %}" />
 {% endblock css %}
 {% block js %}
+<script type="text/javascript" src = "{% static 'forum/katex/katex.min.js' %}"></script>
+<script type="text/javascript" src = "{% static 'forum/katex/contrib/auto-render.js' %}"></script>
 <script src="{% static 'forum/MathQuil/mathquill.js' %}"></script>
-<script id="MathJax-script" async src="{% static 'forum/mathjax-master/es5/tex-chtml.js'%}"></script>
 <script>
-   MathJax = {
-      tex: {
-         inlineMath: [['$', '$'], ['\\(', '\\)']]
-      },
-      svg: {
-         fontCache: 'global'
-      }
-   };
-
-  function createMathquill(id) {
-
+function createMathquill(id) {
   let answerMathField2 = MQ.MathField(document.getElementById('answer' + id), {
     handlers: {
       edit: function () {
@@ -29,20 +21,21 @@
       }
     }
 });
-
 }
 </script>
 {% endblock js %}
 <script>
    let MQ = MathQuill.getInterface(2);
 </script>
-<form class="container-fluid" method="post" action="{% url 'math_page3' user.id %}">
+<form class="container" method="post" action="{% url 'math_page3' user.id %}">
   {% csrf_token %}
   {% for zz in zzs %}
   <div class="row">
-    <div class="col-12 description mb-2 pb-1">Zadanie zamkniete nr. {{forloop.counter0}}</div>
-    <div class="col-12">
-      <p>{{zz.tresc}} </p>
+    <div class="col-12 description">
+      <h5>Zadanie zamkniete nr. {{forloop.counter0}}</h5>
+    </div>
+    <div class="col-12 py-2">
+      <p>{{zz.tresc}}</p>
     </div>
     <div class="form-check col-md-3 col-6">
       <input type="radio" class="radioButton" value={{zz.odp_a}} name="flexRadioDefault{{forloop.counter0}}" id="flexRadioDefault{{forloop.counter0}}1">
@@ -72,8 +65,10 @@
   {% endfor %}
   {% for zo in zos %}
   <div class="row">
-    <div class="col-12 description mb-2 pb-1">Zadanie otwarte nr. {{forloop.counter0}}</div>
-    <div class="col-12">{{zo.tresc}}</div>
+    <div class="col-12 description">
+      <h5>Zadanie otwarte nr. {{forloop.counter0}}</h5>
+    </div>
+    <div class="col-12 py-2">{{zo.tresc}}</div>
     {% if zo.url != "" %}
     <div class="col-12">
       <img class="rounded mx-auto d-block" src="{% static zo.url %}" />
@@ -82,8 +77,8 @@
     <div class="col-12">
       <p>Wprowadź odpowiedź:</p>
     </div>
-    <div class="col-12 answerDiv">
-      <span id="answer{{forloop.counter0}}" class="answerO mb-3 keyboard"></span>
+    <div class="col-12 keyboardInputDiv">
+      <span id="answer{{forloop.counter0}}" class="keyboardInput mb-3 keyboard"></span>
       <textarea name="odpO" id="latexanswer{{forloop.counter0}}" class="hiddenAnswer"></textarea>
     </div>
   </div>
@@ -92,13 +87,23 @@
   </script>
   {% endfor %}
   <div class="row justify-content-center pt-5 pb-5" id="sendAnswers">
-    <input type="submit" value="Sprawdź zestaw" />
-    <button value="Wróć">
-      <a href="{% url 'usersHOME' user.id %}">Wróć</a>
-    </button>
+    <input type="submit" value="Sprawdź zestaw" class="btn navButtons"/>
   </div>
 {% endfor %}
 </form>
+<script>
+  renderMathInElement(
+    document.body,
+    {
+      delimiters: [
+          {left: "$$", right: "$$", display: true},
+          {left: "\\[", right: "\\]", display: true},
+          {left: "$", right: "$", display: false},
+          {left: "\\(", right: "\\)", display: false}
+      ]
+    }
+  );
+</script>
 {% endblock content %}
 {% block jquery %}
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>

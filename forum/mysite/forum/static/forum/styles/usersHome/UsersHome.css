@@ -4,49 +4,25 @@ body{
 body > div{
     padding-top: 5rem;
 }
+
 #centerCard{
-    margin-left:  auto;
-    margin-right:  auto;
-}
-.bottom{
-    
-    margin-bottom: 1.5%;
+    margin-left: auto;
+    margin-right: auto;
 }
 .card{
     margin-top: 10px;
     width: 18rem;
-}
-#upperCard{
-    float: right;
-}
-.btn{
-    background-color: #FFE06B;
-    font-weight: bold;
-    border: #FFE06B;
-    color:black;
+    margin: auto;
+    margin-bottom: 20px;
 }
 
-@media only screen and (max-width: 1820px) {
-    #upperCard{
-        
-        float: left;
-        margin-right: 0%;
-    }
-    #centerCard{
-        margin: none;
-        float:left;
-        
-    }
-    .cardleft{
-        float: left;
-    }
 
-}
 @media only screen and (max-width: 1380px) {
     #upperCard{
-        
-        float: left;
-       
+        float: right;
+    }
+    #lowerLeft{
+        float: right;
     }
     .cardleft{
         float: left;
@@ -69,7 +45,15 @@ body > div{
 @media only screen and (max-width: 1010px) {
     #upperCard{
         float: none;
-        margin-right: 0%;
+        
+    }
+    #lowerLeft{
+        float: right;
+        float: none;
+    }
+    #lowerLeft{
+        float: none;
+        
     }
     .cardleft{
         float: none;
@@ -82,24 +66,46 @@ body > div{
         float:right;
     }
 }
-@media only screen and (max-width: 653px) {
+@media only screen and (max-width: 992px) {
     .card{
         margin: 0 auto;
         float:none;
         margin-top: 2%;
     }
-    #upperCard{
-    margin: 0 auto;
-    }
+    
     #centerCard{
         margin: 0 auto;
         float: none;
     }
     .bottom{
-        
         margin: 0 auto;
     }
     .cardleft{
         margin: 0 auto;
+    }
+    #upperCard{
+        float: none;
+        margin-right: 0%;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 10px;
+    }
+    #lowerLeft{
+        float: none;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .cardleft{
+        float: none;
+    }
+    #content{
+        width: 100%;
+    }
+    .bottom{
+        margin-top: 2%;
+        float:right;
+    }
+    #lastKafelek{
+        margin-bottom: 10px;
     }
 }

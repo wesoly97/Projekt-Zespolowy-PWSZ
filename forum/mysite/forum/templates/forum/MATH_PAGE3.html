@@ -32,8 +32,8 @@
 {% endblock js %}
 {% for user in users %}
 
-
  {% for zz in zzs %}
+
  <form class="container-fluid">
   <div class="row">
     <div class="col-12 description mb-2 pb-1">Zadanie zamkniete nr. {{forloop.counter0}}</div>
@@ -64,7 +64,6 @@
          $${{zz.odp_d}}$$
       </label>
     </div>
-  {% if  forloop.counter0 == 0 %}
     <div class="col-12 mt-3"> 
       <div>
       <b>Poprawna odpowiedz:</b>
@@ -72,39 +71,71 @@
     </div>
     <div class="mb-3">
     <b>Twoja odpowiedz: </b>
-      <label class="form-check-label ">  $${{odpZ.0}}$$</label>
+      <label class="form-check-label ">  $${{odpZ.forloop.counter0}}$$</label>
     </div>
     <div class="sendAnswers mb-3">
-      <button><a href="{% url 'postM' user.id linki.0.id %}">Link do forum</a></button>
+    {% if  forloop.counter0 == 0 %}
+      <a class="navButtons btn" href="{% url 'postM' user.id linkiZamkniete.0%}">Przejdź do forum</a>
+    {% endif %}
+           {% if  forloop.counter0 == 1 %}
+      <a class="navButtons btn" href="{% url 'postM' user.id linkiZamkniete.1%}">Przejdź do forum</a>
+    {% endif %}
+            {% if  forloop.counter0 == 2 %}
+      <a class="navButtons btn" href="{% url 'postM' user.id linkiZamkniete.2%}">Przejdź do forum</a>
+    {% endif %}
+            {% if  forloop.counter0 == 3 %}
+      <a class="navButtons btn"  href="{% url 'postM' user.id linkiZamkniete.3%}">Przejdź do forum</a>
+    {% endif %}
+            {% if  forloop.counter0 == 4 %}
+          <a class="navButtons btn"  href="{% url 'postM' user.id linkiZamkniete.4%}">Przejdź do forum</a>
+    {% endif %}
+           {% if  forloop.counter0 == 5 %}
+          <a class="navButtons btn"  href="{% url 'postM' user.id linkiZamkniete.5%}">Przejdź do forum</a>
+    {% endif %}
+           {% if  forloop.counter0 == 6 %}
+          <a class="navButtons btn"  href="{% url 'postM' user.id linkiZamkniete.6%}">Przejdź do forum</a>
+    {% endif %}
+           {% if  forloop.counter0 == 7 %}
+          <a class="navButtons btn"  href="{% url 'postM' user.id linkiZamkniete.7%}">Przejdź do forum</a>
+    {% endif %}
+            {% if  forloop.counter0 == 8 %}
+          <a class="navButtons btn"  href="{% url 'postM' user.id linkiZamkniete.8%}">Przejdź do forum</a>
+    {% endif %}
+           {% if  forloop.counter0 == 9 %}
+          <a class="navButtons btn"  href="{% url 'postM' user.id linkiZamkniete.9%}">Przejdź do forum</a>
+    {% endif %}
+            {% if  forloop.counter0 == 10 %}
+          <a class="navButtons btn"  href="{% url 'postM' user.id linkiZamkniete.10%}">Przejdź do forum</a>
+    {% endif %}
+           {% if  forloop.counter0 == 11 %}
+          <a class="navButtons btn"  href="{% url 'postM' user.id linkiZamkniete.11%}">Przejdź do forum</a>
+    {% endif %}
+           {% if  forloop.counter0 == 12 %}
+          <a class="navButtons btn"  href="{% url 'postM' user.id linkiZamkniete.12%}">Przejdź do forum</a>
+    {% endif %}
+           {% if  forloop.counter0 == 13 %}
+          <a class="navButtons btn"  href="{% url 'postM' user.id linkiZamkniete.13%}">Przejdź do forum</a>
+    {% endif %}
+           {% if  forloop.counter0 == 14 %}
+          <a class="navButtons btn"  href="{% url 'postM' user.id linkiZamkniete.14%}">Przejdź do forum</a>
+    {% endif %}
+           {% if  forloop.counter0 == 15 %}
+          <a class="navButtons btn"  href="{% url 'postM' user.id linkiZamkniete.15%}">Przejdź do forum</a>
+    {% endif %}
+           {% if  forloop.counter0 == 16 %}
+          <a class="navButtons btn"  href="{% url 'postM' user.id linkiZamkniete.16%}">Przejdź do forum</a>
+    {% endif %}
+           {% if  forloop.counter0 == 17 %}
+          <a class="navButtons btn"  href="{% url 'postM' user.id linkiZamkniete.17%}">Przejdź do forum</a>
+    {% endif %}
+           {% if  forloop.counter0 == 18 %}
+          <a class="navButtons btn"  href="{% url 'postM' user.id linkiZamkniete.18%}">Przejdź do forum</a>
+    {% endif %}
+           {% if  forloop.counter0 == 19 %}
+          <a class="navButtons btn"  href="{% url 'postM' user.id linkiZamkniete.19%}">Przejdź do forum</a>
+    {% endif %}
     </div>
     </div>
-  {% endif %}
-  {% if  forloop.counter0 == 1 %}
-  <div class="col-12 mt-3"> 
-    <b>Poprawna odpowiedz:</b>
-    <label class="form-check-label "> <b> </b>$${{zz.odpowiedz}}$$</label>
-  <div class="mb-3">
-  <b>Twoja odpowiedz: </b>
-    <label class="form-check-label ">  $${{odpZ.1}}$$</label>
-  </div>
-  <div class="sendAnswers mb-3">
-    <button><a href="{% url 'postM' user.id linki.1.id %}">Link do forum</a></button>
-  </div>
-  </div>
-  {% endif %}
-  {% if  forloop.counter0 == 2 %}
-  <div class="col-12 mt-3"> 
-    <b>Poprawna odpowiedz:</b>
-    <label class="form-check-label "> <b> </b>$${{zz.odpowiedz}}$$</label>
-  <div class="mb-3">
-  <b>Twoja odpowiedz: </b>
-    <label class="form-check-label ">  $${{odpZ.2}}$$</label>
-  </div>
-  <div class="sendAnswers mb-3">
-    <button><a href="{% url 'postM' user.id linki.2.id %}">Link do forum</a></button>
-  </div>
-  </div>
-  {% endif %}
   </div>
 
   {% endfor %}{% for zo in zos %}
@@ -112,7 +143,7 @@
     <div class="col-12 description mb-2 pb-1">Zadanie otwarte nr. {{forloop.counter0}}</div>
     <div class="col-12">{{zo.tresc}}</div>
     <div class="col-12 mt-3 mb-3">
-    {% if  forloop.counter0 == 0 %}
+    
     <div ><b>Poprawna odpowiedź:</b>
       <label class="form-check-label">$${{zo.odpowiedz}}$$</label>
       </div>
@@ -120,27 +151,39 @@
       <label class="form-check-label ">  $${{odpO.0}}$$</label>
     </div>
     <div class="sendAnswers">
-      <button><a href="{% url 'postM' user.id linki.3.id %}">Link do forum</a></button>
-    </div>
+       {% if  forloop.counter0 == 0 %}
+      <a class="navButtons btn" href="{% url 'postM' user.id linkiOtwarte.0%}">Link do forum</a>
     {% endif %}
-    {% if  forloop.counter0 == 1 %}
-    <div ><b>Poprawna odpowiedź:</b>
-      <label class="form-check-label">$${{zo.odpowiedz}}$$</label>
-      </div>
-    <div class="mb-3"><b>Twoja odpowiedz: </b>
-      <label class="form-check-label">$${{odpO.1}}$$</label>
-    </div>
-    <div class="sendAnswers">
-      <button><a href="{% url 'postM' user.id linki.4.id %}">Link do forum</a></button>
-    </div >
+            {% if  forloop.counter0 == 1 %}
+      <a class="navButtons btn" href="{% url 'postM' user.id linkiOtwarte.1%}">Link do forum</a>
     {% endif %}
+            {% if  forloop.counter0 == 2 %}
+      <a class="navButtons btn" href="{% url 'postM' user.id linkiOtwarte.2%}">Link do forum</a>
+    {% endif %}
+            {% if  forloop.counter0 == 3 %}
+      <a class="navButtons btn" href="{% url 'postM' user.id linkiOtwarte.3%}">Link do forum</</a>
+    {% endif %}
+           {% if  forloop.counter0 == 4 %}
+      <a class="navButtons btn" href="{% url 'postM' user.id linkiOtwarte.4%}">Link do forum</a></a>
+    {% endif %}
+           {% if  forloop.counter0 == 5 %}
+      <a class="navButtons btn" href="{% url 'postM' user.id linkiOtwarte.5%}">Link do forum</a></a>
+    {% endif %}
+           {% if  forloop.counter0 == 6 %}
+      <a class="navButtons btn" href="{% url 'postM' user.id linkiOtwarte.6%}">Link do forum</a></a>
+    {% endif %}
+           {% if  forloop.counter0 == 7 %}
+      <a class="navButtons btn" href="{% url 'postM' user.id linkiOtwarte.7%}">Link do forum</a></a>
+    {% endif %}
+    </div>
+
     </div> 
   </div>
     {% endfor %}
   <div class="row">
     <div class="col-12 d-flex justify-content-center mt-3"><h1>Wynik</h1></div>
     <div class="col-12 d-flex justify-content-center mb-2"><b>Zdobyłeś {{punkty}} punktów na {{punktyMAX}} możliwych do zdobycia</b></div>
-    <div class="col-12 mb-4 d-flex justify-content-center sendAnswers"><button value="Wróć"><a href="{% url 'usersHOME' user.id %}">Wróć</a></button></div>
+    <div class="col-12 mb-4 d-flex justify-content-center sendAnswers"><a class="navButtons btn" href="{% url 'usersHOME' user.id %}">Wróć</a></div>
   </div>
   {% endfor %}
   

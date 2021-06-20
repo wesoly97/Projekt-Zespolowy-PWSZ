@@ -1,25 +1,5 @@
 $(document).ready(function(){
-    $(window).resize(function(){
-        if($( window ).width()<1000){
-            $('#splitter').removeClass("w-100");
-            
-        }
-        else if($( window ).width()<1827){
-            
-            $('.col-sm').addClass("col-sm-auto");
-            $('#coldel').removeClass("offset-sm-2");
-            
-        }
-        else{
-            $('#splitter').addClass("w-100");
-            $('.kk').removeClass("col-sm-auto");
-            $('.kk').addClass("col-sm");
-            $('#coldel').addClass("offset-sm-2");
-            $('#coldel').addClass("col-sm-auto");
-            
-           
-        }
-    });
+  
 
    
 

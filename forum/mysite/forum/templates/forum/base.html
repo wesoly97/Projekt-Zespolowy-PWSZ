@@ -3,10 +3,10 @@
 <html lang="pl">
 <head>
   <meta charset="UTF-8" />
-  <link rel="stylesheet" href="{% static 'forum/Bootstrap/css/bootstrap.min.css' %}">
-  <link rel="stylesheet" href="{% static 'forum/styles/PreloaderHome/Preloader.css' %}">
+  <link rel="stylesheet" href="{% static 'forum/Bootstrap/css/bootstrap.min.css' %}" />
+  <link rel="stylesheet" href="{% static 'forum/styles/PreloaderHome/Preloader.css' %}" />
   {% block css %}
-
+  
   {% endblock css %}
   {% block js %}
 
@@ -34,20 +34,11 @@
       <div class="collapse navbar-collapse" id="ftco-nav">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active"><a href="{% url 'index' %}" class="nav-link">Home</a></li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Page</a>
-            <div class="dropdown-menu" aria-labelledby="dropdown04">
-              <a class="dropdown-item" href="#">Page 1</a>
-              <a class="dropdown-item" href="#">Page 2</a>
-              <a class="dropdown-item" href="#">Page 3</a>
-              <a class="dropdown-item" href="#">Page 4</a>
-            </div>
-          </li>
         {% if request.session.logged_user == 0 or request.session.logged_user == '0' or not request.session.logged_user%}
         </ul>
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item"><a class="nav-link" href="{% url 'register1' %}">Rejestracja</a></li>
           <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Logowanie</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'register1' %}">Rejestracja</a></li>
         {% else %}
           <li class="nav-item"><a class="nav-link" href="{% url 'usersHOME' request.session.logged_user %}">Panel użytkownika</a></li>
         </ul>
@@ -85,21 +76,38 @@
         </div>
         <div class="col-12 col-sm-7 pl-5">
           <div class="row ">
-          <div class="col-md-6 col-sm-12">
-            <h5>Matura</h5>
+          <div class="col-md-4 col-sm-12">
+            <h4>Matura</h4>
             <ul >
               <li>Zestawy</li>
               <li>Teoria</li>
               <li>Punktacja</li>
             </ul>
             </div>
-          <div class="col-md-6 col-sm-12">
-            <h5>Zespół</h5>
-            <ul >
-              <li>O nas</li>
-              <li>Kontakt</li>
+          <div class="col-md-8 col-sm-12">
+            <h4>Zespół</h4>
+            <div class="row">
+            <div class="col-xl-6 col-md-12 col-sm-12">
+            <h5>Frontend</h5>
+            <ul>
+              <li><a class="hiperlinki" href="https://github.com/dilejt">Damian Jancewicz</a></li>
+              <li><a class="hiperlinki" href="https://github.com/kacperPankiewicz">Kacper Pańkiewicz</a></li>
+              <li><a class="hiperlinki" href="https://github.com/LukaszSinica">Łukasz Sinica</a></li>
+              <li><a class="hiperlinki" href="https://github.com/adriankleyna">Adrian Kleyna</a></li>
             </ul>
             </div>
+            <div class="col-xl-6 col-md-12 col-sm-12">
+            <h5>Backend</h5>
+            <ul>
+              <li><a class="hiperlinki" href="https://github.com/Krokus-lab">Piotr Brac</a></li>
+              <li><a class="hiperlinki" href="https://github.com/wesoly97">Mikołaj Wesołek</a></li>
+              <li><a class="hiperlinki" href="https://github.com/Saymon1998">Szymon Doerfer</a></li>
+              <li><a class="hiperlinki" href="https://github.com/HubertDrzymalski">Hubert Drzymalski</a></li>
+              <li><a class="hiperlinki" href="https://github.com/szyman-9">Łukasz Szymański</a></li>
+            </ul>
+            </div>
+            </div>
+          </div>
           </div>
        </div>
       </div>

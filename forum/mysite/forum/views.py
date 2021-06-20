@@ -3,6 +3,8 @@ from django.db.models import Max
 
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
+from django.core.mail import send_mail
+from django.conf import settings
 
 from .models import User
 from .models import Post
@@ -157,10 +159,14 @@ def addStatistics(questionList,answerList,stats):
     return stats
 
 def index(request):
+    if(request.session._session):
+        users = User.objects.filter(id=request.session['logged_user'])
+    else:
+        users=[]
     userNumber = User.objects.aggregate(Max('id'))
     questionNumber = zadanie_matematyczne.objects.aggregate(Max('id'))
     doneSet = Score.objects.aggregate(Max('id'))
-    context = {'numberUsers':userNumber['id__max'],'NumberQuestion':questionNumber['id__max'],'NumberDone':doneSet['id__max']}
+    context = {'users': users,'numberUsers':userNumber['id__max'],'NumberQuestion':questionNumber['id__max'],'NumberDone':doneSet['id__max']}
     return render(request, 'forum/index.html', context)
 
 def login(request):
@@ -178,6 +184,9 @@ def login_user(request):
             user = User.objects.filter(name=request.POST['login'], password=request.POST['password'])[0]
         except IndexError:
             context = {'cont': "Hfdhshfd", 'error': "Błędne dane logowania"}
+            return render(request, 'forum/login.html', context)
+        if(user.ranga=="toConfirm"):
+            context = {'cont': "Hfdhshfd", 'error': "Konto nie aktywowane"}
             return render(request, 'forum/login.html', context)
         request.session['logged_user'] = user.id
         return redirect('usersHOME', user_id=auth_user_id(request))
@@ -201,6 +210,8 @@ def register1(request):
 def addQuestionView(request, user_id):
     if auth_user_rank(request) != 'admin' and auth_user_rank(request) != 'moderator':
         return render(request, 'forum/error.html', context={'error': 'Brak uprawnień'})
+    if not user_id==request.session['logged_user']:
+        return render(request, 'forum/index.html')  
     users = User.objects.filter(id=user_id)
     questionType=Dzial_matematyki.objects.all()
     sets=[]
@@ -214,6 +225,8 @@ def addQuestionView(request, user_id):
 def addQuestionViewClosedQuestion(request, user_id):
     if auth_user_rank(request) != 'admin' and auth_user_rank(request) != 'moderator':
         return render(request, 'forum/error.html', context={'error': 'Brak uprawnień'})
+    if not user_id==request.session['logged_user']:
+        return render(request, 'forum/index.html')  
     users = User.objects.filter(id=user_id)
     questionType=Dzial_matematyki.objects.all()
     sets=[]
@@ -226,6 +239,7 @@ def addQuestionViewClosedQuestion(request, user_id):
 def addQuestionOpenToDatabase(request):
     if auth_user_rank(request) != 'admin' and auth_user_rank(request) != 'moderator':
         return render(request, 'forum/error.html', context={'error': 'Brak uprawnień'})
+    
     NumberTask = request.POST['numberTask']
     section = request.POST['section']
     set = request.POST['set']
@@ -318,24 +332,38 @@ def register2(request):
         msg="Empty,try again"
     else:
         if(User.objects.filter(name=Name).count()==0):
-            u = User(name=Name,password=Password,ranga="user",numer_kontaktowy=ContactNumber,email=Email,miasto=City,szkola=SchoolName)
+            u = User(name=Name,password=Password,ranga="toConfirm",numer_kontaktowy=ContactNumber,email=Email,miasto=City,szkola=SchoolName)
             u.save()
             msg="User added"
+            subject = 'Registration CyrkielekPWSZ'
+            message = 'click the link to confirm your account: http://127.0.0.1:8000/confirmAccount/'+str(u.id)
+            email_from = settings.EMAIL_HOST_USER
+            recipient_list = [Email,]
+            send_mail( subject, message, email_from, recipient_list )
         else:
             msg="User with that name exists,try again"
     context = {'msg': msg}
     return render(request, 'forum/register2.html', context)
 
+def confirmAccount(request, user_id):
+    user = User.objects.filter(id=user_id)[0]
+    user.ranga="user"
+    user.save()
+    return redirect('login')
+
 def usersHOME(request, user_id):
     if not is_user_authenticated(request):
         return render(request, 'forum/error.html', context={'error': 'Nie jesteś zalogowany'})
-
+    if not user_id==request.session['logged_user']:
+        return render(request, 'forum/index.html')  
     users = User.objects.filter(id=auth_user_id(request))
     context = {'users': users, 'role': auth_user_rank(request)}
     return render(request, 'forum/usersHome.html', context)
 
 
 def user_at_forum(request, user_id):
+    if not user_id==request.session['logged_user']:
+        return render(request, 'forum/index.html')  
     users = User.objects.filter(id=auth_user_id(request))
 
     page_number = request.GET.get('page')
@@ -370,6 +398,8 @@ def user_at_forum(request, user_id):
 def math_page2(request, user_id):
     if not is_user_authenticated(request):
         return render(request, 'forum/error.html', context={'error': 'Nie jesteś zalogowany'})
+    if not user_id==request.session['logged_user']:
+        return render(request, 'forum/index.html')  
     users = User.objects.filter(id=auth_user_id(request))
 
     r=request.session.get('r')
@@ -396,6 +426,8 @@ def math_page2(request, user_id):
 def math_page3(request, user_id):
     if not is_user_authenticated(request):
         return render(request, 'forum/error.html', context={'error': 'Nie jesteś zalogowany'})
+    if not user_id==request.session['logged_user']:
+        return render(request, 'forum/index.html')  
     users = User.objects.filter(id=auth_user_id(request))
     userResult = UserStats.objects.filter(id_user_id=user_id).first()
 
@@ -411,7 +443,8 @@ def math_page3(request, user_id):
     odpO = request.POST.getlist('odpO')
     openQuestion=[]
     closeQuestion=[]
-    linki = []
+    linkiOtwarte = []
+    linkiZamkniete = []
     punktyZ=0
     punktyO=0
     punktyMAX=0
@@ -431,7 +464,8 @@ def math_page3(request, user_id):
       closeQuestion.append(zz)
       posts= PostM.objects.filter(zadanie=zz.id)
       for post in posts:
-        linki.append(post)
+        linkiZamkniete.append(post.id)
+      print(len(linkiZamkniete))
       punktyMAX=punktyMAX+1
       flexRadioDefaultNumber="flexRadioDefault"+str(x)
       my_answer = request.POST[flexRadioDefaultNumber]
@@ -449,7 +483,7 @@ def math_page3(request, user_id):
       openQuestion.append(zo)
       posts= PostM.objects.filter(zadanie=zo.id)
       for post in posts:
-        linki.append(post)
+        linkiOtwarte.append(post.id)
       punktyMAX=punktyMAX+2
       if zo.odpowiedz == odpO[x]:
         punktyO=punktyO+2
@@ -499,7 +533,7 @@ def math_page3(request, user_id):
     newScore=Score(id_user_id=user_id, data_testu=data_wyslania_testu, id_zad_otwartych=tasks_open, odp_otwarte=odp_otwarte,
     id_zad_zamknietych=tasks_close, odp_zamkniete=odp_zamkniete, punkty=punkty)
     newScore.save()
-    context = {'users': users,'zos': zos,'zzs': zzs,'odpO': odpO,'odpZ': odpZ,'punktyMAX': punktyMAX,'punkty': punkty,'linki': linki}
+    context = {'users': users,'zos': zos,'zzs': zzs,'odpO': odpO,'odpZ': odpZ,'punktyMAX': punktyMAX,'punkty': punkty,'linkiOtwarte': linkiOtwarte,'linkiZamkniete': linkiZamkniete}
     return render(request, 'forum/MATH_PAGE3.html', context)
 
 def post(request, user_id,post_id):
@@ -615,11 +649,17 @@ def delete_odpM(request, user_id,post_id,answer_id):
     return redirect('postM', user_id=auth_user_id(request), post_id=post_id)
 
 def userPanel(request, user_id):
+    if not is_user_authenticated(request):
+        return render(request, 'forum/index.html')
+    if not user_id==request.session['logged_user']:
+        return render(request, 'forum/index.html')    
     users = User.objects.filter(id=user_id)
     context = {'users': users}
     return render(request, 'forum/userPanel.html', context)
      
 def score(request, user_id):
+    if not user_id==request.session['logged_user']:
+        return render(request, 'forum/index.html')   
     start_time = time.monotonic()
     users = User.objects.filter(id=user_id)
     score = Score.objects.filter(id_user_id=user_id)
@@ -669,8 +709,8 @@ def score(request, user_id):
     return render(request, 'forum/userScore.html',context)
   
 def scoreDetails(request, user_id):
-    users = User.objects.filter(id=user_id)
     score = Score.objects.filter(id=user_id)
+    users = User.objects.filter(id=request.session['logged_user'])
     nzO=[]
     nzZ=[]
     oZZ=[]
@@ -709,7 +749,7 @@ def scoreDetails(request, user_id):
 
     pytaniaZamkniete=zip(pytZ,odpZZ,oZZ)
     pytaniaOtwarte=zip(pytO,oOO)
-    context = {'pytaniaZamkniete':pytaniaZamkniete, 'pytaniaOtwarte':pytaniaOtwarte}
+    context = {'users':users,'pytaniaZamkniete':pytaniaZamkniete, 'pytaniaOtwarte':pytaniaOtwarte}
     return render(request, 'forum/userScoreDetails.html',context)
 
 def check(request, user_id,post_id):
@@ -778,6 +818,8 @@ def history(request, user_id):
     return render(request, 'forum/history.html', context)
 
 def oneTaskGenerate(request, user_id):
+    if not user_id==request.session['logged_user']:
+        return render(request, 'forum/index.html')  
     users = User.objects.filter(id=user_id)
     questionType=Dzial_matematyki.objects.all()
     context = {'users': users, 'types':questionType}

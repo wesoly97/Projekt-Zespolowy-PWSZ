@@ -67,3 +67,6 @@ h5{
     border: #FFE06B;
     color:black;
 }
+#currSvg{
+    pointer-events: none;
+}
