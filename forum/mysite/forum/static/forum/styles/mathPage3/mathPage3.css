@@ -1,10 +1,9 @@
 form {
-    width: 50vw !important;
     font-size: 18px;
     padding-top: 5rem;
   }
   form > *{
-    background-color: #f7f7f7;
+    background-color: #EBEBEB;
   }
   #check {
     display: flex;
@@ -13,9 +12,13 @@ form {
     align-content: center;
   }
   .description {
-    background-color: #668099;
-    color: #fff176;
-    font-size: 24px;
+    color: #FFC745;
+    background-color: #293642;
+    padding-top: 10px;
+    padding-bottom: 5px;
+    padding-left: 10px;
+    align-items: center;
+    font-weight: bold !important;
   }
   form img {
     width: 60%;
@@ -31,7 +34,10 @@ form {
     margin-right: 10px;
     border: 1px black solid;
   }
-  
+  .row:nth-child(1) > .description, .row:nth-child(2){
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+  }
  
   
   .answerO {
@@ -93,4 +99,23 @@ form {
       height: 20px;
     }
   }
-  
+
+  .form-check-label .base{
+    white-space: normal !important;
+    width: 100% !important;
+  }
+  .katex .base, .katex .strut {
+    display: inherit !important;
+  }
+  .katex-display>.katex>.katex-html{
+    display: initial !important;
+  }
+  img{
+    max-width: 15%;
+    height: auto;
+  }
+  @media (max-width: 575px) {
+    img{
+        min-width: 60px;
+    }
+  }

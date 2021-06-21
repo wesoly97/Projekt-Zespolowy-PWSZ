@@ -27,7 +27,7 @@ function createMathquill(id) {
 <script>
    let MQ = MathQuill.getInterface(2);
 </script>
-<form class="container" method="post" action="{% url 'math_page3' user.id %}">
+<form class="container mb-5" method="post" action="{% url 'math_page3' user.id %}">
   {% csrf_token %}
   {% for zz in zzs %}
   <div class="row">
