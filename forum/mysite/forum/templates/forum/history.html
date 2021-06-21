@@ -13,22 +13,39 @@
 <script type="text/javascript" src = "{% static 'forum/katex/katex.min.js' %}"></script>
 <script type="text/javascript" src = "{% static 'forum/katex/contrib/auto-render.js' %}"></script>
 {% endblock js %}
+<script src="{% static 'forum/js/history/history.js' %}"></script>
 
-<div class="home">
-<div class="row">
-<div class="form-check col-md-6 col-6" id="pytZ">
-  <h1>Pytania zamkniete</h1>
-  {% for pytZ,odpZZ,oZZ,pytObrazkiZ in pytaniaZamkniete %}
-  {% if pytObrazkiZ %}
-    <img class="rounded mx-auto d-block" src="{% static pytObrazkiZ %}" />
-  {% endif %}
-  PYTANIE : {{ pytZ }} <br />
-  ODPOWIEDZI : ${{ odpZZ }}$<br />
-  ODPOWIEDZ : ${{ oZZ }}$<br />
-  <hr />
-  {% endfor %}
+<div class="container-fluid px-0">
+  <div class="container-fluid ficik"><div class="home-text text-center text-light"><h1>Historia</h1></div></div>
+  <div class="row head_table collapsed mx-0" data-toggle="collapse" data-target="#demo1" class="accordion-toggle">
+    <div class="col-md-12 text-center description"><h2>Zadania zamknięte</h2>
+      <div class="svgChange"><svg class="currSvg" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-double-down" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" d="M1.646 6.646a.5.5 0 0 1 .708 0L8 12.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
+        <path fill-rule="evenodd" d="M1.646 2.646a.5.5 0 0 1 .708 0L8 8.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
+      </svg></div>
+    </div>
   </div>
-
+    <div class="accordian-body collapse row mx-0" id="demo1"> 
+    <div class=" px-0 col-xl-12 srodek" id="pytZ">
+      {% for pytZ,odpZZ,oZZ,pytObrazkiZ in pytaniaZamkniete %}
+      <div class="ml-2 pb-2">
+        {{ pytZ }}
+      </div>
+      {% if pytObrazkiZ %}
+      <div class="ml-2 pb-2">
+        <img class="rounded mx-auto d-block" src="{% static pytObrazkiZ %}" />
+      </div>
+      {% endif %}
+      <div class="ml-2 pb-2">
+        ${{ odpZZ }}$
+      </div>
+      <div class="ml-2">
+        <b>ODPOWIEDŹ : ${{ oZZ }}$ </b>
+      </div>
+      <hr />
+      {% endfor %}
+    </div>
+  </div>
       <script sync>
       renderMathInElement(document.getElementById('pytZ'),
       {
@@ -41,19 +58,32 @@
               throwOnError: false
       });
     </script>
-  
-  <div class="form-check col-md-6 col-6" id="pytO">
-  <h1>Pytania otwarte</h1>
-  {% for pytO,oOO,pytObrazkiO in pytaniaOtwarte %}
-  {% if pytObrazkiO %}
-   <img class="rounded mx-auto d-block" src="{% static pytObrazkiO %}" />
-  {% endif %} 
-  PYTANIE : {{ pytO }} <br />
-  ODPOWIEDZ : ${{ oOO }}$<br />
-  <hr />
-  {% endfor %}
-  </div>
-  </div>
+     <div class="row  head_table collapsed mx-0" data-toggle="collapse" data-target="#demo2" class="accordion-toggle">
+      <div class="col-md-12 text-center description"><h2>Zadania Otwarte</h2>
+        <div class="svgChange"><svg class="currSvg" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-double-down" viewBox="0 0 16 16">
+          <path fill-rule="evenodd" d="M1.646 6.646a.5.5 0 0 1 .708 0L8 12.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
+          <path fill-rule="evenodd" d="M1.646 2.646a.5.5 0 0 1 .708 0L8 8.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
+        </svg></div>
+      </div>
+    </div>
+    <div class="accordian-body collapse row mx-0" id="demo2"> 
+      <div class="px-0 col-xl-12 srodek" id="pytO">
+        {% for pytO,oOO,pytObrazkiO in pytaniaOtwarte %}
+        <div class="ml-2">
+          {{ pytO }}
+        </div>
+        {% if pytObrazkiO %}
+        <div class="ml-2 pb-2">
+          <img class="rounded mx-auto d-block" src="{% static pytObrazkiO %}" />
+        </div>
+        {% endif %}
+        <div class="ml-2">
+          <b>ODPOWIEDŹ : ${{ oOO }}$</b>
+        </div>
+        <hr />
+        {% endfor %}
+      </div>
+    </div>
 
         <script sync>
       renderMathInElement(document.getElementById('pytO'),
@@ -68,42 +98,63 @@
       });
     </script>
   
-
-  <div class="row" id="posty"> 
-  <div class="form-check col-md-4 col-4">
-  <h1>POSTY</h1>
-  {% for p in posts %} 
-  temat : {{ p.subject }} <br />
-  tresc : {{ p.text }}<br />
-  <a class="btn btn-outline-dark btn-md" 
-  href="{% url 'post'  p.userP_id p.id %}" role="button">Przejdź</a>
-  <hr>
-  {% endfor %}
- </div>
-
-<div class="form-check col-md-4 col-4">
-  <h1>KOMENTARZE DO POSTOW UZYTKOWNIKOW</h1>
-  {% for p in answer %} 
-  temat : {{p.post}} <br />
-  tresc : {{ p.answer }}<br />
-   <a class="btn btn-outline-dark btn-md" 
-  href="{% url 'post'  p.userA_id p.post_id %}" role="button">Przejdź</a>
-  <hr>
-  {% endfor %}
+  <div class="row  head_table collapsed mx-0" data-toggle="collapse" data-target="#demo3" class="accordion-toggle">
+    <div class="col-md-12 text-center description"><h2>Posty</h2>
+      <div class="svgChange"><svg class="currSvg" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-double-down" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" d="M1.646 6.646a.5.5 0 0 1 .708 0L8 12.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
+        <path fill-rule="evenodd" d="M1.646 2.646a.5.5 0 0 1 .708 0L8 8.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
+      </svg></div>
+    </div>
   </div>
-
-<div class="form-check col-md-4 col-4">
-  <h1>KOMENTARZE DO POSTOW ZADAN</h1>
-  {% for p in answerM %} 
-  zadanie : ${{p.zadanie.tresc}}$ <br />
-  tresc : {{ p.answer }}<br />
-  <a class="btn btn-outline-dark btn-md" 
-  href="{% url 'postM' p.userA_id p.zadanie_id %}" role="button">Przejdź</a>
-   <hr>
-  {% endfor %}
+  <div class="accordian-body collapse row mx-0" id="demo3"> 
+    <div class="col-xl-12 px-0 ">
+        {% for p in posts %} 
+          <div class="ml-2"> temat : {{ p.subject }} </div>
+          <div class="ml-2"> tresc : {{ p.text }} </div>
+          <div class="ml-2"><a class="btn btn-outline-dark btn-md" 
+          href="{% url 'post'  p.userP_id p.id %}" role="button">Przejdź</a></div>
+        <hr>
+        {% endfor %}
+    </div>
   </div>
-
+  <div class="row  head_table collapsed mx-0" data-toggle="collapse" data-target="#demo4" class="accordion-toggle">
+    <div class="col-md-12 text-center description"><h2>Komentarze do postów użytkowników</h2>
+      <div class="svgChange"><svg class="currSvg" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-double-down" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" d="M1.646 6.646a.5.5 0 0 1 .708 0L8 12.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
+        <path fill-rule="evenodd" d="M1.646 2.646a.5.5 0 0 1 .708 0L8 8.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
+      </svg></div>
+    </div>
   </div>
+  <div class="accordian-body collapse row mx-0" id="demo4"> 
+    <div class="col-xl-12 px-0">
+      {% for p in answer %} 
+      <div class="ml-2">temat : {{p.post}} </div>
+      <div class="ml-2">tresc : {{ p.answer }}</div> 
+      <div class="ml-2"><a class="btn btn-outline-dark btn-md" 
+      href="{% url 'post'  p.userA_id p.post_id %}" role="button">Przejdź</a></div>
+      <hr>
+      {% endfor %}
+    </div>
+</div>
+<div class="row head_table collapsed mx-0" data-toggle="collapse" data-target="#demo5" class="accordion-toggle">
+  <div class="col-md-12 text-center description"><h2>Komentarze do postów zadań</h2>
+    <div class="svgChange"><svg class="currSvg" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-double-down" viewBox="0 0 16 16">
+      <path fill-rule="evenodd" d="M1.646 6.646a.5.5 0 0 1 .708 0L8 12.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
+      <path fill-rule="evenodd" d="M1.646 2.646a.5.5 0 0 1 .708 0L8 8.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
+    </svg></div>
+  </div>
+</div>
+<div class="accordian-body collapse row mx-0" id="demo5"> 
+    <div class="col-xl-12 px-0 ">
+      {% for p in answerM %} 
+      <div class="ml-2">zadanie : ${{p.zadanie.tresc}}$</div>
+      <div class="ml-2">tresc : {{ p.answer }}</div>
+      <div class="ml-2"><a class="btn btn-outline-dark btn-md" 
+        href="{% url 'postM' p.userA_id p.zadanie_id %}" role="button">Przejdź</a></div>
+      <hr>
+      {% endfor %}
+    </div>
+    </div>
 </div>
 
         <script sync>
