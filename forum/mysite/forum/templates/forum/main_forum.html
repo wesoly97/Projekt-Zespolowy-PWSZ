@@ -1,0 +1,104 @@
+{% extends 'forum/base.html' %} {% block content %}
+    <div class="container-lg">
+
+      <div class="container-fluid mb-5 main_forum">
+
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb mt-4">
+            <li class="breadcrumb-item"><a href="#">Forum</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Kategorie</li>
+          </ol>
+        </nav>
+
+        <div class="row">
+          <div class="container-fluid mt-3">
+            <h2 class="h4 text-white bg-dark mb-0 p-4 rounded-top">Kategorie</h2>
+
+            <table class="table table-striped table-bordered table-responsive">
+              <thead class="thead-light">
+                <tr>
+                  <th scope="col" class="forum-col">Forum</th>
+                  <th scope="col">Tematy</th>
+                  <th scope="col">Posty</th>
+                  <th scope="col" class="last-post-col">Ostatni post</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <h3 class="h5 mb-0"><a href="overview-topics.html" class="text-uppercase">Pytania użytkowników</a></h3>
+                    <p class="mb-0">W tej kategorii zawarte są zwykłe pytania użytkowników.</p>
+                  </td>
+                  <td>
+                    <div>{{ normal_threads_number }}</div>
+                  </td>
+                  <td>
+                    {{ normal_posts_number }}
+                  </td>
+                  <td>
+                    <h4 class="h6 mb-0 font-weight-bold"><a href="#0">{{ last_normal_post_name }}</a></h4>
+                    <div>przez <a href="#0">{{ last_normal_post_user.name }}</a></div>
+                    <div>{{ last_normal_post.date }}</div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <h3 class="h5 mb-0"><a href="overview-topics.html" class="text-uppercase">Zadania do sprawdzenia</a></h3>
+                    <p class="mb-0">Tematy z zadaniami oznaczonymi jako do sprawdzenia</p>
+                  </td>
+                  <td>
+                    <div>10</div>
+                  </td>
+                  <td>
+                    2300
+                  </td>
+                  <td>
+                    <h4 class="h6 mb-0 font-weight-bold"><a href="#0">Post name</a></h4>
+                    <div>by <a href="#0">Author name</a></div>
+                    <div> 04.05.2021, 20:45</div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <h3 class="h5 mb-0"><a href="overview-topics.html" class="text-uppercase">Zadania zamknięte</a></h3>
+                    <p class="mb-0">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout</p>
+                  </td>
+                  <td>
+                    <div>10</div>
+                  </td>
+                  <td>
+                    2300
+                  </td>
+                  <td>
+                    <h4 class="h6 mb-0 font-weight-bold"><a href="#0">Post name</a></h4>
+                    <div>by <a href="#0">Author name</a></div>
+                    <div> 04.05.2021, 20:45</div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <h3 class="h5 mb-0"><a href="overview-topics.html" class="text-uppercase">Forum zadankowe</a></h3>
+                    <p class="mb-0">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout</p>
+                  </td>
+                  <td>
+                    <div>10</div>
+                  </td>
+                  <td>
+                    2300
+                  </td>
+                  <td>
+                    <h4 class="h6 mb-0 font-weight-bold"><a href="#0">Post name</a></h4>
+                    <div>by <a href="#0">Author name</a></div>
+                    <div> 04.05.2021, 20:45</div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+
+   {% endblock content %}

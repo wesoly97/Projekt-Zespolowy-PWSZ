@@ -1,5 +1,5 @@
 from django.core.paginator import Paginator
-from django.db.models import Max
+from django.db.models import Max, QuerySet
 
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
@@ -347,6 +347,46 @@ def usersHOME(request, user_id):
     context = {'users': users, 'role': auth_user_rank(request)}
     return render(request, 'forum/usersHome.html', context)
 
+
+def forum(request):
+    if not is_user_authenticated(request):
+        return redirect('http://127.0.0.1:8000')
+
+    # kategoria POSTY UŻYTKOWNIKÓW
+    normal_posts_number = len(Post.objects.all())
+
+    query = Post.objects.all().query
+    query.group_by = ['subject']
+    results = QuerySet(query=query, model=Post)
+    normal_threads_number = len(results)
+
+    last_normal_post = Answer.objects.order_by('-id')[0]
+    last_normal_post_name = Post.objects.filter(id=last_normal_post.post_id)[0].subject
+
+    if len(last_normal_post_name) > 10:
+        last_normal_post_name = last_normal_post_name[0:10] + '...'
+
+    last_normal_post_user = User.objects.filter(id=last_normal_post.userA_id)[0]
+
+    # kategoria ZADANIA DO SPRAWDZENIA
+
+    posts_to_check = PostM.objects.filter(stan='check')
+    posts_to_check_number = len(posts_to_check)
+
+    query = posts_to_check.query
+    query.group_by = ['zadanie_id']
+    results = QuerySet(query=query, model=PostM)
+    threads_to_check_number = len(results)
+
+    last_to_check_post = AnswerM.objects.order_by('-id')[0]
+    last_to_check_post_name = PostM
+    last_to_check_post_user = User.objects.filter(id=last_to_check_post.userP_id)[0]
+
+    context = {'normal_threads_number': normal_threads_number, 'normal_posts_number': normal_posts_number,
+               'last_normal_post': last_normal_post, 'last_normal_post_name': last_normal_post_name,
+               'last_normal_post_user': last_normal_post_user}
+
+    return render(request, 'forum/main_forum.html', context)
 
 def user_at_forum(request, user_id):
     if not is_user_authenticated(request) or not user_id==request.session['logged_user']:
