@@ -78,3 +78,11 @@ form img {
     height: 20px;
   }
 }
+
+.form-check-label .base{
+  white-space: normal !important;
+  width: 100% !important;
+}
+.katex .base, .katex .strut {
+  display: inherit !important;
+}
