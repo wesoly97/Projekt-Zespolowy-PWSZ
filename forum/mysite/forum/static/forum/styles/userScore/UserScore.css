@@ -63,6 +63,10 @@ h5{
     font-weight: bold;
     background-color: #293642;
     border-radius:5px;
+    cursor: pointer !important;
+}
+#head_table:hover{
+    background-color: #324250;
 }
 .buttonTable{
     margin:10px;
