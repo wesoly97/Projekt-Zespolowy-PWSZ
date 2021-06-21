@@ -87,22 +87,7 @@ def addNewPost(NumberTask,nrWersji):
 #                                                   #
 #####################################################
 def replace(text):
-    newtext=text.replace('\ ',' ')
-    newtext=newtext+" "
-    newtext=newtext.replace(' \\',' $\\')
-    newtext=newtext.replace('} ','}$ ')
-    list=re.findall(r'\s[1-z]+[-^]', newtext)
-    for i in list:
-       newtext = newtext.replace(i,' $'+i[1:len(i)])
-    count=newtext.count('$')
-    if(count==1):
-        newtext=newtext+"$"
-    list2=re.findall(r'.*?\$(.*)$.*', newtext)
-    # for j in list2:
-    #    tmp=j
-    # #    newSubString=tmp.replace(' ','\ ')
-    #    newtext = newtext.replace(j,newSubString)
-    return newtext
+    return text
 
 #####################################################
 #                                                   #
@@ -237,10 +222,10 @@ def addQuestionViewClosedQuestion(request, user_id):
     return render(request, 'forum/addQuestionClose.html', context)
 
 
-def addQuestionOpenToDatabase(request, user_id):
+def addQuestionOpenToDatabase(request):
     if auth_user_rank(request) != 'admin' and auth_user_rank(request) != 'moderator':
         return render(request, 'forum/error.html', context={'error': 'Brak uprawnień'})
-    if not is_user_authenticated(request) or not user_id==request.session['logged_user']:
+    if not is_user_authenticated(request):
         return redirect('http://127.0.0.1:8000') 
     NumberTask = request.POST['numberTask']
     section = request.POST['section']
@@ -278,10 +263,10 @@ def addQuestionOpenToDatabase(request, user_id):
     context = {'users': users,'types':questionType,'sets':sets}
     return render(request, 'forum/addQuestionOpen.html', context)
 
-def addQuestionCloseToDatabase(request, user_id):
+def addQuestionCloseToDatabase(request):
     if auth_user_rank(request) != 'admin' and auth_user_rank(request) != 'moderator':
         return render(request, 'forum/error.html', context={'error': 'Brak uprawnień'})
-    if not is_user_authenticated(request) or not user_id==request.session['logged_user']:
+    if not is_user_authenticated(request):
         return redirect('http://127.0.0.1:8000') 
     NumberTask = request.POST['numberTask']
     section = request.POST['section']
