@@ -1,5 +1,5 @@
 .padding{
-    padding-top:62px;
+    margin-top:62px;
 }
 .description {
     color: #FFC745;
@@ -12,3 +12,7 @@
 .srodek{
     background-color: #EBEBEB;
   }
+
+.currSvg{
+    pointer-events: none;
+}
