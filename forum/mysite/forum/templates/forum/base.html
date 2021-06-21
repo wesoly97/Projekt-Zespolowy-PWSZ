@@ -15,7 +15,15 @@
   <script>
     $(document).ready(function () {
       $('body').addClass('loaded');
+
+      $('#historyButton').click(function(){
+        var s = $(this).attr("data-url");
+        $('body').removeClass("loaded");
+        window.location.href = s;
     });
+    });
+
+
   </script>
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp" crossorigin="anonymous" />
   <link rel="stylesheet" type="text/css" href="{% static 'forum/styles/style.css' %}" />
@@ -33,7 +41,7 @@
       </button>
       <div class="collapse navbar-collapse" id="ftco-nav">
         <ul class="navbar-nav mr-auto">
-          <li class="nav-item active"><a href="{% url 'index' %}" class="nav-link">Home</a></li>
+          <li class="nav-item active"><a href="{% url 'index' %}"  class="nav-link">Home</a></li>
         {% if request.session.logged_user == 0 or request.session.logged_user == '0' or not request.session.logged_user%}
         </ul>
         <ul class="navbar-nav ml-auto">
@@ -41,7 +49,7 @@
           <li class="nav-item"><a class="nav-link" href="{% url 'register1' %}">Rejestracja</a></li>
         {% else %}
           <li class="nav-item"><a class="nav-link" href="{% url 'usersHOME' request.session.logged_user %}">Panel użytkownika</a></li>
-          <li class="nav-item"><a class="nav-link" href="{% url 'history' request.session.logged_user %}">Historia</a></li>
+          <li class="nav-item"><a class="nav-link" id="historyButton" data-url="{% url 'history' request.session.logged_user %}" href="#" >Historia</a></li>  
         </ul>
         <ul class="navbar-nav ml-auto">
           {% for user in users %}
