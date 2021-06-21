@@ -22,23 +22,24 @@
   </div>
   <div id="table_history">
 <div class="row" id="head_table" data-toggle="collapse" data-target="#demo1" class="accordion-toggle">
-<div class="col-md-4 text-center">Data</div>
-<div class="col-md-4 text-center">Uzyskane Punkty</div>
-<div class="col-md-4 text-center " id="svgChange"><svg id="currSvg" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-double-down" viewBox="0 0 16 16">
+<div class="col-sm-4 text-center">Data</div>
+<div class="col-sm-4 text-center">Uzyskane Punkty</div>
+<div class="col-sm-4 text-center " id="svgChange"><svg id="currSvg" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-double-down" viewBox="0 0 16 16">
   <path fill-rule="evenodd" d="M1.646 6.646a.5.5 0 0 1 .708 0L8 12.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
   <path fill-rule="evenodd" d="M1.646 2.646a.5.5 0 0 1 .708 0L8 8.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
 </svg></div>
 </div>
 <div class="accordian-body collapse row" id="demo1"> 
 {% for score in score %}
-  <div class="col-md-4 text-center border d-flex align-items-center justify-content-center">
+  <div class="col-sm-4 text-center border d-flex align-items-center justify-content-center">
 {{score.data_testu|date:"Y/m/d H:i:s"}}
 </div>
-<div class="col-md-4 text-center border d-flex align-items-center justify-content-center ">
- {{score.punkty}}/5
+<div class="col-sm-4 text-center border d-flex align-items-center justify-content-center ">
+ {{score.punkty}}/40
 </div>
-<div class="col-md-4 text-center border d-flex align-items-center justify-content-center">
-  <a href="{% url 'userScoreDetails' score.id %}" class="buttonTable btn navButtons float-right">Szczegóły</a>
+<div class="col-sm-4 text-center border d-flex align-items-center justify-content-center">
+  
+  <input type="button"   data-url="{% url 'userScoreDetails' score.id %}"  class=" btn navButtons float-right" value="Szczegóły">
 </div>
 
 

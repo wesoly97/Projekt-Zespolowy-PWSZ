@@ -27,7 +27,7 @@ function createMathquill(id) {
 <script>
    let MQ = MathQuill.getInterface(2);
 </script>
-<form class="container" method="post" action="{% url 'math_page3' user.id %}">
+<form class="container mb-5" method="post" action="{% url 'math_page3' user.id %}">
   {% csrf_token %}
   {% for zz in zzs %}
   <div class="row">
@@ -35,30 +35,30 @@ function createMathquill(id) {
       <h5>Zadanie zamkniete nr. {{forloop.counter0}}</h5>
     </div>
     <div class="col-12 py-2">
-      <p>{{zz.tresc}}</p>
+      <p>${{zz.tresc}}$</p>
     </div>
     <div class="form-check col-md-3 col-6">
-      <input type="radio" class="radioButton" value={{zz.odp_a}} name="flexRadioDefault{{forloop.counter0}}" id="flexRadioDefault{{forloop.counter0}}1">
+      <input type="radio" class="radioButton" value={{zz.odp_a}} name="flexRadioDefault{{forloop.counter0}}" id="flexRadioDefault{{forloop.counter0}}1" required>
       <label class="form-check-label" for="flexRadioDefault{{forloop.counter0}}1">
-        $${{zz.odp_a}}$$
+        ${{zz.odp_a}}$
       </label>
     </div>
     <div class="form-check col-md-3 col-6">
       <input type="radio" class="radioButton" value={{zz.odp_b}} name="flexRadioDefault{{forloop.counter0}}" id="flexRadioDefault{{forloop.counter0}}2">
       <label class="form-check-label" for="flexRadioDefault{{forloop.counter0}}2">
-        $${{zz.odp_b}}$$
+        ${{zz.odp_b}}$
       </label>
     </div>
     <div class="form-check col-md-3 col-6">
       <input type="radio" class="radioButton" value={{zz.odp_c}} name="flexRadioDefault{{forloop.counter0}}" id="flexRadioDefault{{forloop.counter0}}3">
       <label class="form-check-label" for="flexRadioDefault{{forloop.counter0}}3">
-        $${{zz.odp_c}}$$
+        ${{zz.odp_c}}$
       </label>
     </div>
     <div class="form-check col-md-3 col-6">
       <input type="radio" class="radioButton" value={{zz.odp_d}} name="flexRadioDefault{{forloop.counter0}}" id="flexRadioDefault{{forloop.counter0}}4">
       <label class="form-check-label" for="flexRadioDefault{{forloop.counter0}}4">
-        $${{zz.odp_d}}$$
+        ${{zz.odp_d}}$
       </label>
     </div>
   </div>
