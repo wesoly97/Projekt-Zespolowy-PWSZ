@@ -70,3 +70,12 @@ img{
         min-width: 60px;
     }
 }
+.base{
+  white-space: normal !important;
+}
+.form-check-label .base{
+  width: 100% !important;
+}
+.katex .base, .katex .strut {
+  display: inherit !important;
+}
