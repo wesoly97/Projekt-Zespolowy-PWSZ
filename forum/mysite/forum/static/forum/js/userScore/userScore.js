@@ -12,4 +12,9 @@ $(document).ready(function(){
         zm = !zm;
     });
 
+    $('.navButtons').click(function(){
+        var s = $(this).attr("data-url");
+        $('body').removeClass("loaded");
+        window.location.href = s;
+    });
 });

@@ -1,6 +1,36 @@
-{% extends 'forum/base.html' %} {% block content %}
-<a href="{% url 'index' %}"
-  ><button><i class="fas fa-home fa-3x"></i></button></a
-><br /><br />
-<p>{{msg}}</p>
+{% extends 'forum/base.html' %}
+
+{% load static %}
+{% block css %}
+
+
+{% endblock css %}
+
+{% block js %}
+
+{% endblock js %}
+
+
+{% block content %}
+{% for user in users %}
+
+<div class="container-fluid pt-5 pb-5">
+
+  <div class="row no-gutters">
+    <div class="col-md-3 d-none d-md-block"></div>
+      <a href="{% url 'index' %}">
+        <button type="button" class="btn btn-outline-secondary">Powrót</button>
+      </a>
+    <div class="col-md-6 col-12 justify-content-center mt-5 mb-5">
+      <img src="/static/forum/images/add/succesLogin.jpg" class="img-fluid" alt="Sukces" height="200px">
+      <h2 class="text-center mt-3">{{msg}}</h2>
+    </div>
+    <div class="col-md-3 d-none d-md-block"></div>
+  </div>
+
+</div>
+
+</div>
+
+{% endfor %}
 {% endblock content %}

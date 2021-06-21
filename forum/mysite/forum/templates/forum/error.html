@@ -1,6 +1,16 @@
 {% extends 'forum/base.html' %}
 {% block content %}
 
-<h1>{{ error }}</h1>
+<div class="container mt-5 mb-5">
+    <div class="row">
+        <div class="col"></div>
+        <div class="col-lg-12">
+            <div class="alert alert-danger" role="alert">
+                {{error}}
+            </div>
+        </div>
+        <div class="col"></div>
+    </div>
+</div>
 
 {% endblock content %}
