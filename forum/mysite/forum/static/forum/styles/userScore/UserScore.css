@@ -38,12 +38,15 @@ h5{
 #black_line{
     width: 100%;
     height: 10%;
-    background: #002030;
+    background-color: #293642;
     position: absolute;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
     
 }
+
 #container_statistics{
-    padding-top: 12%;
+    padding-top: calc(150px - 2vw);
     width: 100%;
     height: 100%;
     background:whitesmoke;
@@ -55,10 +58,11 @@ h5{
     
 }
 #head_table{
-    background: #002030;
     padding:10px 0px 10px 0px;
     color:whitesmoke;
     font-weight: bold;
+    background-color: #293642;
+    border-radius:5px;
 }
 .buttonTable{
     margin:10px;
