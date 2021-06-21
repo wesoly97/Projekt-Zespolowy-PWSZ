@@ -158,6 +158,7 @@ def addStatistics(questionList,answerList,stats):
         count+=1
     return stats
 
+
 def index(request):
     if(request.session._session):
         users = User.objects.filter(id=request.session['logged_user'])
@@ -210,8 +211,8 @@ def register1(request):
 def addQuestionView(request, user_id):
     if auth_user_rank(request) != 'admin' and auth_user_rank(request) != 'moderator':
         return render(request, 'forum/error.html', context={'error': 'Brak uprawnień'})
-    if not user_id==request.session['logged_user']:
-        return render(request, 'forum/index.html')  
+    if not is_user_authenticated(request) or not user_id==request.session['logged_user']:
+        return redirect('http://127.0.0.1:8000') 
     users = User.objects.filter(id=user_id)
     questionType=Dzial_matematyki.objects.all()
     sets=[]
@@ -225,8 +226,8 @@ def addQuestionView(request, user_id):
 def addQuestionViewClosedQuestion(request, user_id):
     if auth_user_rank(request) != 'admin' and auth_user_rank(request) != 'moderator':
         return render(request, 'forum/error.html', context={'error': 'Brak uprawnień'})
-    if not user_id==request.session['logged_user']:
-        return render(request, 'forum/index.html')  
+    if not is_user_authenticated(request) or not user_id==request.session['logged_user']:
+        return redirect('http://127.0.0.1:8000') 
     users = User.objects.filter(id=user_id)
     questionType=Dzial_matematyki.objects.all()
     sets=[]
@@ -236,10 +237,11 @@ def addQuestionViewClosedQuestion(request, user_id):
     return render(request, 'forum/addQuestionClose.html', context)
 
 
-def addQuestionOpenToDatabase(request):
+def addQuestionOpenToDatabase(request, user_id):
     if auth_user_rank(request) != 'admin' and auth_user_rank(request) != 'moderator':
         return render(request, 'forum/error.html', context={'error': 'Brak uprawnień'})
-    
+    if not is_user_authenticated(request) or not user_id==request.session['logged_user']:
+        return redirect('http://127.0.0.1:8000') 
     NumberTask = request.POST['numberTask']
     section = request.POST['section']
     set = request.POST['set']
@@ -276,9 +278,11 @@ def addQuestionOpenToDatabase(request):
     context = {'users': users,'types':questionType,'sets':sets}
     return render(request, 'forum/addQuestionOpen.html', context)
 
-def addQuestionCloseToDatabase(request):
+def addQuestionCloseToDatabase(request, user_id):
     if auth_user_rank(request) != 'admin' and auth_user_rank(request) != 'moderator':
         return render(request, 'forum/error.html', context={'error': 'Brak uprawnień'})
+    if not is_user_authenticated(request) or not user_id==request.session['logged_user']:
+        return redirect('http://127.0.0.1:8000') 
     NumberTask = request.POST['numberTask']
     section = request.POST['section']
     set = request.POST['set']
@@ -352,18 +356,16 @@ def confirmAccount(request, user_id):
     return redirect('login')
 
 def usersHOME(request, user_id):
-    if not is_user_authenticated(request):
-        return render(request, 'forum/error.html', context={'error': 'Nie jesteś zalogowany'})
-    if not user_id==request.session['logged_user']:
-        return render(request, 'forum/index.html')  
+    if not is_user_authenticated(request) or not user_id==request.session['logged_user']:
+        return redirect('http://127.0.0.1:8000') 
     users = User.objects.filter(id=auth_user_id(request))
     context = {'users': users, 'role': auth_user_rank(request)}
     return render(request, 'forum/usersHome.html', context)
 
 
 def user_at_forum(request, user_id):
-    if not user_id==request.session['logged_user']:
-        return render(request, 'forum/index.html')  
+    if not is_user_authenticated(request) or not user_id==request.session['logged_user']:
+        return redirect('http://127.0.0.1:8000') 
     users = User.objects.filter(id=auth_user_id(request))
 
     page_number = request.GET.get('page')
@@ -396,10 +398,8 @@ def user_at_forum(request, user_id):
     return render(request, 'forum/userFORUM.html', context)
 
 def math_page2(request, user_id):
-    if not is_user_authenticated(request):
-        return render(request, 'forum/error.html', context={'error': 'Nie jesteś zalogowany'})
-    if not user_id==request.session['logged_user']:
-        return render(request, 'forum/index.html')  
+    if not is_user_authenticated(request) or not user_id==request.session['logged_user']:
+        return redirect('http://127.0.0.1:8000') 
     users = User.objects.filter(id=auth_user_id(request))
 
     r=request.session.get('r')
@@ -424,10 +424,8 @@ def math_page2(request, user_id):
     return render(request, 'forum/MATH_PAGE2.html', context)
 
 def math_page3(request, user_id):
-    if not is_user_authenticated(request):
-        return render(request, 'forum/error.html', context={'error': 'Nie jesteś zalogowany'})
-    if not user_id==request.session['logged_user']:
-        return render(request, 'forum/index.html')  
+    if not is_user_authenticated(request) or not user_id==request.session['logged_user']:
+        return redirect('http://127.0.0.1:8000') 
     users = User.objects.filter(id=auth_user_id(request))
     userResult = UserStats.objects.filter(id_user_id=user_id).first()
 
@@ -537,8 +535,8 @@ def math_page3(request, user_id):
     return render(request, 'forum/MATH_PAGE3.html', context)
 
 def post(request, user_id,post_id):
-    if not is_user_authenticated(request):
-        return render(request, 'forum/error.html', context={'error': 'Nie jesteś zalogowany'})
+    if not is_user_authenticated(request) or not user_id==request.session['logged_user']:
+        return redirect('http://127.0.0.1:8000') 
     users = User.objects.filter(id=auth_user_id(request))
     posts = Post.objects.filter(id=post_id)
     answers = Answer.objects.filter(post=post_id)
@@ -546,8 +544,8 @@ def post(request, user_id,post_id):
     return render(request, 'forum/posts.html', context)
 
 def postM(request, user_id,post_id):
-    if not is_user_authenticated(request):
-        return render(request, 'forum/error.html', context={'error': 'Nie jesteś zalogowany'})
+    if not is_user_authenticated(request) or not user_id==request.session['logged_user']:
+        return redirect('http://127.0.0.1:8000') 
     users = User.objects.filter(id=auth_user_id(request))
     postsM = PostM.objects.filter(id=post_id)
     answersM = AnswerM.objects.filter(zadanie=post_id)
@@ -648,18 +646,16 @@ def delete_odpM(request, user_id,post_id,answer_id):
     answersM = AnswerM.objects.filter(zadanie=post_id)
     return redirect('postM', user_id=auth_user_id(request), post_id=post_id)
 
-def userPanel(request, user_id):
-    if not is_user_authenticated(request):
-        return render(request, 'forum/index.html')
-    if not user_id==request.session['logged_user']:
-        return render(request, 'forum/index.html')    
+def userPanel(request, user_id):  
+    if not is_user_authenticated(request) or not user_id==request.session['logged_user']:
+        return redirect('http://127.0.0.1:8000') 
     users = User.objects.filter(id=user_id)
     context = {'users': users}
     return render(request, 'forum/userPanel.html', context)
      
 def score(request, user_id):
-    if not user_id==request.session['logged_user']:
-        return render(request, 'forum/index.html')   
+    if not is_user_authenticated(request) or not user_id==request.session['logged_user']:
+        return redirect('http://127.0.0.1:8000')  
     start_time = time.monotonic()
     users = User.objects.filter(id=user_id)
     score = Score.objects.filter(id_user_id=user_id)
@@ -708,7 +704,7 @@ def score(request, user_id):
     context = {'users':users, 'score':score,'Stats':resultStats}
     return render(request, 'forum/userScore.html',context)
   
-def scoreDetails(request, user_id):
+def scoreDetails(request, user_id): 
     score = Score.objects.filter(id=user_id)
     users = User.objects.filter(id=request.session['logged_user'])
     nzO=[]
@@ -753,8 +749,8 @@ def scoreDetails(request, user_id):
     return render(request, 'forum/userScoreDetails.html',context)
 
 def check(request, user_id,post_id):
-    if not is_user_authenticated(request):
-        return render(request, 'forum/error.html', context={'error': 'Nie jesteś zalogowany'})
+    if not is_user_authenticated(request) or not user_id==request.session['logged_user']:
+        return redirect('http://127.0.0.1:8000') 
     users = User.objects.filter(id=auth_user_id(request))
     postsM = PostM.objects.filter(id=post_id)
     answersM = AnswerM.objects.filter(zadanie=post_id)
@@ -766,6 +762,8 @@ def check(request, user_id,post_id):
     return render(request, 'forum/postsM.html', context)
 
 def history(request, user_id):
+    if not is_user_authenticated(request) or not user_id==request.session['logged_user']:
+        return redirect('http://127.0.0.1:8000') 
     score = Score.objects.filter(id_user_id=user_id)
     posts = Post.objects.filter(userP_id=user_id)
     answer = Answer.objects.filter(userA_id=user_id)
@@ -818,8 +816,8 @@ def history(request, user_id):
     return render(request, 'forum/history.html', context)
 
 def oneTaskGenerate(request, user_id):
-    if not user_id==request.session['logged_user']:
-        return render(request, 'forum/index.html')  
+    if not is_user_authenticated(request) or not user_id==request.session['logged_user']:
+        return redirect('http://127.0.0.1:8000') 
     users = User.objects.filter(id=user_id)
     questionType=Dzial_matematyki.objects.all()
     context = {'users': users, 'types':questionType}
