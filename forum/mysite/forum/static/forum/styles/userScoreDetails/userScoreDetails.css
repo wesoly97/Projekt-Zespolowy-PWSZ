@@ -1,3 +1,6 @@
+.content{
+    margin-top: 5rem;
+}
 .description {
     background-color: #668099;
     color: #fff176;
@@ -10,4 +13,12 @@
 .odp .mord.mathnormal{
     margin-left:50px;
 }
-
+.description {
+    color: #FFC745;
+    background-color: #293642;
+    padding-top: 10px;
+    padding-bottom: 5px;
+    padding-left: 10px;
+    align-items: center;
+    font-weight: bold !important;
+  }

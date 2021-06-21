@@ -11,8 +11,8 @@
 <script type="text/javascript" src = "{% static 'forum/katex/contrib/auto-render.js' %}"></script>
 <script src="{% static 'forum/MathQuil/mathquill.js' %}"></script>
 {% endblock js %}
-<div class="container-fluid mt-3 mb-3 w-50 shadow">
-  <div class="row mt-5 description pl-2 shadow-sm"><h1>Pytania zamkniete</h1></div>
+<div class="container content mb-3 shadow">
+  <div class="row description pl-2 description"><h5>Pytania zamkniete</h5></div>
   {% for pytZ,odpZZ,oZZ in pytaniaZamkniete %} 
   <div id="pyt_z{{forloop.counter0}}"  class="row shadow-sm">
     <div class="col-12 pt-2">{{ pytZ }}</div>
@@ -32,7 +32,7 @@
       );
     </script>
   {% endfor %}
-  <div class="row description pl-2 shadow-sm"><h1>Pytania otwarte</div>
+  <div class="row description pl-2 description"><h5>Pytania otwarte</h5></div>
   {% for pytO,oOO in pytaniaOtwarte %} 
   <div id="pyt_otw{{forloop.counter0}}" class="row shadow-sm">
     <div class="col-12 pt-2">{{ pytO }}</div>

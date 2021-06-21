@@ -113,7 +113,20 @@ function checkAnswer()
   });
 }
 </script>
-{% endfor %} 
+{% endfor %}
+<script>
+  renderMathInElement(
+    document.body,
+    {
+      delimiters: [
+          {left: "$$", right: "$$", display: true},
+          {left: "\\[", right: "\\]", display: true},
+          {left: "$", right: "$", display: false},
+          {left: "\\(", right: "\\)", display: false}
+      ]
+    }
+  );
+</script>
 {% endblock content %}
 {% block jquery %}
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
@@ -121,6 +134,7 @@ function checkAnswer()
 <script src="{% static 'forum/Keyboard/js/jquery.keyboard.js' %}"></script>
 <script src="{% static 'forum/Keyboard/js/jquery.keyboard.extension-typing.js' %}"></script>
 <script src="{% static 'forum/js/keyboard.js' %}"></script>
+{% endblock jquery %}
 <script>
   $(document).ready(function(){
     $("#sender").on('click',function(){
@@ -132,15 +146,4 @@ function checkAnswer()
         .fadeOut();
     });
   })
-  renderMathInElement(document.getElementById('keyboardInput'),
-    {
-      delimiters: [
-          {left: "$$", right: "$$", display: true},
-          {left: "\\[", right: "\\]", display: true},
-          {left: "$", right: "$", display: false},
-          {left: "\\(", right: "\\)", display: false}
-      ]
-    }
-  );
 </script>
-{% endblock jquery %}
