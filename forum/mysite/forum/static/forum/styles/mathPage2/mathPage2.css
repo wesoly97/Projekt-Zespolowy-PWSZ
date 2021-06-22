@@ -84,7 +84,7 @@ form img {
   width: 100% !important;
 }
 .katex .base, .katex .strut {
-  display: inherit !important;
+  display: initial !important;
 }
 img{
   max-width: 30%;
