@@ -348,7 +348,7 @@ def usersHOME(request, user_id):
     return render(request, 'forum/usersHome.html', context)
 
 
-def forum(request):
+def forum(request, user_id):
     if not is_user_authenticated(request):
         return redirect('http://127.0.0.1:8000')
 
