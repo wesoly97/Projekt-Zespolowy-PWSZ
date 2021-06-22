@@ -456,11 +456,43 @@ def new_thread(request, user_id):
         else:
             post = Post(userP=user, subject=topic, text=comment, date=current_date())
             post.save()
-            #return redirect('see_normal_thread', request=request, user_id=auth_user_id(request), post_id=post.id)
+            #return redirect('view_normal_thread', request=request, user_id=auth_user_id(request), post_id=post.id)
             return redirect('user_questions', user_id=auth_user_id(request))
     else:
         return render(request, 'forum/new_thread.html', context={'user_id': auth_user_id(request)})
 
+
+def view_normal_thread(request, user_id, post_id):
+    user_id = auth_user_id(request)
+    user = User.objects.filter(id=user_id)
+    post = Post.objects.filter(id=post_id)[0]
+    answers = Answer.objects.filter(post_id=post_id)
+    context = {'post': post, 'answers': answers,'users': user, 'user': user[0], 'role': auth_user_rank(request),
+               'auth_user_id': auth_user_id(request)}
+
+    return render(request, 'forum/normal_thread.html', context)
+
+
+def new_post(request, user_id, post_id):
+    if not is_user_authenticated(request) or not user_id==request.session['logged_user']:
+        return redirect('http://127.0.0.1:8000')
+
+    if request.method == "POST":
+        user_id = auth_user_id(request)
+        comment = request.POST["comment"]
+        post = Post.objects.filter(id=post_id)[0]
+        user = User.objects.filter(id=user_id)[0]
+
+        if (comment == ""):
+            return render(request, 'forum/error', context={'error': "Treść nie może być pusta"})
+        else:
+            post = Answer(post=post, userA=user, answer=comment, date=current_date())
+            post.save()
+            # return redirect('view_normal_thread', request=request, user_id=auth_user_id(request), post_id=post.id)
+            return redirect('view_normal_thread', user_id=auth_user_id(request), post_id=post_id)
+
+    else:
+        return redirect('view_normal_thread', user_id=auth_user_id(request), post_id=post_id)
 
 def user_at_forum(request, user_id):
     if not is_user_authenticated(request) or not user_id==request.session['logged_user']:
