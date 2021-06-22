@@ -349,7 +349,7 @@ def usersHOME(request, user_id):
 
 
 def forum(request, user_id):
-    if not is_user_authenticated(request):
+    if not is_user_authenticated(request) or not user_id==request.session['logged_user']:
         return redirect('http://127.0.0.1:8000')
 
     # kategoria POSTY UŻYTKOWNIKÓW
@@ -367,20 +367,6 @@ def forum(request, user_id):
         last_normal_post_name = last_normal_post_name[0:10] + '...'
 
     last_normal_post_user = User.objects.filter(id=last_normal_post.userA_id)[0]
-
-    # kategoria ZADANIA DO SPRAWDZENIA
-
-    # posts_to_check = PostM.objects.filter(stan='check')
-    # posts_to_check_number = len(posts_to_check)
-    #
-    # query = posts_to_check.query
-    # query.group_by = ['zadanie_id']
-    # results = QuerySet(query=query, model=PostM)
-    # threads_to_check_number = len(results)
-    #
-    # last_to_check_post = posts_to_check.order_by('-id')[0]
-    # last_to_check_post_name = (zadanie_matematyczne.objects.filter(id=last_to_check_post.zadanie_id)[0]).zestaw
-    # last_to_check_post_user = User.objects.filter(id=last_to_check_post.userP_id)[0]
 
     posts_to_check = PostM.objects.all()
     posts_to_check_number = len(posts_to_check)
@@ -411,6 +397,70 @@ def forum(request, user_id):
                'last_to_check_post': last_to_check_post}
 
     return render(request, 'forum/main_forum.html', context)
+
+
+def user_questions(request, user_id):
+    if not is_user_authenticated(request) or not user_id==request.session['logged_user']:
+        return redirect('http://127.0.0.1:8000')
+
+    #all_posts = Post.objects.all()
+
+    # query = Answer.objects.all().query
+    # query.group_by = ['post_id']
+    # results = QuerySet(query=query, model=PostM)
+    # all_posts = results
+
+    page_number = request.GET.get('page')
+    if not page_number:
+        page_number = 1
+
+    posts_to_paginate = Post.objects.all()
+    posts_paginated = Paginator(posts_to_paginate, 10)
+    all_posts = posts_paginated.get_page(page_number)
+
+    context = {'all_posts': all_posts}
+
+    return render(request, 'forum/user_questions.html', context)
+
+
+def tasks_questions(request, user_id):
+    if not is_user_authenticated(request) or not user_id==request.session['logged_user']:
+        return redirect('http://127.0.0.1:8000')
+
+    page_number = request.GET.get('page')
+    if not page_number:
+        page_number = 1
+
+    posts_to_paginate = PostM.objects.all()
+    posts_paginated = Paginator(posts_to_paginate, 10)
+    all_posts = posts_paginated.get_page(page_number)
+
+    context={'all_posts': all_posts, 'range': range(all_posts.paginator.num_pages)}
+
+    return render(request, 'forum/tasks_questions.html', context)
+
+
+def new_thread(request, user_id):
+    if not is_user_authenticated(request) or not user_id==request.session['logged_user']:
+        return redirect('http://127.0.0.1:8000')
+
+    if request.method == 'POST':
+        user = User.objects.filter(id=auth_user_id(request))[0]
+
+        topic = request.POST["topic"]
+        comment = request.POST["comment"]
+        print("asfdsafasdfasdfasd\n\n\n" + topic + comment + "\n\n\ns")
+
+        if (topic == "" or comment == ""):
+            return render(request, 'forum/error', context={'error': "Treść nie może być pusta"})
+        else:
+            post = Post(userP=user, subject=topic, text=comment, date=current_date())
+            post.save()
+            #return redirect('see_normal_thread', request=request, user_id=auth_user_id(request), post_id=post.id)
+            return redirect('user_questions', user_id=auth_user_id(request))
+    else:
+        return render(request, 'forum/new_thread.html', context={'user_id': auth_user_id(request)})
+
 
 def user_at_forum(request, user_id):
     if not is_user_authenticated(request) or not user_id==request.session['logged_user']:

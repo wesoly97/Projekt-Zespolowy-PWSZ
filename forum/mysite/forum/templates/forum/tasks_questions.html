@@ -3,11 +3,10 @@
 
       <div class="container-fluid mb-5 main_forum">
 
-          <br><Br>
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb mt-4">
             <li class="breadcrumb-item"><a href="#">Forum</a></li>
-            <li class="breadcrumb-item"><a href="{% url 'user_at_forum' 1 %}">Kategorie</a></li>
+            <li class="breadcrumb-item"><a href="../../../../../../../../OneDrive%20-%20pwsz.elblag.pl/Dokumenty/studia/Proj_zespolowy/forum_pagination/main_forum.html">Kategorie</a></li>
             <li class="breadcrumb-item active" aria-current="page">Pytania użytkowników</li>
           </ol>
         </nav>
@@ -27,16 +26,20 @@
               </thead>
               <tbody>
               {% for post in all_posts %}
+              {% if post.zadanie.zestaw != '' %}
                 <tr>
                   <td>
-                    <h3 class="h6"><a href="{% url 'post' 1 post.id %}">{{ post.subject }}</a></h3>
-                    <div class="small">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+
+                    <h3 class="h6">
+                        {% if post.stan == "check" %}
+                        <span class="badge badge-primary mr-2">Do sprawdzenia</span>
+                        {% endif %}
+                        <a href="{% url 'postM' 1 post.id %}">{{ post.zadanie.zestaw}}, zadanie {{ post.zadanie.nr_zadania }}</a></h3>
+
+
                   </td>
                   <td>
-                    <div>by <a href="#0">{{ post.userP.name }}</a></div>
+                    <div>by <a href="#0">Cyrkielek</a></div>
                     <div>{{ post.date }}</div>
                   </td>
                   <td>
@@ -44,14 +47,13 @@
                     <div>190 wyświetleń</div>
                   </td>
                   <td>
-                    <h4 class="h6 mb-0 font-weight-bold"><a href="#0">{{ post.subject }}</a></h4>
-                    <div>by <a href="#0">{{ post.userP.name }}</a></div>
-                    <div>{{ post.date }}</div>
+                    <h4 class="h6 mb-0 font-weight-bold"><a href="#0">Post name</a></h4>
+                    <div>by <a href="#0">Author name</a></div>
+                    <div> 04.05.2021, 20:45</div>
                   </td>
                 </tr>
+              {% endif %}
               {% endfor %}
-
-                  
               </tbody>
             </table>
           </div>
@@ -78,6 +80,7 @@
                       {% else %}
                         <li class="page-item disabled"><a class="page-link" href="#">Następna</a></li>
                       {% endif %}
+    
                 </ul>
             </nav>
             <form class="form-inline float-lg-left d-block d-sm-flex">
@@ -119,7 +122,6 @@
                 <button type="submit" class="btn btn-sm btn-primary">Ok</button>
             </form>
         </div>
-        <a href="{% url 'new_thread' 1 %}" class="btn btn-lg btn-primary">Nowy Temat</a>
     </div>
     </div>
 
