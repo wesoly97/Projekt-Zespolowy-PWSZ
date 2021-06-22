@@ -355,8 +355,8 @@ def forum(request):
     # kategoria POSTY UŻYTKOWNIKÓW
     normal_posts_number = len(Post.objects.all())
 
-    query = Post.objects.all().query
-    query.group_by = ['subject']
+    query = Answer.objects.all().query
+    query.group_by = ['post_id']
     results = QuerySet(query=query, model=Post)
     normal_threads_number = len(results)
 
@@ -370,21 +370,45 @@ def forum(request):
 
     # kategoria ZADANIA DO SPRAWDZENIA
 
-    posts_to_check = PostM.objects.filter(stan='check')
+    # posts_to_check = PostM.objects.filter(stan='check')
+    # posts_to_check_number = len(posts_to_check)
+    #
+    # query = posts_to_check.query
+    # query.group_by = ['zadanie_id']
+    # results = QuerySet(query=query, model=PostM)
+    # threads_to_check_number = len(results)
+    #
+    # last_to_check_post = posts_to_check.order_by('-id')[0]
+    # last_to_check_post_name = (zadanie_matematyczne.objects.filter(id=last_to_check_post.zadanie_id)[0]).zestaw
+    # last_to_check_post_user = User.objects.filter(id=last_to_check_post.userP_id)[0]
+
+    posts_to_check = PostM.objects.all()
     posts_to_check_number = len(posts_to_check)
 
-    query = posts_to_check.query
+    query = AnswerM.objects.all().query
     query.group_by = ['zadanie_id']
     results = QuerySet(query=query, model=PostM)
     threads_to_check_number = len(results)
 
-    last_to_check_post = AnswerM.objects.order_by('-id')[0]
-    last_to_check_post_name = PostM
-    last_to_check_post_user = User.objects.filter(id=last_to_check_post.userP_id)[0]
+    last_to_check_post = posts_to_check.order_by('-id')[0]
+    try:
+        answer_to_check = AnswerM.objects.filter(zadanie_id=last_to_check_post.id).order_by('-id')[0]
+    except:
+        answer_to_check = '-------'
+
+    last_to_check_post_name = (zadanie_matematyczne.objects.filter(id=last_to_check_post.zadanie_id)[0]).zestaw
+
+    try:
+        last_to_check_post_user = User.objects.filter(id=answer_to_check.userA_id)[0]
+    except:
+        last_to_check_post_user = 'Cyrkielek'
 
     context = {'normal_threads_number': normal_threads_number, 'normal_posts_number': normal_posts_number,
                'last_normal_post': last_normal_post, 'last_normal_post_name': last_normal_post_name,
-               'last_normal_post_user': last_normal_post_user}
+               'last_normal_post_user': last_normal_post_user, 'posts_to_check_number': posts_to_check_number,
+               'threads_to_check_number': threads_to_check_number, 'answer_to_check': answer_to_check,
+               'last_to_check_post_name': last_to_check_post_name, 'last_to_check_post_user': last_to_check_post_user,
+               'last_to_check_post': last_to_check_post}
 
     return render(request, 'forum/main_forum.html', context)
 
