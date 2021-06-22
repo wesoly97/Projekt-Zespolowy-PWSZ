@@ -19,6 +19,7 @@ let specialKeys = {
   integral: "\\int",
   integral2: "\\int{}^{}_{}",
   sum: "\\sum",
+  prod: "\\prod",
   log2: "\\log_{}",
   log: "\\log",
   multi: "\\cdot",
@@ -35,7 +36,8 @@ let specialKeys = {
   tg: "\\tan",
   ctg: "\\cot",
   lim: "\\lim",
-  ent: "\\textcolor{black}{\\text{}}"
+  ent: "\\textcolor{black}{\\text{}}",
+  degree: "\\degree"
 };
 
 
@@ -53,9 +55,7 @@ $(".keyboardInputDiv").click(function () {
     {
       delimiters: [
           {left: "$$", right: "$$", display: true},
-          {left: "\\[", right: "\\]", display: true},
-          {left: "$", right: "$", display: false},
-          {left: "\\(", right: "\\)", display: false}
+          {left: "$", right: "$", display: false}
       ]
     }
   );
@@ -97,6 +97,12 @@ $(".keyboard")
       katex.render("\\int_{0}^{2}", $('.ui-keyboard-integral2').children()[0], {
         throwOnError: false
       });
+      katex.render("\\prod", $('.ui-keyboard-prod').children()[0], {
+        throwOnError: false
+      });
+      katex.render("\\sum", $('.ui-keyboard-sum').children()[0], {
+        throwOnError: false
+      });
     },
     // usePreview: false, causes error with typing double character
     autoAccept: true,
@@ -112,6 +118,7 @@ $(".keyboard")
       sqrt: "√",
       exsqrt: "∛",
       sum: "Σ",
+      prod: "∏",
       multi: "*",
       div: "÷",
       inf: "∞",
@@ -122,7 +129,8 @@ $(".keyboard")
       isin: "∈",
       tg: "tg",
       ctg: "ctg",
-      ent: "↵"
+      ent: "↵",
+      degree: "°"
     },
     customLayout: {
       default: [
@@ -130,7 +138,7 @@ $(".keyboard")
         "{alfa} {beta} {ge} {le} {ent}",
         "{frac} {power} {lower} {sqrt} {exsqrt}",
         "{sum} \u03c0 {integral} {integral2} {inf}",
-        "{isin} {binom} {lim}"
+        "{prod} {isin} {binom} {lim} {degree}"
       ],
     },
     useCombos: false,
