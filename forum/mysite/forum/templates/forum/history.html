@@ -27,7 +27,7 @@
     <div class=" px-0 col-xl-12 srodek" id="pytZ">
       {% for pytZ,odpZZ,oZZ,pytObrazkiZ in pytaniaZamkniete %}
       <div class="ml-2 pb-2">
-        {{ pytZ }}
+        ${{ pytZ }}$
       </div>
       {% if pytObrazkiZ %}
       <div class="ml-2 pb-2">
@@ -56,7 +56,7 @@
       <div class="px-0 col-xl-12 srodek" id="pytO">
         {% for pytO,oOO,pytObrazkiO in pytaniaOtwarte %}
         <div class="ml-2">
-          {{ pytO }}
+          ${{ pytO }}$
         </div>
         {% if pytObrazkiO %}
         <div class="ml-2 pb-2">
