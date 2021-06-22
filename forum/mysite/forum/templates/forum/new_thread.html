@@ -1,0 +1,65 @@
+{% extends 'forum/base.html' %} {% block content %}
+    <div class="container-lg">
+
+      <div class="container-fluid mb-5 main_forum">
+  <br><br>
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb mt-4">
+            <li class="breadcrumb-item"><a href="{% url 'user_at_forum' 1 %}">Forum</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'user_at_forum' 1 %}">Kategorie</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'user_questions' 1 %}">Pytania użytkowników</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Tworzenie nowego tematu</li>
+          </ol>
+        </nav>
+
+        <div class="row">
+          <div class="col-12 mt-3">
+            <h2 class="h4 text-white bg-dark mb-3 p-4 rounded">Tworzenie nowego tematu</h2>
+
+            
+          </div>
+        </div>
+
+        <form class="mb-3" action="{% url 'new_thread' user_id %}" method="POST">
+            {% csrf_token %}
+          <div class="form-group">
+            <label class="pt-4" for="topic">Temat:</label>
+            <input id="topic" class="form-control" type="text" name="topic" placeholder="Napisz tutaj nazwe Tematu">
+          </div>
+          <div class="form-group">
+            <label class="pt-4" for="comment">Treść:</label>
+            <textarea class="form-control" id="comment" rows="10" name="comment" placeholder="Napisz tutaj treść nowego Tematu" required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">Wyślij</button>
+        </form>
+        
+    </div>
+
+
+    </div>
+
+    <footer class="small bg-dark text-white">
+        <div class="container py-4">
+          <ul class="list-inline mb-0 text-center">
+            <li class="list-inline-item">&copy; 2021 Cyrkielek</li>
+            <li class="list-inline-item">Wszystkie prawa zastrzeżone</li>
+            <li class="list-inline-item"><a href="#0">Polityka prywatności</a></li>
+          </ul>
+        </div>
+      </footer>
+
+    <!-- Optional JavaScript; choose one of the two! -->
+
+    <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+    <!--
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
+    -->
+  </body>
+</html>
+   {% endblock content %}

@@ -9,7 +9,15 @@ urlpatterns = [
     path('user<int:user_id>/p<int:post_id>/', views.post, name='post'),
     path('user<int:user_id>/pM<int:post_id>/', views.postM, name='postM'),
 
-    path('forum_user_<int:user_id>/', views.user_at_forum, name='user_at_forum'),
+    path('forum_<int:user_id>', views.forum, name='user_at_forum'),
+    path('forum_<int:user_id>/user_questions', views.user_questions, name='user_questions'),
+    path('forum_<int:user_id>/tasks_questions', views.tasks_questions, name='tasks_questions'),
+    path('forum_<int:user_id>/user_questions/new', views.new_thread, name='new_thread'),
+    path('forum_<int:user_id>/user_questions/<post_id>', views.view_normal_thread, name='view_normal_thread'),
+    path('forum_<int:user_id>/user_questions/<post_id>/new', views.new_post, name='new_post'),
+    path('forum_<int:user_id>/tasks_questions/<post_id>', views.view_task_thread, name='view_task_thread'),
+    path('forum_<int:user_id>/tasks_questions/<post_id>/new', views.new_post_check, name='new_post_check'),
+    #path('forum_user_<int:user_id>/', views.user_at_forum, name='user_at_forum'),
     path('math_page2_user_<int:user_id>/', views.math_page2, name='math_page2'),
     path('math_page3_user_<int:user_id>/', views.math_page3, name='math_page3'),
 
