@@ -1,9 +1,12 @@
 .SiteWrapper {
     background-image: url("/static/forum/images/login/mathematics.png");
     padding: 0!important;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .Wrapper {
+    margin-top: 7rem;
     background-color: #343a40a1;
     backdrop-filter: blur(5px);
     color: white;

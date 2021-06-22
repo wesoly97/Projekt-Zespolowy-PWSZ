@@ -6,6 +6,7 @@
 }
 
 .LoginForm {
+    margin-top: 7rem;
     display: flex;
     flex-flow: column;
     background-color: #343a40a1;
