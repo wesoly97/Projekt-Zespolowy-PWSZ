@@ -1,5 +1,5 @@
 from django.core.paginator import Paginator
-from django.db.models import Max
+from django.db.models import Max, QuerySet
 
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
@@ -347,6 +347,184 @@ def usersHOME(request, user_id):
     context = {'users': users, 'role': auth_user_rank(request)}
     return render(request, 'forum/usersHome.html', context)
 
+
+def forum(request, user_id):
+    if not is_user_authenticated(request) or not user_id==request.session['logged_user']:
+        return redirect('http://127.0.0.1:8000')
+
+    # kategoria POSTY UŻYTKOWNIKÓW
+    normal_posts_number = len(Post.objects.all())
+
+    query = Answer.objects.all().query
+    query.group_by = ['post_id']
+    results = QuerySet(query=query, model=Post)
+    normal_threads_number = len(results)
+
+    last_normal_post = Answer.objects.order_by('-id')[0]
+    last_normal_post_name = Post.objects.filter(id=last_normal_post.post_id)[0].subject
+
+    if len(last_normal_post_name) > 10:
+        last_normal_post_name = last_normal_post_name[0:10] + '...'
+
+    last_normal_post_user = User.objects.filter(id=last_normal_post.userA_id)[0]
+
+    posts_to_check = PostM.objects.all()
+    posts_to_check_number = len(posts_to_check)
+
+    query = AnswerM.objects.all().query
+    query.group_by = ['zadanie_id']
+    results = QuerySet(query=query, model=PostM)
+    threads_to_check_number = len(results)
+
+    last_to_check_post = posts_to_check.order_by('-id')[0]
+    try:
+        answer_to_check = AnswerM.objects.filter(zadanie_id=last_to_check_post.id).order_by('-id')[0]
+    except:
+        answer_to_check = '-------'
+
+    last_to_check_post_name = (zadanie_matematyczne.objects.filter(id=last_to_check_post.zadanie_id)[0]).zestaw
+
+    try:
+        last_to_check_post_user = User.objects.filter(id=answer_to_check.userA_id)[0]
+    except:
+        last_to_check_post_user = 'Cyrkielek'
+
+    context = {'normal_threads_number': normal_threads_number, 'normal_posts_number': normal_posts_number,
+               'last_normal_post': last_normal_post, 'last_normal_post_name': last_normal_post_name,
+               'last_normal_post_user': last_normal_post_user, 'posts_to_check_number': posts_to_check_number,
+               'threads_to_check_number': threads_to_check_number, 'answer_to_check': answer_to_check,
+               'last_to_check_post_name': last_to_check_post_name, 'last_to_check_post_user': last_to_check_post_user,
+               'last_to_check_post': last_to_check_post}
+
+    return render(request, 'forum/main_forum.html', context)
+
+
+def user_questions(request, user_id):
+    if not is_user_authenticated(request) or not user_id==request.session['logged_user']:
+        return redirect('http://127.0.0.1:8000')
+
+    #all_posts = Post.objects.all()
+
+    # query = Answer.objects.all().query
+    # query.group_by = ['post_id']
+    # results = QuerySet(query=query, model=PostM)
+    # all_posts = results
+
+    page_number = request.GET.get('page')
+    if not page_number:
+        page_number = 1
+
+    posts_to_paginate = Post.objects.all()
+    posts_paginated = Paginator(posts_to_paginate, 10)
+    all_posts = posts_paginated.get_page(page_number)
+
+    context = {'all_posts': all_posts}
+
+    return render(request, 'forum/user_questions.html', context)
+
+
+def tasks_questions(request, user_id):
+    if not is_user_authenticated(request) or not user_id==request.session['logged_user']:
+        return redirect('http://127.0.0.1:8000')
+
+    page_number = request.GET.get('page')
+    if not page_number:
+        page_number = 1
+
+    posts_to_paginate = PostM.objects.all()
+    posts_paginated = Paginator(posts_to_paginate, 10)
+    all_posts = posts_paginated.get_page(page_number)
+
+    context={'all_posts': all_posts, 'range': range(all_posts.paginator.num_pages)}
+
+    return render(request, 'forum/tasks_questions.html', context)
+
+
+def new_thread(request, user_id):
+    if not is_user_authenticated(request) or not user_id==request.session['logged_user']:
+        return redirect('http://127.0.0.1:8000')
+
+    if request.method == 'POST':
+        user = User.objects.filter(id=auth_user_id(request))[0]
+
+        topic = request.POST["topic"]
+        comment = request.POST["comment"]
+        print("asfdsafasdfasdfasd\n\n\n" + topic + comment + "\n\n\ns")
+
+        if (topic == "" or comment == ""):
+            return render(request, 'forum/error', context={'error': "Treść nie może być pusta"})
+        else:
+            post = Post(userP=user, subject=topic, text=comment, date=current_date())
+            post.save()
+            #return redirect('view_normal_thread', request=request, user_id=auth_user_id(request), post_id=post.id)
+            return redirect('user_questions', user_id=auth_user_id(request))
+    else:
+        return render(request, 'forum/new_thread.html', context={'user_id': auth_user_id(request)})
+
+
+def view_normal_thread(request, user_id, post_id):
+    user_id = auth_user_id(request)
+    user = User.objects.filter(id=user_id)
+    post = Post.objects.filter(id=post_id)[0]
+    answers = Answer.objects.filter(post_id=post_id)
+    context = {'post': post, 'answers': answers,'users': user, 'user': user[0], 'role': auth_user_rank(request),
+               'auth_user_id': auth_user_id(request)}
+
+    return render(request, 'forum/normal_thread.html', context)
+
+
+def view_task_thread(request, user_id, post_id):
+    user_id = auth_user_id(request)
+    user = User.objects.filter(id=user_id)
+    post = PostM.objects.filter(id=post_id)[0]
+    answers = AnswerM.objects.filter(zadanie_id=post_id)
+    context = {'post': post, 'answers': answers, 'users': user, 'user': user[0], 'role': auth_user_rank(request),
+               'auth_user_id': auth_user_id(request)}
+
+    return render(request, 'forum/task_thread.html', context)
+
+
+def new_post_check(request, user_id, post_id):
+    if not is_user_authenticated(request) or not user_id==request.session['logged_user']:
+        return redirect('http://127.0.0.1:8000')
+
+    if request.method == "POST":
+        user_id = auth_user_id(request)
+        comment = request.POST["comment"]
+        post = PostM.objects.filter(id=post_id)[0]
+        user = User.objects.filter(id=user_id)[0]
+
+        if (comment == ""):
+            return render(request, 'forum/error', context={'error': "Treść nie może być pusta"})
+        else:
+            post = AnswerM(zadanie=post, userA=user, answer=comment, date=current_date())
+            post.save()
+            # return redirect('view_normal_thread', request=request, user_id=auth_user_id(request), post_id=post.id)
+            return redirect('view_task_thread', user_id=auth_user_id(request), post_id=post_id)
+
+    else:
+        return redirect('view_normal_thread', user_id=auth_user_id(request), post_id=post_id)
+
+def new_post(request, user_id, post_id):
+    if not is_user_authenticated(request) or not user_id==request.session['logged_user']:
+        return redirect('http://127.0.0.1:8000')
+
+    if request.method == "POST":
+        user_id = auth_user_id(request)
+        comment = request.POST["comment"]
+        post = Post.objects.filter(id=post_id)[0]
+        user = User.objects.filter(id=user_id)[0]
+
+        if (comment == ""):
+            return render(request, 'forum/error', context={'error': "Treść nie może być pusta"})
+        else:
+            post = Answer(post=post, userA=user, answer=comment, date=current_date())
+            post.save()
+            # return redirect('view_normal_thread', request=request, user_id=auth_user_id(request), post_id=post.id)
+            return redirect('view_normal_thread', user_id=auth_user_id(request), post_id=post_id)
+
+    else:
+        return redirect('view_normal_thread', user_id=auth_user_id(request), post_id=post_id)
 
 def user_at_forum(request, user_id):
     if not is_user_authenticated(request) or not user_id==request.session['logged_user']:
