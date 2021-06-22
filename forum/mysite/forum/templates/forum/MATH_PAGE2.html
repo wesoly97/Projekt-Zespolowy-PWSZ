@@ -68,7 +68,7 @@ function createMathquill(id) {
     <div class="col-12 description">
       <h5>Zadanie otwarte nr. {{forloop.counter0}}</h5>
     </div>
-    <div class="col-12 py-2">{{zo.tresc}}</div>
+    <div class="col-12 py-2">${{zo.tresc}}$</div>
     {% if zo.url != "" %}
     <div class="col-12">
       <img class="rounded mx-auto d-block" src="{% static zo.url %}" />
@@ -97,10 +97,9 @@ function createMathquill(id) {
     {
       delimiters: [
           {left: "$$", right: "$$", display: true},
-          {left: "\\[", right: "\\]", display: true},
-          {left: "$", right: "$", display: false},
-          {left: "\\(", right: "\\)", display: false}
-      ]
+          {left: "$", right: "$", display: false}
+      ],
+      strict: false
     }
   );
 </script>

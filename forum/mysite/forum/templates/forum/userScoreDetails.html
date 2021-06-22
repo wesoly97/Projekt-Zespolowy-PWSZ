@@ -23,11 +23,10 @@
       renderMathInElement(document.getElementById('pyt_z{{forloop.counter0}}'),
         {
           delimiters: [
-              {left: "$$", right: "$$", display: true},
-              {left: "\\[", right: "\\]", display: true},
-              {left: "$", right: "$", display: false},
-              {left: "\\(", right: "\\)", display: false}
-          ]
+            {left: "$$", right: "$$", display: true},
+            {left: "$", right: "$", display: false}
+          ],
+          strict: false
         }
       );
     </script>
@@ -35,18 +34,17 @@
   <div class="row description pl-2 description"><h5>Pytania otwarte</h5></div>
   {% for pytO,oOO in pytaniaOtwarte %} 
   <div id="pyt_otw{{forloop.counter0}}" class="row shadow-sm">
-    <div class="col-12 pt-2">{{ pytO }}</div>
+    <div class="col-12 pt-2">${{ pytO }}$</div>
     <div class="col-12 pt-2 mb-3">ODPOWIEDZ : ${{ oOO }}$</div>
   </div>
   <script>
     renderMathInElement(document.getElementById('pyt_otw{{forloop.counter0}}'),
       {
         delimiters: [
-            {left: "$$", right: "$$", display: true},
-            {left: "\\[", right: "\\]", display: true},
-            {left: "$", right: "$", display: false},
-            {left: "\\(", right: "\\)", display: false}
-        ]
+          {left: "$$", right: "$$", display: true},
+          {left: "$", right: "$", display: false}
+        ],
+        strict: false
       }
     );
   </script>

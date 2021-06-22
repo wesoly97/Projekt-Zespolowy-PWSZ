@@ -36,3 +36,6 @@
    border-color: none !important;
    box-shadow: none !important;
  }
+ .ui-keyboard .katex .base{
+  white-space: unset !important;
+}

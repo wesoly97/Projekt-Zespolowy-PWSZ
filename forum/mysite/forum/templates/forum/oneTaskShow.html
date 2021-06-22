@@ -66,7 +66,7 @@ function createMathquill(id) {
             <input type="radio" class="radioButton" value={{singleQuestion.odp_d}} name="answer" id="flexRadioDefault4">
             <label class="form-check-label" for="flexRadioDefault4">
               $${{singleQuestion.odp_d}}$$
-            </label>
+            </label>  
           </div>
           {% else %}
           <div class="col-12 pb-2">
@@ -107,9 +107,9 @@ function checkAnswer()
       csrfmiddlewaretoken:'{{csrf_token}}',
     },
     success: function (data) {
-            document.getElementById('output').innerHTML = data["message"];
-            document.getElementById('correctAnswer').innerHTML = data["result"];
-          }
+      document.getElementById('output').innerHTML = data["message"];
+      document.getElementById('correctAnswer').innerHTML = data["result"];
+    }
   });
 }
 </script>
@@ -120,10 +120,9 @@ function checkAnswer()
     {
       delimiters: [
           {left: "$$", right: "$$", display: true},
-          {left: "\\[", right: "\\]", display: true},
-          {left: "$", right: "$", display: false},
-          {left: "\\(", right: "\\)", display: false}
-      ]
+          {left: "$", right: "$", display: false}
+      ],
+      strict: false
     }
   );
 </script>
