@@ -473,6 +473,38 @@ def view_normal_thread(request, user_id, post_id):
     return render(request, 'forum/normal_thread.html', context)
 
 
+def view_task_thread(request, user_id, post_id):
+    user_id = auth_user_id(request)
+    user = User.objects.filter(id=user_id)
+    post = PostM.objects.filter(id=post_id)[0]
+    answers = AnswerM.objects.filter(zadanie_id=post_id)
+    context = {'post': post, 'answers': answers, 'users': user, 'user': user[0], 'role': auth_user_rank(request),
+               'auth_user_id': auth_user_id(request)}
+
+    return render(request, 'forum/task_thread.html', context)
+
+
+def new_post_check(request, user_id, post_id):
+    if not is_user_authenticated(request) or not user_id==request.session['logged_user']:
+        return redirect('http://127.0.0.1:8000')
+
+    if request.method == "POST":
+        user_id = auth_user_id(request)
+        comment = request.POST["comment"]
+        post = PostM.objects.filter(id=post_id)[0]
+        user = User.objects.filter(id=user_id)[0]
+
+        if (comment == ""):
+            return render(request, 'forum/error', context={'error': "Treść nie może być pusta"})
+        else:
+            post = AnswerM(zadanie=post, userA=user, answer=comment, date=current_date())
+            post.save()
+            # return redirect('view_normal_thread', request=request, user_id=auth_user_id(request), post_id=post.id)
+            return redirect('view_task_thread', user_id=auth_user_id(request), post_id=post_id)
+
+    else:
+        return redirect('view_normal_thread', user_id=auth_user_id(request), post_id=post_id)
+
 def new_post(request, user_id, post_id):
     if not is_user_authenticated(request) or not user_id==request.session['logged_user']:
         return redirect('http://127.0.0.1:8000')

@@ -2,12 +2,12 @@
     <div class="container-lg">
 
       <div class="container-fluid mb-5 main_forum">
-
+          <br><br>
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb mt-4">
-            <li class="breadcrumb-item"><a href="#">Forum</a></li>
-            <li class="breadcrumb-item"><a href="../../../../../../../../OneDrive%20-%20pwsz.elblag.pl/Dokumenty/studia/Proj_zespolowy/forum_pagination/main_forum.html">Kategorie</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Pytania użytkowników</li>
+            <li class="breadcrumb-item"><a href="{% url 'user_at_forum' 1 %}">Forum</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'user_at_forum' 1 %}">Kategorie</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Zadania</li>
           </ol>
         </nav>
 
@@ -34,7 +34,7 @@
                         {% if post.stan == "check" %}
                         <span class="badge badge-primary mr-2">Do sprawdzenia</span>
                         {% endif %}
-                        <a href="{% url 'postM' 1 post.id %}">{{ post.zadanie.zestaw}}, zadanie {{ post.zadanie.nr_zadania }}</a></h3>
+                        <a href="{% url 'view_task_thread' 1 post.id %}">{{ post.zadanie.zestaw}}, zadanie {{ post.zadanie.nr_zadania }}</a></h3>
 
 
                   </td>
