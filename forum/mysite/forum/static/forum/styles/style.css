@@ -168,7 +168,11 @@ body{
   border: #FFE06B;
   color: black;
   float: right;
-  
+}
+@media (max-width: 767.98px) {
+  .navButtons{
+    font-size: 12px;
+  }
 }
 .navButtons:hover{
   background-color: #002030;
