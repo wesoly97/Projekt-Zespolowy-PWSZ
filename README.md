@@ -20,7 +20,7 @@ During the project we used tools such as github, MongoDb Atlas and jira. My task
 - Uploading images needed for tasks and displaying them later.
 ## Screenshots
 view of main page:
-![Example screenshot](./imagesOfCyrkielek/index.PNG)
+![Example screenshot](./imagesOfCyrkielek/index.png)
 ![Example screenshot](./imagesOfCyrkielek/index2.PNG)
 Login form:
 ![Example screenshot](./imagesOfCyrkielek/loginForm.PNG)
