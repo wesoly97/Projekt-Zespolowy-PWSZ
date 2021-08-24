@@ -21,34 +21,34 @@ During the project we used tools such as github, MongoDb Atlas and jira. My task
 ## Screenshots
 view of main page:
 ![Example screenshot](./imagesOfCyrkielek/index.png)
-![Example screenshot](./imagesOfCyrkielek/index2.PNG)
+![Example screenshot](./imagesOfCyrkielek/index2.png)
 Login form:
-![Example screenshot](./imagesOfCyrkielek/loginForm.PNG)
+![Example screenshot](./imagesOfCyrkielek/loginForm.png)
 Register Form:
-![Example screenshot](./imagesOfCyrkielek/registerForm.PNG)
+![Example screenshot](./imagesOfCyrkielek/registerForm.png)
 User panel for user with admin privileges:
-![Example screenshot](./imagesOfCyrkielek/userPanelAdmin.PNG)
+![Example screenshot](./imagesOfCyrkielek/userPanelAdmin.png)
 User panel for user without admin privileges:
-![Example screenshot](./imagesOfCyrkielek/userPanelUser.PNG)
+![Example screenshot](./imagesOfCyrkielek/userPanelUser.png)
 Add open question module:
-![Example screenshot](./imagesOfCyrkielek/openQuestionModule.PNG)
+![Example screenshot](./imagesOfCyrkielek/openQuestionModule.png)
 Add close question module:
-![Example screenshot](./imagesOfCyrkielek/closeQuestionModule.PNG)
+![Example screenshot](./imagesOfCyrkielek/closeQuestionModule.png)
 User stats module:
-![Example screenshot](./imagesOfCyrkielek/userStats.PNG)
+![Example screenshot](./imagesOfCyrkielek/userStats.png)
 Single question draw settings view:
-![Example screenshot](./imagesOfCyrkielek/oneQuestionSettings.PNG)
+![Example screenshot](./imagesOfCyrkielek/oneQuestionSettings.png)
 Open question drawn:
-![Example screenshot](./imagesOfCyrkielek/oneQuestionDrawn.PNG)
+![Example screenshot](./imagesOfCyrkielek/oneQuestionDrawn.png)
 Close question drawn:
-![Example screenshot](./imagesOfCyrkielek/oneCloseQuestionDrawn.PNG)
+![Example screenshot](./imagesOfCyrkielek/oneCloseQuestionDrawn.png)
 the set of questions drawn up:
-![Example screenshot](./imagesOfCyrkielek/setDrawn.PNG)
-![Example screenshot](./imagesOfCyrkielek/setDrawn2.PNG)
+![Example screenshot](./imagesOfCyrkielek/setDrawn.png)
+![Example screenshot](./imagesOfCyrkielek/setDrawn2.png)
 View after examination:
-![Example screenshot](./imagesOfCyrkielek/setAfterCheck.PNG)
+![Example screenshot](./imagesOfCyrkielek/setAfterCheck.png)
 Forum:
-![Example screenshot](./imagesOfCyrkielek/forum.PNG)
+![Example screenshot](./imagesOfCyrkielek/forum.png)
 ## Technologies
 * Django - version 3.2.6
 * Jquery - version 3.6.0
